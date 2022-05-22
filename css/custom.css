@@ -6,10 +6,11 @@ body {
 }
 
 a {
-    color: yellowgreen;
+    color: #4d94ff;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
+	  text-decoration: none;
 }
 
 a:hover,
@@ -97,7 +98,7 @@ header .header-content .header-content-inner p {
 
 .intro {
 	color: #fff;
-    background-color: yellowgreen;
+    background-color: #4d94ff;
     padding: 70px 0;
     text-align: center;
 }
@@ -339,9 +340,9 @@ fieldset[disabled] .btn-default.active {
 }
 
 .btn-primary {
-    border-color: yellowgreen;
+    border-color: #4d94ff;
     color: #fff;
-    background-color: yellowgreen;
+    background-color: #4d94ff;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -382,12 +383,12 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-    border-color: yellowgreen;
-    background-color: yellowgreen;
+    border-color: #4d94ff;
+    background-color: #4d94ff;
 }
 
 .btn-primary .badge {
-    color: yellowgreen;
+    color: #4d94ff;
     background-color: #fff;
 }
 
@@ -428,6 +429,6 @@ img::-moz-selection {
 }
 
 .bg-primary {
-    background-color: yellowgreen;
+    background-color: #4d94ff;
 }
 
