@@ -3,11 +3,13 @@ let track_list = [
   {
     name: "মরুর ধূলি",
     artist: "প্রবাহ",
+    album: "অ্যালবাম: কাবার পথে",
     image: "https://images.pexels.com/photos/2264753/pexels-photo-2264753.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250&w=250",
     path: "http://probaho.weebly.com/uploads/1/0/9/5/10954712/morur_doli_uthlo_jege.mp3"
+	
   },
   {
-    name: "অগণিত জনতার",
+    name: "আমি কাবার পথে",
     artist: "প্রবাহ",
     image: "https://images.pexels.com/photos/3100835/pexels-photo-3100835.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250&w=250",
     path: "http://probaho.weebly.com/uploads/1/0/9/5/10954712/agonito_jonoter_milon_melay.mp3"
