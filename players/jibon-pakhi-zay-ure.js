@@ -20,7 +20,7 @@ let track_list = [
     artist: "সৃজন সাহিত্য সাংস্কৃতিক সংসদ",
     album: "অ্যালবাম: জীবন পাখি যায় উড়ে ",
     image: "https://images.pexels.com/photos/1717969/pexels-photo-1717969.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250&w=250",
-    path: "https://dl.dropbox.com/s/b6aj9mn4ky0m4m1/3%20majhi%20re.mp3",
+    path: "https://dl.dropbox.com/s/50qnxqmz7pd99a1/3majhire%20o.mp3",
   },
   {
     name: "চরিত্রবান মানুষ ছাড়া",
