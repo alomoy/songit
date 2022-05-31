@@ -128,3 +128,14 @@ function seekUpdate() {
 }
 
 
+//  Google Analytics 4 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4BYW7N31DC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4BYW7N31DC');
+</script>
