@@ -75,7 +75,7 @@ let track_list = [
     name: "শাহজালালের শাহ মাখদুমের",
     artist: "সাইমুম শিল্পী গোষ্ঠী",
     album: "অ্যালবাম: অনুপ্রাণন",
-    image: "../images/karakoram.jpg",
+    image: "../images/tunnel.jpg",
     path: "https://dl.dropbox.com/s/fzuef1dtjrsg7ck/11-Shah%20jalaler%20Shah%20Makhdumer.mp3",
   },
     {
@@ -89,7 +89,7 @@ let track_list = [
     name: "সত্যের এ পথে চলো",
     artist: "সাইমুম শিল্পী গোষ্ঠী",
     album: "অ্যালবাম: অনুপ্রাণন",
-    image: "../images/karakoram.jpg",
+    image: "../images/tunnel.jpg",
     path: "https://dl.dropbox.com/s/pbxx20va27vpvqm/13-sotye-%20e-pothe.mp3",
   },
     {
