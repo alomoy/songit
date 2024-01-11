@@ -1,0 +1,5 @@
+1. Copy a player (js file html file, e.g., nojrana)
+2. Change js files
+3. Find and replace items
+4. Change html js tag
+5. Add player to home and latest 
