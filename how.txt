@@ -1,5 +1,6 @@
-1. Copy a player (js file html file, e.g., nojrana)
-2. Change js files
+1. Copy a player html file, e.g., nojrana)
+2. Copy and rename template.js 
 3. Find and replace items
 4. Change html js tag
-5. Add player to home and latest 
+5. Add drive link
+6. Add player to home and latest 
