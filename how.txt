@@ -5,3 +5,4 @@
 5. Change html js link 
 6. Change js file
 7. Add player to home and latest 
+8. Add to new
