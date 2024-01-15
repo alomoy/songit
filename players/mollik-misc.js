@@ -67,7 +67,7 @@ let track_list = [
     name: "টিক টিক যে ঘড়িটা",
     artist: "মতিউর রহমান মল্লিক",
     album: "গুচ্ছ - ০১",
-    image: "../images/sajek.jpg",
+    image: "../images/clock.jpg",
     path: "https://www.dropbox.com/scl/fi/qis4tt1aap3dw0inareky/tik-tik-je-ghorita.mp3?rlkey=pzvd7cgeb3s6ipzr1hegzrl1m&dl=1"
   },
   {
