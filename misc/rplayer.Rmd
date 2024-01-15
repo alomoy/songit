@@ -1,0 +1,29 @@
+---
+title: "Playlist"
+author: Artist
+date: \today
+output: 
+  revealjs::revealjs_presentation:
+    theme: sky
+    highlight: pygments
+    reveal_plugins: ["chalkboard", "zoom", "menu"]
+    self_contained: false
+    lib_dir: libs
+    css: css/styles.css 
+    includes:
+      in_header: css/header.html
+---
+
+## চলো মুজাহিদ জিহাদের ময়দানে {#cholo-mujahid}
+
+<audio controls onended="window.location.href = '#/oi-kalo-porda';">
+  <source src="https://www.dropbox.com/scl/fi/5ih8vq72bdoviy64ggv3n/cholo-cholo.mp3?rlkey=t6vt2tv2pgv91gyxeaklhuc83&dl=1" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+## ঐ কালো পর্দা{#oi-kalo-porda}
+
+<audio controls autoplay onended="window.location.href = 'https://alomoy.github.io/songit';">
+  <source src="https://www.dropbox.com/scl/fi/80zyk7ht150m7nk36j7g3/oi-kalo-porda.mp3?rlkey=mmc9zzsynrkcmdbraptcjy13u&dl=1" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
