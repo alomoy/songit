@@ -1,0 +1,19 @@
+<script>
+var audio = new Audio();
+var audiolist = new Array('https://www.dropbox.com/s/8mdz2sclkoae0vo/4acho%20tumi.mp3?dl=1',
+'https://www.dropbox.com/s/weugb199y7rkbsz/2jwolche%20kasmir.mp3?dl=1',
+'https://www.dropbox.com/s/ni4id1nlhvs1hlx/3ghum%20theke%20jege.mp3?dl=1');
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+function play() {
+  if (audio.duration > 0 && !audio.paused) {
+  audio.pause();
+  }
+  audio.src = audiolist[getRandomInt(0,2)];
+  audio.play();
+}
+</script>
+<a href='#' onclick="play()">Click here</a>

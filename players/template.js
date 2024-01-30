@@ -88,7 +88,7 @@ let track_list = [
     name: "Name",
     artist: "ARTIST",
     album: "ALBUM",
-    image: "../images/mtroad.jpg",
+    image: "../images/mosque.jpg",
     path: "LINK"
   },
   {
