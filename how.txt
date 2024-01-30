@@ -4,5 +4,5 @@
 4. Add drive link
 5. Change js link 
 6. Change js file
-7. Add player to list and latest 
+7. Add player to list, mqrquee, and latest 
 8. Add to new
