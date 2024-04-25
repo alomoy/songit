@@ -11,7 +11,7 @@ let track_list = [
     name: "চালতা পাতার কাজ",
     artist: "হাসনাহেনা আফরিন",
     album: "হিজল বনের পাখি",
-    image: "../images/nature.jpg",
+    image: "../images/leaf.jpg",
     path: "https://www.dropbox.com/scl/fi/swjfu7o4imd15xy0953ye/2-chalta-patar.mp3?rlkey=slqif9ra30barzhxeshksalub&st=6bwu5w3h&dl=1"
   },
   {
