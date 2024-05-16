@@ -22,7 +22,7 @@ let track_list = [
     path: "http://probaho.weebly.com/uploads/1/0/9/5/10954712/shesha_dhala_prachir_jeno.mp3"
   },
   {
-    name: "স্বাধীনতা",
+    name: "স্বাধীনতা তুমি",
     artist: "প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ",
     album: "শিল্পীর তুলি",
     image: "../images/kite.jpg",
