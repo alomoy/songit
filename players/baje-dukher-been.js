@@ -4,7 +4,7 @@ let track_list = [
     name: "হে খোদা মহান",
     artist: "রোকনুজ্জামান",
     album: "বাজে দুঃখের বীন",
-    image: "../images/allahu.jpg",
+    image: "../images/album/baje-dukher-been.jpg",
     path: "https://dl.dropbox.com/s/lhll9hs8q4w09qz/1he%20khoda%20mohan.mp3?dl=0"
   },
    {
