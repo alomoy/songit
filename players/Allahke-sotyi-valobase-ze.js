@@ -4,7 +4,7 @@ let track_list = [
     name: "আল্লাহকে সত্যি ভালবাসে যে",
     artist: "শাহাবুদ্দীন - সাইমুম শিল্পী গোষ্ঠী",
     album: "অ্যালবাম: আল্লাহকে সত্যি ভালবাসে যে",
-    image: "https://images.pexels.com/photos/2264753/pexels-photo-2264753.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250&w=250",
+    image: "allahu.jpg",
     path: "https://dl.dropbox.com/s/o5kl2dzc2b1lrq3/1allahke%20je%20sotyi.mp3"
   },
   {
