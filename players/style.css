@@ -27,7 +27,17 @@ body {
   width: 225px;
   background-image: url("https://images.pexels.com/photos/262034/pexels-photo-262034.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
   background-size: cover;
-  border-radius: 15%;
+  border-radius: 50%;
+  /* animation: rotation 10s infinite linear;*/
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .now-playing {
