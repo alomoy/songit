@@ -5,4 +5,3 @@
 5. Change js link 
 6. Change js file (check images)
 7. Add player to list, mqrquee, and latest 
-8. Add to new
