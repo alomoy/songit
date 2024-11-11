@@ -15,6 +15,8 @@
             background: linear-gradient(45deg, #f3ec78, #af4261);
             color: white;
             min-height: 100vh;
+            background: url('https://png.pngtree.com/background/20221202/original/pngtree-music-note-with-equalizer-frequency-background-picture-image_1974811.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
         #header {
             text-align: center;
@@ -22,25 +24,6 @@
         }
         #header img {
             height: 60px;
-        }
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .controls button, .controls select {
-            padding: 10px;
-            border: none;
-            border-radius: 50%;
-            background-color: #007BFF;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .controls button:hover {
-            background-color: #0056b3;
         }
         .dropdowns {
             margin-bottom: 20px;
@@ -54,25 +37,53 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .controls button {
+            padding: 10px;
+            border: none;
+            border-radius: 50%;
+            background-color: #007BFF;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .controls button:hover {
+            background-color: #0056b3;
+        }
         audio {
-            width: 100%;
+            width: 80%;
+            max-width: 600px;
             margin-top: 20px;
+            margin-bottom: 20px;
             border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5);
         }
         #songList {
             list-style: none;
             padding: 0;
             text-align: center;
             margin-top: 20px;
+            width: 80%;
+            max-width: 600px;
         }
         #songList li {
             cursor: pointer;
             margin: 10px;
             font-size: 18px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
         }
         #songList li:hover {
-            color: #ffcc00;
+            background: #ffcc00;
+            color: black;
         }
     </style>
 </head>
@@ -81,16 +92,6 @@
     <div id="header">
         <h1>Alomoy Radio</h1>
         <img src="../images/alomoy.png" alt="Logo">
-    </div>
-
-    <div class="controls">
-        <button id="prev"><i class="fas fa-backward"></i></button>
-        <button id="play"><i class="fas fa-play"></i></button>
-        <button id="pause" style="display: none;"><i class="fas fa-pause"></i></button>
-        <button id="next"><i class="fas fa-forward"></i></button>
-        <button id="shuffle"><i class="fas fa-random"></i> Off</button>
-        <button id="repeat"><i class="fas fa-redo"></i> Off</button>
-        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
     </div>
 
     <div class="dropdowns">
@@ -104,9 +105,19 @@
         <select id="genreSelect"></select>
     </div>
 
-    <ul id="songList"></ul>
-
     <audio id="audioPlayer" controls></audio>
+
+    <div class="controls">
+        <button id="prev"><i class="fas fa-backward"></i></button>
+        <button id="play"><i class="fas fa-play"></i></button>
+        <button id="pause" style="display: none;"><i class="fas fa-pause"></i></button>
+        <button id="next"><i class="fas fa-forward"></i></button>
+        <button id="shuffle"><i class="fas fa-random"></i> Off</button>
+        <button id="repeat"><i class="fas fa-redo"></i> Off</button>
+        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
+    </div>
+
+    <ul id="songList"></ul>
 
     <script>
         async function loadCSV(file) {
@@ -212,44 +223,53 @@
         let repeatMode = 0; // 0: off, 1: all, 2: one
         const audioPlayer = document.getElementById('audioPlayer');
 
-        document.getElementById('play').addEventListener('click', () => audioPlayer.play());
-        document.getElementById('pause').addEventListener('click', () => audioPlayer.pause());
-        document.getElementById('next').addEventListener('click', playNextSong);
-        document.getElementById('prev').addEventListener('click', playPreviousSong);
-        document.getElementById('shuffle').addEventListener('click', shuffleSongs);
-        document.getElementById('repeat').addEventListener('click', toggleRepeat);
-        document.getElementById('volume').addEventListener('input', e => audioPlayer.volume = e.target.value);
-
-        audioPlayer.addEventListener('ended', () => {
-            if (repeatMode === 2) {
-                playSong(currentSongIndex); // Repeat current song
-            } else {
-                playNextSong(); // Play next song
+        // Play button logic
+        document.getElementById('play').addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                document.getElementById('play').style.display = 'none';
+                document.getElementById('pause').style.display = 'inline-block';
             }
         });
 
-        audioPlayer.addEventListener('play', () => {
-            document.getElementById('play').style.display = 'none';
-            document.getElementById('pause').style.display = 'inline-block';
-        });
-
-        audioPlayer.addEventListener('pause', () => {
+        // Pause button logic
+        document.getElementById('pause').addEventListener('click', () => {
+            audioPlayer.pause();
             document.getElementById('pause').style.display = 'none';
             document.getElementById('play').style.display = 'inline-block';
         });
 
+        // Next button logic
+        document.getElementById('next').addEventListener('click', playNextSong);
+
+        // Previous button logic
+        document.getElementById('prev').addEventListener('click', playPreviousSong);
+
+        // Shuffle button logic
+        document.getElementById('shuffle').addEventListener('click', shuffleSongs);
+
+        // Repeat button logic
+        document.getElementById('repeat').addEventListener('click', toggleRepeat);
+
+        // Load CSV data and populate dropdowns
         loadCSV('songs.csv').then(data => {
             songs = data;
-
             populateDropdown(songs.map(song => song.album), 'albumSelect');
             populateDropdown(songs.map(song => song.singer), 'singerSelect');
             populateDropdown(songs.map(song => song.genre), 'genreSelect');
             displaySongs(songs);
+        });
 
-            // Add event listeners for dropdowns
-            document.getElementById('albumSelect').addEventListener('change', filterSongs);
-            document.getElementById('singerSelect').addEventListener('change', filterSongs);
-            document.getElementById('genreSelect').addEventListener('change', filterSongs);
+        // Add event listeners to dropdowns
+        document.getElementById('albumSelect').addEventListener('change', filterSongs);
+        document.getElementById('singerSelect').addEventListener('change', filterSongs);
+        document.getElementById('genreSelect').addEventListener('change', filterSongs);
+
+        // Handle song end
+        audioPlayer.addEventListener('ended', () => {
+            if (repeatMode === 1 || (repeatMode === 0 && currentSongIndex !== currentPlaylist.length - 1)) {
+                playNextSong();
+            }
         });
     </script>
 </body>
