@@ -15,7 +15,7 @@
             background: linear-gradient(45deg, #f3ec78, #af4261);
             color: white;
             min-height: 100vh;
-            background: url('../images/bg/2.avif') no-repeat center center fixed;
+            background: url('images/bg/2.avif') no-repeat center center fixed;
             background-size: cover;
         }
         #header {
@@ -162,11 +162,11 @@
     </div>
 
     <div class="controls">
+        <button id="shuffle"><i class="fas fa-random"></i> Off</button>
         <button id="prev"><i class="fas fa-backward"></i></button>
         <button id="play"><i class="fas fa-play"></i></button>
         <button id="pause" style="display: none;"><i class="fas fa-pause"></i></button>
         <button id="next"><i class="fas fa-forward"></i></button>
-        <button id="shuffle"><i class="fas fa-random"></i> Off</button>
         <button id="repeat"><i class="fas fa-redo"></i> Off</button>
         <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
     </div>
@@ -310,7 +310,7 @@ document.getElementById('play').addEventListener('click', () => {
         document.getElementById('repeat').addEventListener('click', toggleRepeat);
 
         // Load CSV data and populate dropdowns
-        loadCSV('songs.csv').then(data => {
+        loadCSV('radio/songs.csv').then(data => {
             songs = data;
             populateDropdown(songs.map(song => song.album), 'albumSelect');
             populateDropdown(songs.map(song => song.singer), 'singerSelect');
