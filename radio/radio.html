@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Radio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            background: linear-gradient(45deg, #f3ec78, #af4261);
+            color: white;
+            min-height: 100vh;
+        }
+        #header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #header img {
+            height: 60px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .controls button, .controls select {
+            padding: 10px;
+            border: none;
+            border-radius: 50%;
+            background-color: #007BFF;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .controls button:hover {
+            background-color: #0056b3;
+        }
+        .dropdowns {
+            margin-bottom: 20px;
+            text-align: center;
+            color: white;
+        }
+        .dropdowns select {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        #songList {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #songList li {
+            cursor: pointer;
+            margin: 10px;
+            font-size: 18px;
+        }
+        #songList li:hover {
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header">
+        <h1>Alomoy Radio</h1>
+        <img src="../images/alomoy.png" alt="Logo">
+    </div>
+
+    <div class="controls">
+        <button id="prev"><i class="fas fa-backward"></i></button>
+        <button id="play"><i class="fas fa-play"></i></button>
+        <button id="pause" style="display: none;"><i class="fas fa-pause"></i></button>
+        <button id="next"><i class="fas fa-forward"></i></button>
+        <button id="shuffle"><i class="fas fa-random"></i> Off</button>
+        <button id="repeat"><i class="fas fa-redo"></i> Off</button>
+        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
+    </div>
+
+    <div class="dropdowns">
+        <label for="albumSelect">Album:</label>
+        <select id="albumSelect"></select>
+
+        <label for="singerSelect">Singer:</label>
+        <select id="singerSelect"></select>
+
+        <label for="genreSelect">Genre:</label>
+        <select id="genreSelect"></select>
+    </div>
+
+    <ul id="songList"></ul>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <script>
+        async function loadCSV(file) {
+            const response = await fetch(file);
+            const text = await response.text();
+            return text.split('\n').slice(1).map(line => {
+                const [song, album, singer, writer, tune, src, genre, subgenre] = line.split(',');
+                return { song, album, singer, writer, tune, src, genre, subgenre };
+            }).filter(song => song.song && song.src);
+        }
+
+        function populateDropdown(options, dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.innerHTML = `<option value="">All</option>`;
+            [...new Set(options)].forEach(option => {
+                const optElement = document.createElement('option');
+                optElement.value = option;
+                optElement.textContent = option;
+                dropdown.appendChild(optElement);
+            });
+        }
+
+        function filterSongs() {
+            const selectedAlbum = document.getElementById('albumSelect').value;
+            const selectedSinger = document.getElementById('singerSelect').value;
+            const selectedGenre = document.getElementById('genreSelect').value;
+
+            const filteredSongs = songs.filter(song => {
+                return (selectedAlbum === '' || song.album === selectedAlbum) &&
+                       (selectedSinger === '' || song.singer === selectedSinger) &&
+                       (selectedGenre === '' || song.genre === selectedGenre);
+            });
+
+            displaySongs(filteredSongs);
+        }
+
+        function displaySongs(songList) {
+            const songListContainer = document.getElementById('songList');
+            songListContainer.innerHTML = '';
+            songList.forEach((song, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${song.song} - ${song.singer} [${song.album}]`;
+                li.dataset.index = index;
+                li.addEventListener('click', () => playSong(index));
+                songListContainer.appendChild(li);
+            });
+            currentPlaylist = songList;
+            currentSongIndex = 0;
+        }
+
+        function playSong(index) {
+            if (currentPlaylist.length > 0 && index < currentPlaylist.length) {
+                const song = currentPlaylist[index];
+                audioPlayer.src = song.src;
+                audioPlayer.play();
+                currentSongIndex = index;
+                document.getElementById('play').style.display = 'none';
+                document.getElementById('pause').style.display = 'inline-block';
+            }
+        }
+
+        function playNextSong() {
+            currentSongIndex = (currentSongIndex + 1) % currentPlaylist.length;
+            playSong(currentSongIndex);
+        }
+
+        function playPreviousSong() {
+            currentSongIndex = (currentSongIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
+            playSong(currentSongIndex);
+        }
+
+        function shuffleSongs() {
+            shuffleMode = !shuffleMode;
+            document.getElementById('shuffle').textContent = shuffleMode ? 'Shuffle On' : 'Shuffle Off';
+            if (shuffleMode) {
+                currentPlaylist.sort(() => Math.random() - 0.5);
+            } else {
+                currentPlaylist = songs;
+            }
+            displaySongs(currentPlaylist);
+        }
+
+        function toggleRepeat() {
+            repeatMode = (repeatMode + 1) % 3;
+            const repeatButton = document.getElementById('repeat');
+            if (repeatMode === 0) {
+                repeatButton.textContent = 'Repeat Off';
+                audioPlayer.loop = false;
+            } else if (repeatMode === 1) {
+                repeatButton.textContent = 'Repeat All';
+                audioPlayer.loop = false;
+            } else {
+                repeatButton.textContent = 'Repeat 1';
+                audioPlayer.loop = true;
+            }
+        }
+
+        // Main script
+        let songs = [];
+        let currentPlaylist = [];
+        let currentSongIndex = 0;
+        let shuffleMode = false;
+        let repeatMode = 0; // 0: off, 1: all, 2: one
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        document.getElementById('play').addEventListener('click', () => audioPlayer.play());
+        document.getElementById('pause').addEventListener('click', () => audioPlayer.pause());
+        document.getElementById('next').addEventListener('click', playNextSong);
+        document.getElementById('prev').addEventListener('click', playPreviousSong);
+        document.getElementById('shuffle').addEventListener('click', shuffleSongs);
+        document.getElementById('repeat').addEventListener('click', toggleRepeat);
+        document.getElementById('volume').addEventListener('input', e => audioPlayer.volume = e.target.value);
+
+        audioPlayer.addEventListener('ended', () => {
+            if (repeatMode === 2) {
+                playSong(currentSongIndex); // Repeat current song
+            } else {
+                playNextSong(); // Play next song
+            }
+        });
+
+        audioPlayer.addEventListener('play', () => {
+            document.getElementById('play').style.display = 'none';
+            document.getElementById('pause').style.display = 'inline-block';
+        });
+
+        audioPlayer.addEventListener('pause', () => {
+            document.getElementById('pause').style.display = 'none';
+            document.getElementById('play').style.display = 'inline-block';
+        });
+
+        loadCSV('songs.csv').then(data => {
+            songs = data;
+
+            populateDropdown(songs.map(song => song.album), 'albumSelect');
+            populateDropdown(songs.map(song => song.singer), 'singerSelect');
+            populateDropdown(songs.map(song => song.genre), 'genreSelect');
+            displaySongs(songs);
+
+            // Add event listeners for dropdowns
+            document.getElementById('albumSelect').addEventListener('change', filterSongs);
+            document.getElementById('singerSelect').addEventListener('change', filterSongs);
+            document.getElementById('genreSelect').addEventListener('change', filterSongs);
+        });
+    </script>
+</body>
+</html>
