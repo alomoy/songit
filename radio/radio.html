@@ -15,7 +15,7 @@
             background: linear-gradient(45deg, #f3ec78, #af4261);
             color: white;
             min-height: 100vh;
-            background: url('https://png.pngtree.com/background/20221202/original/pngtree-music-note-with-equalizer-frequency-background-picture-image_1974811.jpg') no-repeat center center fixed;
+            background: url('https://static.vecteezy.com/system/resources/previews/029/895/331/non_2x/music-symbol-above-the-sheet-background-free-photo.jpg') no-repeat center center fixed;
             background-size: cover;
         }
         #header {
@@ -224,13 +224,16 @@
         const audioPlayer = document.getElementById('audioPlayer');
 
         // Play button logic
-        document.getElementById('play').addEventListener('click', () => {
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-                document.getElementById('play').style.display = 'none';
-                document.getElementById('pause').style.display = 'inline-block';
-            }
-        });
+document.getElementById('play').addEventListener('click', () => {
+    if (audioPlayer.src === '' && currentPlaylist.length > 0) {
+        // If no song has been loaded yet, play the first song in the playlist
+        playSong(0);
+    } else if (audioPlayer.paused) {
+        audioPlayer.play();
+        document.getElementById('play').style.display = 'none';
+        document.getElementById('pause').style.display = 'inline-block';
+    }
+});
 
         // Pause button logic
         document.getElementById('pause').addEventListener('click', () => {
