@@ -346,9 +346,10 @@ document.getElementById('play').addEventListener('click', () => {
         });
 
         // Progress bar logic
+// Progress bar logic
 const progressBar = document.getElementById('progressBar');
 const currentTimeDisplay = document.getElementById('currentTime');
-const durationDisplay = document.getElementById('duration');
+const durationDisplay = document.getElementById('totalDuration');
 
 // Function to format time as mm:ss
 function formatTime(seconds) {
@@ -357,23 +358,45 @@ function formatTime(seconds) {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-// Update progress bar smoothly
-audioPlayer.addEventListener('loadedmetadata', () => {
-    durationDisplay.textContent = formatTime(audioPlayer.duration);
-    progressBar.max = audioPlayer.duration;
-});
+// Update progress bar and time display as the audio plays
+audioPlayer.addEventListener('timeupdate', () => {
+    const currentTime = audioPlayer.currentTime;
+    const duration = audioPlayer.duration;
 
-setInterval(() => {
-    if (!audioPlayer.paused && !audioPlayer.ended) {
-        progressBar.value = audioPlayer.currentTime;
-        currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+    // Update current time display
+    currentTimeDisplay.textContent = formatTime(currentTime);
+
+    // Update total duration display only when the song starts (i.e., when duration is valid)
+    if (!isNaN(duration) && duration > 0) {
+        durationDisplay.textContent = formatTime(duration);
     }
-}, 100); // Update every 100ms for smoother transition
 
-// Seek functionality
-progressBar.addEventListener('input', () => {
-    audioPlayer.currentTime = progressBar.value;
+    // Update the progress bar
+    progressBar.value = (currentTime / duration) * 100;
 });
+
+// Handle user interaction with the progress bar
+progressBar.addEventListener('input', () => {
+    const duration = audioPlayer.duration;
+    const newTime = (progressBar.value / 100) * duration;
+    audioPlayer.currentTime = newTime;
+});
+
+// Ensure the progress bar value resets when a new song is played
+audioPlayer.addEventListener('play', () => {
+    progressBar.value = 0;
+    // Reset the duration display when song starts
+    if (!isNaN(audioPlayer.duration) && audioPlayer.duration > 0) {
+        durationDisplay.textContent = formatTime(audioPlayer.duration);
+    }
+});
+
+// Update progress bar when song is paused and restart at 0 when resumed
+audioPlayer.addEventListener('pause', () => {
+    progressBar.value = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+});
+
+
 
     </script>
 </body>
