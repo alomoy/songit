@@ -168,6 +168,12 @@
     <span id="totalDuration">0:00</span>
     </div>
 
+    <marquee style="background: rgba(51, 170, 51, .2);margin-bottom:10px;" class="trk" width="40%" scrollamount="3" id="trackInfoWrapper">
+  <span id="trackInfoText">শুনছেন: </span><span id="trackInfo"> -  - </span>
+</marquee>
+
+
+
     <div class="controls">
         <button id="shuffle"><i class="fas fa-random"></i> Off</button>
         <button id="prev"><i class="fas fa-backward"></i></button>
@@ -345,7 +351,6 @@ document.getElementById('play').addEventListener('click', () => {
             }
         });
 
-        // Progress bar logic
 // Progress bar logic
 const progressBar = document.getElementById('progressBar');
 const currentTimeDisplay = document.getElementById('currentTime');
@@ -358,45 +363,72 @@ function formatTime(seconds) {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-// Update progress bar and time display as the audio plays
-audioPlayer.addEventListener('timeupdate', () => {
-    const currentTime = audioPlayer.currentTime;
-    const duration = audioPlayer.duration;
-
-    // Update current time display
-    currentTimeDisplay.textContent = formatTime(currentTime);
-
-    // Update total duration display only when the song starts (i.e., when duration is valid)
-    if (!isNaN(duration) && duration > 0) {
-        durationDisplay.textContent = formatTime(duration);
-    }
-
-    // Update the progress bar
-    progressBar.value = (currentTime / duration) * 100;
+// Set up metadata for duration display and progress bar max value
+audioPlayer.addEventListener('loadedmetadata', () => {
+    durationDisplay.textContent = formatTime(audioPlayer.duration);
+    progressBar.max = audioPlayer.duration;
 });
 
-// Handle user interaction with the progress bar
+// Update progress bar smoothly and synchronize it with seconds
+const updateInterval = setInterval(() => {
+    if (!audioPlayer.paused && !audioPlayer.ended) {
+        const currentTime = audioPlayer.currentTime;
+        progressBar.value = currentTime;
+        currentTimeDisplay.textContent = formatTime(currentTime);
+    }
+}, 500); // Update every 500ms for better synchronization
+
+// Handle user interaction with the progress bar (seek functionality)
 progressBar.addEventListener('input', () => {
-    const duration = audioPlayer.duration;
-    const newTime = (progressBar.value / 100) * duration;
-    audioPlayer.currentTime = newTime;
+    audioPlayer.currentTime = progressBar.value;
 });
 
 // Ensure the progress bar value resets when a new song is played
 audioPlayer.addEventListener('play', () => {
     progressBar.value = 0;
-    // Reset the duration display when song starts
     if (!isNaN(audioPlayer.duration) && audioPlayer.duration > 0) {
         durationDisplay.textContent = formatTime(audioPlayer.duration);
     }
 });
 
-// Update progress bar when song is paused and restart at 0 when resumed
+// Handle pause event without the progress ball jumping back
 audioPlayer.addEventListener('pause', () => {
-    progressBar.value = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    const currentTime = audioPlayer.currentTime;
+    progressBar.value = currentTime; // Ensure the value stays at the current point when paused
+    currentTimeDisplay.textContent = formatTime(currentTime);
+});
+
+// Update the total duration display when the song is loaded
+audioPlayer.addEventListener('loadedmetadata', () => {
+    durationDisplay.textContent = formatTime(audioPlayer.duration);
 });
 
 
+
+// Show Track Info
+
+function playSong(index) {
+    if (currentPlaylist.length > 0 && index < currentPlaylist.length) {
+        const song = currentPlaylist[index];
+        audioPlayer.src = song.src;
+        audioPlayer.play();
+        currentSongIndex = index;
+
+        // Update the track info display
+        updateTrackInfo(song);
+
+        // Show play/pause buttons accordingly
+        document.getElementById('play').style.display = 'none';
+        document.getElementById('pause').style.display = 'inline-block';
+    }
+}
+
+function updateTrackInfo(song) {
+    const trackInfo = document.getElementById('trackInfo');
+    trackInfo.textContent = `${song.song} - ${song.singer} - ${song.group}`;
+}
+
+// Track Info Ends
 
     </script>
 </body>
