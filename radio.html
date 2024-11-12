@@ -26,7 +26,7 @@
             height: 60px;
         }
         .dropdowns {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             text-align: center;
             color: white;
         }
@@ -41,38 +41,38 @@
         }
 
         .dropdowns select:hover {
-            background-color: #a64dff; /* Darker shade for hover effect */
+        background-color: #a64dff; /* Darker shade for hover effect */
         }
 
         .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
 
-        .controls button {
-            width: 8vw; /* Slightly smaller width */
-            height: 8vw; /* Matching height for circular shape */
-            max-width: 50px; /* Tighter size cap */
-            max-height: 50px; /* Tighter size cap */
-            min-width: 35px; /* Ensure buttons don't shrink too much */
-            min-height: 35px; /* Ensure buttons don't shrink too much */
-            border: none;
-            border-radius: 50%; /* Circular shape */
-            background-color: #4d88ff;
-            color: white;
-            font-size: clamp(10px, 1.5vw, 12px); /* Smaller responsive font size */
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.controls button {
+    width: 8vw; /* Slightly smaller width */
+    height: 8vw; /* Matching height for circular shape */
+    max-width: 50px; /* Tighter size cap */
+    max-height: 50px; /* Tighter size cap */
+    min-width: 35px; /* Ensure buttons don't shrink too much */
+    min-height: 35px; /* Ensure buttons don't shrink too much */
+    border: none;
+    border-radius: 50%; /* Circular shape */
+    background-color: #4d88ff;
+    color: white;
+    font-size: clamp(10px, 1.5vw, 12px); /* Smaller responsive font size */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .controls button:hover {
-            background-color: #a64dff;
-        }
+.controls button:hover {
+    background-color: #a64dff;
+}
 
         audio {
             width: 80%;
@@ -84,7 +84,6 @@
             background-color: #007BFF;
             display: none;
         }
-
         #songList {
             list-style: none;
             padding: 0;
@@ -93,7 +92,6 @@
             width: 80%;
             max-width: 600px;
         }
-
         #songList li {
             cursor: pointer;
             margin: 10px;
@@ -103,45 +101,45 @@
             border-radius: 5px;
             transition: background 0.3s;
         }
-
         #songList li:hover {
             background: #a64dff;
             color: black;
         }
 
         .progress-container {
-            display: flex;
-            align-items: center;
-            width: 80%;
-            max-width: 600px;
-            margin-top: 10px;
-        }
+    display: flex;
+    align-items: center;
+    width: 80%;
+    max-width: 600px;
+    margin-top: 10px;
+}
 
-        #progressBar {
-            flex-grow: 1;
-            margin: 0 10px;
-            cursor: pointer;
-            height: 5px;
-            border-radius: 10px;
-            background-color: #6699ff;
-            appearance: none;
-            margin-bottom: 20px;
-        }
+#progressBar {
+    flex-grow: 1;
+    margin: 0 10px;
+    cursor: pointer;
+    height: 5px;
+    border-radius: 5px;
+    background-color: #6699ff;
+    appearance: none;
+    margin-bottom: 20px;
+}
 
-        #progressBar::-webkit-slider-thumb {
-            appearance: none;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #007BFF;
-        }
+#progressBar::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #007BFF;
+}
+
     </style>
 </head>
 <body>
 
     <div id="header">
         <h1>Alomoy Radio</h1>
-        <img src="../images/alomoy.png" alt="Logo">
+        <img src="images/alomoy.png" alt="Logo">
     </div>
 
     <div class="dropdowns">
@@ -156,14 +154,15 @@
 
         <label for="subgenreSelect">উপ-বিভাগ:</label>
         <select id="subgenreSelect"></select>
+
     </div>
 
-    <audio id="audioPlayer" controls></audio>
+  <audio id="audioPlayer" controls></audio>
 
-    <div class="progress-container">
-        <span id="currentTime">0:00</span>
-        <input type="range" id="progressBar" min="0" max="100" value="0">
-        <span id="totalDuration">0:00</span>
+        <div class="progress-container">
+    <span id="currentTime">0:00</span>
+    <input type="range" id="progressBar" min="0" max="100" value="0">
+    <span id="totalDuration">0:00</span>
     </div>
 
     <div class="controls">
@@ -175,6 +174,7 @@
         <button id="repeat"><i class="fas fa-redo"></i> Off</button>
         <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
     </div>
+
 
     <ul id="songList"></ul>
 
@@ -190,7 +190,7 @@
 
         function populateDropdown(options, dropdownId) {
             const dropdown = document.getElementById(dropdownId);
-            dropdown.innerHTML = `<option value="">All</option>`;
+            dropdown.innerHTML = `<option value="">সকল</option>`;
             [...new Set(options)].forEach(option => {
                 const optElement = document.createElement('option');
                 optElement.value = option;
@@ -261,36 +261,61 @@
             displaySongs(currentPlaylist);
         }
 
+        function toggleRepeat() {
+            repeatMode = (repeatMode + 1) % 3;
+            const repeatButton = document.getElementById('repeat');
+            if (repeatMode === 0) {
+                repeatButton.textContent = 'Repeat Off';
+                audioPlayer.loop = false;
+            } else if (repeatMode === 1) {
+                repeatButton.textContent = 'Repeat All';
+                audioPlayer.loop = false;
+            } else {
+                repeatButton.textContent = 'Repeat 1';
+                audioPlayer.loop = true;
+            }
+        }
+
+        // Main script
         let songs = [];
         let currentPlaylist = [];
         let currentSongIndex = 0;
         let shuffleMode = false;
-
+        let repeatMode = 0; // 0: off, 1: all, 2: one
         const audioPlayer = document.getElementById('audioPlayer');
-        audioPlayer.addEventListener('ended', playNextSong);
 
-        document.getElementById('albumSelect').addEventListener('change', filterSongs);
-        document.getElementById('singerSelect').addEventListener('change', filterSongs);
-        document.getElementById('genreSelect').addEventListener('change', filterSongs);
-        document.getElementById('subgenreSelect').addEventListener('change', filterSongs);
+        // Play button logic
+document.getElementById('play').addEventListener('click', () => {
+    if (audioPlayer.src === '' && currentPlaylist.length > 0) {
+        // If no song has been loaded yet, play the first song in the playlist
+        playSong(0);
+    } else if (audioPlayer.paused) {
+        audioPlayer.play();
+        document.getElementById('play').style.display = 'none';
+        document.getElementById('pause').style.display = 'inline-block';
+    }
+});
 
-        document.getElementById('play').addEventListener('click', () => {
-            audioPlayer.play();
-            document.getElementById('play').style.display = 'none';
-            document.getElementById('pause').style.display = 'inline-block';
-        });
-
+        // Pause button logic
         document.getElementById('pause').addEventListener('click', () => {
             audioPlayer.pause();
             document.getElementById('pause').style.display = 'none';
             document.getElementById('play').style.display = 'inline-block';
         });
 
+        // Next button logic
         document.getElementById('next').addEventListener('click', playNextSong);
+
+        // Previous button logic
         document.getElementById('prev').addEventListener('click', playPreviousSong);
 
+        // Shuffle button logic
         document.getElementById('shuffle').addEventListener('click', shuffleSongs);
 
+        // Repeat button logic
+        document.getElementById('repeat').addEventListener('click', toggleRepeat);
+
+        // Load CSV data and populate dropdowns
         loadCSV('radio/songs.csv').then(data => {
             songs = data;
             populateDropdown(songs.map(song => song.album), 'albumSelect');
@@ -299,6 +324,50 @@
             populateDropdown(songs.map(song => song.subgenre), 'subgenreSelect');
             displaySongs(songs);
         });
+
+        // Add event listeners to dropdowns
+        document.getElementById('albumSelect').addEventListener('change', filterSongs);
+        document.getElementById('singerSelect').addEventListener('change', filterSongs);
+        document.getElementById('genreSelect').addEventListener('change', filterSongs);
+        document.getElementById('subgenreSelect').addEventListener('change', filterSongs);
+
+        // Handle song end
+        audioPlayer.addEventListener('ended', () => {
+            if (repeatMode === 1 || (repeatMode === 0 && currentSongIndex !== currentPlaylist.length - 1)) {
+                playNextSong();
+            }
+        });
+
+        // Progress bar logic
+const progressBar = document.getElementById('progressBar');
+const currentTimeDisplay = document.getElementById('currentTime');
+const durationDisplay = document.getElementById('duration');
+
+// Function to format time as mm:ss
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+// Update progress bar smoothly
+audioPlayer.addEventListener('loadedmetadata', () => {
+    durationDisplay.textContent = formatTime(audioPlayer.duration);
+    progressBar.max = audioPlayer.duration;
+});
+
+setInterval(() => {
+    if (!audioPlayer.paused && !audioPlayer.ended) {
+        progressBar.value = audioPlayer.currentTime;
+        currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+    }
+}, 100); // Update every 100ms for smoother transition
+
+// Seek functionality
+progressBar.addEventListener('input', () => {
+    audioPlayer.currentTime = progressBar.value;
+});
+
     </script>
 </body>
 </html>
