@@ -27,7 +27,7 @@
         }
         .dropdowns {
             margin-bottom: 20px;
-            text-align: center;
+            text-align: left;
             color: white;
         }
 
@@ -130,7 +130,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #007BFF;
+    background: yellow;
 }
 
     </style>
@@ -148,6 +148,9 @@
 
         <label for="singerSelect">শিল্পী:</label>
         <select id="singerSelect"></select>
+
+        <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
+        <select id="groupSelect"></select>
 
         <label for="genreSelect">বিভাগ:</label>
         <select id="genreSelect"></select>
@@ -183,8 +186,8 @@
             const response = await fetch(file);
             const text = await response.text();
             return text.split('\n').slice(1).map(line => {
-                const [song, album, singer, writer, tune, src, genre, subgenre] = line.split(',');
-                return { song, album, singer, writer, tune, src, genre, subgenre };
+                const [song, album, singer, group, writer, tune, src, genre, subgenre] = line.split(',');
+                return { song, album, singer, group, writer, tune, src, genre, subgenre };
             }).filter(song => song.song && song.src);
         }
 
@@ -202,12 +205,14 @@
         function filterSongs() {
             const selectedAlbum = document.getElementById('albumSelect').value;
             const selectedSinger = document.getElementById('singerSelect').value;
+            const selectedGroup = document.getElementById('groupSelect').value;
             const selectedGenre = document.getElementById('genreSelect').value;
             const selectedSubgenre = document.getElementById('subgenreSelect').value;
 
             const filteredSongs = songs.filter(song => {
                 return (selectedAlbum === '' || song.album === selectedAlbum) &&
                        (selectedSinger === '' || song.singer === selectedSinger) &&
+                       (selectedGroup === '' || song.group === groupSelect) &&
                        (selectedGenre === '' || song.genre === selectedGenre) &&
                        (selectedSubgenre === '' || song.subgenre === selectedSubgenre);
             });
@@ -320,6 +325,7 @@ document.getElementById('play').addEventListener('click', () => {
             songs = data;
             populateDropdown(songs.map(song => song.album), 'albumSelect');
             populateDropdown(songs.map(song => song.singer), 'singerSelect');
+            populateDropdown(songs.map(song => song.group), 'groupSelect');
             populateDropdown(songs.map(song => song.genre), 'genreSelect');
             populateDropdown(songs.map(song => song.subgenre), 'subgenreSelect');
             displaySongs(songs);
@@ -328,6 +334,7 @@ document.getElementById('play').addEventListener('click', () => {
         // Add event listeners to dropdowns
         document.getElementById('albumSelect').addEventListener('change', filterSongs);
         document.getElementById('singerSelect').addEventListener('change', filterSongs);
+        document.getElementById('groupSelect').addEventListener('change', filterSongs);
         document.getElementById('genreSelect').addEventListener('change', filterSongs);
         document.getElementById('subgenreSelect').addEventListener('change', filterSongs);
 
