@@ -212,7 +212,7 @@
             const filteredSongs = songs.filter(song => {
                 return (selectedAlbum === '' || song.album === selectedAlbum) &&
                        (selectedSinger === '' || song.singer === selectedSinger) &&
-                       (selectedGroup === '' || song.group === groupSelect) &&
+                       (selectedGroup === '' || song.group === selectedGroup) &&
                        (selectedGenre === '' || song.genre === selectedGenre) &&
                        (selectedSubgenre === '' || song.subgenre === selectedSubgenre);
             });
