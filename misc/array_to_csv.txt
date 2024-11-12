@@ -1,0 +1,2 @@
+no. use the tarck I gave to make csv in this format Song, album, singer,group, writer, tune, src, genre, subgenre where Song = name, album = album, singer = artist, src = path, others = NA.
+
