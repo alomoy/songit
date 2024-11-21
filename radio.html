@@ -15,7 +15,7 @@
             background: linear-gradient(45deg, #f3ec78, #af4261);
             color: white;
             min-height: 100vh;
-            background: url('https://img.freepik.com/premium-photo/vintage-microphone-headphones-3d-rendered-illustration_441797-4258.jpg?w=740') no-repeat center center fixed;
+            background: url('images/bg/4.jpg') no-repeat center center fixed;
             background-size: cover;
         }
         #header {
@@ -28,7 +28,7 @@
         .dropdowns {
             margin-bottom: 20px;
             text-align: center;
-            color: black;
+            color: white;
             text-shadow: 1px 1px blue;
         }
 
@@ -144,6 +144,8 @@
     </div>
 
     <div class="dropdowns">
+    <!-- First Row -->
+    <div class="dropdown-row">
         <label for="albumSelect">অ্যালবাম:</label>
         <select id="albumSelect"></select>
 
@@ -152,6 +154,10 @@
 
         <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
         <select id="groupSelect"></select>
+         </div>
+
+         <!-- Second Row -->
+    <div class="dropdown-row">
 
         <label for="genreSelect">বিভাগ:</label>
         <select id="genreSelect"></select>
@@ -159,7 +165,12 @@
         <label for="subgenreSelect">উপ-বিভাগ:</label>
         <select id="subgenreSelect"></select>
 
+         <!-- Search Box -->
+    <label for="searchBox">খুঁজুন:</label>
+    <input class="searchBox" type="text" id="searchBox" placeholder="কিছু টাইপ করুন...">
+
     </div>
+</div>
 
   <audio id="audioPlayer" controls></audio>
 
@@ -430,6 +441,21 @@ function updateTrackInfo(song) {
 }
 
 // Track Info Ends
+
+// Search
+
+document.getElementById('searchBox').addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+
+    const filteredSongs = songs.filter(song => {
+        return Object.values(song).some(value => value.toLowerCase().includes(query));
+    });
+
+    displaySongs(filteredSongs);
+});
+
+
+// Show per page
 
     </script>
 </body>
