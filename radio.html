@@ -22,6 +22,17 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
+        /* Flex container for header and songList */
+        .main-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start; /* Align header and songList at the top */
+        width: 100%; /* Take full width of the screen */
+        gap: 20px; /* Add space between header and songList */
+        margin-top: 20px;
+    }
+
         #header img {
             height: 60px;
         }
@@ -31,17 +42,11 @@
             color: white;
             text-shadow: 1px 1px blue;
             opacity: 70%
-        }
-
-        .searchBox{
-            margin: 10px;
-            padding: 10px;
-            border-radius: 20px;
-            color: black;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #a64dff;
-            opacity: 90%
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 200px;
         }
 
         .dropdowns select {
@@ -56,6 +61,17 @@
 
         .dropdowns select:hover {
         background-color: #a64dff; /* Darker shade for hover effect */
+        }
+
+        .searchBox{
+            margin: 10px;
+            padding: 10px;
+            border-radius: 20px;
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #a64dff;
+            opacity: 90%
         }
 
         .controls {
@@ -105,6 +121,7 @@
             margin-top: 20px;
             width: 80%;
             max-width: 600px;
+            flex-grow: 1; /* Make songList take remaining space */
         }
         #songList li {
             cursor: pointer;
@@ -156,34 +173,6 @@
         <img src="images/alomoy.png" alt="Logo">
     </div>
 
-    <div class="dropdowns">
-    <!-- First Row -->
-    <div class="dropdown-row">
-        <label for="albumSelect">অ্যালবাম:</label>
-        <select id="albumSelect"></select>
-
-        <label for="singerSelect">শিল্পী:</label>
-        <select id="singerSelect"></select>
-
-        <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
-        <select id="groupSelect"></select>
-         </div>
-
-         <!-- Second Row -->
-    <div class="dropdown-row">
-
-        <label for="genreSelect">বিভাগ:</label>
-        <select id="genreSelect"></select>
-
-        <label for="subgenreSelect">উপ-বিভাগ:</label>
-        <select id="subgenreSelect"></select>
-
-         <!-- Search Box -->
-    <label for="searchBox">খুঁজুন:</label>
-    <input class="searchBox" type="text" id="searchBox" placeholder="কিছু টাইপ করুন...">
-
-    </div>
-</div>
 
   <audio id="audioPlayer" controls></audio>
 
@@ -209,8 +198,43 @@
         <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
     </div>
 
+    <div class="main-container">
+    <div class="dropdowns">
+<h3> কাস্টম রেডিও </h3>
+    <div>
+        <label for="albumSelect">অ্যালবাম:</label>
+        <select id="albumSelect"></select>
+        </div>
+
+            <div>
+        <label for="singerSelect">শিল্পী:</label>
+        <select id="singerSelect"></select>
+                </div>
+
+        <div>
+        <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
+        <select id="groupSelect"></select>
+        </div>
+
+        <div>
+        <label for="genreSelect">বিভাগ:</label>
+        <select id="genreSelect"></select>
+        </div>
+
+        <div>
+        <label for="subgenreSelect">উপ-বিভাগ:</label>
+        <select id="subgenreSelect"></select>
+        </div>
+
+         <!-- Search Box -->
+    <label for="searchBox">খুঁজুন:</label>
+    <input class="searchBox" type="text" id="searchBox" placeholder="কিছু টাইপ করুন...">
+
+</div>
 
     <ul id="songList"></ul>
+
+    </div>
 
     <script>
         async function loadCSV(file) {
