@@ -12,12 +12,36 @@
 </head>
 <body>
     <header></header>
-    <div class="main-content">
+  <div class="main-content"> 
         <h1>Welcome to Our Website</h1>
 <!--        <p>This is the home page. Here you can find 
 a brief introduction.
 </p>
 -->
+
+    <div class="dropdowns">
+        <label for="albumSelect">অ্যালবাম:</label>
+        <select id="albumSelect"></select>
+
+        <label for="singerSelect">শিল্পী:</label>
+        <select id="singerSelect"></select>
+
+        <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
+        <select id="groupSelect"></select>
+
+        <label for="genreSelect">বিভাগ:</label>
+        <select id="genreSelect"></select>
+
+        <label for="subgenreSelect">উপ-বিভাগ:</label>
+        <select id="subgenreSelect"></select>
+
+         <!-- Search Box -->
+    <label for="searchBox">খুঁজুন:</label>
+    <input class="searchBox" type="text" id="searchBox" placeholder="কিছু টাইপ করুন...">
+
+ </div> 
+
+    </div>
   <audio id="audioPlayer" controls></audio>
 
         <div class="progress-container">
@@ -26,7 +50,8 @@ a brief introduction.
     <span id="totalDuration">0:00</span>
     </div>
 
-    <marquee style="background: rgba(51, 170, 51, .2);margin-bottom:10px;" class="trk" width="40%" scrollamount="3" id="trackInfoWrapper">
+    <marquee style="background: rgba(51, 170, 51, .2);margin-bottom:10px;" 
+    class="trk" width="40%" scrollamount="3" id="trackInfoWrapper">
   <span id="trackInfoText">শুনছেন: </span><span id="trackInfo"> -  - </span>
 </marquee>
 
@@ -42,45 +67,10 @@ a brief introduction.
         <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
     </div>
 
-    <div class="main-container">
-    <div class="dropdowns">
-<h3> কাস্টম রেডিও </h3>
-    <div>
-        <label for="albumSelect">অ্যালবাম:</label>
-        <select id="albumSelect"></select>
-        </div>
-
-            <div>
-        <label for="singerSelect">শিল্পী:</label>
-        <select id="singerSelect"></select>
-                </div>
-
-        <div>
-        <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
-        <select id="groupSelect"></select>
-        </div>
-
-        <div>
-        <label for="genreSelect">বিভাগ:</label>
-        <select id="genreSelect"></select>
-        </div>
-
-        <div>
-        <label for="subgenreSelect">উপ-বিভাগ:</label>
-        <select id="subgenreSelect"></select>
-        </div>
-
-         <!-- Search Box -->
-    <label for="searchBox">খুঁজুন:</label>
-    <input class="searchBox" type="text" id="searchBox" placeholder="কিছু টাইপ করুন...">
-
-</div>
-
+ <!--   <div class="main-container"> -->
     <ul id="songList"></ul>
 
-    </div>
-
-    </div>
+<!--    </div> -->
     <footer></footer>
 </body>
 </html>
