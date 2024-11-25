@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://mahmudstat.github.io/games/assets/css/style.css">
+    <link rel = "stylesheet" href = "radio.css">
+    <script src="header.js" defer></script>
+    <script src="radio.js" defer></script>
+</head>
+<body>
+    <header></header>
+    <div class="main-content">
+        <h1>Welcome to Our Website</h1>
+<!--        <p>This is the home page. Here you can find 
+a brief introduction.
+</p>
+-->
+  <audio id="audioPlayer" controls></audio>
+
+        <div class="progress-container">
+    <span id="currentTime">0:00</span>
+    <input type="range" id="progressBar" min="0" max="100" value="0">
+    <span id="totalDuration">0:00</span>
+    </div>
+
+    <marquee style="background: rgba(51, 170, 51, .2);margin-bottom:10px;" class="trk" width="40%" scrollamount="3" id="trackInfoWrapper">
+  <span id="trackInfoText">শুনছেন: </span><span id="trackInfo"> -  - </span>
+</marquee>
+
+
+
+    <div class="controls">
+        <button id="shuffle"><i class="fas fa-random"></i> Off</button>
+        <button id="prev"><i class="fas fa-backward"></i></button>
+        <button id="play"><i class="fas fa-play"></i></button>
+        <button id="pause" style="display: none;"><i class="fas fa-pause"></i></button>
+        <button id="next"><i class="fas fa-forward"></i></button>
+        <button id="repeat"><i class="fas fa-redo"></i> Off</button>
+        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
+    </div>
+
+    <div class="main-container">
+    <div class="dropdowns">
+<h3> কাস্টম রেডিও </h3>
+    <div>
+        <label for="albumSelect">অ্যালবাম:</label>
+        <select id="albumSelect"></select>
+        </div>
+
+            <div>
+        <label for="singerSelect">শিল্পী:</label>
+        <select id="singerSelect"></select>
+                </div>
+
+        <div>
+        <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
+        <select id="groupSelect"></select>
+        </div>
+
+        <div>
+        <label for="genreSelect">বিভাগ:</label>
+        <select id="genreSelect"></select>
+        </div>
+
+        <div>
+        <label for="subgenreSelect">উপ-বিভাগ:</label>
+        <select id="subgenreSelect"></select>
+        </div>
+
+         <!-- Search Box -->
+    <label for="searchBox">খুঁজুন:</label>
+    <input class="searchBox" type="text" id="searchBox" placeholder="কিছু টাইপ করুন...">
+
+</div>
+
+    <ul id="songList"></ul>
+
+    </div>
+
+    </div>
+    <footer></footer>
+</body>
+</html>
