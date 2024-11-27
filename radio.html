@@ -23,56 +23,97 @@
             margin-bottom: 20px;
         }
 
-        /* Flex container for header and songList */
-        .main-container {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start; /* Align header and songList at the top */
-        width: 100%; /* Take full width of the screen */
-        gap: 20px; /* Add space between header and songList */
-        margin-top: 20px;
+/* Main container adjustments */
+.main-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: center; /* Center align content */
+    width: 100%; /* Full width */
+    padding: 0 10px; /* Add small padding for breathing room */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Dropdowns adjustments */
+.dropdowns {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: center; /* Center content */
+    gap: 10px; /* Add space between items */
+    width: 100%; /* Utilize full width */
+}
+
+/* Dropdown select adjustments */
+.dropdowns select {
+    flex-basis: 30%; /* Use 30% of available width per dropdown */
+    max-width: 100%; /* Prevent overflow */
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #a64dff;
+    opacity: 0.8;
+    transition: width 0.3s ease;
+}
+
+/* Search box adjustments */
+.searchBox {
+    flex-basis: 30%; /* Use similar width as dropdowns */
+    max-width: 100%; /* Prevent overflow */
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 16px;
+    background-color: #a64dff;
+    opacity: 0.9;
+    transition: width 0.3s ease;
+}
+
+/* Song list adjustments */
+#songList {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    margin-top: 20px;
+    width: 100%; /* Full width */
+    max-width: 600px; /* Limit max width */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+#songList li {
+    margin: 10px auto; /* Center each item */
+    font-size: 18px;
+    background: #1a66ff;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    width: 90%; /* Utilize 90% of available width */
+}
+
+#songList li:hover {
+    background: #a64dff;
+    color: black;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 600px) {
+    .main-container {
+        padding: 0; /* Remove side padding */
     }
 
-        #header img {
-            height: 60px;
-        }
-        .dropdowns, {
-            margin-bottom: 20px;
-            text-align: center;
-            color: white;
-            text-shadow: 1px 1px blue;
-            opacity: 70%
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            max-width: 200px;
-        }
+    .dropdowns {
+        gap: 5px; /* Reduce gap on smaller screens */
+    }
 
-        .dropdowns select {
-            margin: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #a64dff;
-            opacity: 70%
-        }
+    .dropdowns select,
+    .searchBox {
+        flex-basis: 100%; /* Take full width on small screens */
+    }
 
-        .dropdowns select:hover {
-        background-color: #a64dff; /* Darker shade for hover effect */
-        }
+    #songList li {
+        width: 95%; /* Slightly increase width utilization */
+    }
+}
 
-        .searchBox{
-            margin: 10px;
-            padding: 10px;
-            border-radius: 20px;
-            color: black;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #a64dff;
-            opacity: 90%
-        }
+/* Main Container End */
 
         .controls {
     display: flex;
@@ -114,28 +155,6 @@
             background-color: #007BFF;
             display: none;
         }
-        #songList {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-            margin-top: 20px;
-            width: 80%;
-            max-width: 600px;
-            flex-grow: 1; /* Make songList take remaining space */
-        }
-        #songList li {
-            cursor: pointer;
-            margin: 10px;
-            font-size: 18px;
-            background: #1a66ff;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        #songList li:hover {
-            background: #a64dff;
-            color: black;
-        }
 
         .progress-container {
     display: flex;
@@ -170,7 +189,7 @@
 
     <div id="header">
         <h1>Alomoy Radio</h1>
-        <img src="images/alomoy.png" alt="Logo">
+        <img width="50px" src="images/alomoy.png" alt="Logo">
     </div>
 
 
@@ -186,8 +205,6 @@
   <span id="trackInfoText">শুনছেন: </span><span id="trackInfo"> -  - </span>
 </marquee>
 
-
-
     <div class="controls">
         <button id="shuffle"><i class="fas fa-random"></i> Off</button>
         <button id="prev"><i class="fas fa-backward"></i></button>
@@ -200,7 +217,6 @@
 
     <div class="main-container">
     <div class="dropdowns">
-<h3> কাস্টম রেডিও </h3>
     <div>
         <label for="albumSelect">অ্যালবাম:</label>
         <select id="albumSelect"></select>
