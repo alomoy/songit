@@ -18,10 +18,101 @@
             background: url('images/bg/2.jpg') no-repeat center center fixed;
             background-size: cover;
         }
-        #header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#header img {
+    max-width: 50px;
+    height: auto;
+}
+
+#header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+#header nav {
+    display: flex;
+    gap: 10px;
+}
+
+#header nav a {
+    text-decoration: none;
+    color: white;
+    background-color: #1a66ff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+#header nav a:hover {
+    background-color: #a64dff;
+}
+
+/* Hamburger menu button */
+.hamburger {
+    display: none;
+    background-color: #1a66ff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    #header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    #header img {
+        max-width: 40px;
+    }
+
+    #header h1 {
+        font-size: 20px;
+    }
+
+    #header nav {
+        display: none; /* Hide menu by default on small screens */
+        flex-direction: column;
+        gap: 5px;
+        position: absolute;
+        top: 100%; /* Position menu below the header */
+        left: 90%;
+        transform: translateX(-50%);
+        background-color: #1a66ff;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    #header nav a {
+        font-size: 12px;
+        padding: 5px;
+        display: block; /* Make links stack vertically */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger button on small screens */
+    }
+
+    #navLinks.show {
+        display: flex; /* Show menu when toggled */
+    }
+}
+
 
 /* Main container adjustments */
 .main-container {
@@ -60,10 +151,10 @@
     flex-basis: 30%; /* Use similar width as dropdowns */
     max-width: 100%; /* Prevent overflow */
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 16px;
+    color: black;
     background-color: #a64dff;
-    opacity: 0.9;
     transition: width 0.3s ease;
 }
 
@@ -186,11 +277,17 @@
     </style>
 </head>
 <body>
+<div id="header">
+    <img width="50px" src="images/alomoy.png" alt="Logo">
+    <h1>আলোময় সঙ্গীত</h1>
+    <button id="hamburgerMenu" class="hamburger">☰</button>
+    <nav id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</div>
 
-    <div id="header">
-        <h1>Alomoy Radio</h1>
-        <img width="50px" src="images/alomoy.png" alt="Logo">
-    </div>
 
 
   <audio id="audioPlayer" controls></audio>
@@ -243,8 +340,8 @@
         </div>
 
          <!-- Search Box -->
-    <label for="searchBox">খুঁজুন:</label>
-    <input class="searchBox" type="text" id="searchBox" placeholder="কিছু টাইপ করুন...">
+<!--    <label for="searchBox">খুঁজুন:</label>  -->
+    <input class="searchBox" type="text" id="searchBox" placeholder="সার্চ করুন">
 
 </div>
 
@@ -505,6 +602,14 @@ document.getElementById('searchBox').addEventListener('input', function () {
     });
 
     displaySongs(filteredSongs);
+});
+
+// hamburger
+
+// JavaScript to toggle the menu visibility on small screens
+document.getElementById('hamburgerMenu').addEventListener('click', () => {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('show');
 });
 
 
