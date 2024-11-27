@@ -13,13 +13,14 @@
 <body>
     <header></header>
   <div class="main-content"> 
-        <h1>Welcome to Our Website</h1>
+<!--           <h1>Welcome to Our Website</h1> -->
 <!--        <p>This is the home page. Here you can find 
 a brief introduction.
 </p>
 -->
-
-    <div class="dropdowns">
+    <button id="hamburgerMenu" class="hamburger">ইচ্ছেমতো বাছাই ☵ </button>
+ <div class="dropdowns">
+   <div>
         <label for="albumSelect">অ্যালবাম:</label>
         <select id="albumSelect"></select>
 
@@ -28,7 +29,8 @@ a brief introduction.
 
         <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
         <select id="groupSelect"></select>
-
+        </div>
+<div>
         <label for="genreSelect">বিভাগ:</label>
         <select id="genreSelect"></select>
 
@@ -38,7 +40,7 @@ a brief introduction.
          <!-- Search Box -->
     <label for="searchBox">খুঁজুন:</label>
     <input class="searchBox" type="text" id="searchBox" placeholder="কিছু টাইপ করুন...">
-
+</div>
  </div> 
 
     </div>
@@ -55,8 +57,6 @@ a brief introduction.
   <span id="trackInfoText">শুনছেন: </span><span id="trackInfo"> -  - </span>
 </marquee>
 
-
-
     <div class="controls">
         <button id="shuffle"><i class="fas fa-random"></i> Off</button>
         <button id="prev"><i class="fas fa-backward"></i></button>
@@ -66,6 +66,7 @@ a brief introduction.
         <button id="repeat"><i class="fas fa-redo"></i> Off</button>
         <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
     </div>
+  
 
  <!--   <div class="main-container"> -->
     <ul id="songList"></ul>

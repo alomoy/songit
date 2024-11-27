@@ -251,3 +251,10 @@ document.getElementById('searchBox').addEventListener('input', function () {
 
     displaySongs(filteredSongs);
 });
+
+// hamburgerMenu
+
+document.getElementById("hamburgerMenu").addEventListener("click", function () {
+    const dropdowns = document.querySelector(".dropdowns");
+    dropdowns.classList.toggle("show");
+});
