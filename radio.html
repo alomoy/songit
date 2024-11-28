@@ -190,6 +190,7 @@
 #songList li:hover {
     background: #a64dff;
     color: black;
+    cursor: pointer;
 }
 
 /* Mobile-specific styles */
@@ -219,6 +220,7 @@
 /* Main controls container adjustments */
 .controls {
     display: flex;
+    font-size:38px;
     justify-content: center;
     gap: 5px;
     margin-bottom: 5px;
@@ -238,12 +240,13 @@
     border-radius: 50%; /* Circular shape */
     background-color: #4d88ff;
     color: white;
-    font-size: clamp(10px, 1.5vw, 12px); /* Smaller responsive font size */
+    font-size: 18px; /*clamp(10px, 1.5vw, 12px); /* Smaller responsive font size */
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 5px;
 }
 
 .controls button:hover {
@@ -263,13 +266,13 @@
         height: 18vw; /* Ensures circular shape */
         max-width: 50px; /* Limit the size of buttons */
         max-height: 50px; /* Limit the size of buttons */
-        margin-bottom: 10px; /* Adds space between buttons */
+        margin-bottom: 5px; /* Adds space between buttons */
     }
 
     /* Volume slider adjustments */
     #volume {
         width: 80%; /* Volume slider takes up more space on mobile */
-        margin-top: 10px; /* Adds margin between the volume and buttons */
+        margin-top: 5px; /* Adds margin between the volume and buttons */
         max-width: 300px; /* Set a max width for the volume slider */
         display: block; /* Ensure volume slider is on a new line */
         margin-left: auto;
@@ -347,10 +350,11 @@
   color: #FFFFFF;
   padding: 5px;
   position: absolute;
+  text-align: left;
   z-index: 10;
   bottom:32px;
   left: 0px;
-  width:300px;
+  width:450px;
   visibility: hidden;
   background-color: #a64dff;
   font-size: 14px;
@@ -364,14 +368,15 @@
 
 /* Optional: Add a small triangle pointer to the tooltip */
 .tooltip .tooltiptext:before {
-    content: "";
-    position: absolute;
-    top: 100%; /* Position the arrow at the bottom of the tooltip */
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: #a64dff transparent transparent transparent; /* Arrow color matches the tooltip background */
+border-style: solid;
+border-width: 10px;
+height:0px;
+width:0px;
+position:absolute;	
+display:block;
+content:"<i class="fas fa-random"></i>";
+right:92px;
+bottom:-20px;
 }
 
 
@@ -408,15 +413,18 @@
 
     <div class="controls">
       <!-- Tooltip trigger element -->
-<button class="tooltip"><i class="fa fa-info-circle" style="font-size:38px"></i>
+<button class="tooltip"><i class="fa fa-info-circle" style="font-size:26px; background-"></i>
     <div class="tooltiptext">
-        <p>১. গান শাফল করতে  <i class="fas fa-random"></i></p>
+        <p>১. গান শাফল করতে  <i class="fas fa-random"></i> ক্লিক করুন।</p>
         <p>
        ২.  রিপিট অপশনের জন্য <i class="fas fa-redo"></i>
         ক্লিক করুন। রিপিট অফ, চলমান গান রিপিট বা সব গান রিপিট করা যাবে।
         </p>
         <p>
         ৩. ড্রপডাউন মেনু থেকে পছন্দের গান বাছাই করুন।
+                <p>
+        ৪. গান শুরু করতে প্লে <i class="fas fa-play"></i> বাটন বা গানের নামে ক্লিক করুন।
+        </p>
         </p>
     </div>
 </button>
