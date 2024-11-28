@@ -240,7 +240,7 @@
     border-radius: 50%; /* Circular shape */
     background-color: #4d88ff;
     color: white;
-    font-size: 18px; /*clamp(10px, 1.5vw, 12px); /* Smaller responsive font size */
+    font-size: clamp(15px, 18, 20px); /* Smaller responsive font size */
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
@@ -252,6 +252,23 @@
 .controls button:hover {
     background-color: #a64dff;
 }
+
+/* Make the volume slider vertical and hidden by default */
+#volume {
+    display: none; /* Hidden by default */
+    transform: rotate(-90deg); /* Rotate to make it vertical */
+    width: 120px; /* Height of the vertical slider */
+    height: 8px; /* Width of the vertical slider */
+    position: absolute; /* Position it relative to the button */
+    z-index: 10;
+    transition: opacity 0.3s ease; /* Smooth appearance */
+}
+
+/* Show the slider when toggled */
+#volume.show {
+    display: block; /* Make it visible */
+}
+
 
 /* On small screens, control buttons should take full width of the container */
 @media (max-width: 600px) {
@@ -271,12 +288,8 @@
 
     /* Volume slider adjustments */
     #volume {
-        width: 80%; /* Volume slider takes up more space on mobile */
-        margin-top: 5px; /* Adds margin between the volume and buttons */
-        max-width: 300px; /* Set a max width for the volume slider */
-        display: block; /* Ensure volume slider is on a new line */
-        margin-left: auto;
-        margin-right: auto; /* Center align the volume slider */
+        left: auto; /* Reset if needed */
+        bottom: 80px; /* Adjust position on smaller screens */
     }
 }
 
@@ -434,7 +447,7 @@ bottom:-20px;
         <button id="pause" style="display: none;"><i class="fas fa-pause"></i></button>
         <button id="next"><i class="fas fa-forward"></i></button>
         <button id="repeat"><i class="fas fa-redo"></i><!--Off--></button>
-        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
+        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="ভলিউম">
     </div>
 
     <div class="main-container">
@@ -749,6 +762,34 @@ document.getElementById('hamburgerMenu').addEventListener('click', () => {
     const navLinks = document.getElementById('navLinks');
     navLinks.classList.toggle('show');
 });
+
+// Volume
+document.addEventListener('DOMContentLoaded', () => {
+    const volumeButton = document.createElement('button'); // Add a volume toggle button
+    volumeButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+    volumeButton.id = 'volumeToggle';
+    document.querySelector('.controls').appendChild(volumeButton);
+
+    const volumeSlider = document.getElementById('volume');
+
+    // Toggle the visibility of the slider on button click
+    volumeButton.addEventListener('click', (event) => {
+        const buttonRect = volumeButton.getBoundingClientRect();
+
+        // Position the slider directly above the button
+        volumeSlider.style.left = `${buttonRect.left + buttonRect.width / 2 - 62}px`; // Center horizontally
+        volumeSlider.style.top = `${buttonRect.top - buttonRect.height - 10}px`; // Positioned directly above with slight padding
+        volumeSlider.classList.toggle('show');
+    });
+
+    // Hide the slider when clicking anywhere outside
+    document.addEventListener('click', (event) => {
+        if (!volumeButton.contains(event.target) && !volumeSlider.contains(event.target)) {
+            volumeSlider.classList.remove('show');
+        }
+    });
+});
+
 
 
 // Show per page
