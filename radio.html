@@ -482,6 +482,9 @@ bottom:-20px;
 
 </div>
 
+<div id="songCount"></div>
+
+
     <ul id="songList"></ul>
 
     </div>
@@ -525,7 +528,7 @@ bottom:-20px;
             displaySongs(filteredSongs);
         }
 
-        function displaySongs(songList) {
+function displaySongs(songList) {
     // Randomize the list by song name
     songList.sort(() => {
         return Math.random() - 0.5; // Shuffle by random order
@@ -533,6 +536,10 @@ bottom:-20px;
 
     const songListContainer = document.getElementById('songList');
     songListContainer.innerHTML = '';
+
+    // Display the number of songs available
+    const songCountElement = document.getElementById('songCount');
+    songCountElement.textContent = `মোট সঙ্গীত: ${songList.length}`;
 
     songList.forEach((song, index) => {
         const li = document.createElement('li');
@@ -545,6 +552,7 @@ bottom:-20px;
     currentPlaylist = songList;
     currentSongIndex = 0;
 }
+
 
 
         function playSong(index) {
