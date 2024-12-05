@@ -407,8 +407,8 @@ bottom:-20px;
 
 #songCount {
     white-space: nowrap;
-    font-size: clamp(12px, 2.5vw, 16px); /* Responsive font size */
-    margin: 10px auto; /* Add spacing */
+    font-size: clamp(15px, 2.5vw, 16px); /* Responsive font size */
+    /* margin: 10px auto;  Add spacing */
     text-align: center;
 }
 
@@ -582,7 +582,13 @@ bottom:-20px;
             });
 
             displaySongs(filteredSongs);
+            updateSongCount(filteredSongs.length, songs.length);
         }
+
+        function updateSongCount(selectedCount, totalCount) {
+    const songCountElement = document.getElementById('songCount');
+    songCountElement.textContent = `মোট সঙ্গীত: ${totalCount} | নির্বাচিত সঙ্গীত: ${selectedCount}`;
+}
 
 function displaySongs(songList) {
     // Randomize the list by song name
@@ -593,9 +599,6 @@ function displaySongs(songList) {
     const songListContainer = document.getElementById('songList');
     songListContainer.innerHTML = '';
 
-    // Display the number of songs available
-    const songCountElement = document.getElementById('songCount');
-    songCountElement.textContent = `মোট সঙ্গীত: ${songList.length}`;
 
     songList.forEach((song, index) => {
         const li = document.createElement('li');
@@ -719,6 +722,8 @@ document.getElementById('play').addEventListener('click', () => {
             populateDropdown(songs.map(song => song.genre), 'genreSelect');
             populateDropdown(songs.map(song => song.subgenre), 'subgenreSelect');
             displaySongs(songs);
+            updateSongCount(songs.length, songs.length); // Initially, all songs are selected
+
         });
 
         // Add event listeners to dropdowns
