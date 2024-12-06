@@ -8,4 +8,4 @@ View(songs)
 library(dplyr)
 songs <- songs %>% arrange(album)
 
-write.csv(songs, "radio/songs.csv", row.names = FALSE)
+write.csv(songs, "radio/songs.csv", row.names = FALSE, quote = F)
