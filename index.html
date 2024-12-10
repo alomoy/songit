@@ -480,7 +480,7 @@ bottom:-20px;
   <audio id="audioPlayer" controls></audio>
 
 <div class="progress-container">
-    <marquee class="trk" scrollamount="3" id="trackInfoWrapper">
+    <marquee onmouseover="this.stop();" onmouseout="this.start();" class="trk" scrollamount="3" id="trackInfoWrapper">
         <span id="trackInfoText">শুনছেন: </span><span id="trackInfo"> -  - </span>
     </marquee>
     <div class="progress-bar-wrapper">
@@ -835,8 +835,25 @@ function playSong(index) {
 
 function updateTrackInfo(song) {
     const trackInfo = document.getElementById('trackInfo');
-    trackInfo.textContent = `${song.song} - ${song.singer} - ${song.group}`;
+    
+    // Clear previous content
+    trackInfo.innerHTML = '';
+
+    // Add song details
+    const songDetails = document.createTextNode(`${song.song} - ${song.singer} - ${song.group} - `);
+    trackInfo.appendChild(songDetails);
+
+    // Create a download link
+    const downloadLink = document.createElement('a');
+    downloadLink.href = song.src; // Use the song source URL
+    downloadLink.textContent = 'ডাউনলোড';
+    downloadLink.download = ''; // Allows download with the file's original name
+    downloadLink.style.marginLeft = '4px'; // Optional: Add some spacing
+
+    // Append the download link to the trackInfo span
+    trackInfo.appendChild(downloadLink);
 }
+
 
 // Track Info Ends
 
