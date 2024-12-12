@@ -337,7 +337,7 @@
     width: 80%;
     max-width: 600px;
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .trk {
@@ -623,7 +623,7 @@ function displaySongs(songList) {
 
     songList.forEach((song, index) => {
         const li = document.createElement('li');
-        li.textContent = `${song.song} - ${song.singer} - ${song.group}`;
+        li.textContent = `${song.song} - ${song.singer} - ${song.group} - অ্যালবাম: ${song.album}`;
         li.dataset.index = index;
         li.addEventListener('click', () => playSong(index));
         songListContainer.appendChild(li);
