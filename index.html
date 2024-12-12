@@ -619,8 +619,6 @@ function displaySongs(songList) {
 
     const songListContainer = document.getElementById('songList');
     songListContainer.innerHTML = '';
-
-
     songList.forEach((song, index) => {
         const li = document.createElement('li');
         li.textContent = `${song.song} - ${song.singer} - ${song.group} - অ্যালবাম: ${song.album}`;
