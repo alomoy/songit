@@ -1,6 +1,6 @@
 // Function to load the header
 function loadHeader() {
-    fetch('header.html')
+    fetch('radio/header.html')
         .then(response => response.text())
         .then(data => {
             document.querySelector('header').innerHTML = data;
@@ -10,7 +10,7 @@ function loadHeader() {
 
 // Function to load the footer
 function loadFooter() {
-    fetch('footer.html')
+    fetch('radio/footer.html')
         .then(response => response.text())
         .then(data => {
             document.querySelector('footer').innerHTML = data;
