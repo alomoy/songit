@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Songs</title>
+    <title>আলোময় সঙ্গীত: সঙ্গীত সার্চ</title>
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
@@ -118,12 +118,12 @@
     </style>
 </head>
 <body>
-    <h1>Search for Songs</h1>
+    <h1>সঙ্গীত খুঁজুন</h1>
 
     <!-- Search form -->
     <form id="search-form">
-        <input type="text" id="search-input" placeholder="Enter search term" />
-        <button type="submit">Search</button>
+        <input type="text" id="search-input" placeholder="যা খুঁজতে চান" />
+        <button type="submit">সার্চ</button>
     </form>
 
     <!-- Player and Controls Section -->
@@ -150,7 +150,7 @@
     <div id="songs-count" class="songs-count"></div>
 
     <!-- Song List -->
-    <h2>Search Results:</h2>
+   <!--  <h2>সার্চ ফলাফল:</h2>-->
     <ul id="playlist"></ul>
 
     <script>
@@ -205,7 +205,7 @@
                     }
 
                     // Display the number of songs found
-                    songsCountElement.textContent = `${filteredSongs.length} song(s) found.`;
+                    songsCountElement.textContent = `${filteredSongs.length} টি সঙ্গীত পাওয়া গেছে!`;
 
                     // Populate the playlist with filtered songs
                     filteredSongs.forEach(song => {
