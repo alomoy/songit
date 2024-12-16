@@ -64,7 +64,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 30px;
+            margin-bottom: 20px;
             width: 80%;
             max-width: 600px;
         }
@@ -98,6 +98,12 @@
         .controls button:focus {
             outline: none;
         }
+
+        .songs-count {
+            font-size: 16px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -109,10 +115,7 @@
         <button type="submit">Search</button>
     </form>
 
-    <h2>Search Results:</h2>
-    <ul id="playlist"></ul>
-
-    <!-- Audio player with controls aligned on the same line -->
+    <!-- Player and Controls Section -->
     <div class="player-container">
         <audio id="song-player" controls></audio>
 
@@ -131,6 +134,13 @@
             </button>
         </div>
     </div>
+
+    <!-- Songs Count -->
+    <div id="songs-count" class="songs-count"></div>
+
+    <!-- Song List -->
+    <h2>Search Results:</h2>
+    <ul id="playlist"></ul>
 
     <script>
         let allSongs = [];  // All songs from the CSV
@@ -157,9 +167,11 @@
         function loadSongs(searchTerm) {
             const playlistContainer = document.getElementById('playlist');
             const audioPlayer = document.getElementById('song-player');
+            const songsCountElement = document.getElementById('songs-count');
 
-            // Clear the playlist
+            // Clear the playlist and songs count
             playlistContainer.innerHTML = '';
+            songsCountElement.textContent = '';
 
             fetch('radio/songs.csv')
                 .then(response => response.text())
@@ -177,9 +189,14 @@
 
                     if (filteredSongs.length === 0) {
                         playlistContainer.innerHTML = '<li>No matching songs found</li>';
+                        songsCountElement.textContent = '0 songs found.';
                         return;
                     }
 
+                    // Display the number of songs found
+                    songsCountElement.textContent = `${filteredSongs.length} song(s) found.`;
+
+                    // Populate the playlist with filtered songs
                     filteredSongs.forEach(song => {
                         const listItem = document.createElement('li');
                         listItem.textContent = `${song.Song} - ${song.singer} (${song.album})`;
@@ -200,6 +217,7 @@
                 .catch(err => {
                     console.error('Error fetching or parsing CSV:', err);
                     playlistContainer.innerHTML = '<li>Error loading songs</li>';
+                    songsCountElement.textContent = '0 songs found.';
                 });
         }
 
