@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist from URL</title>
+</head>
+<body>
+    <h1>Playlist</h1>
+    <ul id="playlist"></ul>
+    <audio id="song-player" controls></audio>
+
+    <script>
+      
+// Utility to parse CSV into an array of objects
+function parseCSV(text) {
+    const lines = text.split('\n').filter(line => line.trim() !== ''); // Ignore empty lines
+    const headers = lines[0].split(',').map(header => header.trim());
+    return lines.slice(1).map(line => {
+        const values = line.split(',');
+        return headers.reduce((obj, header, index) => {
+            obj[header] = values[index]?.trim() || ''; // Handle missing values
+            return obj;
+        }, {});
+    });
+}
+
+// Function to fetch songs and build the playlist
+function createPlaylistFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('search')?.toLowerCase();
+
+    if (!searchQuery) {
+        document.body.innerHTML = '<h1>No search term provided in the URL.</h1>';
+        return;
+    }
+
+    const playlistContainer = document.getElementById('playlist');
+    const audioPlayer = document.getElementById('song-player');
+
+    fetch('radio/songs.csv')
+        .then(response => response.text())
+        .then(csvText => {
+            const songs = parseCSV(csvText);
+
+            const matchingSongs = songs.filter(song => {
+                const songName = song.Song?.toLowerCase() || '';
+                const albumName = song.album?.toLowerCase() || '';
+                const singerName = song.singer?.toLowerCase() || '';
+
+                return songName.includes(searchQuery) || albumName.includes(searchQuery) || singerName.includes(searchQuery);
+            });
+
+            if (matchingSongs.length === 0) {
+                playlistContainer.innerHTML = '<li>No matching songs found</li>';
+                return;
+            }
+
+            matchingSongs.forEach(song => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${song.Song} - ${song.singer} (${song.album})`;
+                listItem.dataset.src = song.src;
+
+                listItem.onclick = () => {
+                    audioPlayer.src = song.src;
+                    audioPlayer.play();
+                };
+
+                playlistContainer.appendChild(listItem);
+            });
+
+            if (matchingSongs.length > 0) {
+                audioPlayer.src = matchingSongs[0].src;
+                audioPlayer.play();
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching or parsing CSV:', err);
+            playlistContainer.innerHTML = '<li>Error loading songs</li>';
+        });
+}
+
+// Run the function when the page loads
+createPlaylistFromURL();
+
+
+    </script>
+</body>
+</html>

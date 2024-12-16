@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Song Player</title>
+</head>
+<body>
+    <div id="song-info">
+        <h1 id="song-title"></h1>
+        <p id="song-album"></p>
+        <p id="song-singer"></p>
+        <audio id="song-player" controls></audio>
+    </div>
+
+    <script>
+// Utility to parse CSV into an array of objects
+function parseCSV(text) {
+    const lines = text.split('\n');
+    const headers = lines[0].split(',');
+    return lines.slice(1).map(line => {
+        const values = line.split(',');
+        return headers.reduce((obj, header, index) => {
+            obj[header.trim()] = values[index]?.trim();
+            return obj;
+        }, {});
+    });
+}
+
+// Function to fetch CSV and find song details
+function loadSongData() {
+    // Get the song name from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const songName = urlParams.get('song_name');
+
+    if (!songName) {
+        document.body.innerHTML = '<h1>Song name not provided in the URL.</h1>';
+        return;
+    }
+
+    // Fetch the CSV file
+    fetch('radio/songs.csv')
+        .then(response => response.text())
+        .then(csvText => {
+            const songs = parseCSV(csvText);
+            const song = songs.find(s => s.Song.toLowerCase() === songName.toLowerCase());
+
+            if (!song) {
+                document.body.innerHTML = `<h1>Song "${songName}" not found.</h1>`;
+                return;
+            }
+
+            // Populate the HTML with song details
+            document.getElementById('song-title').textContent = song.Song;
+            document.getElementById('song-album').textContent = `Album: ${song.album}`;
+            document.getElementById('song-singer').textContent = `Singer: ${song.singer}`;
+            document.getElementById('song-player').src = song.src;
+        })
+        .catch(err => {
+            console.error('Error fetching or parsing CSV:', err);
+            document.body.innerHTML = '<h1>Error loading song data.</h1>';
+        });
+}
+
+// Load the song data when the page is loaded
+loadSongData();
+
+
+    </script>
+</body>
+</html>
+
