@@ -3,87 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Playlist from URL</title>
+    <title>Search Songs</title>
+    <!-- Link to FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #search-form {
+            margin-bottom: 20px;
+        }
+
+        #search-input {
+            padding: 8px;
+            font-size: 14px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #playlist {
+            margin-top: 20px;
+            list-style-type: none;
+            padding: 0;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        li {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        li:hover {
+            background-color: #e0e0e0;
+        }
+
+        .player-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        #song-player {
+            width: 100%;
+            max-width: 400px;
+            margin-right: 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .controls button {
+            background-color: #f1f1f1;
+            border: none;
+            padding: 12px;
+            margin: 0 5px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .controls button:hover {
+            background-color: #ddd;
+        }
+
+        .controls button:focus {
+            outline: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Playlist</h1>
+    <h1>Search for Songs</h1>
+
+    <!-- Search form -->
+    <form id="search-form">
+        <input type="text" id="search-input" placeholder="Enter search term" />
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Search Results:</h2>
     <ul id="playlist"></ul>
-    <audio id="song-player" controls></audio>
+
+    <!-- Audio player with controls aligned on the same line -->
+    <div class="player-container">
+        <audio id="song-player" controls></audio>
+
+        <div class="controls">
+            <button id="prev-btn" title="Previous">
+                <i class="fas fa-backward"></i>
+            </button>
+            <button id="repeat-btn" title="Repeat">
+                <i class="fas fa-redo"></i>
+            </button>
+            <button id="shuffle-btn" title="Shuffle">
+                <i class="fas fa-random"></i>
+            </button>
+            <button id="next-btn" title="Next">
+                <i class="fas fa-forward"></i>
+            </button>
+        </div>
+    </div>
 
     <script>
-      
-// Utility to parse CSV into an array of objects
-function parseCSV(text) {
-    const lines = text.split('\n').filter(line => line.trim() !== ''); // Ignore empty lines
-    const headers = lines[0].split(',').map(header => header.trim());
-    return lines.slice(1).map(line => {
-        const values = line.split(',');
-        return headers.reduce((obj, header, index) => {
-            obj[header] = values[index]?.trim() || ''; // Handle missing values
-            return obj;
-        }, {});
-    });
-}
+        let allSongs = [];  // All songs from the CSV
+        let filteredSongs = [];  // Filtered songs based on the search query
+        let currentIndex = 0;
+        let isShuffling = false;
+        let isRepeating = false;
 
-// Function to fetch songs and build the playlist
-function createPlaylistFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get('search')?.toLowerCase();
+        // Handle search form submission and update the URL with 'query' as the parameter
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
 
-    if (!searchQuery) {
-        document.body.innerHTML = '<h1>No search term provided in the URL.</h1>';
-        return;
-    }
-
-    const playlistContainer = document.getElementById('playlist');
-    const audioPlayer = document.getElementById('song-player');
-
-    fetch('radio/songs.csv')
-        .then(response => response.text())
-        .then(csvText => {
-            const songs = parseCSV(csvText);
-
-            const matchingSongs = songs.filter(song => {
-                const songName = song.Song?.toLowerCase() || '';
-                const albumName = song.album?.toLowerCase() || '';
-                const singerName = song.singer?.toLowerCase() || '';
-
-                return songName.includes(searchQuery) || albumName.includes(searchQuery) || singerName.includes(searchQuery);
-            });
-
-            if (matchingSongs.length === 0) {
-                playlistContainer.innerHTML = '<li>No matching songs found</li>';
-                return;
+            const searchTerm = document.getElementById('search-input').value.trim();
+            if (searchTerm) {
+                // Update the URL with 'query' as the key
+                const url = new URL(window.location);
+                url.searchParams.set('query', searchTerm); // Changed 'search' to 'query'
+                window.history.pushState({}, '', url); // Update the URL in the browser without reloading the page
+                loadSongs(searchTerm); // Load songs based on the new search term
             }
-
-            matchingSongs.forEach(song => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${song.Song} - ${song.singer} (${song.album})`;
-                listItem.dataset.src = song.src;
-
-                listItem.onclick = () => {
-                    audioPlayer.src = song.src;
-                    audioPlayer.play();
-                };
-
-                playlistContainer.appendChild(listItem);
-            });
-
-            if (matchingSongs.length > 0) {
-                audioPlayer.src = matchingSongs[0].src;
-                audioPlayer.play();
-            }
-        })
-        .catch(err => {
-            console.error('Error fetching or parsing CSV:', err);
-            playlistContainer.innerHTML = '<li>Error loading songs</li>';
         });
-}
 
-// Run the function when the page loads
-createPlaylistFromURL();
+        // Function to load songs based on the search query from the URL
+        function loadSongs(searchTerm) {
+            const playlistContainer = document.getElementById('playlist');
+            const audioPlayer = document.getElementById('song-player');
 
+            // Clear the playlist
+            playlistContainer.innerHTML = '';
 
+            fetch('radio/songs.csv')
+                .then(response => response.text())
+                .then(csvText => {
+                    allSongs = parseCSV(csvText);  // Store all songs
+                    const searchQuery = searchTerm.toLowerCase();
+
+                    filteredSongs = allSongs.filter(song => {
+                        const songName = song.Song?.toLowerCase() || '';
+                        const albumName = song.album?.toLowerCase() || '';
+                        const singerName = song.singer?.toLowerCase() || '';
+
+                        return songName.includes(searchQuery) || albumName.includes(searchQuery) || singerName.includes(searchQuery);
+                    });
+
+                    if (filteredSongs.length === 0) {
+                        playlistContainer.innerHTML = '<li>No matching songs found</li>';
+                        return;
+                    }
+
+                    filteredSongs.forEach(song => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${song.Song} - ${song.singer} (${song.album})`;
+                        listItem.dataset.src = song.src;
+
+                        listItem.onclick = () => {
+                            currentIndex = filteredSongs.indexOf(song);
+                            playSong(filteredSongs, currentIndex);
+                        };
+
+                        playlistContainer.appendChild(listItem);
+                    });
+
+                    if (filteredSongs.length > 0) {
+                        playSong(filteredSongs, 0);
+                    }
+                })
+                .catch(err => {
+                    console.error('Error fetching or parsing CSV:', err);
+                    playlistContainer.innerHTML = '<li>Error loading songs</li>';
+                });
+        }
+
+        // Play song function (now uses filtered songs)
+        function playSong(songList, index) {
+            const audioPlayer = document.getElementById('song-player');
+            const song = songList[index];
+            audioPlayer.src = song.src;
+            audioPlayer.play();
+        }
+
+        // Update player controls on song end (next or repeat)
+        document.getElementById('song-player').addEventListener('ended', function() {
+            if (isRepeating) {
+                playSong(filteredSongs, currentIndex); // Repeat the song within filtered results
+            } else if (isShuffling) {
+                shuffleSongs();
+            } else {
+                nextSong();
+            }
+        });
+
+        // Previous song (within filtered search results)
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            prevSong();
+        });
+
+        // Next song (within filtered search results)
+        document.getElementById('next-btn').addEventListener('click', function() {
+            nextSong();
+        });
+
+        // Repeat song
+        document.getElementById('repeat-btn').addEventListener('click', function() {
+            isRepeating = !isRepeating;
+            this.title = isRepeating ? 'Repeat (ON)' : 'Repeat';
+        });
+
+        // Shuffle songs
+        document.getElementById('shuffle-btn').addEventListener('click', function() {
+            isShuffling = !isShuffling;
+            this.title = isShuffling ? 'Shuffle (ON)' : 'Shuffle';
+            if (isShuffling) {
+                shuffleSongs();
+            }
+        });
+
+        // Shuffle function to change song order randomly within filtered list
+        function shuffleSongs() {
+            currentIndex = Math.floor(Math.random() * filteredSongs.length);
+            playSong(filteredSongs, currentIndex);
+        }
+
+        // Play the previous song within filtered list
+        function prevSong() {
+            if (currentIndex === 0) {
+                currentIndex = filteredSongs.length - 1; // Loop to the last song
+            } else {
+                currentIndex--;
+            }
+            playSong(filteredSongs, currentIndex);
+        }
+
+        // Play the next song within filtered list
+        function nextSong() {
+            if (currentIndex === filteredSongs.length - 1) {
+                currentIndex = 0; // Loop to the first song
+            } else {
+                currentIndex++;
+            }
+            playSong(filteredSongs, currentIndex);
+        }
+
+        // Load the search term from the URL when the page loads
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchTerm = urlParams.get('query'); // Changed from 'search' to 'query'
+            if (searchTerm) {
+                document.getElementById('search-input').value = searchTerm;
+                loadSongs(searchTerm); // Load the songs based on the search term in the URL
+            }
+        };
+
+        // Utility to parse CSV into an array of objects
+        function parseCSV(text) {
+            const lines = text.split('\n').filter(line => line.trim() !== ''); // Ignore empty lines
+            const headers = lines[0].split(',').map(header => header.trim());
+            return lines.slice(1).map(line => {
+                const values = line.split(',');
+                return headers.reduce((obj, header, index) => {
+                    obj[header] = values[index]?.trim() || ''; // Handle missing values
+                    return obj;
+                }, {});
+            });
+        }
     </script>
 </body>
 </html>
