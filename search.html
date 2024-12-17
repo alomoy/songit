@@ -321,7 +321,7 @@ const filteredSongs = allSongs.filter((song) => {
                     // Populate the playlist with filtered songs
                     filteredSongs.forEach(song => {
                         const listItem = document.createElement('li');
-                        listItem.textContent = `${song.Song} - ${song.singer} (${song.album})`;
+                        listItem.textContent = `${song.Song} - ${song.singer} (${song.album}) ▶`;
                         listItem.dataset.src = song.src;
 
                         // Open URL button
