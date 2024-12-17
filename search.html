@@ -250,13 +250,17 @@
                     allSongs = parseCSV(csvText);  // Store all songs
                     const searchQuery = searchTerm.toLowerCase();
 
-                    filteredSongs = allSongs.filter(song => {
-                        const songName = song.Song?.toLowerCase() || '';
-                        const albumName = song.album?.toLowerCase() || '';
-                        const singerName = song.singer?.toLowerCase() || '';
+                    // Filter songs based on the search term in any column
+const filteredSongs = allSongs.filter((song) => {
+    // Convert the search query to lowercase
+    const searchQuery = searchTerm.toLowerCase();
 
-                        return songName.includes(searchQuery) || albumName.includes(searchQuery) || singerName.includes(searchQuery);
-                    });
+    // Check all fields of the song object for the search term
+    return Object.values(song)
+        .filter((value) => typeof value === "string") // Ensure the value is a string
+        .some((value) => value.toLowerCase().includes(searchQuery));
+});
+
 
                     if (filteredSongs.length === 0) {
                         playlistContainer.innerHTML = '<li>No matching songs found</li>';
