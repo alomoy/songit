@@ -59,18 +59,6 @@
         text-align: center;
     }
 
-    li {
-        cursor: pointer;
-        padding: 10px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        margin-bottom: 5px;
-        border-radius: 5px;
-    }
-
-    li:hover {
-        background-color: #e0e0e0;
-    }
 
     .player-container {
         display: flex;
@@ -166,6 +154,65 @@
 
     .controls button:focus {
         outline: none;
+    }
+    
+        .song-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .song-item .open-url-btn {
+        background-color: #f1f1f1;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .song-item .open-url-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+    .song-item .open-url-btn i {
+        color: #555;
+        font-size: 16px;
+    }
+     li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
+
+    li:hover {
+        background-color: #e0e0e0;
+    }
+
+    .open-url-btn {
+        background-color: #f1f1f1;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .open-url-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+    .open-url-btn i {
+        color: #555;
+        font-size: 16px;
     }
 </style>
 
@@ -276,6 +323,29 @@ const filteredSongs = allSongs.filter((song) => {
                         const listItem = document.createElement('li');
                         listItem.textContent = `${song.Song} - ${song.singer} (${song.album})`;
                         listItem.dataset.src = song.src;
+
+                        // Open URL button
+    const openButton = document.createElement("button");
+    openButton.className = "open-url-btn";
+    openButton.title = "Open song in new tab";
+
+    // Add an icon for the button
+    openButton.innerHTML = `<i class="fas fa-external-link-alt"></i>`;
+
+  // Prevent parent <li> click event and open URL in a new tab
+openButton.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevent triggering the song playback
+    const songNameEncoded = encodeURIComponent(song.Song.trim());
+    const songURL = `single.html?song_name=${songNameEncoded}`;
+    window.open(songURL, "_blank");
+});
+
+    // Append open button to the list item
+    listItem.appendChild(openButton);
+
+    // Append list item to the playlist
+    playlist.appendChild(listItem);
+
 
                         listItem.onclick = () => {
                             currentIndex = filteredSongs.indexOf(song);
