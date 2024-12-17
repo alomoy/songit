@@ -4,14 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Single Song Player</title>
+    
+    <link rel="stylesheet" href="css/header.css">
+    <script src="js/header.js"></script>
 </head>
 <body>
+     <div class="sharethis-sticky-share-buttons"></div>
+<div id="header">
+    <img width="50px" src="images/alomoy.png" alt="আলোময় সঙ্গীত লোগো">
+    <h1>আলোময় সঙ্গীত</h1>
+    <button id="hamburgerMenu" class="hamburger">☰</button>
+    <nav id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="albums.html">সব অ্যালবাম</a>
+        <a href="search.html">সঙ্গীত সার্চ</a>
+        <a href="#about">আগের ভার্সন</a>
+    </nav>
+</div>
     <div id="song-info">
         <h1 id="song-title"></h1>
         <p id="song-album"></p>
         <p id="song-singer"></p>
+        <p id="song-group"></p>
         <audio id="song-player" controls></audio>
     </div>
+
+    এ অ্যালবামের সব গান শুনুন
 
     <script>
 // Utility to parse CSV into an array of objects
@@ -46,14 +64,15 @@ function loadSongData() {
             const song = songs.find(s => s.Song.toLowerCase() === songName.toLowerCase());
 
             if (!song) {
-                document.body.innerHTML = `<h1>Song "${songName}" not found.</h1>`;
+                document.body.innerHTML = `<h1>"${songName}" সঙ্গীতটি পাওয়া যায়নি। সার্চ করুন...</h1>`;
                 return;
             }
 
             // Populate the HTML with song details
             document.getElementById('song-title').textContent = song.Song;
-            document.getElementById('song-album').textContent = `Album: ${song.album}`;
-            document.getElementById('song-singer').textContent = `Singer: ${song.singer}`;
+            document.getElementById('song-album').textContent = `অ্যালবাম: ${song.album}`;
+            document.getElementById('song-group').textContent = `শিল্পীগোষ্ঠী: ${song.group}`;
+            document.getElementById('song-singer').textContent = `শিল্পী: ${song.singer}`;
             document.getElementById('song-player').src = song.src;
         })
         .catch(err => {
