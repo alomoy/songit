@@ -6,7 +6,8 @@
     <title>Single Song Player</title>
     
     <link rel="stylesheet" href="css/header.css">
-    <script src="js/header.js"></script>
+<!-- Used directly    <script src="js/header.js"></script> -->
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
 <script>
@@ -134,6 +135,11 @@ albumElement.appendChild(albumLink);
 // Load the song data when the page is loaded
 loadSongData();
 
+// JavaScript to toggle the menu visibility on small screens
+document.getElementById('hamburgerMenu').addEventListener('click', () => {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('show');
+});
 
     </script>
 </body>

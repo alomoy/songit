@@ -6,7 +6,7 @@
     <title>আলোময় সঙ্গীত: সঙ্গীত সার্চ</title>
         <link rel="stylesheet" href="css/header.css">
       <link rel="stylesheet" href="css/audio.css"> 
-    <script src="js/header.js"></script>
+   
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -445,6 +445,12 @@ window.onload = function() {
         loadSongs(searchTerm);
     }
 };
+
+// JavaScript to toggle the menu visibility on small screens
+document.getElementById('hamburgerMenu').addEventListener('click', () => {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('show');
+});
 
 
     </script>
