@@ -1,36 +1,12 @@
 <!DOCTYPE html>
-<!-- Template by Quackit.com -->
-<!-- Images by various sources under the Creative Commons CC0 license and/or the Creative Commons Zero license. 
-Although you can use them, for a more unique website, replace these images with your own. -->
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <meta name="description" content="আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বসে বসে গান শোনার অনন্য সাইট এটি। রয়েছে দেশবরেণ্য শিল্পীদের সঙ্গীত।">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <title>আলোময় সঙ্গীত  | হোম </title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
-    <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/slide.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Custom Fonts from Google -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    
-<!-- Google tag (gtag.js) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Albums</title>
+    <link rel="stylesheet" href="css/header.css">
+    <script src="js/header.js"></script>
+        <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -39,241 +15,177 @@ Although you can use them, for a more unique website, replace these images with 
 
   gtag('config', 'G-RN5RYTV144');
 </script>
+        <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    <!-- Link to FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f9;
+        }
 
-<!-- Slider CSS and JS START -->	
-<style>
-.mySlides {display:none;}
-</style>
+        h1, h2 {
+            color: #333;
+        }
 
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            width: 100%;
+        }
 
-<!-- Slider CSS and JS END -->	
+        table {
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        td a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- Navigation -->
-    <nav id="siteNav" class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Logo and responsive toggle -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="https://alomoy.github.io/songit">
-                	<span class="glyphicon glyphicon-music"></span> 
-                	আলোময় সঙ্গীত
-                </a>
-            </div>
-            <!-- Navbar links -->
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active">
-                        <a href="https://alomoy.github.io/songit">Home</a>
-                    </li>
-                    <li>
-                     <a href="latest.html">সর্বশেষ সংযুক্তি</a>
-                    </li>
-		<!-- 				<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">সব প্লেলিস্ট <span class="caret"></span></a>
-					<ul class="dropdown-menu" aria-labelledby="about-us">
-							<li><a href="#">শিল্পী</a></li>
-							<li><a href="#">শিল্পীগোষ্ঠী</a></li>
-							<li><a href="#">বিভাগ</a></li>
-						</ul> 
-					</li> -->
-		<li>
-                        <a href="playlists.html">সব প্লেলিস্ট</a>
-                    </li>
-                    <li>
-                        <a href="requested.html">অনুরোধের গান</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="song_request.html">গানের অনুরোধ</a>
-                    </li> 
-                     <li>
-                        <a target="_blank" href="https://www.facebook.com/alomoyweb/">ফেসবুক</a>
-                    </li>
-                </ul>
-                
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container -->
+       <div class="sharethis-sticky-share-buttons"></div>
+<div id="header">
+    <img width="50px" src="images/alomoy.png" alt="আলোময় সঙ্গীত লোগো">
+    <h1>আলোময় সঙ্গীত</h1>
+    <button id="hamburgerMenu" class="hamburger">☰</button>
+    <nav id="navLinks">
+        <a target="_blank"  href="index.html">Home</a>
+        <a target="_blank"  href="albums.html">সব অ্যালবাম</a>
+        <a target="_blank"  href="search.html">সঙ্গীত সার্চ</a>
     </nav>
-    
-	<!-- Header -->
-    <header>
-            <div class="header-content">
-            <div class="header-content-inner">
-               <h3>কাজ করুন গানের ছন্দে</h3> 
-               <p>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</p>
-                
-                <a href="playlists.html" class="btn btn-primary btn-lg">পছন্দের প্লেলিস্ট খুঁজে নিন</a> 
-				<a href="latest.html" class="btn btn-primary btn-lg">সর্বশেষ সংযুক্তি</a>
-				
-	<!-- SLIDER STRAT -->
-	
-	 <marquee scrollamount="8" class="marq" onmouseover="this.stop();" onmouseout="this.start();">
-	 সর্বশেষ সংযুক্তি: 
+</div>
 
-<span class="dot">• </span>
-<a href="players/naate-rasul.html"> নাতে রাসুল (সা) </a>
-<span class="dot">• </span>
-<a href="players/hamd.html"> হামদ </a>
-<span class="dot">• </span>
-<a href="players/shahider-gaan.html"> শহিদী গান </a>
-<span class="dot">• </span>
-<a href="players/eider-gan.html"> ঈদের গান (সাইমুম শিল্পীগোষ্ঠী)  </a>
-<span class="dot">• </span>
-<a href="players/apon-ghor.html"> আপন ঘর (রোকনুজ্জামান)  </a>
-<span class="dot">• </span>
-<a href="players/bornomalar-gan.html"> বর্ণমালার গান (অনুপম শিল্পীগোষ্ঠী)  </a>
-<span class="dot">• </span>
-<a href="players/disha.html"> দিশা (বিকল্প সাহিত্য ও সাংস্কৃতিক সংসদ) </a>
-<span class="dot">• </span>
-<a href="players/sonar-nolok.html"> সোনার নোলক (বিকল্প সাহিত্য ও সাংস্কৃতিক সংসদ) </a>
-<span class="dot">• </span>
-<a href="players/alor-prova.html">  আলোর প্রভা (সাইমুম)  </a>
-<span class="dot">• </span>
-<a href="players/ganer-pakhi.html">  গানের পাখি (হাসনা হেনা আফরীন)  </a>
-<span class="dot">• </span>
-<a href="players/baje-dukher-been.html">  বাজে দুঃখের বীন (রোকনুজ্জামান)  </a>
-<span class="dot">• </span>
-<a href="players/bondhon.html">  বন্ধন (সাইমুম ও পাঞ্জেরি শিল্পীগোষ্ঠী)  </a>
-<span class="dot">• </span>
-<a href="players/bikeler-soikote.html">  বিকেলের সৈকতে (প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ) </a>
-<span class="dot">• </span>
-<a href="players/shilpir-tuli.html">  শিল্পীর তুলি (প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ) </a>
-<span class="dot">• </span>
-<a href="players/ankhi-jole-vasi.html">  আঁখি জলে ভাসি (প্রত্যয় শিল্পি গোষ্ঠী) </a>
-<span class="dot">• </span>
-<a href="players/kamini-futeche-bone.html"> কামিনী ফুটেছে বনে (মশিউর রহমান)  </a>
-
-
-<!-- Copy 
-<span class="dot">• </span>
-<a href="players/protiti1.html"> প্রতীতি  </a>
-
--->
-  </marquee>
-	<h3 class="w3-center">বাছাইকৃত গান</h3>
-
-<!-- SELECTED 01 -->
-
-<div class="w3-content" style="max-width:400px">
-  <div class="mySlides w3-container w3-ash">
-    <h3><b>প্রতীতি - ০১</b></h3>
-      <img  src="images/singer/mollik.jpg" style="width:40%; border-radius: 50%;">
-    <h4><i>মতিউর রহমান মল্লিক</i></h4>
-    <p><i><a class="btn btn-primary btn-lg" href="players/protiti1.html">চলুন শোনা যাক</a></i></p>
-  </div>
-  
-  <!-- SELECTED 02 -->
-  
-    <div class="mySlides w3-container w3-ash">
-    <h3><b>তোমাকেই শুধু মনে হয়</b></h3>
-      <img src="images/band/saimum.png" style="width:40%; border-radius: 50%;">
-    <h4><i>সাইমুম শিল্পীগোষ্ঠী</i></h4>
-    <p><i><a class="btn btn-primary btn-lg" href="players/tomake-shudhu-mone-hoy.html">চলুন শোনা যাক</a></i></p>
-  </div>
-  
-  <!-- SELECTED 03 -->
-  
-      <div class="mySlides w3-container w3-ash">
-    <h3><b>কাবার পথিক</b></h3>
-      <img src="images/band/probaho.png" style="width:40%; border-radius: 50%;">
-    <h4><i>প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</i></h4>
-    <p><i><a class="btn btn-primary btn-lg" href="players/kabar-pothe.html">চলুন শোনা যাক</a></i></p>
-  </div>
-  
-    <!-- SELECTED 04 -->
-  
-      <div class="mySlides w3-container w3-ash">
-    <h3><b>জীবন পাখি যায় উড়ে</b></h3>
-      <img src="images/band/srijon.jpg" style="width:40%; border-radius: 50%;">
-    <h4><i>সৃজন সাহিত্য সাংস্কৃতিক সংসদ</i></h4>
-    <p><i><a class="btn btn-primary btn-lg" href="players/jibon-pakhi-zay-ure.html">চলুন শোনা যাক</a></i></p>
-  </div>
-  
+    <h1>All Albums</h1>
+    <h2 id="album-count"></h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ক্রমিক</th>
+                    <th>অ্যালবাম</th>
+                    <th>ক্রমিক</th>
+                    <th>অ্যালবাম</th>
+                </tr>
+            </thead>
+            <tbody id="album-table-body"></tbody>
+        </table>
     </div>
-  <!-- SLIDER END --> 
-  
-  <!--- Latest Slider -->
-  
+</head>
 
-
-          	<h3>এ সপ্তাহের সেরা গান </h3> 
-          	<audio controls loop>
-  <source src="https://dl.dropboxusercontent.com/s/l5lx3jpcp2h3uvh/zodi%20kotha%20dao%20didarul.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
-  
-</div>			
-            </div>
-        </div>
-    </header> 
-    
-  
-    
-	<!-- Footer -->
-    <footer class="page-footer">
-    
-       
-    	<!-- Contact Us -->
-        <div class="contact">
-        
-        	<div class="container">
-
-				<h2 class="section-heading">পরিবেশনায়</h2>
-		<img src="images/alomoy.png" height=140px>
-<!--				<p><span class="glyphicon glyphicon-earphone"></span>
-<br> +1(23) 456 7890 </p>--> 
-<p> আলোময় সঙ্গীত </p>
-				<p><span class="glyphicon glyphicon-envelope"></span><br> alomoyinfo@gmail.com</p>
-        	</div>
-        </div>
-		
-		<audio loop autoplay>
-    <source src="https://dl.dropbox.com/s/l5lx3jpcp2h3uvh/zodi%20kotha%20dao%20didarul.mp3?dl=1" type="audio/filetype">
-</audio>
-        <!-- Copyright etc -->
-        <div class="small-print">
-        	<div class="container">
-        		<p>Copyright &copy; alomoy.net 2013</p>
-        	</div>
-        </div>
-        
-    </footer>
-
-    <!-- jQuery -->
-    <script src="js/jquery-1.11.3.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
-    
-    <!-- Custom Javascript -->
-    <script src="js/custom.js"></script>
     <script>
-var slideIndex = 0;
-carousel();
+fetch('radio/songs.csv')
+    .then(response => response.text())
+    .then(csvText => {
+        const allSongs = parseCSV(csvText); // Parse the CSV
+        const uniqueAlbums = [...new Set(allSongs.map(song => song.album))].filter(album => album).sort(); // Unique, non-empty, and sorted
 
-function carousel() {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none"; 
-  }
-  slideIndex++;
-  if (slideIndex > x.length) {slideIndex = 1} 
-  x[slideIndex-1].style.display = "block"; 
-  setTimeout(carousel, 2500); 
+        // Display the album count in Bangla
+        document.getElementById('album-count').textContent = `মোট অ্যালবাম: ${convertToBanglaNumber(uniqueAlbums.length)}`;
+
+        // Generate table rows with 4 columns
+        const tableBody = document.getElementById('album-table-body');
+        for (let i = 0; i < uniqueAlbums.length; i += 2) {
+            const row = document.createElement('tr');
+
+            // First column: Serial + Album
+            const serial1 = i + 1;
+            const album1 = uniqueAlbums[i];
+            const cell1 = createAlbumCell(convertToBanglaNumber(serial1), album1);
+
+            // Second column: Serial + Album (if exists)
+            const serial2 = i + 2;
+            const album2 = uniqueAlbums[i + 1];
+            const cell2 = album2 ? createAlbumCell(convertToBanglaNumber(serial2), album2) : createEmptyCell();
+
+            row.appendChild(cell1.serialCell);
+            row.appendChild(cell1.albumCell);
+            row.appendChild(cell2.serialCell);
+            row.appendChild(cell2.albumCell);
+
+            tableBody.appendChild(row);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching or parsing CSV:', error);
+        const tableBody = document.getElementById('album-table-body');
+        tableBody.innerHTML = '<tr><td colspan="4">অ্যালবাম লোড করতে সমস্যা</td></tr>';
+    });
+
+// Utility to parse CSV into an array of objects
+function parseCSV(text) {
+    const lines = text.split('\n').filter(line => line.trim() !== '');
+    const headers = lines[0].split(',').map(header => header.trim());
+    return lines.slice(1).map(line => {
+        const values = line.split(',');
+        return headers.reduce((obj, header, index) => {
+            obj[header] = values[index]?.trim() || '';
+            return obj;
+        }, {});
+    });
 }
-</script>
 
+// Utility function to create album cell with serial and link
+function createAlbumCell(serial, album) {
+    const serialCell = document.createElement('td');
+    serialCell.textContent = serial;
+
+    const albumCell = document.createElement('td');
+    const link = document.createElement('a');
+    link.href = `search.html?query=${encodeURIComponent(album)}`;
+    link.textContent = album;
+    albumCell.appendChild(link);
+
+    return { serialCell, albumCell };
+}
+
+// Utility function to create empty cells
+function createEmptyCell() {
+    const serialCell = document.createElement('td');
+    const albumCell = document.createElement('td');
+    serialCell.textContent = '';
+    albumCell.textContent = '';
+    return { serialCell, albumCell };
+}
+
+// Convert standard numbers to Bangla numbers
+function convertToBanglaNumber(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(number).split('').map(digit => banglaDigits[digit]).join('');
+}
+
+    </script>
 </body>
-
 </html>
