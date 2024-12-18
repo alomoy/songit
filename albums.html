@@ -29,49 +29,60 @@
             background-color: #f4f4f9;
         }
 
-        h1, h2 {
-            color: #333;
-        }
+h1, h2 {
+    color: #333;
+}
 
-        .table-container {
-            overflow-x: auto;
-            margin-top: 20px;
-            width: 100%;
-        }
+.table-container {
+    overflow-x: auto;
+    margin-top: 4px;
+    width: 100%;
+}
 
-        table {
-            width: 90%;
-            max-width: 800px;
-            margin: auto;
-            border-collapse: collapse;
-            text-align: left;
-        }
+table {
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+    border-collapse: collapse;
+    text-align: left;
+}
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
+th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 10px; /* Remove padding from <td> */
+}
 
-        th {
-            background-color: #f4f4f4;
-            color: #333;
-        }
+th {
+    background-color: #a64dff;
+    color: #333;
+}
 
-        td a {
-            text-decoration: none;
-            color: #007bff;
-        }
+td {
+    position: relative; /* Ensure the cell acts as a parent for absolute positioning */
+}
 
-        td a:hover {
-            text-decoration: underline;
-        }
+td a {
+    text-decoration: none;
+    color: #391339;
+    display: block; /* Make the link fill the entire cell */
+    width: 93%; /* Ensure the link spans the full width of the cell */
+    height: 100%; /* Ensure the link spans the full height of the cell */
+    padding: 10px; /* Apply padding here instead of <td> */
+}
 
-        @media (max-width: 600px) {
-            table {
-                font-size: 14px;
-            }
-        }
+td a:hover {
+    text-decoration: underline;
+   /*  background-color: #a64dff; Full cell background color on hover */
+  /*  color: white;  Optional: Change text color on hover for better contrast */
+}
+
+@media (max-width: 600px) {
+    table {
+        font-size: 14px;
+    }
+}
+
     </style>
 </head>
 
@@ -88,8 +99,11 @@
     </nav>
 </div>
 
-    <h1>All Albums</h1>
+    <h1>অ্যালবাম তালিকা</h1>
+    
     <h2 id="album-count"></h2>
+    
+    <p> শুনতে ক্লিক করুন </p>
     <div class="table-container">
         <table>
             <thead>
@@ -186,6 +200,11 @@ function convertToBanglaNumber(number) {
     return String(number).split('').map(digit => banglaDigits[digit]).join('');
 }
 
+// JavaScript to toggle the menu visibility on small screens
+document.getElementById('hamburgerMenu').addEventListener('click', () => {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('show');
+});
     </script>
 </body>
 </html>
