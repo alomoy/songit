@@ -133,7 +133,7 @@
     }
 
     .controls button {
-        background-color: #f1f1f1;
+        background-color: transparent;
         border: none;
         padding: 12px;
         margin: 5px;
@@ -157,7 +157,7 @@
     .controls button:focus {
         outline: none;
     }
-    
+
         .song-item {
         display: flex;
         align-items: center;
@@ -226,9 +226,8 @@
     <h1>আলোময় সঙ্গীত</h1>
     <button id="hamburgerMenu" class="hamburger">☰</button>
     <nav id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="albums.html">সব অ্যালবাম</a>
-        <a href="#about">আগের ভার্সন</a>
+        <a target="_blank" href="index.html">Home</a>
+        <a target="_blank" href="albums.html">সব অ্যালবাম</a>
     </nav>
 </div>
     <h1>সঙ্গীত খুঁজুন</h1>
@@ -273,215 +272,174 @@
     <ul id="playlist"></ul>
 
     <script>
-        let allSongs = [];  // All songs from the CSV
-        let filteredSongs = [];  // Filtered songs based on the search query
-        let currentIndex = 0;
-        let isShuffling = false;
-        let isRepeating = false;
+ let allSongs = [];  // All songs from the CSV
+let filteredSongs = [];  // Filtered songs based on the search query
+let currentIndex = 0; // Current playing song index
+let isShuffling = false; // Shuffle state
+let isRepeating = false; // Repeat state
 
-        // Handle search form submission and update the URL with 'query' as the parameter
-        document.getElementById('search-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
+// Handle search form submission
+document.getElementById('search-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+    const searchTerm = document.getElementById('search-input').value.trim();
+    if (searchTerm) {
+        const url = new URL(window.location);
+        url.searchParams.set('query', searchTerm);
+        window.history.pushState({}, '', url);
+        loadSongs(searchTerm);
+    }
+});
 
-            const searchTerm = document.getElementById('search-input').value.trim();
-            if (searchTerm) {
-                // Update the URL with 'query' as the key
-                const url = new URL(window.location);
-                url.searchParams.set('query', searchTerm); // Changed 'search' to 'query'
-                window.history.pushState({}, '', url); // Update the URL in the browser without reloading the page
-                loadSongs(searchTerm); // Load songs based on the new search term
+// Load songs based on search query
+function loadSongs(searchTerm) {
+    const playlistContainer = document.getElementById('playlist');
+    const songsCountElement = document.getElementById('songs-count');
+    playlistContainer.innerHTML = '';
+    songsCountElement.textContent = '';
+
+    fetch('radio/songs.csv')
+        .then(response => response.text())
+        .then(csvText => {
+            allSongs = parseCSV(csvText); // Parse all songs
+            const searchQuery = searchTerm.toLowerCase();
+            filteredSongs = allSongs.filter((song) =>
+                Object.values(song)
+                    .filter(value => typeof value === "string")
+                    .some(value => value.toLowerCase().includes(searchQuery))
+            );
+
+            if (filteredSongs.length === 0) {
+                playlistContainer.innerHTML = '<li>No matching songs found</li>';
+                songsCountElement.textContent = '0 songs found.';
+                return;
             }
-        });
 
-        // Function to load songs based on the search query from the URL
-        function loadSongs(searchTerm) {
-            const playlistContainer = document.getElementById('playlist');
-            const audioPlayer = document.getElementById('song-player');
-            const songsCountElement = document.getElementById('songs-count');
+            songsCountElement.textContent = `${filteredSongs.length} টি সঙ্গীত পাওয়া গেছে!`;
 
-            // Clear the playlist and songs count
-            playlistContainer.innerHTML = '';
-            songsCountElement.textContent = '';
+            filteredSongs.forEach((song, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = "song-item";
+                listItem.textContent = `${song.Song} - ${song.singer} (${song.album})`;
 
-            fetch('radio/songs.csv')
-                .then(response => response.text())
-                .then(csvText => {
-                    allSongs = parseCSV(csvText);  // Store all songs
-                    const searchQuery = searchTerm.toLowerCase();
-
-                    // Filter songs based on the search term in any column
-const filteredSongs = allSongs.filter((song) => {
-    // Convert the search query to lowercase
-    const searchQuery = searchTerm.toLowerCase();
-
-    // Check all fields of the song object for the search term
-    return Object.values(song)
-        .filter((value) => typeof value === "string") // Ensure the value is a string
-        .some((value) => value.toLowerCase().includes(searchQuery));
-});
-
-
-                    if (filteredSongs.length === 0) {
-                        playlistContainer.innerHTML = '<li>No matching songs found</li>';
-                        songsCountElement.textContent = '0 songs found.';
-                        return;
-                    }
-
-                    // Display the number of songs found
-                    songsCountElement.textContent = `${filteredSongs.length} টি সঙ্গীত পাওয়া গেছে!`;
-
-                    // Populate the playlist with filtered songs
-                    filteredSongs.forEach(song => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `${song.Song} - ${song.singer} (${song.album}) ▶`;
-                        listItem.dataset.src = song.src;
-
-                        // Open URL button
-    const openButton = document.createElement("button");
-    openButton.className = "open-url-btn";
-    openButton.title = "Open song in new tab";
-
-    // Add an icon for the button
-    openButton.innerHTML = `<i class="fas fa-external-link-alt"></i>`;
-
-  // Prevent parent <li> click event and open URL in a new tab
-openButton.addEventListener("click", (event) => {
-    event.stopPropagation(); // Prevent triggering the song playback
-    const songNameEncoded = encodeURIComponent(song.Song.trim());
-    const songURL = `single.html?song_name=${songNameEncoded}`;
-    window.open(songURL, "_blank");
-});
-
-    // Append open button to the list item
-    listItem.appendChild(openButton);
-
-    // Append list item to the playlist
-    playlist.appendChild(listItem);
-
-
-                        listItem.onclick = () => {
-                            currentIndex = filteredSongs.indexOf(song);
-                            playSong(filteredSongs, currentIndex);
-                        };
-
-                        playlistContainer.appendChild(listItem);
-                    });
-
-                    if (filteredSongs.length > 0) {
-                        playSong(filteredSongs, 0);
-                    }
-                })
-                .catch(err => {
-                    console.error('Error fetching or parsing CSV:', err);
-                    playlistContainer.innerHTML = '<li>Error loading songs</li>';
-                    songsCountElement.textContent = '0 songs found.';
+                // Open URL button
+                const openButton = document.createElement("button");
+                openButton.className = "open-url-btn";
+                openButton.title = "Open song in new tab";
+                openButton.innerHTML = `<i class="fas fa-external-link-alt"></i>`;
+                openButton.addEventListener("click", (event) => {
+                    event.stopPropagation(); // Prevent triggering song playback
+                    const songNameEncoded = encodeURIComponent(song.Song.trim());
+                    const songURL = `single.html?song_name=${songNameEncoded}`;
+                    window.open(songURL, "_blank");
                 });
-        }
 
-        // Play song function (now uses filtered songs)
-        function playSong(songList, index) {
-            const audioPlayer = document.getElementById('song-player');
-            const song = songList[index];
-            audioPlayer.src = song.src;
-            audioPlayer.play();
-        }
+                listItem.appendChild(openButton);
 
-        // Update player controls on song end (next or repeat)
-        document.getElementById('song-player').addEventListener('ended', function() {
-            if (isRepeating) {
-                playSong(filteredSongs, currentIndex); // Repeat the song within filtered results
-            } else if (isShuffling) {
-                shuffleSongs();
-            } else {
-                nextSong();
-            }
-        });
+                // Play song when clicked
+                listItem.addEventListener("click", () => {
+                    playSong(index);
+                });
 
-        // Previous song (within filtered search results)
-        document.getElementById('prev-btn').addEventListener('click', function() {
-            prevSong();
-        });
-
-        // Next song (within filtered search results)
-        document.getElementById('next-btn').addEventListener('click', function() {
-            nextSong();
-        });
-
-        // Repeat song
-        document.getElementById('repeat-btn').addEventListener('click', function() {
-            isRepeating = !isRepeating;
-            this.title = isRepeating ? 'Repeat (ON)' : 'Repeat';
-        });
-
-        // Shuffle songs
-        document.getElementById('shuffle-btn').addEventListener('click', function() {
-            isShuffling = !isShuffling;
-            this.title = isShuffling ? 'Shuffle (ON)' : 'Shuffle';
-            if (isShuffling) {
-                shuffleSongs();
-            }
-        });
-
-        // Shuffle function to change song order randomly within filtered list
-        function shuffleSongs() {
-            currentIndex = Math.floor(Math.random() * filteredSongs.length);
-            playSong(filteredSongs, currentIndex);
-        }
-
-        // Play the previous song within filtered list
-        function prevSong() {
-            if (currentIndex === 0) {
-                currentIndex = filteredSongs.length - 1; // Loop to the last song
-            } else {
-                currentIndex--;
-            }
-            playSong(filteredSongs, currentIndex);
-        }
-
-        // Play the next song within filtered list
-        function nextSong() {
-            if (currentIndex === filteredSongs.length - 1) {
-                currentIndex = 0; // Loop to the first song
-            } else {
-                currentIndex++;
-            }
-            playSong(filteredSongs, currentIndex);
-        }
-
-        // Load the search term from the URL when the page loads
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const searchTerm = urlParams.get('query'); // Changed from 'search' to 'query'
-            if (searchTerm) {
-                document.getElementById('search-input').value = searchTerm;
-                loadSongs(searchTerm); // Load the songs based on the search term in the URL
-            }
-        };
-
-        // Utility to parse CSV into an array of objects
-        function parseCSV(text) {
-            const lines = text.split('\n').filter(line => line.trim() !== ''); // Ignore empty lines
-            const headers = lines[0].split(',').map(header => header.trim());
-            return lines.slice(1).map(line => {
-                const values = line.split(',');
-                return headers.reduce((obj, header, index) => {
-                    obj[header] = values[index]?.trim() || ''; // Handle missing values
-                    return obj;
-                }, {});
+                playlistContainer.appendChild(listItem);
             });
-        }
-        
-const player = document.getElementById("song-player");
 
-    // Skip back 10 seconds
-    document.getElementById("backward-btn").addEventListener("click", () => {
-        player.currentTime = Math.max(0, player.currentTime - 10);
-    });
+            // Auto-play the first song in the list
+            if (filteredSongs.length > 0) {
+                playSong(0);
+            }
+        })
+        .catch(err => {
+            console.error('Error loading songs:', err);
+            playlistContainer.innerHTML = '<li>Error loading songs</li>';
+            songsCountElement.textContent = '0 songs found.';
+        });
+}
 
-    // Skip forward 10 seconds
-    document.getElementById("forward-btn").addEventListener("click", () => {
-        player.currentTime = Math.min(player.duration, player.currentTime + 10);
+// Play song based on index
+function playSong(index) {
+    currentIndex = index; // Update the current index
+    const audioPlayer = document.getElementById('song-player');
+    const song = filteredSongs[currentIndex];
+    audioPlayer.src = song.src;
+    audioPlayer.play();
+}
+
+// Auto-play next song when current song ends
+document.getElementById('song-player').addEventListener('ended', () => {
+    if (isRepeating) {
+        playSong(currentIndex); // Replay current song
+    } else if (isShuffling) {
+        shuffleSongs();
+    } else if (currentIndex < filteredSongs.length - 1) {
+        playSong(currentIndex + 1); // Play next song
+    }
+});
+
+// Previous button functionality
+document.getElementById('prev-btn').addEventListener('click', () => {
+    if (currentIndex > 0) {
+        playSong(currentIndex - 1);
+    } else {
+        playSong(filteredSongs.length - 1); // Loop to last song
+    }
+});
+
+// Next button functionality
+document.getElementById('next-btn').addEventListener('click', () => {
+    if (currentIndex < filteredSongs.length - 1) {
+        playSong(currentIndex + 1);
+    } else {
+        playSong(0); // Loop to first song
+    }
+});
+
+// Shuffle button functionality
+document.getElementById('shuffle-btn').addEventListener('click', () => {
+    isShuffling = !isShuffling;
+    document.getElementById('shuffle-btn').title = isShuffling ? 'Shuffle (ON)' : 'Shuffle';
+});
+
+// Shuffle function
+function shuffleSongs() {
+    const randomIndex = Math.floor(Math.random() * filteredSongs.length);
+    playSong(randomIndex);
+}
+
+// Parse CSV into an array of objects
+function parseCSV(text) {
+    const lines = text.split('\n').filter(line => line.trim() !== ''); // Ignore empty lines
+    const headers = lines[0].split(',').map(header => header.trim());
+    return lines.slice(1).map(line => {
+        const values = line.split(',');
+        return headers.reduce((obj, header, index) => {
+            obj[header] = values[index]?.trim() || '';
+            return obj;
+        }, {});
     });
+}
+
+// 10-second rewind
+document.getElementById('backward-btn').addEventListener('click', () => {
+    const player = document.getElementById('song-player');
+    player.currentTime = Math.max(0, player.currentTime - 10);
+});
+
+// 10-second forward
+document.getElementById('forward-btn').addEventListener('click', () => {
+    const player = document.getElementById('song-player');
+    player.currentTime = Math.min(player.duration, player.currentTime + 10);
+});
+
+// Load songs on page load based on URL query
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTerm = urlParams.get('query') || '';
+    if (searchTerm) {
+        document.getElementById('search-input').value = searchTerm;
+        loadSongs(searchTerm);
+    }
+};
+
 
     </script>
 </body>
