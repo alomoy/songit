@@ -23,13 +23,15 @@
 </div>
     <div id="song-info">
         <h1 id="song-title"></h1>
+
+        <p>
         <p id="song-album"></p>
         <p id="song-singer"></p>
         <p id="song-group"></p>
+        <p id="song-genre"></p>
         <audio id="song-player" controls></audio>
     </div>
 
-    এ অ্যালবামের সব গান শুনুন
 
     <script>
 // Utility to parse CSV into an array of objects
@@ -70,10 +72,50 @@ function loadSongData() {
 
             // Populate the HTML with song details
             document.getElementById('song-title').textContent = song.Song;
-            document.getElementById('song-album').textContent = `অ্যালবাম: ${song.album}`;
-            document.getElementById('song-group').textContent = `শিল্পীগোষ্ঠী: ${song.group}`;
-            document.getElementById('song-singer').textContent = `শিল্পী: ${song.singer}`;
+
+            // Update group with a hyperlink
+const groupElement = document.getElementById("song-group");
+groupElement.innerHTML = "";
+const groupLink = document.createElement("a");
+groupLink.href = `search.html?query=${encodeURIComponent(song.group)}`;
+groupLink.textContent = `শিল্পীগোষ্ঠী: ${song.group}`;
+groupLink.title = "Click to search for this group";
+groupElement.appendChild(groupLink);
+
+// Update singer with a hyperlink
+const singerElement = document.getElementById("song-singer");
+singerElement.innerHTML = "";
+const singerLink = document.createElement("a");
+singerLink.href = `search.html?query=${encodeURIComponent(song.singer)}`;
+singerLink.textContent = `শিল্পী: ${song.singer}`;
+singerLink.title = "Click to search for this singer";
+singerElement.appendChild(singerLink);
+
+// Update genre with a hyperlink
+const genreElement = document.getElementById("song-genre");
+genreElement.innerHTML = "";
+const genreLink = document.createElement("a");
+genreLink.href = `search.html?query=${encodeURIComponent(song.genre)}`;
+genreLink.textContent = `বিভাগ: ${song.genre}`;
+genreLink.title = "Click to search for this genre";
+genreElement.appendChild(genreLink);
+
             document.getElementById('song-player').src = song.src;
+            // Get the album display element
+const albumElement = document.getElementById("song-album");
+
+// Clear any previous content
+albumElement.innerHTML = "";
+
+// Create a hyperlink for the album
+const albumLink = document.createElement("a");
+albumLink.href = `search.html?query=${encodeURIComponent(song.album)}`;
+albumLink.textContent = `অ্যালবাম: ${song.album}`;
+albumLink.title = "Click to search for this album";
+
+// Append the hyperlink to the album element
+albumElement.appendChild(albumLink);
+
         })
         .catch(err => {
             console.error('Error fetching or parsing CSV:', err);
