@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>আলোময় সঙ্গীত: সঙ্গীত সার্চ</title>
         <link rel="stylesheet" href="css/header.css">
+      <link rel="stylesheet" href="css/audio.css"> 
     <script src="js/header.js"></script>
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
     <!-- Link to FontAwesome for icons -->
@@ -67,7 +68,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-bottom: 20px;
+        margin-bottom: 5px;
         width: 80%;
         max-width: 600px;
     }
@@ -75,7 +76,7 @@
     #song-player {
         width: 100%;
         max-width: 400px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 
     .controls {
@@ -105,7 +106,7 @@
 
     .songs-count {
         font-size: 16px;
-        margin-top: 10px;
+        margin-top: 5px;
         font-weight: bold;
     }
 
@@ -240,7 +241,12 @@
 
     <!-- Player and Controls Section -->
 <div class="player-container">
-    <audio id="song-player" controls></audio>
+
+    <audio id="song-player" controls>
+
+    </audio>
+
+
 
     <div class="controls">
         <button id="prev-btn" title="Previous">
