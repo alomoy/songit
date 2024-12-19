@@ -31,15 +31,24 @@
     </nav>
 </div>
     <div id="song-info">
-        <h1 id="song-title"></h1>
+       <h1 id="song-title"></h1>
 
-        <p>
+        <!-- Selected Song -->
+<div id="selected-song"> </div>
+  <!-- The current song will be displayed here -->
+
         <p id="song-album"></p>
         <p id="song-singer"></p>
         <p id="song-group"></p>
         <p id="song-genre"></p>
         <audio id="song-player" controls></audio>
     </div>
+
+    <!-- Related Songs Section -->
+<h2>Related Songs</h2>
+<ul id="related-songs">
+  <!-- Related songs will be populated here -->
+</ul>
 
 
     <script>
@@ -141,7 +150,88 @@ document.getElementById('hamburgerMenu').addEventListener('click', () => {
     navLinks.classList.toggle('show');
 });
 
-    </script>
+// JavaScript to get related songs
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const songName = urlParams.get('song_name'); // Get song_name from URL
+
+  fetch('radio/songs.csv')
+    .then(response => response.text())
+    .then(csvText => {
+      const rows = csvText.split('\n').map(row => row.split(','));
+      const headers = rows.shift(); // Get headers
+      const songs = rows.map(row =>
+        Object.fromEntries(row.map((val, index) => [headers[index], val]))
+      );
+
+      displaySongAndRelated(songs, songName);
+    });
+
+  function displaySongAndRelated(songs, songName) {
+    const selectedSong = songs.find(song => song.Song === songName);
+    if (!selectedSong) {
+      document.body.innerHTML = '<p>Song not found!</p>';
+      return;
+    }
+
+    // Display selected song
+ //   const songContainer = document.getElementById('selected-song');
+ //   songContainer.innerHTML = `
+   //   <h1>${selectedSong.Song}</h1>
+   //   <audio controls>
+    //    <source src="${selectedSong.src}" type="audio/mpeg">
+   //     Your browser does not support the audio element.
+   //   </audio>
+  //  `;
+
+    // Display related songs
+    displayRelatedSongs(songs, selectedSong);
+  }
+
+  function displayRelatedSongs(songs, selectedSong) {
+    const relatedSongs = songs
+      .filter(song => song.Song !== selectedSong.Song) // Exclude current song
+      .map(song => {
+        let matchScore = 0;
+
+        // Matching tags
+        if (song.tags && selectedSong.tags) {
+          const songTags = song.tags.split(',').map(tag => tag.trim());
+          const selectedTags = selectedSong.tags.split(',').map(tag => tag.trim());
+          matchScore += songTags.filter(tag => selectedTags.includes(tag)).length;
+        }
+
+        // Matching genre
+        if (song.genre === selectedSong.genre) matchScore += 3;
+
+        // Matching keywords in any column
+        for (const key in song) {
+          if (song[key]?.toLowerCase().includes(selectedSong.Song.toLowerCase())) {
+            matchScore += 1;
+          }
+        }
+
+        return { song, matchScore };
+      })
+      .sort((a, b) => b.matchScore - a.matchScore)
+      .slice(0, 10)
+      .map(({ song }) => song);
+
+    // Display related songs
+    const relatedContainer = document.getElementById('related-songs');
+    relatedSongs.forEach(song => {
+      const songLink = document.createElement('a');
+      songLink.href = `single.html?song_name=${encodeURIComponent(song.Song)}`;
+      songLink.textContent = song.Song;
+
+      const listItem = document.createElement('li');
+      listItem.appendChild(songLink);
+      relatedContainer.appendChild(listItem);
+    });
+  }
+</script>
+
+
 </body>
 </html>
 
