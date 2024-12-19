@@ -64,7 +64,7 @@ td {
 
 td a {
     text-decoration: none;
-    color: #391339;
+    color: white;
     display: block; /* Make the link fill the entire cell */
     width: 93%; /* Ensure the link spans the full width of the cell */
     height: 100%; /* Ensure the link spans the full height of the cell */
@@ -79,7 +79,7 @@ td a:hover {
 
 @media (max-width: 600px) {
     table {
-        font-size: 14px;
+        font-size: 15px;
     }
 }
 
@@ -87,7 +87,19 @@ td a:hover {
 </head>
 
 <body>
-    <h1>All Singers</h1>
+       <div class="sharethis-sticky-share-buttons"></div>
+<div id="header">
+    <img width="50px" src="images/alomoy.png" alt="আলোময় সঙ্গীত লোগো">
+    <h1>আলোময় সঙ্গীত</h1>
+    <button id="hamburgerMenu" class="hamburger">☰</button>
+    <nav id="navLinks">
+        <a target="_blank"  href="index.html">Home</a>
+        <a target="_blank"  href="albums.html">সব অ্যালবাম</a>
+        <a target="_blank"  href="singers.html">শিল্পী তালিকা</a>
+        <a target="_blank"  href="search.html">সঙ্গীত সার্চ</a>
+    </nav>
+</div>
+    <h1>শিল্পী তালিকা</h1>
     <h2 id="singer-count"></h2>
     <div class="table-container">
         <table>
@@ -116,7 +128,7 @@ fetch('radio/songs.csv')
             .sort((a, b) => a.singer.localeCompare(b.singer, 'bn')); // Sort alphabetically in Bangla
 
         // Display the total singer count
-        document.getElementById('singer-count').textContent = `মোট গায়ক/গায়িকা: ${convertToBanglaNumber(uniqueSingers.length)}`;
+        document.getElementById('singer-count').textContent = `মোট শিল্পী: ${convertToBanglaNumber(uniqueSingers.length)}`;
 
         // Populate the table with singer data
         const tableBody = document.getElementById('singer-table-body');
@@ -166,7 +178,7 @@ fetch('radio/songs.csv')
     .catch(error => {
         console.error('Error fetching or parsing CSV:', error);
         const tableBody = document.getElementById('singer-table-body');
-        tableBody.innerHTML = '<tr><td colspan="4">গায়ক/গায়িকা লোড করতে সমস্যা</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="4">শিল্পী  লোড করতে সমস্যা</td></tr>';
     });
 
 
