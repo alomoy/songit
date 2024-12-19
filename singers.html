@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আলোময় সঙ্গীত:  শিল্পী তালিকা</title>
+    <link rel="stylesheet" href="css/header.css">
+    <script src="js/header.js"></script>
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RN5RYTV144');
+</script>
+        <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    <!-- Link to FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f9;
+        }
+
+h1, h2 {
+    color: #333;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-top: 4px;
+    width: 100%;
+}
+
+table {
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 10px; /* Remove padding from <td> */
+}
+
+th {
+    background-color: #a64dff;
+    color: #333;
+}
+
+td {
+    position: relative; /* Ensure the cell acts as a parent for absolute positioning */
+}
+
+td a {
+    text-decoration: none;
+    color: #391339;
+    display: block; /* Make the link fill the entire cell */
+    width: 93%; /* Ensure the link spans the full width of the cell */
+    height: 100%; /* Ensure the link spans the full height of the cell */
+    padding: 10px; /* Apply padding here instead of <td> */
+}
+
+td a:hover {
+    text-decoration: underline;
+   /*  background-color: #a64dff; Full cell background color on hover */
+  /*  color: white;  Optional: Change text color on hover for better contrast */
+}
+
+@media (max-width: 600px) {
+    table {
+        font-size: 14px;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <h1>All Singers</h1>
+    <h2 id="singer-count"></h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ক্রমিক</th>
+                    <th>নাম</th>
+                    <th>সব গানের লিঙ্ক</th>
+                    <th>অ্যালবামসমূহ</th>
+                </tr>
+            </thead>
+            <tbody id="singer-table-body"></tbody>
+        </table>
+    </div>
+
+     <script>
+        // Fetch and parse the CSV file
+fetch('radio/songs.csv')
+    .then(response => response.text())
+    .then(csvText => {
+        const allSongs = parseCSV(csvText); // Parse the CSV
+
+        // Extract unique singers and their data
+        const uniqueSingers = [...new Map(allSongs.map(song => [song.singer, song])).values()]
+            .filter(song => song.singer.trim() !== '') // Exclude blank singers
+            .sort((a, b) => a.singer.localeCompare(b.singer, 'bn')); // Sort alphabetically in Bangla
+
+        // Display the total singer count
+        document.getElementById('singer-count').textContent = `মোট গায়ক/গায়িকা: ${convertToBanglaNumber(uniqueSingers.length)}`;
+
+        // Populate the table with singer data
+        const tableBody = document.getElementById('singer-table-body');
+        uniqueSingers.forEach((song, index) => {
+            const row = document.createElement('tr');
+
+            // Serial Number
+            const serialCell = document.createElement('td');
+            serialCell.textContent = convertToBanglaNumber(index + 1);
+
+            // Singer Name
+            const nameCell = document.createElement('td');
+            nameCell.textContent = song.singer;
+
+            // All Songs Link
+            const linkCell = document.createElement('td');
+            const link = document.createElement('a');
+            link.href = `search.html?query=${encodeURIComponent(song.singer)}`;
+            link.textContent = 'সব গানের লিঙ্ক';
+            linkCell.appendChild(link);
+
+            // Albums with Serial Numbers
+            const albumCell = document.createElement('td');
+            const singerAlbums = allSongs
+                .filter(item => item.singer === song.singer)
+                .map(item => item.album)
+                .filter((album, index, self) => album && self.indexOf(album) === index); // Unique albums
+
+            singerAlbums.forEach((album, i) => {
+                const albumLink = document.createElement('a');
+                albumLink.href = `search.html?query=${encodeURIComponent(album)}`;
+                albumLink.textContent = `${convertToBanglaNumber(i + 1)}. ${album}`; // Add Bangla serial numbers
+                albumLink.style.display = 'block'; // Show each album on a new line
+                albumCell.appendChild(albumLink);
+            });
+
+            // Append cells to row
+            row.appendChild(serialCell);
+            row.appendChild(nameCell);
+            row.appendChild(linkCell);
+            row.appendChild(albumCell);
+
+            // Append row to table
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching or parsing CSV:', error);
+        const tableBody = document.getElementById('singer-table-body');
+        tableBody.innerHTML = '<tr><td colspan="4">গায়ক/গায়িকা লোড করতে সমস্যা</td></tr>';
+    });
+
+
+// Utility function to parse CSV into an array of objects
+function parseCSV(text) {
+    const lines = text.split('\n').filter(line => line.trim() !== '');
+    const headers = lines[0].split(',').map(header => header.trim());
+    return lines.slice(1).map(line => {
+        const values = line.split(',');
+        return headers.reduce((obj, header, index) => {
+            obj[header] = values[index]?.trim() || '';
+            return obj;
+        }, {});
+    });
+}
+
+// Convert standard numbers to Bangla numbers
+function convertToBanglaNumber(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(number).split('').map(digit => banglaDigits[digit]).join('');
+}
+
+    </script>
+</body>
+</html>

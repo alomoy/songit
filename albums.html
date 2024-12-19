@@ -29,59 +29,50 @@
             background-color: #f4f4f9;
         }
 
-h1, h2 {
-    color: #333;
-}
+        h1, h2 {
+            color: #333;
+        }
 
-.table-container {
-    overflow-x: auto;
-    margin-top: 4px;
-    width: 100%;
-}
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            width: 100%;
+        }
 
-table {
-    width: 90%;
-    max-width: 800px;
-    margin: auto;
-    border-collapse: collapse;
-    text-align: left;
-}
+        table {
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            border-collapse: collapse;
+            text-align: left;
+        }
 
-th, td {
-    border: 1px solid #ddd;
-    text-align: center;
-    padding: 10px; /* Remove padding from <td> */
-}
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 10px;
+        }
 
-th {
-    background-color: #a64dff;
-    color: #333;
-}
+        th {
+            background-color: #a64dff;
+            color: #fff;
+        }
 
-td {
-    position: relative; /* Ensure the cell acts as a parent for absolute positioning */
-}
+        td a {
+            text-decoration: none;
+            color: #391339;
+        }
 
-td a {
-    text-decoration: none;
-    color: #391339;
-    display: block; /* Make the link fill the entire cell */
-    width: 93%; /* Ensure the link spans the full width of the cell */
-    height: 100%; /* Ensure the link spans the full height of the cell */
-    padding: 10px; /* Apply padding here instead of <td> */
-}
+        td a:hover {
+            text-decoration: underline;
+            color: #a64dff;
+        }
 
-td a:hover {
-    text-decoration: underline;
-   /*  background-color: #a64dff; Full cell background color on hover */
-  /*  color: white;  Optional: Change text color on hover for better contrast */
-}
-
-@media (max-width: 600px) {
-    table {
-        font-size: 14px;
-    }
-}
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+        }
 
     </style>
 </head>
@@ -94,30 +85,27 @@ td a:hover {
     <button id="hamburgerMenu" class="hamburger">☰</button>
     <nav id="navLinks">
         <a target="_blank"  href="index.html">Home</a>
-        <a target="_blank"  href="albums.html">সব অ্যালবাম</a>
+        <a target="_blank"  href="singers.html">শিল্পী তালিকা</a>
         <a target="_blank"  href="search.html">সঙ্গীত সার্চ</a>
     </nav>
 </div>
 
-    <h1>অ্যালবাম তালিকা</h1>
-    
-    <h2 id="album-count"></h2>
-    
-    <p> শুনতে ক্লিক করুন </p>
+    <h1>All Singers</h1>
+    <h2 id="singer-count"></h2>
     <div class="table-container">
         <table>
             <thead>
                 <tr>
                     <th>ক্রমিক</th>
-                    <th>অ্যালবাম</th>
-                    <th>ক্রমিক</th>
-                    <th>অ্যালবাম</th>
+                    <th>নাম</th>
+                    <th>সব গানের লিঙ্ক</th>
+                    <th>অ্যালবামসমূহ</th>
                 </tr>
             </thead>
-            <tbody id="album-table-body"></tbody>
+            <tbody id="singer-table-body"></tbody>
         </table>
     </div>
-</head>
+
 
     <script>
 fetch('radio/songs.csv')
