@@ -30,7 +30,8 @@
         }
 
 h1, h2 {
-    color: #333;
+    color: white;
+    padding-top: 20px;
 }
 
 .table-container {
@@ -64,7 +65,8 @@ td {
 
 td a {
     text-decoration: none;
-    color: white;
+    color: blue;
+    text-shadow: 1px 1px 10px purple;
     display: block; /* Make the link fill the entire cell */
     width: 93%; /* Ensure the link spans the full width of the cell */
     height: 100%; /* Ensure the link spans the full height of the cell */
@@ -88,17 +90,25 @@ td a:hover {
 
 <body>
        <div class="sharethis-sticky-share-buttons"></div>
-<div id="header">
-    <img width="50px" src="images/alomoy.png" alt="আলোময় সঙ্গীত লোগো">
-    <h1>আলোময় সঙ্গীত</h1>
-    <button id="hamburgerMenu" class="hamburger">☰</button>
-    <nav id="navLinks">
-        <a target="_blank"  href="index.html">Home</a>
-        <a target="_blank"  href="albums.html">সব অ্যালবাম</a>
-        <a target="_blank"  href="singers.html">শিল্পী তালিকা</a>
-        <a target="_blank"  href="search.html">সঙ্গীত সার্চ</a>
-    </nav>
+<div class="topnav" id="myTopnav">
+  <div class="logo-section">
+    <img src="images/alomoy.png" alt="Alomoy Sangeet Logo">
+    <div class="company-info">
+      <strong>আলোময় সঙ্গীত</strong><br>
+      <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
+    </div>
+  </div>
+  <div class="menu">
+    <a href="index.html">হোম</a>
+    <a href="singers.html"  class="active">শিল্পী তালিকা</a>
+    <a href="albums.html">অ্যালবাম তালিকা</a>
+    <a href="search.html">সঙ্গীত সার্চ</a>
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+  </a>
 </div>
+
     <h1>শিল্পী তালিকা</h1>
     <h2 id="singer-count"></h2>
     <div class="table-container">
