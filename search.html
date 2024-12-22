@@ -34,7 +34,8 @@
     }
 
     h1 {
-        color: #333;
+        color: white;
+        padding-top: 20px;
     }
 
     #search-form {
@@ -224,16 +225,26 @@
 </head>
 <body>
   <div class="sharethis-sticky-share-buttons"></div>
-  <div id="header">
-    <img width="50px" src="images/alomoy.png" alt="আলোময় সঙ্গীত লোগো">
-    <h1>আলোময় সঙ্গীত</h1>
-    <button id="hamburgerMenu" class="hamburger">☰</button>
-    <nav id="navLinks">
-        <a target="_blank" href="https://alomoy.github.io/songit">সব সঙ্গীত</a>
-        <a target="_blank" href="albums.html">সব অ্যালবাম</a>
-        <a target="_blank"  href="singers.html">শিল্পী তালিকা</a>
-    </nav>
+  
+<div class="topnav" id="myTopnav">
+  <div class="logo-section">
+    <img src="images/alomoy.png" alt="Alomoy Songit Logo">
+    <div class="company-info">
+      <strong>আলোময় সঙ্গীত</strong><br>
+      <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
+    </div>
+  </div>
+  <div class="menu">
+    <a href="index.html">হোম</a>
+    <a href="singers.html">শিল্পী তালিকা</a>
+    <a href="albums.html">অ্যালবাম তালিকা</a>
+    <a href="search.html"   class="active">সঙ্গীত সার্চ</a>
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+  </a>
 </div>
+
     <h1>সঙ্গীত খুঁজুন</h1>
 
     <!-- Search form -->
@@ -262,7 +273,7 @@
             10 <i class="fas fa-redo"></i>
         </button>
         <button id="repeat-btn" title="Repeat">
-            <i class="fas fa-sync"></i>
+            <i class="fas fa-solid fa-repeat-1"></i>
         </button>
         <button id="shuffle-btn" title="Shuffle">
             <i class="fas fa-random"></i>
