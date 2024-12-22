@@ -10,3 +10,12 @@ Above the buttons should be track information from js file (Track name, artist n
 Bug: When clicked play button should change to palying button and song should start playing. Not working. Albus art is also not showing.
 
 Not working. When clicked on play, the song is not playing. Album art is also not viible. I've the files locally. The paths are okay. Could you check the script and tracks.js?
+
+
+## NEW Player
+
+Can you make an audio player from csv (radio/songs.csv)
+The columns are Song,album,singer,group,writer,tune,src,genre,subgenre,language,tags.
+
+The player should be fixed on the bottom of the page. Html player should be followed by controls icons (shuffle, previous, 10 sec backward, 10 sec forward, next, repeat (1, all, none), Next Album. Use icons for all options including repeat 1, repeat all and shuffle on off. The mp3 is included in src columns.
+By default show 15 random songs. Switch to next set of 15 songs when these are finished unless repeat is turned on (1 or all).
