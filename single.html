@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="css/header.css"> 
 <!-- Used directly    <script src="js/header.js"></script> -->
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    <!-- Link to FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
 <script>
@@ -17,6 +20,13 @@
 
   gtag('config', 'G-RN5RYTV144');
 </script>
+
+<style>
+  h1, h2 {
+    color: white;
+    padding-top: 30px;
+}
+</style>
 </head>
 <body>
      <div class="sharethis-sticky-share-buttons"></div>
@@ -33,7 +43,7 @@
     <a href="index.html">হোম</a>
     <a href="singers.html">শিল্পী তালিকা</a>
     <a href="albums.html">অ্যালবাম তালিকা</a>
-    <a href="search.html">সঙ্গীত সার্চ</a>
+    <a href="search.html"  class="active">সঙ্গীত সার্চ</a>
   </div>
   <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
     <i class="fa fa-bars"></i>
@@ -239,7 +249,14 @@ document.getElementById('hamburgerMenu').addEventListener('click', () => {
       relatedContainer.appendChild(listItem);
     });
   }
+  
+  // Nav 
+function toggleMenu() {
+  var menu = document.querySelector(".topnav .menu");
+  menu.classList.toggle("show");
+}
 </script>
+
 
 
 </body>

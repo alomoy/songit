@@ -20,7 +20,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center; /* Center all items in the navigation bar */
-  background-color: #df80ff;
+  background-color: #cc00ff;
   padding: 0 10px;
   position: fixed;
   top: 0;
@@ -63,8 +63,8 @@ body {
 }
 
 .topnav .menu a:hover {
-  background-color: #ddd;
-  color: black;
+  background-color: #8f00b3;
+  color: #b3b3ff;
 }
 
 .topnav .menu a.active {
@@ -87,7 +87,7 @@ body {
   .topnav .menu {
     display: none; /* Hide menus on mobile by default */
     flex-direction: column;
-    background-color: #333;
+    background-color: #600080;
     position: absolute;
     top: 100%; /* Directly below the main header */
     left: 0;
