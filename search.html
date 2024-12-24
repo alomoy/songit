@@ -12,6 +12,7 @@
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+<script src="js/functions.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
 <script>
@@ -334,7 +335,7 @@ function loadSongs(searchTerm) {
                 return;
             }
 
-            songsCountElement.textContent = `${filteredSongs.length} টি সঙ্গীত পাওয়া গেছে!`;
+            songsCountElement.textContent = convertToBanglaNumerals(`${filteredSongs.length}টি সঙ্গীত পাওয়া গেছে!`);
 
             filteredSongs.forEach((song, index) => {
                 const listItem = document.createElement('li');
