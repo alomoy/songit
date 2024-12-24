@@ -349,7 +349,7 @@ function loadSongs(searchTerm) {
                 openButton.addEventListener("click", (event) => {
                     event.stopPropagation(); // Prevent triggering song playback
                     const songNameEncoded = encodeURIComponent(song.Song.trim());
-                    const songURL = `single.html?song_name=${songNameEncoded}`;
+                    const songURL = `search.html?query=${songNameEncoded}`;
                     window.open(songURL, "_blank");
                 });
 
