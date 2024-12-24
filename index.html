@@ -20,6 +20,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+<script src="js/functions.js"></script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
 <script>
@@ -521,7 +523,7 @@ bottom:-20px;
 
         function updateSongCount(selectedCount, totalCount) {
     const songCountElement = document.getElementById('songCount');
-    songCountElement.textContent = `মোট সঙ্গীত: ${totalCount} | নির্বাচিত সঙ্গীত: ${selectedCount}`;
+    songCountElement.textContent = convertToBanglaNumerals(`মোট সঙ্গীত: ${totalCount} | নির্বাচিত সঙ্গীত: ${selectedCount}`);
 }
 
 function displaySongs(songList) {
@@ -821,6 +823,8 @@ function toggleMenu() {
   var menu = document.querySelector(".topnav .menu");
   menu.classList.toggle("show");
 }
+// Function to convert English numerals to Bangla numerals
+
 
 // Show per page
 

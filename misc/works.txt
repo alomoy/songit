@@ -1,3 +1,12 @@
+ - Convert url text to english phonetic
+ - In Search.html, show corresponding attributes as links (album, singer, group etc.) and play button and download link
+ - In album list, show singer and group
+
+
+
+Old
+
 - Add all download drive link
 - Add request form
 - Add url for ecah song revealjs
+
