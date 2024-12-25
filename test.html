@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .audio-player {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .controls button {
+            background: none;
+            border: none;
+            color: #fff;
+            margin: 0 5px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .controls button:disabled {
+            color: #555;
+        }
+
+        .song-info {
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        .song-info h3, .song-info p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="audio-player">
+        <div class="song-info">
+            <h3 id="song-title">Loading...</h3>
+            <p id="song-artist">Please wait...</p>
+        </div>
+        <audio id="audio" preload="metadata"></audio>
+        <div class="controls">
+            <button id="shuffle">🔀</button>
+            <button id="prev">⏮️</button>
+            <button id="backward">⏪</button>
+            <button id="play-pause">▶️</button>
+            <button id="forward">⏩</button>
+            <button id="next">⏭️</button>
+            <button id="repeat">🔁</button>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const songTitle = document.getElementById('song-title');
+        const songArtist = document.getElementById('song-artist');
+
+        const shuffleBtn = document.getElementById('shuffle');
+        const prevBtn = document.getElementById('prev');
+        const backwardBtn = document.getElementById('backward');
+        const playPauseBtn = document.getElementById('play-pause');
+        const forwardBtn = document.getElementById('forward');
+        const nextBtn = document.getElementById('next');
+        const repeatBtn = document.getElementById('repeat');
+
+        let songs = [];
+        let currentIndex = 0;
+        let isPlaying = false;
+        let shuffle = false;
+        let repeatMode = 'none'; // 'none', 'all', 'one'
+
+        async function loadSongs() {
+            const response = await fetch('radio/songs.csv');
+            const data = await response.text();
+            const rows = data.split('\n').slice(1);
+            songs = rows.map(row => {
+                const [Song, album, singer, group, writer, tune, src, genre, subgenre, language, tags] = row.split(',');
+                return { Song, album, singer, src };
+            });
+            loadCurrentSong();
+        }
+
+        function loadCurrentSong() {
+            const song = songs[currentIndex];
+            if (song) {
+                audio.src = song.src;
+                songTitle.textContent = song.Song;
+                songArtist.textContent = song.singer;
+            }
+        }
+
+        function playPauseSong() {
+            if (isPlaying) {
+                audio.pause();
+                playPauseBtn.textContent = '▶️';
+            } else {
+                audio.play();
+                playPauseBtn.textContent = '⏸️';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function playNextSong() {
+            if (shuffle) {
+                currentIndex = Math.floor(Math.random() * songs.length);
+            } else {
+                currentIndex = (currentIndex + 1) % songs.length;
+            }
+            loadCurrentSong();
+            audio.play();
+            isPlaying = true;
+            playPauseBtn.textContent = '⏸️';
+        }
+
+        function playPrevSong() {
+            currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+            loadCurrentSong();
+            audio.play();
+            isPlaying = true;
+            playPauseBtn.textContent = '⏸️';
+        }
+
+        function toggleRepeat() {
+            if (repeatMode === 'none') {
+                repeatMode = 'all';
+                repeatBtn.textContent = '🔁';
+            } else if (repeatMode === 'all') {
+                repeatMode = 'one';
+                repeatBtn.textContent = '🔂';
+            } else {
+                repeatMode = 'none';
+                repeatBtn.textContent = '🔁';
+            }
+        }
+
+        shuffleBtn.addEventListener('click', () => {
+            shuffle = !shuffle;
+            shuffleBtn.style.color = shuffle ? 'green' : 'white';
+        });
+
+        playPauseBtn.addEventListener('click', playPauseSong);
+        nextBtn.addEventListener('click', playNextSong);
+        prevBtn.addEventListener('click', playPrevSong);
+        repeatBtn.addEventListener('click', toggleRepeat);
+
+        backwardBtn.addEventListener('click', () => {
+            audio.currentTime -= 10;
+        });
+
+        forwardBtn.addEventListener('click', () => {
+            audio.currentTime += 10;
+        });
+
+        audio.addEventListener('ended', () => {
+            if (repeatMode === 'one') {
+                audio.currentTime = 0;
+                audio.play();
+            } else if (repeatMode === 'all' || shuffle || currentIndex < songs.length - 1) {
+                playNextSong();
+            } else {
+                isPlaying = false;
+                playPauseBtn.textContent = '▶️';
+            }
+        });
+
+        loadSongs();
+    </script>
+</body>
+</html>

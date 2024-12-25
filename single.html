@@ -209,6 +209,8 @@ document.getElementById('hamburgerMenu').addEventListener('click', () => {
   }
 
   function displayRelatedSongs(songs, selectedSong) {
+    console.log('Selected song:', selectedSong);
+  console.log('All songs:', songs);
     const relatedSongs = songs
       .filter(song => song.Song !== selectedSong.Song) // Exclude current song
       .map(song => {
@@ -236,6 +238,7 @@ document.getElementById('hamburgerMenu').addEventListener('click', () => {
       .sort((a, b) => b.matchScore - a.matchScore)
       .slice(0, 10)
       .map(({ song }) => song);
+      console.log('Related songs:', relatedSongs);
 
     // Display related songs
     const relatedContainer = document.getElementById('related-songs');
@@ -248,10 +251,12 @@ document.getElementById('hamburgerMenu').addEventListener('click', () => {
       listItem.appendChild(songLink);
       relatedContainer.appendChild(listItem);
     });
+    console.log('Related songs added to DOM.');
   }
   
   // Nav 
 function toggleMenu() {
+  console.log('Menu toggled');
   var menu = document.querySelector(".topnav .menu");
   menu.classList.toggle("show");
 }
