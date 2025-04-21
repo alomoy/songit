@@ -14,8 +14,15 @@ Not working. When clicked on play, the song is not playing. Album art is also no
 
 ## NEW Player
 
-Can you make an audio player from csv (radio/songs.csv)
-The columns are Song,album,singer,group,writer,tune,src,genre,subgenre,language,tags.
+Make an audio player from a csv file (songs.csv).
+The columns are Song,album,singer,group,writer,tune,src,genre,subgenre,language,tags. The mp3 is included in src columns. From the csv, show 10 random songs as a set.
+The player should be fixed on the bottom of the page. The controls icons should be arranged in this order: previous song, 10 sec backward, play/pause, 10 sec forward, next, repeat (1, all, none), song progress bar along with progress timer and duration at the end, volume. Use icons for all options including repeat 1, repeat all and shuffle on off.
 
-The player should be fixed on the bottom of the page. Html player should be followed by controls icons (shuffle, previous, 10 sec backward, 10 sec forward, next, repeat (1, all, none), Next Album. Use icons for all options including repeat 1, repeat all and shuffle on off. The mp3 is included in src columns.
-By default show 15 random songs. Switch to next set of 15 songs when these are finished unless repeat is turned on (1 or all).
+Above the player, show the current playlist (song name, singer, group, album, play icon, downlaod icon (src link), with currently playing song highlighted.
+
+follow up
+
+on clicking, repeat icon should toggle between 1, all and none with proper icons for each.
+when the page is first opened, the player shows pause icon, it should show play icon and switch then according to click.
+add the player progress bar after current time
+Move the current playlist as readily visible above the player (not toggle button). Above the playlist, show next playlist button (পরের প্লেলিস্ট শুনুন)।

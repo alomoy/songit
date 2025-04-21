@@ -3,75 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://mahmudstat.github.io/games/assets/css/style.css">
-    <link rel = "stylesheet" href = "radio.css">
-    <script src="header.js" defer></script>
-    <script src="radio.js" defer></script>
+    <title>Audio Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .playlist-section {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        .next-set-btn {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .next-set-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .playlist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .playlist li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .playlist li.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .playlist li button {
+            background-color: transparent;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .playlist li button:hover {
+            text-decoration: underline;
+        }
+
+        .player-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f4f4f9;
+            border-top: 2px solid #ccc;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .controls button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .controls button:hover {
+            color: #007bff;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background-color: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress-bar div {
+            height: 100%;
+            background-color: #007bff;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .progress-time {
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    <header></header>
-  <div class="main-content"> 
-<!--           <h1>Welcome to Our Website</h1> -->
-<!--        <p>This is the home page. Here you can find 
-a brief introduction.
-</p>
--->
-    <button id="hamburgerMenu" class="hamburger">ইচ্ছেমতো বাছাই ☵ </button>
- <div class="dropdowns">
-   <div>
-        <label for="albumSelect">অ্যালবাম:</label>
-        <select id="albumSelect"></select>
-
-        <label for="singerSelect">শিল্পী:</label>
-        <select id="singerSelect"></select>
-
-        <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
-        <select id="groupSelect"></select>
+    <div class="playlist-section">
+        <button id="next-set-btn" class="next-set-btn">অন্য সেট শুনুন</button>
+        <ul id="playlist" class="playlist"></ul>
+    </div>
+    <div class="player-container">
+        <div class="controls">
+            <button id="prev-btn" title="Previous Song"><i class="fas fa-step-backward"></i></button>
+            <button id="backward-btn" title="10 Seconds Backward"><i class="fas fa-undo"></i></button>
+            <button id="play-pause-btn" title="Play/Pause"><i class="fas fa-play"></i></button>
+            <button id="forward-btn" title="10 Seconds Forward"><i class="fas fa-redo"></i></button>
+            <button id="next-btn" title="Next Song"><i class="fas fa-step-forward"></i></button>
+            <button id="repeat-btn" title="Repeat"><i class="fas fa-sync-alt"></i></button>
         </div>
-<div>
-        <label for="genreSelect">বিভাগ:</label>
-        <select id="genreSelect"></select>
-
-        <label for="subgenreSelect">উপ-বিভাগ:</label>
-        <select id="subgenreSelect"></select>
-
-         <!-- Search Box -->
-    <label for="searchBox">খুঁজুন:</label>
-    <input class="searchBox" type="text" id="searchBox" placeholder="কিছু টাইপ করুন...">
-</div>
- </div> 
-
-    </div>
-  <audio id="audioPlayer" controls></audio>
-
         <div class="progress-container">
-    <span id="currentTime">0:00</span>
-    <input type="range" id="progressBar" min="0" max="100" value="0">
-    <span id="totalDuration">0:00</span>
+            <span id="current-time" class="progress-time">0:00</span>
+            <div class="progress-bar" id="progress-bar">
+                <div></div>
+            </div>
+            <span id="duration-time" class="progress-time">0:00</span>
+        </div>
+        <audio id="audio-player" src="" preload="metadata"></audio>
     </div>
 
-    <marquee style="background: rgba(51, 170, 51, .2);margin-bottom:10px;" 
-    class="trk" width="40%" scrollamount="3" id="trackInfoWrapper">
-  <span id="trackInfoText">শুনছেন: </span><span id="trackInfo"> -  - </span>
-</marquee>
+    <script>
+        const playlist = document.getElementById('playlist');
+        const nextSetBtn = document.getElementById('next-set-btn');
+        const audioPlayer = document.getElementById('audio-player');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const backwardBtn = document.getElementById('backward-btn');
+        const forwardBtn = document.getElementById('forward-btn');
+        const repeatBtn = document.getElementById('repeat-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressBarFill = progressBar.querySelector('div');
+        const currentTimeElem = document.getElementById('current-time');
+        const durationTimeElem = document.getElementById('duration-time');
 
-    <div class="controls">
-        <button id="shuffle"><i class="fas fa-random"></i> Off</button>
-        <button id="prev"><i class="fas fa-backward"></i></button>
-        <button id="play"><i class="fas fa-play"></i></button>
-        <button id="pause" style="display: none;"><i class="fas fa-pause"></i></button>
-        <button id="next"><i class="fas fa-forward"></i></button>
-        <button id="repeat"><i class="fas fa-redo"></i> Off</button>
-        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="Volume">
-    </div>
-  
+        let songs = [];
+        let currentSet = [];
+        let currentIndex = 0;
+        let repeatMode = 'none'; // none, one, all
 
- <!--   <div class="main-container"> -->
-    <ul id="songList"></ul>
+        // Fetch and parse the CSV
+        fetch('songs.csv')
+            .then(response => response.text())
+            .then(csvText => {
+                songs = parseCSV(csvText);
+                loadRandomSet();
+                loadCurrentSong();
+            })
+            .catch(error => console.error('Error loading songs:', error));
 
-<!--    </div> -->
-    <footer></footer>
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            const headers = lines[0].split(',').map(header => header.trim());
+            return lines.slice(1).map(line => {
+                const values = line.split(',');
+                return headers.reduce((acc, header, index) => {
+                    acc[header] = values[index]?.trim() || '';
+                    return acc;
+                }, {});
+            });
+        }
+
+        function loadRandomSet() {
+            currentSet = [...songs].sort(() => Math.random() - 0.5).slice(0, 10);
+            currentIndex = 0;
+            updatePlaylist();
+        }
+
+        function loadCurrentSong() {
+            const currentSong = currentSet[currentIndex];
+            audioPlayer.src = currentSong.src;
+            audioPlayer.play();
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            highlightCurrentSong();
+        }
+
+        function updatePlaylist() {
+            playlist.innerHTML = '';
+            currentSet.forEach((song, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${song.Song} - ${song.singer} (${song.album})`;
+
+                // Add a play button
+                const playBtn = document.createElement('button');
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                playBtn.addEventListener('click', () => {
+                    currentIndex = index;
+                    loadCurrentSong();
+                });
+                listItem.appendChild(playBtn);
+
+                // Add a download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.innerHTML = '<i class="fas fa-download"></i>';
+                downloadBtn.addEventListener('click', () => window.open(song.src, '_blank'));
+                listItem.appendChild(downloadBtn);
+
+                playlist.appendChild(listItem);
+            });
+        }
+
+        function highlightCurrentSong() {
+            const items = playlist.querySelectorAll('li');
+            items.forEach((item, index) => {
+                item.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // Repeat button logic
+        repeatBtn.addEventListener('click', () => {
+            if (repeatMode === 'none') {
+                repeatMode = 'one';
+                repeatBtn.innerHTML = '<i class="fas fa-redo-alt"></i><span style="font-size: 12px;">1</span>';
+            } else if (repeatMode === 'one') {
+                repeatMode = 'all';
+                repeatBtn.innerHTML = '<i class="fas fa-redo"></i>';
+            } else {
+                repeatMode = 'none';
+                repeatBtn.innerHTML = '<i class="fas fa-sync-alt"></i>';
+            }
+        });
+
+        // Play/Pause button
+        playPauseBtn.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audioPlayer.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+
+        // Next/Previous buttons
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % currentSet.length;
+            if (currentIndex === 0 && repeatMode !== 'all') loadRandomSet();
+            loadCurrentSong();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + currentSet.length) % currentSet.length;
+            loadCurrentSong();
+        });
+
+        // Seek and progress bar
+        progressBar.addEventListener('click', (e) => {
+            const width = progressBar.offsetWidth;
+            const clickX = e.offsetX;
+            const duration = audioPlayer.duration;
+            audioPlayer.currentTime = (clickX / width) * duration;
+        });
+
+        audioPlayer.addEventListener('timeupdate', () => {
+            const currentTime = audioPlayer.currentTime;
+            const duration = audioPlayer.duration;
+
+            progressBarFill.style.width = `${(currentTime / duration) * 100}%`;
+            currentTimeElem.textContent = formatTime(currentTime);
+            durationTimeElem.textContent = formatTime(duration);
+        });
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Next set button
+        nextSetBtn.addEventListener('click', () => {
+            loadRandomSet();
+        });
+
+        // Backward/Forward 10 seconds
+        backwardBtn.addEventListener('click', () => {
+            audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 10);
+        });
+
+        forwardBtn.addEventListener('click', () => {
+            audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 10);
+        });
+    </script>
 </body>
 </html>
