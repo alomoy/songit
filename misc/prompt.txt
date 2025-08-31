@@ -14,7 +14,7 @@ Not working. When clicked on play, the song is not playing. Album art is also no
 
 ## NEW Player
 
-Make an audio player from a csv file (songs.csv).
+Make an audio player from a csv file (radio/songs.csv).
 The columns are Song,album,singer,group,writer,tune,src,genre,subgenre,language,tags. The mp3 is included in src columns. From the csv, show 10 random songs as a set.
 The player should be fixed on the bottom of the page. The controls icons should be arranged in this order: previous song, 10 sec backward, play/pause, 10 sec forward, next, repeat (1, all, none), song progress bar along with progress timer and duration at the end, volume. Use icons for all options including repeat 1, repeat all and shuffle on off.
 
@@ -26,3 +26,17 @@ on clicking, repeat icon should toggle between 1, all and none with proper icons
 when the page is first opened, the player shows pause icon, it should show play icon and switch then according to click.
 add the player progress bar after current time
 Move the current playlist as readily visible above the player (not toggle button). Above the playlist, show next playlist button (পরের প্লেলিস্ট শুনুন)।
+
+আরেকজনের করা কাজকে সাদামাটা ভাবা সম্ভবত মানুষের একটি সহজাত স্বভাব। আ‌‌‌মি নিজেই তার একটি প্রমাণ। কিছুদিন ধুমছে (prolifically) লেখালেখি করার পর বহুদিন আমাকে কেউ খুঁজে পায় না। হঠাৎ আরেকদিন শুরুর পর নিজেই নিজের আগের অনুবাদকে অবজ্ঞা করি, ভালোভাবে না দেখেই, "ধুর! কী যা তা লিখেছিলাম!" আরেকটু ভালো করে দেখে বুঝি, নাহ, খারাপ ছিল না। এটাও আসলে অন্যের কাজকে তাচ্ছিল্য করার মতোই। যেখানে বর্তমান আমি অতীত আমিকে অবজ্ঞা করে।
+
+
+## New Set up
+
+Use radio/songs.csv to Create song playlists. the csv contains the columns: Song,album,singer,group,writer,tune,src,genre,subgenre,language,tags
+
+Create a shell script to generate a unique playlist page for each album (album/album_name.html).
+- Each page should contain the song names, singer and group as an ordered list.
+- Clicking on the items of this list should start the song.
+- Each album should have icons for previous song, 10 sec backward, play/pause, 10 sec forward, next, repeat (1, all, none), song progress bar along with progress timer and duration at the end, and volume button.
+- Use icons for all options including repeat 1, repeat all and shuffle on off.
+- Make the pages SEO-friendly. Use description based on
