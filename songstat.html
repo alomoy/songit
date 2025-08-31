@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>গান ও সুরের পরিসংখ্যান</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="canonical" href="https://alomoy.github.io/songit">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="আলোময় সঙ্গীত - অনলাইন সঙ্গীত প্লেয়ার">
+    <meta property="og:description" content="অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alomoy.github.io/songit/radio.html">
+    <meta property="og:image" content="https://alomoy.github.io/songit/images/bg/alomoy_banner.jpg">
+    <meta property="og:locale" content="bn_BD">
+    <meta property="og:site_name" content="আলোময় সঙ্গীত">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="js/functions.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RN5RYTV144');
+    </script>
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "আলোময় সঙ্গীত",
+          "url": "https://alomoy.github.io/songit/radio.html",
+          "description": "অনালাইনে শুনুন ইসলামী সঙ্গীত।",
+          "inLanguage": "bn",
+          "about": {
+            "@type": "MusicGroup",
+            "name": "আলোময় সঙ্গীত",
+            "genre": "বাংলা ইসলামী সঙ্গীত"
+          },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://alomoy.github.io/songit/radio.html"
+              }
+            ]
+          }
+        }
+    </script>
+    <style>
+        :root {
+            --light-bg: transparent;
+            --light-card-bg: #c44dff;
+            --light-text-color: white;
+            --light-primary: yellow;
+            --light-secondary: black;
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --light-bg: #1c1c1c;
+                --light-card-bg: #2d2d2d;
+                --light-text-color: #e0e0e0;
+                --light-primary: #a3a3a3;
+                --light-secondary: #b3b3b3;
+                --shadow-light: 0 4px 6px -1px rgba(255, 255, 255, 0.05), 0 2px 4px -2px rgba(255, 255, 255, 0.02);
+            }
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--light-text-color);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--light-primary);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--light-secondary);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Statistics grid styling */
+        .stats-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Common styling for each count box */
+        .count-box {
+            background-color: var(--light-card-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-light);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .count-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .count-box i {
+            color: var(--light-primary);
+        }
+
+        .count-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--light-text-color);
+        }
+
+        .count-label {
+            font-size: 1.25rem;
+            color: var(--light-secondary);
+            font-weight: 500;
+        }
+
+        /* Song of the Day styles */
+        #song-of-the-day-container {
+            text-align: center;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #song-of-the-day-container h2 {
+            text-align: center;
+        }
+
+        /* Audio Player Styles */
+        .audio-player-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--light-card-bg);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-light);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .song-info {
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .audio-player-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 1rem;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--light-primary);
+            transition: width 0.1s linear;
+        }
+
+        .progress-time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--light-secondary);
+        }
+
+        .player-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--light-primary);
+            font-size: 2rem;
+            padding: 0;
+            transition: color 0.2s;
+        }
+
+        .player-button:hover {
+            color: var(--light-secondary);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .volume-control i {
+            font-size: 1.25rem;
+            color: var(--light-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <div class="logo-section">
+            <a href="index.html">
+                <img src="images/alomoy.png" alt="Alomoy Sangeet Logo">
+                <div class="company-info">
+                    <strong>আলোময় সঙ্গীত</strong><br>
+                    <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
+                </a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="index.html"  class="active">হোম</a>
+            <a href="singers.html">শিল্পী তালিকা</a>
+            <a href="albums.html">অ্যালবাম তালিকা</a>
+            <a href="search.html">সঙ্গীত সার্চ</a>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Section for the "Song of the Day" -->
+        <div id="song-of-the-day-container">
+            <h2>আজকের সঙ্গীত</h2>
+
+            <div class="audio-player-container">
+                <div class="song-info">
+                    <div id="song-of-the-day">ডেটা লোড হচ্ছে...</div>
+                </div>
+                <!--
+                This audio tag's src will be set dynamically by JavaScript below.
+                The previous issue was due to the CSV's URLs not being direct audio file links.
+                Please ensure your CSV's `url` column points to a direct .mp3 file to avoid the "NotSupportedError".
+                -->
+                <audio id="audioPlayer" src=""></audio>
+                <div class="progress-container">
+                    <div id="progressBar" class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-time">
+                        <span id="currentTime">0:00</span>
+                        <span id="totalTime">0:00</span>
+                    </div>
+                </div>
+                <div class="audio-player-controls">
+                    <button id="playPauseButton" class="player-button">
+                        <i id="playPauseIcon" class="fa-solid fa-play"></i>
+                    </button>
+                    <div class="volume-control">
+                        <i class="fa-solid fa-volume-down"></i>
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+                        <i class="fa-solid fa-volume-up"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="count-box">
+                <i class="fa-solid fa-music fa-2x"></i>
+                <span id="num_songs" class="count-number">0</span>
+                <span class="count-label">টি গান</span>
+            </div>
+
+            <div class="count-box">
+                <i class="fa-solid fa-record-vinyl fa-2x"></i>
+                <span id="num_albums" class="count-number">0</span>
+                <span class="count-label">টি অ্যালবাম</span>
+            </div>
+
+            <div class="count-box">
+                <i class="fa-solid fa-user fa-2x"></i>
+                <span id="num_singers" class="count-number">0</span>
+                <span class="count-label">জন শিল্পী</span>
+            </div>
+
+            <div class="count-box">
+                <i class="fa-solid fa-users fa-2x"></i>
+                <span id="num_groups" class="count-number">0</span>
+                <span class="count-label">টি শিল্পীগোষ্ঠী</span>
+            </div>
+
+            <div class="count-box">
+                <i class="fa-solid fa-list fa-2x"></i>
+                <span id="num_genres" class="count-number">0</span>
+                <span class="count-label">টি বিভাগ</span>
+            </div>
+
+            <div class="count-box">
+                <i class="fa-solid fa-list-ul fa-2x"></i>
+                <span id="num_subgenres" class="count-number">0</span>
+                <span class="count-label">টি উপবিভাগ</span>
+            </div>
+
+            <div class="count-box">
+                <i class="fa-solid fa-language fa-2x"></i>
+                <span id="num_languages" class="count-number">0</span>
+                <span class="count-label">টি ভাষা</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            var menu = document.querySelector(".topnav .menu");
+            menu.classList.toggle("show");
+        }
+
+        // Helper function to format time
+        const formatTime = (seconds) => {
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // A more robust CSV parser that handles missing or malformed data
+            const parseCSV = (text) => {
+                const lines = text.trim().split('\n').filter(line => line.length > 0);
+                if (lines.length === 0) return [];
+                const headers = lines[0].split(',').map(h => h.trim());
+                return lines.slice(1).map(line => {
+                    const values = line.split(',');
+                    const row = {};
+                    headers.forEach((header, index) => {
+                        row[header] = values[index] ? values[index].trim() : '';
+                    });
+                    return row;
+                });
+            };
+
+            const getUniqueCount = (data, key) => {
+                if (!data && data.length === 0) return 0;
+                const uniqueValues = new Set();
+                data.forEach(item => {
+                    if (item[key]) {
+                        uniqueValues.add(item[key]);
+                    }
+                });
+                return uniqueValues.size;
+            };
+
+            const getSongOfTheDay = (songsData) => {
+                // Shuffle the array to increase the chance of finding a valid song
+                songsData.sort(() => Math.random() - 0.5);
+
+                // Find the first song with a valid, non-empty URL
+                const validSong = songsData.find(song => song.src && song.src.trim() !== '');
+
+                return validSong || null;
+            };
+
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/alomoy/songit/refs/heads/main/radio/songs.csv');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const csvText = await response.text();
+                const songsData = parseCSV(csvText);
+
+                const counts = {
+                    num_songs: getUniqueCount(songsData, 'Song'),
+                    num_albums: getUniqueCount(songsData, 'album'),
+                    num_singers: getUniqueCount(songsData, 'singer'),
+                    num_groups: getUniqueCount(songsData, 'group'),
+                    num_genres: getUniqueCount(songsData, 'genre'),
+                    num_subgenres: getUniqueCount(songsData, 'subgenre'),
+                    num_languages: getUniqueCount(songsData, 'language')
+                };
+
+                // Display the song of the day
+                const song = getSongOfTheDay(songsData);
+                const songOfTheDayElement = document.getElementById('song-of-the-day');
+                const audioPlayer = document.getElementById('audioPlayer');
+                const playPauseIcon = document.getElementById('playPauseIcon');
+
+                if (song && song.src) {
+                    songOfTheDayElement.innerHTML = `<strong>${song.Song}</strong> -  শিল্পী: ${song.singer}- অ্যালবাম: ${song.album}`;
+                    audioPlayer.src = song.src;
+
+                    audioPlayer.addEventListener('error', () => {
+                        console.error("Failed to load audio from URL:", song.src);
+                        songOfTheDayElement.innerHTML = `দুঃখিত, এই গানটি লোড করা যাচ্ছে না। <br>দয়া করে নিশ্চিত করুন যে URLটি সরাসরি একটি অডিও ফাইল (.mp3) নির্দেশ করছে।`;
+                        playPauseIcon.classList.remove('fa-pause');
+                        playPauseIcon.classList.add('fa-play');
+                    });
+
+                    console.log("Loading song from URL:", song.src);
+                } else {
+                    songOfTheDayElement.textContent = "আজকের গানটি লোড করা যাচ্ছে না। গানের URL টি অনুপস্থিত বা ভুল। দয়া করে CSV ফাইলটি যাচাই করুন।";
+                    console.error("No valid song or URL found for today.");
+                }
+
+                // Display the counts
+                document.getElementById('num_songs').textContent = counts.num_songs;
+                document.getElementById('num_albums').textContent = counts.num_albums;
+                document.getElementById('num_singers').textContent = counts.num_singers;
+                document.getElementById('num_groups').textContent = counts.num_groups;
+                document.getElementById('num_genres').textContent = counts.num_genres;
+                document.getElementById('num_subgenres').textContent = counts.num_subgenres;
+                document.getElementById('num_languages').textContent = counts.num_languages;
+
+                // Audio player logic
+                const playPauseButton = document.getElementById('playPauseButton');
+                const progressBar = document.getElementById('progressBar');
+                const progressFill = document.getElementById('progressFill');
+                const currentTime = document.getElementById('currentTime');
+                const totalTime = document.getElementById('totalTime');
+                const volumeSlider = document.getElementById('volumeSlider');
+
+                // Toggle play/pause
+                playPauseButton.addEventListener('click', () => {
+                    if (audioPlayer.paused) {
+                        audioPlayer.play();
+                    } else {
+                        audioPlayer.pause();
+                    }
+                });
+
+                // Update icon on play/pause
+                audioPlayer.addEventListener('play', () => {
+                    playPauseIcon.classList.remove('fa-play');
+                    playPauseIcon.classList.add('fa-pause');
+                });
+                audioPlayer.addEventListener('pause', () => {
+                    playPauseIcon.classList.remove('fa-pause');
+                    playPauseIcon.classList.add('fa-play');
+                });
+
+                // Update progress bar
+                audioPlayer.addEventListener('timeupdate', () => {
+                    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                    progressFill.style.width = `${progress}%`;
+                    currentTime.textContent = formatTime(audioPlayer.currentTime);
+                });
+
+                // Set total time when metadata is loaded
+                audioPlayer.addEventListener('loadedmetadata', () => {
+                    totalTime.textContent = formatTime(audioPlayer.duration);
+                });
+
+                // Seek functionality
+                progressBar.addEventListener('click', (e) => {
+                    const rect = progressBar.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const width = rect.width;
+                    const duration = audioPlayer.duration;
+                    audioPlayer.currentTime = (clickX / width) * duration;
+                });
+
+                // Volume control
+                volumeSlider.addEventListener('input', () => {
+                    audioPlayer.volume = volumeSlider.value;
+                });
+
+
+            } catch (error) {
+                console.error('Error fetching or processing CSV:', error);
+                const container = document.querySelector('.dashboard-container');
+                container.innerHTML = `<h1>ডেটা লোড করতে সমস্যা হয়েছে</h1><p class="subtitle">দয়া করে নিশ্চিত করুন যে আপনি একটি লোকাল সার্ভার থেকে ফাইলটি চালাচ্ছেন অথবা ইন্টারনেট সংযোগ আছে।</p><pre>${error.message}</pre>`;
+            }
+        });
+    </script>
+</body>
+</html>
