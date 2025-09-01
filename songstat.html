@@ -42,15 +42,15 @@
             --light-secondary: black;
             --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
         }
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --light-bg: #1c1c1c;
-                --light-card-bg: #2d2d2d;
-                --light-text-color: #e0e0e0;
-                --light-primary: #a3a3a3;
-                --light-secondary: #b3b3b3;
-                --shadow-light: 0 4px 6px -1px rgba(255, 255, 255, 0.05), 0 2px 4px -2px rgba(255, 255, 255, 0.02);
-            }
+        @media (prefers-color-scheme: light) {
+        :root {
+            --light-bg: transparent;
+            --light-card-bg: #c44dff;
+            --light-text-color: white;
+            --light-primary: yellow;
+            --light-secondary: black;
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
         }
         body {
             font-family: Arial, sans-serif;
@@ -66,6 +66,10 @@
         }
         a {text-decoration: none;
           color: black;
+        }
+
+        .welcome {
+        padding-top: 25px;
         }
 
         .dashboard-container {
@@ -176,7 +180,7 @@
 </div>
 
     <div class="dashboard-container">
-        <h1>গান ও সুরের পরিসংখ্যান</h1>
+        <h1 class= "welcome">গান ও সুরের পরিসংখ্যান</h1>
         <div class="stats-grid">
             <div class="count-box">
                 <i class="fa-solid fa-music fa-2x"></i>
