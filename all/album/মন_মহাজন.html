@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: মন মহাজন</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: মন মহাজন</h1>
+  <ul id="playlist">
+<li data-src="https://www.dropbox.com/scl/fi/v8c77kr8u05sjcewid5lt/01-agune-pora-mon.mp3?rlkey=w1i5gdupivu9bz1j8kphl7w2e&st=1sgijujk&dl=1"><strong>আগুনে পোড়া মন কাঁদে</strong><br>শিল্পী: শফিক আদনান  | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/scl/fi/vsi1mifdsi0mjimfew2n8/02-bipothe-jao-ulta-cholo.mp3?rlkey=pjgyrpgn6ccveletc280wgg7h&st=u2vwg7af&dl=1"><strong>বিপথে যাও উল্টা চলো</strong><br>শিল্পী: শফিক আদনান  | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/scl/fi/aqbgg8mnm0xq10yk1you2/03-duniyate-du-diner-vaber-karkhana.mp3?rlkey=47a456807eynl1f6tvqwqthrd&st=oh9vrulh&dl=1"><strong>দুনিয়াটা দুই দিনের ভবের</strong><br>শিল্পী: শফিক আদনান  | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/scl/fi/9hww0nyq04xjp0wyb8gd5/04-ekhono-tui-kenore-miche.mp3?rlkey=e3c4dbs3zxuq6ssbjs4ulxcc2&st=esh7nyd4&dl=1"><strong>এখনও তুই কেনরে মিছে </strong><br>শিল্পী: শফিক আদনান  | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/scl/fi/os6lngzk8iyuhwdjmiqno/05-je-mati-theke-provu-tumi.mp3?rlkey=54dy2xm1z0q3qpfkdy9eznd1a&st=bkiyyk3s&dl=1"><strong>যে মাটি থেকে প্রভু তুমি </strong><br>শিল্পী: শফিক আদনান  | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/scl/fi/ogtrg2vndzajc2samf8r7/06-malik-tumi-dao-disha-dao.mp3?rlkey=ccmapd2706xgbcj6iuxc9wnvt&st=2cklrjhy&dl=1"><strong>মালিক তুমি দাও দিশা </strong><br>শিল্পী: শফিক আদনান  | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/scl/fi/gns8qethom11ulgsg6rhw/07-moner-o-pinjore-kotona-adore.mp3?rlkey=cm5ql9uybeq84ya32bu3afupj&st=kl7siswe&dl=1"><strong>মনের ও পিঞ্জরে কত না আদরে </strong><br>শিল্পী: শফিক আদনান  | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/scl/fi/uzyiksbq04a700zkl9433/08-onner-dosh-dhorte.mp3?rlkey=nwgmtksgp85fp1142jrmh6oez&st=jkvntbe8&dl=1"><strong>অন্যের দোষ ধরতে নিজের</strong><br>শিল্পী: শফিক আদনান  | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: ঈদের গান</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: ঈদের গান</h1>
+  <ul id="playlist">
+<li data-src="https://www.dropbox.com/s/xkcowk2ngbofily/1mukhe%20mukhe.mp3?dl=1"><strong>মুখে মুখে সুখের কথা</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/7d2ogvxkuowoncl/2dol%20bedhe%20sob.mp3?dl=1"><strong>দল বেঁধে সব</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/5a87f4x0an7zj5n/3eid%20elore.mp3?dl=1"><strong>ঈদ এলোরে</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/qrps9lhu5o7r2dr/4onurange%20rongin.mp3?dl=1"><strong>অনুরাগে রঙিন</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/lrb8bhkqabb73x3/5eid%20eseche.mp3?dl=1"><strong>ঈদ এসেছে</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/i5czln5f9qhrkr0/6qurbani%20dao.mp3?dl=1"><strong>কুরবানি দাও কুরবানি</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/nv9zhucze1fg2oh/7ayre%20mumin.mp3?dl=1"><strong>আয়রে মুমিন</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/nph13hh6qt2ahyi/8o%20mon%20romojaner.mp3?dl=1"><strong>ও মন রমজানের ঐ</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/4iba2knn4qbm1vh/9eid%20mane%20to.mp3?dl=1"><strong>ঈদ মানে তো খুশি</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/zbqjirddlz3pvxa/10eid%20elo.mp3?dl=1"><strong>ঈদ এলো</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/prbsuj8pjd9m4ed/11eider%20khushi.mp3?dl=1"><strong>ঈদের খুশি</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/y3pr7cgawyb2sve/12eid%20mane.mp3?dl=1"><strong>ঈদ মানে তো নয়</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/v0lh29blnboeefq/13eid%20niye%20ase.mp3?dl=1"><strong>ঈদ নিয়ে আসে</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/rw7sn0k60gvnvok/14aj%20anondo.mp3?dl=1"><strong>আজ আনন্দ প্রতি</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

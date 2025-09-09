@@ -1,0 +1,48 @@
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  background: #f9f9f9;
+}
+h1 {
+  color: #333;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  margin: 10px 0;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.active {
+  background-color: #007bff;
+  color: white;
+}
+.controls, .progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.progress-bar {
+  flex-grow: 1;
+  height: 6px;
+  background: #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+}
+.progress-bar-fill {
+  background: #007bff;
+  height: 100%;
+  width: 0%;
+}
+.time-display {
+  font-size: 14px;
+  min-width: 40px;
+  text-align: center;
+}

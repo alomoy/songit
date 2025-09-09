@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: একটু আলোর পরশ দাও</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: একটু আলোর পরশ দাও</h1>
+  <ul id="playlist">
+<li data-src="https://dl.dropbox.com/s/ttw649pzylyxbnx/1tomar%20valobasa.mp3?dl=1"><strong>তোমার ভালবাসা</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/4ws1sadaa7k9hro/2rasul%20tumi%20amar.mp3?dl=1"><strong>রাসুল তুমি আমার</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/l6tnnf1jr3ywrlk/3matir%20ek%20kha.mp3?dl=1"><strong>মাটির এক খান ঘর</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/2jnl0u67tsdli38/4ma%20tomar%20smriti%20vora.mp3?dl=1"><strong>মা তোমার স্মৃতি</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/umysspj51mswpzj/5ek%20din%20poropare.mp3?dl=1"><strong>একদিন পরপারে ভাসাবিরে নাও</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/1hco6bmdzollkiu/6nodi%20amar%20zayre.mp3?dl=1"><strong>নদী আমার যায়রে</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/wbixpgbxsy8lqny/7o%20poraner%20pakhi.mp3?dl=1"><strong>ও পরানের পাখি</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/roe98ctd2i0zww9/8alor%20ektu%20porosh%20dao.mp3?dl=1"><strong>একটু আলোর পরশ দাও</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/l34pyop119rm9ba/9ami%20oshru%20jole.mp3?dl=1"><strong>আমি অশ্রু জলে</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/hqxnbyevoh9ls3s/10o%20mon%20tumi.mp3?dl=1"><strong>ও মন তুমি</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/zxk6wu4acfsqj0h/11maola%20toamr%20lagiya.mp3?dl=1"><strong>মাওলা তোমার লাগিয়া</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/u5wenqzwgbmt4rv/12swadhinota%20ah%20swadhinota.mp3?dl=1"><strong>স্বাধীনতা আহ</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/zqpsn7ccvadtq/13nodi%20e%20nodi.mp3?dl=1"><strong>নদী-ই-নদী</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/0evmrwu4nplkwtb/14ajker%20e%20sur.mp3?dl=1"><strong>আজকের এ সুর</strong><br>শিল্পী: ওবায়দুল্লাহ তারেক | গোষ্ঠী: </li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

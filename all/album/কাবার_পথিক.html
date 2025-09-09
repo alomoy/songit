@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: কাবার পথিক</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: কাবার পথিক</h1>
+  <ul id="playlist">
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/morur_doli_uthlo_jege.mp3"><strong>মরুর ধূলি</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/agonito_jonoter_milon_melay.mp3"><strong>আমি কাবার পথিক</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/dore_thaki_tobu_mone_pore.mp3"><strong>দূরে থাকি তবু পড়ে মনে</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/dodari_sobuj_chire.mp3"><strong>দুধারি সবুজ চিরে</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/din_doniare_malik_tomi.mp3"><strong>দিন দুনিয়ার মালিক</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/alo_batas_pani_chara.mp3"><strong>আলো বাতাস পানি ছাড়া</strong><br>শিল্পী: আবুল কাশেম | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/akas_digonto_aksathe_mise.mp3"><strong>আকাশ দিগন্ত একসাথে</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/jibon_khater_chera_patay.mp3"><strong>জীবন খাতার ছেড়া পাতায়</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="https://www.dropbox.com/scl/fi/lodsb8to2g2o5lztr6v3g/sei_kalo_mukh.mp3?rlkey=r286s16vqcgxr87dqbdydafr1&st=nx68x1rs&dl=1"><strong>সেই কালো মুখ</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/nil_sagorer_kolgeseoi.mp3"><strong>নীল সাগরের কোল ঘেঁষে</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="https://www.dropbox.com/scl/fi/sl8xn55sde48va7ih17qm/o_torir_naiya.mp3?rlkey=2i6gvv1d9rgemy61nw2l9obun&st=qqx8p9p6&dl=1"><strong>ও তরীর নাইয়া</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src="http://probaho.weebly.com/uploads/1/0/9/5/10954712/tomar_shilphi_kore.mp3"><strong>তোমার শিল্পী করে</strong><br>শিল্পী:  | গোষ্ঠী: প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

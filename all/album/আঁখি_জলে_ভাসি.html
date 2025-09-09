@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: আঁখি জলে ভাসি</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: আঁখি জলে ভাসি</h1>
+  <ul id="playlist">
+<li data-src="https://dl.dropbox.com/s/klwaoff217fec78/1summa.mp3"><strong>ছুম্মা লাতুছআলুন্না</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/yzz49zxq3y9xx5e/2ankhi%20jole.mp3"><strong>আঁখি জলে ভাসি</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/e5rw5vclkqnm5m3/3emon%20kichu.mp3"><strong>এমন কিছু গান আছে</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/0dreeem3npzbd0u/4meghero%20arale.mp3"><strong>মেঘেরও আড়ালে চাঁদের</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/2cwdedpcyxr31yc/5ma%20jononi.mp3"><strong>মা জননী প্রিয় সে মুখ</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/p2ztksu6h47mlv4/6jhor%20dhara.mp3"><strong>ও ঝর্ণা ধারা বল না</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/linp8mnu7ymb263/7allahummagfirli.mp3"><strong>আল্লাহুম্মাগফিরলি</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/e3ua5pa7848f2x5/8swopne%20vora.mp3"><strong>স্বপ্নে ভরা স্মৃতিতে</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/skn7hrbgrv7y8lb/9keu%20keu.mp3"><strong>কেউ কেউ ভুলে</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/wwfectek5t0dcfz/10dhoirzo%20shokti.mp3"><strong>ধৈর্য্য শক্তি সাহস</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/9x4b0p668uj4a3i/11din%20bodole.mp3"><strong>দ্বীনের পথে মোরা</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/5y5req8b8sipam3/12somriddho%20bd.mp3"><strong>সমৃদ্ধ বাংলাদেশ</strong><br>শিল্পী:  আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: আল্লাহকে সত্যি ভালবাসে যে</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: আল্লাহকে সত্যি ভালবাসে যে</h1>
+  <ul id="playlist">
+<li data-src=" https://dl.dropbox.com/s/o5kl2dzc2b1lrq3/1allahke%20je%20sotyi.mp3"><strong>আল্লাহকে সত্যি ভালবাসে যে</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/hvyfjobolygqdra/2ekti%20nodi.mp3"><strong>একটি নদী</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/6dt061jeo2o371j/3jotodin%20ei.mp3"><strong>যতদিন এই দেহে</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/rfw8i6krr8w4mhb/4ki%20je%20modhur.mp3"><strong>কি যে মধুর লাগে</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/ryuw2r3knoi3k1d/5dhewer%20pore.mp3"><strong>ঢেউয়ের পরে</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/yhytic3i5cdj52c/6abar%20pran.mp3"><strong>আবার প্রাণ ফিরে</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/cpn5vyfsv4vrix8/7Allah%20created.mp3"><strong>আল্লাহ ক্রিয়েটেড</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/xliysc4eoeiw6jw/8baba%20tumi%20kothay.mp3"><strong>বাবা তুমি কোথায়</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/e7h6et7y86ddk9f/9megher%20chadowa.mp3"><strong>মেঘের চাঁদোয়া</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/hpbiu7yqauf6l7u/10tomar%20me.mp3"><strong>তোমার নামের গানে</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/feuytqxeh1heacj/11Allah%20mer.mp3"><strong>আল্লাহ নামের তাসবীহ</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/e78mrrqoalzwyrk/12tumi%20arhal.mp3"><strong>তুমি আড়াল পেতে</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/xk3930ec6vmtztn/14ma%20je%20amar.mp3"><strong>মা যে আমার</strong><br>শিল্পী: শাহাবুদ্দীন | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

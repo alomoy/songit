@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: কিসের ব্যথা বাজে</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: কিসের ব্যথা বাজে</h1>
+  <ul id="playlist">
+<li data-src="https://dl.dropbox.com/s/a4hy1ycvqam144p/01%20-Jemon%20tumi%20dile%20jomin.mp3?dl=1"><strong>যেমন তুমি দিলে যমীন</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/lzud8hh80snx4kx/02%20-%20Akta%20omar%20ai%20jamai.mp3?dl=1"><strong>একটা ওমর এ যমানায়</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/6kkdlhqlfy6hr65/03%20-Sor%20pakhira.mp3?dl=1"><strong>সোনার পাখিরা একে একে</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/9pqn5w0du3fuful/04%20-Amar%20kondhe%20amon.mp3?dl=1"><strong>আমার কণ্ঠে এমন সুধা দাও</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/sjg0rifc5zx57m5/06-Solat%20sola.mp3?dl=1"><strong>কিসের ব্যথা বাজে!</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/0ihwlsh1jzpo9vi/06%20-Koraner%20bani%20je.mp3?dl=1"><strong>কুর’আনের বাণী</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/wf81kop3zsa260m/07%20-%20Tar%20du%20hate.mp3?dl=1"><strong>তাঁর দু’হাতে নিয়ামত</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/ko7rawwjfw4wrge/08%20-%20Sahadat%20imaner.mp3?dl=1"><strong>শাহাদাত ঈমানের</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/cel2lgb1njnpqyp/09%20-Majhire%20tui%20mon.mp3?dl=1"><strong>মাঝিরে তুই</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/j5xflxoqzwk5f76/10%20-%20Amar%20mayer%20kotha.mp3?dl=1"><strong>আমার মায়ের কথা</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/oc4q3m8jos8y302/11%20-Cholo%20tobe%20jage.mp3?dl=1"><strong>চলো তবে জেগে উঠি</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/l0qa2nujo5pzon1/12%20-%20Asbe%20abar%20omar.mp3?dl=1"><strong>আসবে আবার ওমর</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+<li data-src="https://dl.dropbox.com/s/pwrfvzvd04bonxz/13%20-%20Hazar%20ganer%20majhe.mp3?dl=1"><strong>হাজার গানের মাঝে</strong><br>শিল্পী: মশিউর রহমান | গোষ্ঠী: </li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

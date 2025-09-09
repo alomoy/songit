@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: সোনার নোলক</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: সোনার নোলক</h1>
+  <ul id="playlist">
+<li data-src=" https://www.dropbox.com/s/ye9fc52cjtca9ix/01allah%20mer.mp3?dl=1"><strong>আল্লাহ নামের</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/kydctbjjwgmoc88/02amar%20mayer%20sor%20nolok.mp3?dl=1"><strong>সোনার নোলক</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/g8plxp7b5j7a1fp/03tumi%20ene%20dile.mp3?dl=1"><strong>তুমি এনে দিলে</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/8zxayirx0xoydqe/04papi%20ami.mp3?dl=1"><strong>পাপী আমি তাপী</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/rewu5thi7poc2bu/05guchiye%20rakho.mp3?dl=1"><strong>গুছিয়ে রাখো আতর</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/c1epoif7bibb51p/06-provu%20tumi.mp3?dl=1"><strong>প্রভু তুমি দয়া করো</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/bbfal1unv2l8521/07ami%20dhonno.mp3?dl=1"><strong>আমি ধন্য হলাম</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/r7ma5z79see5b17/08ei%20dhoroni%20oi.mp3?dl=1"><strong>এই ধরণী ঐ যে গগণ</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/l3b6jmlvam7q53p/09vati%20gnger%20iya.mp3?dl=1"><strong>ভাটি গাঙের নাইয়া</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/g6pkuc0dq6uo4dx/10cole%20gele%20zedin.mp3?dl=1"><strong>চলে গেলে যে দিন</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/3yw63ljnwi89gf1/11-cholo%20zaiye.mp3?dl=1"><strong>চলো না যাই</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/7l4zx82w32xd6uo/12moneroi%20ayy.mp3?dl=1"><strong>মনেরই আয়নায়</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+<li data-src=" https://www.dropbox.com/s/8med55g4onz03u6/13bder%20matite%20jonm.mp3?dl=1"><strong>বাংলাদেশের মাটিতে</strong><br>শিল্পী:  | গোষ্ঠী:  বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

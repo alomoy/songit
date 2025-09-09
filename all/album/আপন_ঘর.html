@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: আপন ঘর</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: আপন ঘর</h1>
+  <ul id="playlist">
+<li data-src="https://www.dropbox.com/s/rw3lc9dlr2do2xx/1-o-duniyar-malilk.mp3?dl=1"><strong>ও দুনিয়ার মালিক</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/z531zijlgjypm0e/2-o-allah-ami.mp3?dl=1"><strong>ও আল্লাহ আমি</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/qv1fmd2kai5idx9/3-zodi-amar-gan.mp3?dl=1"><strong>যদি আমার গান</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/2p392c6fpttxphz/4-ei-duniya-charte.mp3?dl=1"><strong>এই দুনিয়া ছাড়তে</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/pwdyuz6flofyect/5-brristir-fotar-moto.mp3?dl=1"><strong>বৃষ্টির ফোটার মতো</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/aew33denfneng5e/6-allah-tomay.mp3?dl=1"><strong>আল্লাহ তোমায়</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/l10y171u15108om/7-o-amar-desh.mp3?dl=1"><strong>ও আমার দেশ</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/9todbd8iriborpo/8-amar-ganer-sur.mp3?dl=1"><strong>আমার গানের সুরে</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/f65ge1tgeqwl1wk/9-koto-din-koto-rat.mp3?dl=1"><strong>কত দিন কত রাত</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/utkezuyv8cc5ksa/10-allah-toamar.mp3?dl=1"><strong>আল্লায় তোমায়</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/sjw6m3yh5kxhetc/11-neelimar-oi-dur.mp3?dl=1"><strong>নীলিমার ঐ দূর</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/x91m3o95njtd7jz/12-mago-tomar-smriti.mp3?dl=1"><strong>মাগো তোমার স্মৃতি</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/kse5gtys10anost/13-sajaiya-diya.mp3?dl=1"><strong>সাজাইয়া দিয়া</strong><br>শিল্পী: রোকনুজ্জামান | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

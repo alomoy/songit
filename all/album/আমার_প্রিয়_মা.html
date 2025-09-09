@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: আমার প্রিয় মা</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: আমার প্রিয় মা</h1>
+  <ul id="playlist">
+<li data-src="https://dl.dropbox.com/s/qhwjgci0enppp9t/1ogo%20doyamoy.mp3"><strong>ওগো দয়ায়ময়</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/0hjmls96sm6463b/2ei%20prithibite.mp3"><strong>এই পঋথিবীতে</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/bxwpph0hgoelrqa/3momota%20madhuri.mp3"><strong>মমতা মাধুরি</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/w90nmysorh1a80p/4diyo%20amay.mp3"><strong>দিও না মায়</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/knopt4unfz0i0eb/5oi%20nil%20akashe.mp3"><strong>ঐ নীল আকাশে</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/3jua693i7b1n7wd/6khub%20beshi%20mone.mp3"><strong>খুব বেশি</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/bfkt6u88cec9qwk/7ogo%20maa.mp3"><strong>ওগো মা</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/nbhn5wssyurcqqz/8make%20valobese.mp3"><strong>মাকে ভালবেসে</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/w7xc5aao6qhj63t/9nodi%20jemon.mp3"><strong>নদী যেমন</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/3b4y4l5vj8k2lb8/10%20mayer%20moton.mp3"><strong>মায়ের মতন</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/luhn4i39m7jeg47/11amar%20jiboner.mp3"><strong>আমার জীবনের</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/udzjxokfn97znlj/12nijhum%20rate.mp3"><strong>নিঝুম রাতে</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/8hninp9vemcl54o/13amar%20ma%20priyo.mp3"><strong>আমার প্রিয় মা</strong><br>শিল্পী: নওশাদ মাহফুজ | গোষ্ঠী: কাফেলা শিল্পীগোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

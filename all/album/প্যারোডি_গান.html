@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: প্যারোডি গান</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: প্যারোডি গান</h1>
+  <ul id="playlist">
+<li data-src=" https://www.dropbox.com/s/5rjwk8ynbko9wnp/1-amar-doyal-Allahre.mp3?dl=1"><strong>আমার দয়াল আল্লাহরে</strong><br>শিল্পী: আবুল কাশেম | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://www.dropbox.com/s/rtj4f5o58o6imw7/2-mamu-vagir-karbar.mp3?dl=1"><strong>চলছে মামু ভাগিনার কারবার</strong><br>শিল্পী: আবুল কাশেম | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://www.dropbox.com/s/bw4i90186zgto4h/3-duniar-golok-dhandha.mp3?dl=1"><strong>দুনিয়ার গোলক ধাঁধাঁয়</strong><br>শিল্পী: আবুল কাশেম | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://www.dropbox.com/s/6iezi9u8bfdvnrr/4-sadher-sukh-pakhi.mp3?dl=1"><strong>সাধের সুখ পাখি</strong><br>শিল্পী: আবুল কাশেম | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://www.dropbox.com/s/6dhttzpg79rrb8j/5-pran-diachen-zini-amare.mp3?dl=1"><strong>প্রাণ দিয়াছেন যিনি আমারে</strong><br>শিল্পী: আবুল কাশেম | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+<li data-src=" https://www.dropbox.com/s/ahyr1vmb7t8wf2q/6-ore-miche-mayay.mp3?dl=1"><strong>ওরে মিছে মায়ায় ডুবে</strong><br>শিল্পী: আবুল কাশেম | গোষ্ঠী: সাইমুম শিল্পীগোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

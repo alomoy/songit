@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: হৃদয়পুরের গীতি</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: হৃদয়পুরের গীতি</h1>
+  <ul id="playlist">
+<li data-src=" https://dl.dropbox.com/s/bvdoj0bztkrgh3o/01.rater%20kalo%20ghor.mp3?dl=1"><strong>রাতের কালো</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/16273cq9r1be7zp/02.everything%20should.mp3?dl=1"><strong>everything should be</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/o7q0p8zuehzza5e/03.chokh%20juriye%20jay.mp3?dl=1"><strong>চোখ জুড়িয়ে যায়</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/mt4uy0ptyb1x5tv/04.ya%20rasulallah.mp3?dl=1"><strong>ইয়া রাসুলুল্লাহ (সা)</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/a29b182jzkrozlo/05.somoy%20somoy.mp3?dl=1"><strong>সময় সময়</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/4wgp1btdt9pi2b6/06.moner%20majhe%20provu%20prem.mp3?dl=1"><strong>মনের মাঝে প্রভূ</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/vhzf1hjjw03hvar/07Man%20is%20crying.mp3?dl=1"><strong>Man is crying</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/qvyctyhmt3ujtac/08matir%20kolose.mp3?dl=1"><strong>মাটির কলসে</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/hyghvxf63xwokgd/09.suto%20kata%20ghuri.mp3?dl=1"><strong>সুতো কাটা ঘুড়ি</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/bchgc3fpipco9zo/10.matir%20bason%20matir%20ason.mp3?dl=1"><strong>মাটির বাসন মাটির আসন</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/w9vl3xucmect81n/11.kotota%20rat%20ketechhe.mp3?dl=1"><strong>কতটা রাত কেটেছে</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+<li data-src=" https://dl.dropbox.com/s/t4je1g8zpryfces/12.buker%20vetor%20kan.mp3?dl=1"><strong>বুকের ভেতর কান্না</strong><br>শিল্পী: আব্দুশ শাকুর তুহিন | গোষ্ঠী: প্রত্যয় শিল্পীগোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

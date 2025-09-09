@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: বর্ণমালার গান</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: বর্ণমালার গান</h1>
+  <ul id="playlist">
+<li data-src="https://www.dropbox.com/s/0udy0ojc2du0l4j/1salam%20likheche.mp3?dl=1"><strong>সালাম লিখেছে মা</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/hhzonbdasn6sf7b/2soli%20horofe.mp3?dl=1"><strong>সোনালী হরফে</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/x481un1bs4v7t0a/4ekush.mp3?dl=1"><strong>একুশ তুমি এসেছো</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/3ntugzssprl3cpz/3O%20te%20ozu.mp3?dl=1"><strong>অ-তে অজু</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/e7gtqjb3ugqggcy/5mayer%20kole.mp3?dl=1"><strong>মায়ের কোলে</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/is65stfh93ghb6s/8rokto%20cokher.mp3?dl=1"><strong>রক্ত চোখের</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/yqhw6dgg4amziui/7ekta%20asha.mp3?dl=1"><strong>একটা আশা নিয়ে</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/cmjk0cohjg9y6jo/9mayer%20mukher%20vasha.mp3?dl=1"><strong>মায়ের মুখের ভাষা</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/4k4jc2udtfyoz7w/10koto%20vasha.mp3?dl=1"><strong>কত ভাষা আছে</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/9jj8bvbbkmenvoi/11bangla%20vasha.mp3?dl=1"><strong>যে ভাষায় কথা বলি</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/doh5aumdwj73iqn/12matrivasha.mp3?dl=1"><strong>বাংলা ভাষা মাতৃভাষা</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/tkuqelxdv8ll0er/13banglar%20podma%20nodi.mp3?dl=1"><strong>এই বাংলার পদ্মা</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+<li data-src="https://www.dropbox.com/s/6k94erra9ftocsc/bangla%20vashar%20m.mp3?dl=1"><strong>সারা দুনিয়ায় বাংলা</strong><br>শিল্পী:  | গোষ্ঠী: অনুপম শিল্পীগোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>

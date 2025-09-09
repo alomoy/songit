@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যালবাম: নতুন কিছু কর</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <h1>🎵 অ্যালবাম: নতুন কিছু কর</h1>
+  <ul id="playlist">
+<li data-src="https://dl.dropbox.com/s/bmhl043lhf2udft/01notun%20kichu%20koro.mp3?dl=1"><strong>নতুন কিছু কর</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/bomxc37bwko90gs/2Allah%20rasule%20joper%20gune.mp3?dl=1"><strong>আল্লাহ রাসুল জপের গুনে</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/l1a3socl4t1xgpw/3amra%20sobai%20sotyo%20nyayer.mp3?dl=1"><strong>আমরা সবাই সত্য ন্যায়ের</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/w0y9vu88s9zjz9r/4has%20dake.mp3?dl=1"><strong>হাঁস ডাকে প্যাক প্যাক</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/tr4es8fywv57v0x/5trivuboner%20priyo.mp3?dl=1"><strong>ত্রিভুবনের প্রিয় মুহাম্মদ</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/0jmo249hicdvkq3/6ya%20rabbi%20lakal%20hamd.mp3?dl=1"><strong>ইয়া রাব্বি লাকাল হামদ</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/cctryrobki0stf1/7majhi%20dheu%20khele.mp3?dl=1"><strong>মাঝি ঢেউ খেলে</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/5459h8d7bvrzhoz/8bon%20bonair%20gohine.mp3?dl=1"><strong>বন বনানীর গহীনে</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/w693wgw4taygtd0/9shiuli%20bokul.mp3?dl=1"><strong> শিউলি বকুল ও গাঁদা</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/ui98xqy67xedwgc/10%20o%20bideshi%20bolo%20na.mp3?dl=1"><strong>ও বিদেশী বলো না</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/ncp9qqi9pz2gasp/11zare%20za%20ure%20za.mp3?dl=1"><strong>যারে যা যারে উড়ে</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+<li data-src="https://dl.dropbox.com/s/ti99otiibktyt8x/12niswo%20tara%20bishwe.mp3?dl=1"><strong>নিঃস্ব তারা বিশ্বে যারা</strong><br>শিল্পী:  | গোষ্ঠী: জাগরণ শিল্পী গোষ্ঠী</li>
+  </ul>
+  <div class="player-controls">
+    <audio id="audio-player" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prev"><i class="fas fa-step-backward"></i></button>
+      <button id="rewind"><i class="fas fa-undo"></i></button>
+      <button id="play-pause"><i class="fas fa-play"></i></button>
+      <button id="forward"><i class="fas fa-redo"></i></button>
+      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button id="repeat" title="Repeat Off"><i class="fas fa-sync-alt"></i></button>
+      <span class="time-display" id="current-time">0:00</span>
+      <div class="progress-bar" id="progress-bar"><div class="progress-bar-fill"></div></div>
+      <span class="time-display" id="duration">0:00</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <script src="../js/player.js"></script>
+</body>
+</html>
