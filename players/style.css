@@ -56,18 +56,79 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.playpause-track, .prev-track, .next-track {
-  padding: 25px;
+.playpause-track, .prev-track, .next-track, .fast-forward, .fast-backward,
+.repeat-track, .volume-icon {
+  padding: 15px;
   opacity: 0.8;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   /* Smoothly transition the opacity */
   transition: opacity .2s;
 }
 
-.playpause-track:hover, .prev-track:hover, .next-track:hover {
+.playpause-track {
+  padding: 25px;
+}
+
+.playpause-track:hover, .prev-track:hover, .next-track:hover,
+.fast-forward:hover, .fast-backward:hover,
+.repeat-track:hover, .volume-icon:hover {
   opacity: 1.0;
+}
+
+.repeat-track.repeat-active {
+  opacity: 1.0;
+}
+
+.repeat-track i {
+  /* fa-redo is a thinner glyph than the other solid icons; bulk up its strokes to match */
+  -webkit-text-stroke: 1px currentColor;
+}
+
+.repeat-track .repeat-badge {
+  display: none;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 0.65rem;
+  background: black;
+  color: white;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+}
+
+.repeat-track.repeat-one .repeat-badge {
+  display: inline-block;
+}
+
+.volume-track {
+  position: relative;
+}
+
+.volume_popup {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  padding: 15px 10px;
+  margin-bottom: 8px;
+}
+
+.volume-track.open .volume_popup {
+  display: block;
 }
 
 .slider_container {
@@ -111,14 +172,13 @@ body {
 }
 
 .volume_slider {
-  width: 30%;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 8px;
+  height: 100px;
 }
 
 .current-time, .total-duration {
-  padding: 10px;
-}
-
-i.fa-volume-down, i.fa-volume-up {
   padding: 10px;
 }
 

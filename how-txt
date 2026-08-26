@@ -1,7 +1,18 @@
+Source file
+radio/songs.csv
+on players dir:
 1. Copy and rename template.html
 2. Copy and rename template.js 
 3. Change html info (Title and DESC)
-4. Add drive link
+4. Add drive link (AI can't; to add manually later)
 5. Change js link 
-6. Change js file (check images)
+6. Change js file (check image links)
 7. Add player to list, mqrquee, and latest 
+
+# Next Steps
+On each player page,
+
+1. Replace the download link with the current song, rather than the drive link of the album.
+2. Add a button to fast forward and backward, and repeat (one, all, none)
+3. Use a musical stylish background (blending with current random color)
+4. The players stops randomly, esp. on mobile. How to solve it?
