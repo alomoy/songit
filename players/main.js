@@ -277,20 +277,67 @@ if (volume_track_el) {
 
 updateVolumeIcon();
 
-function toggleTrackList() {
-  if (!track_list_static_el) return;
-  let isOpen = track_list_static_el.classList.toggle("open");
-  track_list_toggle_btn.setAttribute("aria-expanded", isOpen);
-}
+let track_list_sheet_el = null;
+let track_list_backdrop_el = null;
 
 if (track_list_static_el) {
+  track_list_sheet_el = document.createElement("div");
+  track_list_sheet_el.className = "track-list-sheet";
+  // Appended directly to body (not left inside .player) so its z-index isn't
+  // trapped inside .player's own stacking context (position:relative;
+  // z-index:1), which would otherwise let the backdrop paint over it and
+  // swallow clicks meant for the track list.
+  document.body.appendChild(track_list_sheet_el);
+
+  let handle = document.createElement("div");
+  handle.className = "track-list-handle";
+  track_list_sheet_el.appendChild(handle);
+
+  let closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.className = "track-list-close";
+  closeBtn.setAttribute("aria-label", "Close track list");
+  closeBtn.innerHTML = '<i class="fa fa-times"></i>';
+  closeBtn.addEventListener("click", closeTrackList);
+  track_list_sheet_el.appendChild(closeBtn);
+
+  track_list_sheet_el.appendChild(track_list_static_el);
+
+  track_list_backdrop_el = document.createElement("div");
+  track_list_backdrop_el.className = "track-list-backdrop";
+  track_list_backdrop_el.addEventListener("click", closeTrackList);
+  document.body.appendChild(track_list_backdrop_el);
+
   track_list_static_el.addEventListener("click", function (e) {
     let li = e.target.closest("li[data-track-index]");
     if (!li) return;
     track_index = Number(li.dataset.trackIndex);
     loadTrack(track_index);
     playTrack();
+    closeTrackList();
   });
+}
+
+function openTrackList() {
+  if (!track_list_sheet_el) return;
+  track_list_sheet_el.classList.add("open");
+  track_list_backdrop_el.classList.add("open");
+  track_list_toggle_btn.setAttribute("aria-expanded", "true");
+  document.body.classList.add("no-scroll");
+}
+
+function closeTrackList() {
+  if (!track_list_sheet_el) return;
+  track_list_sheet_el.classList.remove("open");
+  track_list_backdrop_el.classList.remove("open");
+  track_list_toggle_btn.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("no-scroll");
+}
+
+function toggleTrackList() {
+  if (!track_list_sheet_el) return;
+  if (track_list_sheet_el.classList.contains("open")) closeTrackList();
+  else openTrackList();
 }
 
 function seekUpdate() {

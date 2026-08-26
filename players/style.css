@@ -266,33 +266,91 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
   cursor: pointer;
 }
 
-.track-list-static {
-  display: none;
-  list-style: none;
-  width: 90%;
+/* The track list renders as a bottom sheet at every window size: a fixed
+   panel anchored to the bottom of the viewport, capped to a comfortable
+   width on wide screens and full-width on narrow ones, with its own
+   scroll region so it never depends on how tall the browser window is. */
+.track-list-sheet {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
   max-width: 500px;
-  max-height: 180px;
-  overflow-y: auto;
-  margin: 20px auto 0;
-  padding: 10px 16px;
-  font-size: 0.85rem;
-  text-align: left;
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 12px;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.97);
+  color: #222;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+  transition: transform .3s ease;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-.track-list-static.open {
-  display: block;
+.track-list-sheet.open {
+  transform: translateX(-50%) translateY(0);
+}
+
+.track-list-handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  margin: 10px auto 0;
+  flex-shrink: 0;
+}
+
+.track-list-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  cursor: pointer;
+  color: #333;
+}
+
+.track-list-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+  z-index: 15;
+}
+
+.track-list-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.track-list-static {
+  list-style: none;
+  overflow-y: auto;
+  margin: 0;
+  padding: 10px 16px 16px;
+  font-size: 0.9rem;
+  text-align: left;
 }
 
 .track-list-static li {
-  padding: 3px 0;
+  padding: 6px 0;
   cursor: pointer;
   border-radius: 6px;
 }
 
 .track-list-static li:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .track-list-static li.active {

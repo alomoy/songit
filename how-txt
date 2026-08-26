@@ -21,5 +21,5 @@ On each player page,
 3. Add a shuffle button (may be before repeat icon)
 4. Make sure all the icons remain on one line on mobile devices (even if the size get smaller)
 5. Use a musical stylish background (blending with current random color)
-6. Currently the song list is dynamically loaded on user request (client side), so they are not found in search results. We need to make them static, generated from the csv, so they are found in searches.
+6. Currently the song list is dynamically loaded on user request (client side), so they are not found in search results. We need to make them static, generated from the csv, so they are found in searches. We can make the list appear on click (click button right of download icon). AQnd clicking on a track should switch to that
 7. The players stops randomly, esp. on mobile. How to solve it?
