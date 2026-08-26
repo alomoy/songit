@@ -7,12 +7,12 @@ let track_list = [
     image: "../images/bangla.jpg",
     path: "https://www.dropbox.com/s/0udy0ojc2du0l4j/1salam%20likheche.mp3?dl=1"
   },
-   {
+  {
     name: "সোনালী হরফে",
     artist: "অনুপম শিল্পীগোষ্ঠী",
     album: "বর্ণমালার গান",
     image: "../images/bangla.jpg",
-    path: "https://www.dropbox.com/s/hhzonbdasn6sf7b/2sonali%20horofe.mp3?dl=1"
+    path: "https://www.dropbox.com/s/hhzonbdasn6sf7b/2soli%20horofe.mp3?dl=1"
   },
   {
     name: "একুশ তুমি এসেছো",
@@ -42,7 +42,7 @@ let track_list = [
     image: "../images/fist.jpg",
     path: "https://www.dropbox.com/s/is65stfh93ghb6s/8rokto%20cokher.mp3?dl=1"
   },
-   {
+  {
     name: "একটা আশা নিয়ে",
     artist: "অনুপম শিল্পীগোষ্ঠী",
     album: "বর্ণমালার গান",
@@ -56,7 +56,7 @@ let track_list = [
     image: "../images/bangla.jpg",
     path: "https://www.dropbox.com/s/cmjk0cohjg9y6jo/9mayer%20mukher%20vasha.mp3?dl=1"
   },
-   {
+  {
     name: "কত ভাষা আছে",
     artist: "অনুপম শিল্পীগোষ্ঠী",
     album: "বর্ণমালার গান",
@@ -70,7 +70,7 @@ let track_list = [
     image: "../images/bangla.jpg",
     path: "https://www.dropbox.com/s/9jj8bvbbkmenvoi/11bangla%20vasha.mp3?dl=1"
   },
-   {
+  {
     name: "বাংলা ভাষা মাতৃভাষা",
     artist: "অনুপম শিল্পীগোষ্ঠী",
     album: "বর্ণমালার গান",
@@ -84,11 +84,11 @@ let track_list = [
     image: "../images/river2.jpg",
     path: "https://www.dropbox.com/s/tkuqelxdv8ll0er/13banglar%20podma%20nodi.mp3?dl=1"
   },
-   {
+  {
     name: "সারা দুনিয়ায় বাংলা",
     artist: "অনুপম শিল্পীগোষ্ঠী",
     album: "বর্ণমালার গান",
     image: "../images/banglaw.jpg",
-    path: "https://www.dropbox.com/s/6k94erra9ftocsc/bangla%20vashar%20nam.mp3?dl=1"
+    path: "https://www.dropbox.com/s/6k94erra9ftocsc/bangla%20vashar%20m.mp3?dl=1"
   },
 ];

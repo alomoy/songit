@@ -7,7 +7,7 @@ let track_list = [
     image: "../images/nature.jpg",
     path: "https://www.dropbox.com/s/6xyj6omh01qiuo9/Akasher%20Oi%20Nil.mp3?dl=1"
   },
-   {
+  {
     name: "চাঁদের আলো এই হৃদয়ে",
     artist: "আব্দুশ শাকুর তুহিন",
     album: "স্বপ্ন ঘুড়ি",
@@ -33,7 +33,7 @@ let track_list = [
     artist: "আব্দুশ শাকুর তুহিন",
     album: "স্বপ্ন ঘুড়ি",
     image: "../images/river2.jpg",
-    path: "https://www.dropbox.com/s/2uws1fcdjesg7es/O%20Nayer%20Nayia.mp3?dl=1"
+    path: "https://www.dropbox.com/s/2uws1fcdjesg7es/O%20yer%20yia.mp3?dl=1"
   },
   {
     name: "বয়ে চলা কত নদী",
@@ -42,7 +42,7 @@ let track_list = [
     image: "../images/river.jpg",
     path: "https://www.dropbox.com/s/5di153zeaogwst1/R%20Koto%20Rokto.mp3?dl=1"
   },
-   {
+  {
     name: "স্বপ্নের ঘুড়ি ওড়ে",
     artist: "আব্দুশ শাকুর তুহিন",
     album: "স্বপ্ন ঘুড়ি",
@@ -54,9 +54,9 @@ let track_list = [
     artist: "আব্দুশ শাকুর তুহিন",
     album: "স্বপ্ন ঘুড়ি",
     image: "../images/moon.jpg",
-    path: "https://www.dropbox.com/s/8mykfew9wlv5a4v/talaal%20badru%20alaina.mp3?dl=1"
+    path: "https://www.dropbox.com/s/8mykfew9wlv5a4v/talaal%20badru%20alai.mp3?dl=1"
   },
-   {
+  {
     name: "তার রংয়ের চেয়ে",
     artist: "আব্দুশ শাকুর তুহিন",
     album: "স্বপ্ন ঘুড়ি",

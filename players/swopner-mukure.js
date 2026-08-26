@@ -5,9 +5,9 @@ let track_list = [
     artist: "দিশারী শিল্পীগোষ্ঠী",
     album: "স্বপ্নের মুকুরে",
     image: "../images/karakoram.jpg",
-    path: "https://www.dropbox.com/scl/fi/u2ngwm0rvri3cjn4bjbv8/0-kangkhito-thikana.mp3?rlkey=1z7ylki1497bkpdhlpp1mwymp&st=86552qoq&dl=1"
+    path: "https://www.dropbox.com/scl/fi/u2ngwm0rvri3cjn4bjbv8/0-kangkhito-thika.mp3?rlkey=1z7ylki1497bkpdhlpp1mwymp&st=86552qoq&dl=1"
   },
-   {
+  {
     name: "শাহজালালের শাহপরানের",
     artist: "দিশারী শিল্পীগোষ্ঠী",
     album: "স্বপ্নের মুকুরে",
@@ -33,7 +33,7 @@ let track_list = [
     artist: "দিশারী শিল্পীগোষ্ঠী",
     album: "স্বপ্নের মুকুরে",
     image: "../images/mosque.jpg",
-    path: "https://www.dropbox.com/scl/fi/nhk0k8ijm5m4rf5y0bk60/4-naoa-nei-khaoa.mp3?rlkey=gdvlik6ip7af8snap4l03ughd&st=3tdkkz7q&dl=1"
+    path: "https://www.dropbox.com/scl/fi/nhk0k8ijm5m4rf5y0bk60/4-oa-nei-khaoa.mp3?rlkey=gdvlik6ip7af8sp4l03ughd&st=3tdkkz7q&dl=1"
   },
   {
     name: "দুঃসময়ের মুখোমুখি",
@@ -42,7 +42,7 @@ let track_list = [
     image: "../images/mtvill.jpg",
     path: "https://www.dropbox.com/scl/fi/2gxznw5baqm46q953knh7/5-dushomoyer-mukhomukhi.mp3?rlkey=3vfj0br1nqltv4sqgkoqwpz4p&st=sspzurxg&dl=1"
   },
-   {
+  {
     name: "ভয় কী বন্ধু",
     artist: "দিশারী শিল্পীগোষ্ঠী",
     album: "স্বপ্নের মুকুরে",
@@ -56,7 +56,7 @@ let track_list = [
     image: "../images/song.png",
     path: "https://www.dropbox.com/scl/fi/gxr5khtkjgev1nev8pwfd/8-ekti-ganer-sworolipi.mp3?rlkey=hd6zzv3zc1z7hdg9168hku5nm&st=nbb1frvs&dl=1"
   },
-   {
+  {
     name: "নীরব পাহাড় ছুঁয়ে",
     artist: "দিশারী শিল্পীগোষ্ঠী",
     album: "স্বপ্নের মুকুরে",
@@ -68,9 +68,9 @@ let track_list = [
     artist: "দিশারী শিল্পীগোষ্ঠী",
     album: "স্বপ্নের মুকুরে",
     image: "../images/nature.jpg",
-    path: "https://www.dropbox.com/scl/fi/xexwnch9sxu8qlosf9fqo/10-manush-zodi-na.mp3?rlkey=yj49cmxlkwvt8yxbomvwqv5c3&st=hxkxzxwc&dl=1"
+    path: "https://www.dropbox.com/scl/fi/xexwnch9sxu8qlosf9fqo/10-manush-zodi-.mp3?rlkey=yj49cmxlkwvt8yxbomvwqv5c3&st=hxkxzxwc&dl=1"
   },
-   {
+  {
     name: "ফেরেশতারা নিমেষহারা",
     artist: "দিশারী শিল্পীগোষ্ঠী",
     album: "স্বপ্নের মুকুরে",
@@ -84,7 +84,7 @@ let track_list = [
     image: "../images/rain.jpg",
     path: "https://www.dropbox.com/scl/fi/armnby7dnozyg93aeghiz/12-rahmater-baridhara.mp3?rlkey=zefabcqc5zl2upne6suvh6sat&st=bz7t2ok8&dl=1"
   },
-   {
+  {
     name: "কুরআনের হুকুমাত",
     artist: "দিশারী শিল্পীগোষ্ঠী",
     album: "স্বপ্নের মুকুরে",

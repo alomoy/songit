@@ -7,7 +7,7 @@ let track_list = [
     image: "../images/kaaba.webp",
     path: "https://www.dropbox.com/scl/fi/oqk27z2zbuxn2bmvg5o7l/Elo-Ke-Kabar-Dhare.mp3?rlkey=d9x3jf9lzdwk7lcjat7x48la3&st=jyisom7i&dl=1"
   },
-   {
+  {
     name: "জেনে বুঝে গাইলো",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "নাতে রাসুল (সা)",
@@ -42,7 +42,7 @@ let track_list = [
     image: "../images/nawawi.webp",
     path: "https://www.dropbox.com/scl/fi/93p3do55e7piwzntlgzk5/Salam-Tomake.mp3?rlkey=y4m5yfqs9vvvmbk2yj7yh50cv&st=k277z6et&dl=1"
   },
-   {
+  {
     name: "লক্ষ চাঁদের আলো",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "নাতে রাসুল (সা)",
@@ -54,9 +54,9 @@ let track_list = [
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "নাতে রাসুল (সা)",
     image: "../images/moon.jpg",
-    path: "https://www.dropbox.com/scl/fi/j56vde62eil1cdxtj3vkt/Tala-Al-Badru-Alaina.mp3?rlkey=oiuv1myqca8hmzam5d8zjuu5a&st=ce4g0dki&dl=1"
+    path: "https://www.dropbox.com/scl/fi/j56vde62eil1cdxtj3vkt/Tala-Al-Badru-Alai.mp3?rlkey=oiuv1myqca8hmzam5d8zjuu5a&st=ce4g0dki&dl=1"
   },
-   {
+  {
     name: "তিনি নন তো শুধু",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "নাতে রাসুল (সা)",
@@ -70,18 +70,18 @@ let track_list = [
     image: "../images/nawawi.webp",
     path: "https://www.dropbox.com/scl/fi/0szdjcynfmpn2bf6urqsr/Tumi-Rahmate.mp3?rlkey=g7gp0mfngvn7mrvi2alj9b0br&st=ekafe92y&dl=1"
   },
-     {
+  {
     name: "ওগো রাসুল প্রিয়",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "নাতে রাসুল (সা)",
     image: "../images/nawawi.webp",
     path: "https://www.dropbox.com/scl/fi/bmdxhjb1j6robaw8d2vvq/Ogo-Rasul-Prio.mp3?rlkey=pch8rly2i8vtuk3590bpmzn4h&st=1qmoj91o&dl=1"
   },
-   {
+  {
     name: "ইয়া নাবী সালামু",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "নাতে রাসুল (সা)",
     image: "../images/prophet.png",
-    path: "https://www.dropbox.com/scl/fi/5wz44j21f7hpfvkoxamkq/Yaa-Nabi-Salamu.mp3?rlkey=jwcly7svvria6cbrt464dxuuc&st=v72g1ie7&dl=1"
+    path: "https://www.dropbox.com/scl/fi/5wz44j21f7hpfvkoxamkq/Yaa-bi-Salamu.mp3?rlkey=jwcly7svvria6cbrt464dxuuc&st=v72g1ie7&dl=1"
   },
 ];

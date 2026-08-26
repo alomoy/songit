@@ -7,7 +7,7 @@ let track_list = [
     image: "../images/curvedroad.jpg",
     path: "https://www.dropbox.com/scl/fi/ccg2ccojkeyuhllvt33bw/01-tomari-jonyo-mon-kande.mp3?rlkey=zcgvkysuwvy24jpds7sworvhq&dl=1"
   },
-   {
+  {
     name: "আঁখির আড়াল হলে",
     artist: "তারিক মুনাওয়ার",
     album: "তোমারই জন্য মন কাঁদে",
@@ -28,7 +28,7 @@ let track_list = [
     image: "../images/mtroad.jpg",
     path: "https://www.dropbox.com/scl/fi/6fztzniq82cpc14ugkux3/4-ajo-sei-quran.mp3?rlkey=4xinhzx1gc9hf7fcsfrd80ng3&dl=1"
   },
-   {
+  {
     name: "ও নদী তুমি বইছো কেন?",
     artist: "তারিক মুনাওয়ার",
     album: "তোমারই জন্য মন কাঁদে",
@@ -42,7 +42,7 @@ let track_list = [
     image: "../images/mtvill.jpg",
     path: "https://www.dropbox.com/scl/fi/7bbo9rnvjf3izeel2ld39/06-hayre-jibon.mp3?rlkey=c3avij00ag2dxw91q1dbjwz1r&dl=1"
   },
-   {
+  {
     name: "আকাশরে তুই আলো",
     artist: "তারিক মুনাওয়ার",
     album: "তোমারই জন্য মন কাঁদে",
@@ -54,9 +54,9 @@ let track_list = [
     artist: "তারিক মুনাওয়ার",
     album: "তোমারই জন্য মন কাঁদে",
     image: "../images/nature.jpg",
-    path: "https://www.dropbox.com/scl/fi/dnas1w3dunpvg68mtels7/08-zoto-jwala-biroher.mp3?rlkey=qqpyvfaoq0cclxsr7xqyc7s6m&dl=1"
+    path: "https://www.dropbox.com/scl/fi/ds1w3dunpvg68mtels7/08-zoto-jwala-biroher.mp3?rlkey=qqpyvfaoq0cclxsr7xqyc7s6m&dl=1"
   },
-   {
+  {
     name: "সবারই জীবনে সুখ",
     artist: "তারিক মুনাওয়ার",
     album: "তোমারই জন্য মন কাঁদে",
@@ -68,9 +68,9 @@ let track_list = [
     artist: "তারিক মুনাওয়ার",
     album: "তোমারই জন্য মন কাঁদে",
     image: "../images/mount.jpg",
-    path: "https://www.dropbox.com/scl/fi/peytt6vhlsgf3spyp8hse/10-jhorna-jhorna.MP3?rlkey=axn4a547uei1w3rr3dtx1mmy9&dl=1"
+    path: "https://www.dropbox.com/scl/fi/peytt6vhlsgf3spyp8hse/10-jhor-jhor.MP3?rlkey=axn4a547uei1w3rr3dtx1mmy9&dl=1"
   },
-   {
+  {
     name: "পল্লী গাঁয়ের ঐ",
     artist: "তারিক মুনাওয়ার",
     album: "তোমারই জন্য মন কাঁদে",
@@ -84,7 +84,7 @@ let track_list = [
     image: "../images/train.jpg",
     path: "https://www.dropbox.com/scl/fi/j3iuaa4e6f728ese4at0k/12-tomake0-val-beshechi-bole.mp3?rlkey=h25c054agn0qlsnbqy9sv4m55&dl=1"
   },
-   {
+  {
     name: "সব হৃদয়ের মালিক",
     artist: "তারিক মুনাওয়ার",
     album: "তোমারই জন্য মন কাঁদে",

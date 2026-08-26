@@ -7,12 +7,12 @@ let track_list = [
     image: "../images/mosque.jpg",
     path: "http://probaho.weebly.com/uploads/1/0/9/5/10954712/diner_pothe_dekho_oi_deke_jai.mp3"
   },
-   {
+  {
     name: "তোমার নামে আমি",
     artist: "প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ",
     album: "শিল্পীর তুলি",
     image: "../images/allahu.jpg",
-    path: "http://probaho.weebly.com/uploads/1/0/9/5/10954712/tomar_name_ami_tashbi_pori.mp3"
+    path: "https://www.dropbox.com/scl/fi/mqmxs7hggwjs4jxb1p7fj/tomar_name.mp3?rlkey=nx9cvxd5hzlj961sptsytz0ad&st=lp92tngc&dl=1"
   },
   {
     name: "সীসাঢালা প্রাচীর",
@@ -42,7 +42,7 @@ let track_list = [
     image: "../images/allahu.jpg",
     path: "http://probaho.weebly.com/uploads/1/0/9/5/10954712/allaho_allaho_allaho.mp3"
   },
-   {
+  {
     name: "বয়ে চলা নদী",
     artist: "প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ",
     album: "শিল্পীর তুলি",
@@ -56,7 +56,7 @@ let track_list = [
     image: "../images/mosque.jpg",
     path: "http://probaho.weebly.com/uploads/1/0/9/5/10954712/allahte_zar_porno_iman.mp3"
   },
-   {
+  {
     name: "হৃদয় আকাশ ভরা",
     artist: "প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ",
     album: "শিল্পীর তুলি",
@@ -70,7 +70,7 @@ let track_list = [
     image: "../images/prophet.png",
     path: "http://probaho.weebly.com/uploads/1/0/9/5/10954712/tomi_ale_tai_uthlo_heshe.mp3"
   },
-   {
+  {
     name: "সব মানুষের বন্ধু",
     artist: "প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ",
     album: "শিল্পীর তুলি",
@@ -84,7 +84,7 @@ let track_list = [
     image: "../images/mount.jpg",
     path: "http://probaho.weebly.com/uploads/1/0/9/5/10954712/sobujer_daqw_ake_ai_buke.mp3"
   },
-   {
+  {
     name: "শিল্পীর তুলিতে আঁকা",
     artist: "প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ",
     album: "শিল্পীর তুলি",

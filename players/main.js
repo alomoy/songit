@@ -12,8 +12,6 @@ let fast_backward_btn = document.querySelector(".fast-backward");
 let repeat_btn = document.querySelector(".repeat-track");
 let shuffle_btn = document.querySelector(".shuffle-track");
 
-let download_link = document.querySelector("#download-link");
-
 let track_list_toggle_btn = document.querySelector("#track-list-toggle");
 let track_list_static_el = document.querySelector(".track-list-static");
 
@@ -139,10 +137,6 @@ function loadTrack(track_index) {
       album: track_list[track_index].album,
       artwork: [{ src: track_list[track_index].image }],
     });
-  }
-
-  if (download_link) {
-    download_link.href = track_list[track_index].path.replace("dl=0", "dl=1");
   }
 
   if (track_list_static_el) {

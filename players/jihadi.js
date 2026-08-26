@@ -9,7 +9,7 @@ let track_list = [
   },
   {
     name: "বেরিয়েছে যে কাফেলা",
-    artist: "",
+    artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "জিহাদী গান গুচ্ছ",
     image: "../images/nature.jpg",
     path: "https://www.dropbox.com/scl/fi/vv34zoh34p4jh4fuz3wvc/Berieche-j-Kafela.mp3?rlkey=v35xjmvt58l82sf2z2w79apos&st=gzuletss&dl=1"

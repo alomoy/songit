@@ -4,10 +4,10 @@ let track_list = [
     name: "তোমার ভালবাসা",
     artist: "ওবায়দুল্লাহ তারেক",
     album: "একটু আলোর পরশ দাও",
-    image: "../images/album/ektu-alor-porosh-dao.jpg",
+    image: "../images/ektu-alor-porosh-dao.jpg",
     path: "https://dl.dropbox.com/s/ttw649pzylyxbnx/1tomar%20valobasa.mp3?dl=1"
   },
-   {
+  {
     name: "রাসুল তুমি আমার",
     artist: "ওবায়দুল্লাহ তারেক",
     album: "একটু আলোর পরশ দাও",
@@ -19,7 +19,7 @@ let track_list = [
     artist: "ওবায়দুল্লাহ তারেক",
     album: "একটু আলোর পরশ দাও",
     image: "../images/trail.jpg",
-    path: "https://dl.dropbox.com/s/l6tnnf1jr3ywrlk/3matir%20ek%20khana.mp3?dl=1"
+    path: "https://dl.dropbox.com/s/l6tnnf1jr3ywrlk/3matir%20ek%20kha.mp3?dl=1"
   },
   {
     name: "মা তোমার স্মৃতি",
@@ -42,7 +42,7 @@ let track_list = [
     image: "../images/mtroad.jpg",
     path: "https://dl.dropbox.com/s/1hco6bmdzollkiu/6nodi%20amar%20zayre.mp3?dl=1"
   },
-   {
+  {
     name: "ও পরানের পাখি",
     artist: "ওবায়দুল্লাহ তারেক",
     album: "একটু আলোর পরশ দাও",
@@ -56,7 +56,7 @@ let track_list = [
     image: "../images/train.jpg",
     path: "https://dl.dropbox.com/s/roe98ctd2i0zww9/8alor%20ektu%20porosh%20dao.mp3?dl=1"
   },
-   {
+  {
     name: "আমি অশ্রু জলে",
     artist: "ওবায়দুল্লাহ তারেক",
     album: "একটু আলোর পরশ দাও",
@@ -70,7 +70,7 @@ let track_list = [
     image: "../images/nature.jpg",
     path: "https://dl.dropbox.com/s/hqxnbyevoh9ls3s/10o%20mon%20tumi.mp3?dl=1"
   },
-   {
+  {
     name: "মাওলা তোমার লাগিয়া",
     artist: "ওবায়দুল্লাহ তারেক",
     album: "একটু আলোর পরশ দাও",
@@ -84,12 +84,12 @@ let track_list = [
     image: "../images/mount.jpg",
     path: "https://dl.dropbox.com/s/u5wenqzwgbmt4rv/12swadhinota%20ah%20swadhinota.mp3?dl=1"
   },
-   {
+  {
     name: "নদী-ই-নদী",
     artist: "ওবায়দুল্লাহ তারেক",
     album: "একটু আলোর পরশ দাও",
     image: "../images/mosque.jpg",
-    path: "https://dl.dropbox.com/s/zqpsn7ccvanadtq/13nodi%20e%20nodi.mp3?dl=1"
+    path: "https://dl.dropbox.com/s/zqpsn7ccvadtq/13nodi%20e%20nodi.mp3?dl=1"
   },
   {
     name: "আজকের এ সুর",

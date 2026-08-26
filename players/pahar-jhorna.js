@@ -5,9 +5,9 @@ let track_list = [
     artist: "টাইফুন শিল্পীগোষ্ঠী",
     album: "পাহাড়ী ঝরণা",
     image: "../images/mount.jpg",
-    path: "https://dl.dropbox.com/s/ae2qwg52eynnti7/001-Kar%20Nam.mp3"
+    path: "https://dl.dropbox.com/s/ae2qwg52eynnti7/001-Kar%20m.mp3"
   },
-   {
+  {
     name: "এই উদাসী মন",
     artist: "টাইফুন শিল্পীগোষ্ঠী",
     album: "পাহাড়ী ঝরণা",
@@ -22,11 +22,11 @@ let track_list = [
     path: "https://dl.dropbox.com/s/pd1n29h5sptnexo/005-O%20Nodi%20Ektu%20Shono.mp3"
   },
   {
-    name: "নিও না নিও না প্রভূ ",
+    name: "নিও না নিও না প্রভূ",
     artist: "টাইফুন শিল্পীগোষ্ঠী",
     album: "পাহাড়ী ঝরণা",
     image: "../images/karakoram.jpg",
-    path: "https://dl.dropbox.com/s/cg9ek00t7lza2qw/004-Niyona%20Niyona%20Provu.mp3"
+    path: "https://dl.dropbox.com/s/cg9ek00t7lza2qw/004-Niyo%20Niyo%20Provu.mp3"
   },
   {
     name: "ও.. গন্ধরাজ",
@@ -42,8 +42,8 @@ let track_list = [
     image: "../images/mtroad.jpg",
     path: "https://www.dropbox.com/s/k54r9d1nhn0gi61/006-Akashe%20Tara%20Hashe.mp3?dl=1"
   },
-   {
-    name: "আল্লাহু আল্লাহু ",
+  {
+    name: "আল্লাহু আল্লাহু",
     artist: "টাইফুন শিল্পীগোষ্ঠী",
     album: "পাহাড়ী ঝরণা",
     image: "../images/tunnel.jpg",
@@ -56,7 +56,7 @@ let track_list = [
     image: "../images/train.jpg",
     path: "https://www.dropbox.com/s/r52t2xxuojof7wr/008-Tomar%20Shorgo.mp3?dl=1"
   },
-   {
+  {
     name: "ও ফুল পাখি",
     artist: "টাইফুন শিল্পীগোষ্ঠী",
     album: "পাহাড়ী ঝরণা",
@@ -70,7 +70,7 @@ let track_list = [
     image: "../images/nature.jpg",
     path: "https://www.dropbox.com/s/ce24af6w445tkhv/010-Priyo%20Desh.mp3?dl=1"
   },
-   {
+  {
     name: "কোথায় আছো মা জননী",
     artist: "টাইফুন শিল্পীগোষ্ঠী",
     album: "পাহাড়ী ঝরণা",
@@ -84,11 +84,11 @@ let track_list = [
     image: "../images/mount.jpg",
     path: "https://www.dropbox.com/s/2mbxdwzq45vytcc/012-Akash%20Jure.mp3?dl=1"
   },
-   {
+  {
     name: "মাকে দেখি না",
     artist: "টাইফুন শিল্পীগোষ্ঠী",
     album: "পাহাড়ী ঝরণা",
     image: "../images/mosque.jpg",
-    path: "https://www.dropbox.com/s/mytzsdktnsk2ihj/013-Make%20Dekhi%20Na.mp3?dl=1"
+    path: "https://www.dropbox.com/s/mytzsdktnsk2ihj/013-Make%20Dekhi%20.mp3?dl=1"
   },
 ];

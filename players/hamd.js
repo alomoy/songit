@@ -5,9 +5,9 @@ let track_list = [
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "হামদ",
     image: "../images/mount.jpg",
-    path: "https://www.dropbox.com/scl/fi/8mgp7e38p22tljrt6toez/Allah-Namer-Tasbih.mp3?rlkey=944ppuyenagcxg3trvkoxvnxs&st=g4twkgvu&dl=1"
+    path: "https://www.dropbox.com/scl/fi/8mgp7e38p22tljrt6toez/Allah-mer-Tasbih.mp3?rlkey=944ppuyegcxg3trvkoxvnxs&st=g4twkgvu&dl=1"
   },
-   {
+  {
     name: "আল্লাহ তুমি আমার",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "হামদ",
@@ -26,14 +26,14 @@ let track_list = [
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "হামদ",
     image: "../images/karakoram.jpg",
-    path: "https://www.dropbox.com/scl/fi/m0fxub6hs4s2zwzzvl1ik/Allahu-Ei-Namer.mp3?rlkey=rn40x6lukmgapgyq5632reedq&st=98dx5q7x&dl=1"
+    path: "https://www.dropbox.com/scl/fi/m0fxub6hs4s2zwzzvl1ik/Allahu-Ei-mer.mp3?rlkey=rn40x6lukmgapgyq5632reedq&st=98dx5q7x&dl=1"
   },
   {
     name: "হাসনাহেনা ফুটেছে",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "হামদ",
     image: "../images/hillroad.jpg",
-    path: "https://www.dropbox.com/scl/fi/1nirw0py1g24fonle283w/Hasnahena-Foteche.mp3?rlkey=rg0mi92yxfk71g035l0rgyq8k&st=baaglsbw&dl=1"
+    path: "https://www.dropbox.com/scl/fi/1nirw0py1g24fonle283w/Hashe-Foteche.mp3?rlkey=rg0mi92yxfk71g035l0rgyq8k&st=baaglsbw&dl=1"
   },
   {
     name: "যেদিকে তাকাই আমি",
@@ -42,7 +42,7 @@ let track_list = [
     image: "../images/mtroad.jpg",
     path: "https://www.dropbox.com/scl/fi/chcxr17rh6w80gyn90vjd/Je-Dike-Takai-Ami.mp3?rlkey=bl0795y13kcyqotfcdp52h7l2&st=c0fmabky&dl=1"
   },
-   {
+  {
     name: "খোদা তোমার নামের",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "হামদ",
@@ -56,12 +56,12 @@ let track_list = [
     image: "../images/train.jpg",
     path: "https://www.dropbox.com/scl/fi/3t7k9gdpzgllzur9a9rw9/La-Ilaha-Illallah.mp3?rlkey=vodxb66vnwzltnf5r116fygm1&st=l3isufg2&dl=1"
   },
-   {
+  {
     name: "নানা রং ফুলে-ফলে",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "হামদ",
     image: "../images/sajek.jpg",
-    path: "https://www.dropbox.com/scl/fi/ssvkedx47aq17i07yowmm/Nana-Rong-Fole.mp3?rlkey=mrhb5r6h3lt5rvnwjwr5absp6&st=st9jbbft&dl=1"
+    path: "https://www.dropbox.com/scl/fi/ssvkedx47aq17i07yowmm/-Rong-Fole.mp3?rlkey=mrhb5r6h3lt5rvnwjwr5absp6&st=st9jbbft&dl=1"
   },
   {
     name: "ঐ পাহাড় আর ঝর্ণা",
@@ -70,12 +70,12 @@ let track_list = [
     image: "../images/falls.jpg",
     path: "https://www.dropbox.com/scl/fi/y8yjks2q8ibfl9r3tbrrc/Oi-Pahar-Aar-Gachh.mp3?rlkey=lbu956myj01eiff9nvb2tling&st=eqcicbyj&dl=1"
   },
-   {
+  {
     name: "তোমার নামে যদি",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "হামদ",
     image: "../images/mtroad.jpg",
-    path: "https://www.dropbox.com/scl/fi/61h0ndbcapuzmv899grmb/Tomar-Name-Jadi.mp3?rlkey=fzdeosey867o94u1ofy1xiedm&st=09rpp9t3&dl=1"
+    path: "https://www.dropbox.com/scl/fi/61h0ndbcapuzmv899grmb/Tomar-me-Jadi.mp3?rlkey=fzdeosey867o94u1ofy1xiedm&st=09rpp9t3&dl=1"
   },
   {
     name: "তোমার সৃষ্টি যদি",
@@ -84,7 +84,7 @@ let track_list = [
     image: "../images/mount.jpg",
     path: "https://www.dropbox.com/scl/fi/049lyfqmial4thuhvebn0/Tomar-Sristi-Jadi.mp3?rlkey=w8euj3vldxh8j4970i5yq8sdo&st=8gd0vsha&dl=1"
   },
-   {
+  {
     name: "তুমি রহমান",
     artist: "সাইমুম শিল্পীগোষ্ঠী",
     album: "হামদ",
