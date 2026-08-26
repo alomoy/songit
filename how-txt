@@ -26,4 +26,4 @@ On each player page,
 8. Add a logo and title-subtitle above "Playing 2 OF 12". Logo from images/alomoy.png. title-subtitle: আলোময় সঙ্গীত,
 সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়
 9. Make song albums from the csv, with filenames album_en for all unique such names. If the duplciates exist due to earlier files, rm them and stick to album_en.
-10.
+10. A script that can remake all the players when the csv is updated, keeping the earlier style and features.

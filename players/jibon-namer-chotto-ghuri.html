@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>অ্যালবাম:  জীবন নামের ছোট্ট ঘুড়ি ~  শাহাবুদ্দীন | আলোময় সঙ্গীত</title>
+        <meta name="description" content="শাহাবুদ্দীন পরিবেশিত অ্যালবাম জীবন নামের ছোট্ট ঘুড়ি। এই অ্যালবামে রয়েছে 14টি গান।">
+  <!-- Load FontAwesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+  <!-- Load the custom CSS style file -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+      <link href="../css/custom.css" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RN5RYTV144');
+</script>
+
+
+</head>
+<body>
+  <div class="player">
+    <div class="details">
+      <div class="site-brand">
+        <img src="../images/alomoy.png" alt="আলোময় সঙ্গীত" class="site-logo">
+        <div class="site-brand-text">
+          <div class="site-title">আলোময় সঙ্গীত</div>
+          <div class="site-subtitle">সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</div>
+        </div>
+      </div>
+      <div class="now-playing">Playing 1 OF 14</div>
+      <div class="track-art"></div>
+      <div class="track-album">জীবন নামের ছোট্ট ঘুড়ি</div>
+      <div class="track-name">জীবন নামের ছোট্ট ঘুড়ি উড়ছে</div>
+      <div class="track-artist">শাহাবুদ্দীন</div>
+</br>
+            <div class="header-content-inner">
+                <a target="_blank" href="../index.html" class="btn btn-primary btn-lg">হোম</a>
+                <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a>
+				<a id="download-link" target="_blank" href="DRIVELINK" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button>
+            </div>
+
+    </div>
+    <div class="buttons">
+      <div class="repeat-track" onclick="toggleRepeat()" title="Repeat: All">
+        <i class="fa fa-redo fa-2x"></i><span class="repeat-badge">1</span>
+      </div>
+      <div class="fast-backward" onclick="fastBackward()"><i class="fa fa-backward fa-2x"></i></div>
+      <div class="prev-track" onclick="prevTrack()"><i class="fa fa-step-backward fa-2x"></i></div>
+      <div class="playpause-track" onclick="playpauseTrack()"><i class="fa fa-play-circle fa-5x"></i></div>
+      <div class="next-track" onclick="nextTrack()"><i class="fa fa-step-forward fa-2x"></i></div>
+      <div class="fast-forward" onclick="fastForward()"><i class="fa fa-forward fa-2x"></i></div>
+      <div class="shuffle-track" onclick="toggleShuffle()" title="Shuffle: Off">
+        <i class="fa fa-random fa-2x"></i>
+      </div>
+    </div>
+    <div class="slider_container">
+      <div class="current-time">00:00</div>
+      <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+      <div class="total-duration">00:00</div>
+      <div class="volume-track">
+        <div class="volume-icon" onclick="toggleVolumeSlider(event)"><i class="fa fa-volume-up fa-2x"></i></div>
+        <div class="volume_popup">
+          <input type="range" min="0" max="100" value="99" class="volume_slider" onclick="event.stopPropagation()" onchange="setVolume()">
+        </div>
+      </div>
+    </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. জীবন নামের ছোট্ট ঘুড়ি উড়ছে &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="1">2. অপরূপ মহিমা নেই তুলনা আল্লাহ &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="2">3. মা আমিনার কোলে মুহাম্মাদ রাসুল (সা) &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="3">4. মন ভুলানো রূপে ভরা প্রিয় দেশ &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="4">5. হামালতুল হুব্বাতিল কালবি &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="5">6. নিজের তরে চাও ভাল যা পরের &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="6">7. দিনের আলোয় সূর্য হাসে &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="7">8. আল্লাহ তুমি অপরূপ নেই তুলনা &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="8">9. আকাশ সুন্দর নদীও সুন্দর &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="9">10. ফেরেশতারা পাগলপারা &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="10">11. মদার মদার মু &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="11">12. আমার ই দেশ সোনার বাংলাদেশ &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="12">13. এই জীবন আর দুনিয়াদারী ফাঁকি &ndash; শাহাবুদ্দীন</li>
+        <li data-track-index="13">14. নামে তোমার মধু আছে &ndash; শাহাবুদ্দীন</li>
+    </ol>
+  </div>
+
+  <!-- Load the main script for the player -->
+  <script src="jibon-namer-chotto-ghuri.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

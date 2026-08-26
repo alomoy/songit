@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>অ্যালবাম:  বাছাইকৃত বিপ্লবী গান ~  সাইফুল্লাহ মানছুর | আলোময় সঙ্গীত</title>
+        <meta name="description" content="সাইফুল্লাহ মানছুর পরিবেশিত অ্যালবাম বাছাইকৃত বিপ্লবী গান। এই অ্যালবামে রয়েছে 43টি গান।">
+  <!-- Load FontAwesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+  <!-- Load the custom CSS style file -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+      <link href="../css/custom.css" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RN5RYTV144');
+</script>
+
+
+</head>
+<body>
+  <div class="player">
+    <div class="details">
+      <div class="site-brand">
+        <img src="../images/alomoy.png" alt="আলোময় সঙ্গীত" class="site-logo">
+        <div class="site-brand-text">
+          <div class="site-title">আলোময় সঙ্গীত</div>
+          <div class="site-subtitle">সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</div>
+        </div>
+      </div>
+      <div class="now-playing">Playing 1 OF 43</div>
+      <div class="track-art"></div>
+      <div class="track-album">বাছাইকৃত বিপ্লবী গান</div>
+      <div class="track-name">আগামীর সকালটা আমাদের</div>
+      <div class="track-artist"></div>
+</br>
+            <div class="header-content-inner">
+                <a target="_blank" href="../index.html" class="btn btn-primary btn-lg">হোম</a>
+                <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a>
+				<a id="download-link" target="_blank" href="DRIVELINK" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button>
+            </div>
+
+    </div>
+    <div class="buttons">
+      <div class="repeat-track" onclick="toggleRepeat()" title="Repeat: All">
+        <i class="fa fa-redo fa-2x"></i><span class="repeat-badge">1</span>
+      </div>
+      <div class="fast-backward" onclick="fastBackward()"><i class="fa fa-backward fa-2x"></i></div>
+      <div class="prev-track" onclick="prevTrack()"><i class="fa fa-step-backward fa-2x"></i></div>
+      <div class="playpause-track" onclick="playpauseTrack()"><i class="fa fa-play-circle fa-5x"></i></div>
+      <div class="next-track" onclick="nextTrack()"><i class="fa fa-step-forward fa-2x"></i></div>
+      <div class="fast-forward" onclick="fastForward()"><i class="fa fa-forward fa-2x"></i></div>
+      <div class="shuffle-track" onclick="toggleShuffle()" title="Shuffle: Off">
+        <i class="fa fa-random fa-2x"></i>
+      </div>
+    </div>
+    <div class="slider_container">
+      <div class="current-time">00:00</div>
+      <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+      <div class="total-duration">00:00</div>
+      <div class="volume-track">
+        <div class="volume-icon" onclick="toggleVolumeSlider(event)"><i class="fa fa-volume-up fa-2x"></i></div>
+        <div class="volume_popup">
+          <input type="range" min="0" max="100" value="99" class="volume_slider" onclick="event.stopPropagation()" onchange="setVolume()">
+        </div>
+      </div>
+    </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. আগামীর সকালটা আমাদের &ndash; </li>
+        <li data-track-index="1">2. আগুনের ফুলকিরা এসো &ndash; </li>
+        <li data-track-index="2">3. একটুখানি আঘাত খেয়ে &ndash; </li>
+        <li data-track-index="3">4. আল্লাহর রঙে যে &ndash; </li>
+        <li data-track-index="4">5. আলকুরআনের সৈনিকেরা &ndash; </li>
+        <li data-track-index="5">6. আমায় একটি ভাঙা কলম &ndash; </li>
+        <li data-track-index="6">7. আমি হারবো না কোনদিন &ndash; </li>
+        <li data-track-index="7">8. এ কেমন রাজ্য রাজার &ndash; </li>
+        <li data-track-index="8">9. এক পা দু পা করিয়া &ndash; </li>
+        <li data-track-index="9">10. হে নাবিক সিন্দাবাদ &ndash; </li>
+        <li data-track-index="10">11. ইনকিলাবের অস্ত্র মোদের &ndash; মতিউর রহমান মল্লিক</li>
+        <li data-track-index="11">12. ইসলাম শিখলি না রে &ndash; </li>
+        <li data-track-index="12">13. ইসলামের জয়যাত্রা &ndash; </li>
+        <li data-track-index="13">14. ইতিহাস থেকে মোরা &ndash; </li>
+        <li data-track-index="14">15. কেউ না করুক আমি করব কাজ &ndash; মতিউর রহমান মল্লিক</li>
+        <li data-track-index="15">16. কোনো এক দিন কলেমার পতাকা &ndash; আমিনুল ইসলাম</li>
+        <li data-track-index="16">17. মুসলিম আমি সংগ্রামী &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="17">18. নোঙ্গর তোলো তোলো &ndash; </li>
+        <li data-track-index="18">19. রাত কেটেছে স্বপ্নে বিভোর &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="19">20. আঁধার চিরে আনব &ndash; </li>
+        <li data-track-index="20">21. এই হাতে ও হাত &ndash; </li>
+        <li data-track-index="21">22. আজ নয় কাল - ১ &ndash; </li>
+        <li data-track-index="22">23. আজ নয় কাল – ২ &ndash; </li>
+        <li data-track-index="23">24. আজকের এই পৃথিবীতে &ndash; </li>
+        <li data-track-index="24">25. এক দল ভালো মানুষের &ndash; </li>
+        <li data-track-index="25">26. একজন শহীদের ফোঁটা রক্ত &ndash; </li>
+        <li data-track-index="26">27. আল্লাহর রাহে যাদের জীবন &ndash; </li>
+        <li data-track-index="27">28. আল্লাহু আকবর তাকবীর &ndash; </li>
+        <li data-track-index="28">29. আল কুরআনের পথ &ndash; </li>
+        <li data-track-index="29">30. আমাদের বিজয় যদি &ndash; </li>
+        <li data-track-index="30">31. আমাদের প্রত্যয় একটাই &ndash; </li>
+        <li data-track-index="31">32. আমাদের সামনে নাকি অন্ধকারের &ndash; </li>
+        <li data-track-index="32">33. আমি বলব কি সমাজের &ndash; আবুল কাশেম</li>
+        <li data-track-index="33">34. আমরা ছিলাম আমরা আছি &ndash; </li>
+        <li data-track-index="34">35. আমরা হব বীর &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="35">36. আমরা জেগেছি জাগাব এবার &ndash; </li>
+        <li data-track-index="36">37. আর হতাশা নয় নয় নয় &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="37">38. এসো এক জামাতে খোদার &ndash; </li>
+        <li data-track-index="38">39. আজ যত প্রয়োজন &ndash; </li>
+        <li data-track-index="39">40. এই জনতার মিছিল &ndash; </li>
+        <li data-track-index="40">41. হে মুজাহিদ হে মুজাহিদ &ndash; </li>
+        <li data-track-index="41">42. ইসলাম ছাড়া মানি না &ndash; </li>
+        <li data-track-index="42">43. আমাদের রুখতে যাবে &ndash; </li>
+    </ol>
+  </div>
+
+  <!-- Load the main script for the player -->
+  <script src="biplobi.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
