@@ -34,3 +34,4 @@ On each player page,
 15. We need new landing page, listing all the playlist in a stylish way. Must look futuristic.
 16. We should use a good bengali font. SolaimaniLipi is one option. Anything else in mind?
 17. The index page has duplicate image and titles (need deletion from page body now that they are in header)
+18. players/Allahke-sotyi-valobase-ze.html: the first song doesn't load any image although the js file has one. Also the same image is in তুমি আড়াল পেতে but some other image loads with the song.
