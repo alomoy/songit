@@ -76,7 +76,6 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
           <div class="site-subtitle">সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</div>
         </div>
       </div>
-      <div class="now-playing">Playing 1 OF {track_count}</div>
       <div class="track-art"></div>
       <div class="track-album">{album}</div>
       <div class="track-name">{first_name}</div>
@@ -112,6 +111,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
         </div>
       </div>
     </div>
+    <div class="now-playing">Playing 1 OF {track_count}</div>
     <ol class="track-list-static" aria-label="সকল গানের তালিকা">
 {track_list_html}
     </ol>
@@ -172,11 +172,18 @@ def build_track_list_js(tracks):
     return "// Define the tracks that have to be played\n" + "\n".join(lines) + "\n"
 
 
+BENGALI_DIGITS = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
+
+
+def bengali_numeral(n):
+    return str(n).translate(BENGALI_DIGITS)
+
+
 def build_track_list_html(tracks):
     items = []
     for i, t in enumerate(tracks, start=1):
         items.append(
-            f'        <li data-track-index="{i-1}">{i}. {esc(t["name"])} &ndash; {esc(t["artist"])}</li>'
+            f'        <li data-track-index="{i-1}">{bengali_numeral(i)}. {esc(t["name"])} &ndash; {esc(t["artist"])}</li>'
         )
     return "\n".join(items)
 
@@ -260,13 +267,14 @@ def update_existing_page(slug, rows):
     existing_by_name = {t["name"]: t for t in existing_tracks}
     new_tracks = tracks_from_csv_rows(rows, existing_by_name)
 
-    if new_tracks == existing_tracks:
+    html_text = open(html_path, encoding="utf-8").read()
+    has_track_list = bool(re.search(r'<ol class="track-list-static"', html_text))
+
+    if new_tracks == existing_tracks and has_track_list:
         return False  # nothing changed, don't touch the files
 
     with open(js_path, "w", encoding="utf-8") as f:
         f.write(build_track_list_js(new_tracks))
-
-    html_text = open(html_path, encoding="utf-8").read()
     html_text = re.sub(
         r'<div class="now-playing">.*?</div>',
         f'<div class="now-playing">Playing 1 OF {len(new_tracks)}</div>',
@@ -287,11 +295,20 @@ def update_existing_page(slug, rows):
         f'<div class="track-artist">{esc(new_tracks[0]["artist"])}</div>',
         html_text, count=1,
     )
-    html_text = re.sub(
-        r'<ol class="track-list-static"[^>]*>.*?</ol>',
-        f'<ol class="track-list-static" aria-label="সকল গানের তালিকা">\n{build_track_list_html(new_tracks)}\n    </ol>',
-        html_text, count=1, flags=re.S,
-    )
+    new_ol = f'<ol class="track-list-static" aria-label="সকল গানের তালিকা">\n{build_track_list_html(new_tracks)}\n    </ol>'
+    if re.search(r'<ol class="track-list-static"[^>]*>.*?</ol>', html_text, flags=re.S):
+        html_text = re.sub(
+            r'<ol class="track-list-static"[^>]*>.*?</ol>',
+            new_ol, html_text, count=1, flags=re.S,
+        )
+    else:
+        # Legacy page predating this feature — there's nothing to
+        # substitute into, so append it right before .player's closing tag.
+        html_text = re.sub(
+            r'(    </div>\n  </div>\n)',
+            f'    </div>\n    {new_ol}\n  </div>\n',
+            html_text, count=1,
+        )
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_text)
     return True

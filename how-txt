@@ -27,3 +27,9 @@ On each player page,
 সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়
 9. Make song albums from the csv, with filenames album_en for all unique such names. If the duplciates exist due to earlier files, rm them and stick to album_en.
 10. A script that can remake all the players when the csv is updated, keeping the earlier style and features.
+11. Bring back download the current song link icon (it was a misunderstanding).
+12. Fix the readme.md
+13. Playing 12 OF 13: Put it below timer.
+14. Convert track list numbering to Bengai numbers (১, ২ ,...)
+15. We need new landing page, listing all the playlist in a stylish way. Must look futuristic.
+16. We should use a good bengali font. SolaimaniLipi is one option. Anything else in mind?
