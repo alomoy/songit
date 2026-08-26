@@ -56,13 +56,22 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
+
+  /* A single responsive unit that equals 1px on wide screens and shrinks
+     proportionally to viewport width below ~625px. Padding and font-size
+     below are all expressed as a multiple of this same unit, so the whole
+     row's total width scales down together and keeps fitting the viewport
+     (independent clamp()s per property don't correlate to the row's actual
+     total width and can still overflow narrow screens). */
+  --icon-unit: min(1px, 0.16vw);
+  font-size: calc(16 * var(--icon-unit));
 }
 
 .playpause-track, .prev-track, .next-track, .fast-forward, .fast-backward,
-.repeat-track, .volume-icon {
-  padding: 15px;
+.repeat-track, .volume-icon, .shuffle-track {
+  padding: calc(15 * var(--icon-unit));
   opacity: 0.8;
   cursor: pointer;
   position: relative;
@@ -75,17 +84,21 @@ body {
 }
 
 .playpause-track {
-  padding: 25px;
+  padding: calc(25 * var(--icon-unit));
 }
 
 .playpause-track:hover, .prev-track:hover, .next-track:hover,
 .fast-forward:hover, .fast-backward:hover,
-.repeat-track:hover, .volume-icon:hover {
+.repeat-track:hover, .volume-icon:hover, .shuffle-track:hover {
   opacity: 1.0;
 }
 
 .repeat-track.repeat-off {
   opacity: 0.4;
+}
+
+.shuffle-track.shuffle-on {
+  opacity: 1.0;
 }
 
 .repeat-track i {

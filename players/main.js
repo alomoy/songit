@@ -10,12 +10,14 @@ let prev_btn = document.querySelector(".prev-track");
 let fast_forward_btn = document.querySelector(".fast-forward");
 let fast_backward_btn = document.querySelector(".fast-backward");
 let repeat_btn = document.querySelector(".repeat-track");
+let shuffle_btn = document.querySelector(".shuffle-track");
 
 let download_link = document.querySelector("#download-link");
 
 const SEEK_STEP = 10; // seconds
 const REPEAT_MODES = ["all", "one", "none"];
 let repeat_mode = "all";
+let shuffle_mode = false;
 
 let volume_track_el = document.querySelector(".volume-track");
 let volume_icon = document.querySelector(".volume-icon i");
@@ -95,8 +97,19 @@ function pauseTrack() {
   playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';;
 }
 
+function getRandomIndex() {
+  if (track_list.length <= 1) return track_index;
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * track_list.length);
+  } while (idx === track_index);
+  return idx;
+}
+
 function nextTrack() {
-  if (track_index < track_list.length - 1)
+  if (shuffle_mode)
+    track_index = getRandomIndex();
+  else if (track_index < track_list.length - 1)
     track_index += 1;
   else track_index = 0;
   loadTrack(track_index);
@@ -104,7 +117,9 @@ function nextTrack() {
 }
 
 function prevTrack() {
-  if (track_index > 0)
+  if (shuffle_mode)
+    track_index = getRandomIndex();
+  else if (track_index > 0)
     track_index -= 1;
   else track_index = track_list.length;
   loadTrack(track_index);
@@ -118,18 +133,32 @@ function handleTrackEnd() {
     return;
   }
 
-  if (track_index < track_list.length - 1) {
+  if (shuffle_mode) {
+    track_index = getRandomIndex();
+  } else if (track_index < track_list.length - 1) {
     track_index += 1;
+  } else if (repeat_mode === "none") {
+    pauseTrack();
+    return;
   } else {
-    if (repeat_mode === "none") {
-      pauseTrack();
-      return;
-    }
     track_index = 0;
   }
   loadTrack(track_index);
   playTrack();
 }
+
+function toggleShuffle() {
+  shuffle_mode = !shuffle_mode;
+  updateShuffleUI();
+}
+
+function updateShuffleUI() {
+  if (!shuffle_btn) return;
+  shuffle_btn.classList.toggle("shuffle-on", shuffle_mode);
+  shuffle_btn.title = shuffle_mode ? "Shuffle: On" : "Shuffle: Off";
+}
+
+updateShuffleUI();
 
 function fastForward() {
   curr_track.currentTime = Math.min(curr_track.currentTime + SEEK_STEP, curr_track.duration || curr_track.currentTime);
