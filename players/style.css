@@ -1,8 +1,17 @@
-body {
-  background-color: lightgreen;
+:root {
+  --bg: #060a16;
+  --panel: rgba(255, 255, 255, 0.05);
+  --panel-border: rgba(255, 255, 255, 0.09);
+  --text: #eaf0ff;
+  --text-dim: #9aa7c7;
+  --accent-a: #35e6ff;
+  --accent-b: #b06bff;
+  --accent-c: #ff4fd8;
+}
 
-  /* Smoothly transition the background color */
-  transition: background-color .5s;
+body {
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .player {
@@ -108,6 +117,7 @@ body {
   width: 42px;
   object-fit: contain;
   border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15), 0 0 16px rgba(53, 230, 255, 0.35);
 }
 
 .site-brand-text {
@@ -118,11 +128,16 @@ body {
 .site-title {
   font-size: 1.1rem;
   font-weight: bold;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .site-subtitle {
   font-size: 0.7rem;
   opacity: 0.75;
+  color: var(--text-dim);
 }
 
 .track-art {
@@ -132,6 +147,7 @@ body {
   background-image: url("https://images.pexels.com/photos/262034/pexels-photo-262034.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
   background-size: cover;
   border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12), 0 0 40px rgba(53, 230, 255, 0.3);
   /* animation: rotation 10s infinite linear;*/
 }
 
@@ -146,14 +162,24 @@ body {
 
 .now-playing {
   font-size: 1rem;
+  color: var(--text-dim);
+}
+
+.track-album {
+  color: var(--text-dim);
 }
 
 .track-name {
   font-size: 2rem;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-c));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .track-artist {
   font-size: 1.2rem;
+  color: var(--text-dim);
 }
 
 .buttons {
@@ -169,6 +195,7 @@ body {
   padding: calc(15 * var(--icon-unit));
   font-size: calc(16 * var(--icon-unit));
   opacity: 0.8;
+  color: var(--text);
   cursor: pointer;
   position: relative;
   display: flex;
@@ -230,7 +257,9 @@ body {
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 15px 10px;
   margin-bottom: 8px;
@@ -254,8 +283,8 @@ body {
   -moz-appearance: none;
   appearance: none;
   height: 5px;
-  background: black;
-  opacity: 0.7;
+  background: var(--panel-border);
+  opacity: 0.9;
   -webkit-transition: .2s;
   transition: opacity .2s;
 }
@@ -267,7 +296,7 @@ body {
   appearance: none;
   width: 15px;
   height: 15px;
-  background: white;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
   cursor: pointer;
   border-radius: 50%;
 }
@@ -289,6 +318,7 @@ body {
 
 .current-time, .total-duration {
   padding: 10px;
+  color: var(--text-dim);
 }
 
 i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
@@ -309,10 +339,13 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
   max-height: 60vh;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.97);
-  color: #222;
+  background: var(--bg-2, #0b1224);
+  border: 1px solid var(--panel-border);
+  border-bottom: none;
+  backdrop-filter: blur(14px);
+  color: var(--text);
   border-radius: 16px 16px 0 0;
-  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.45);
   z-index: 20;
   transition: transform .3s ease;
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -325,7 +358,7 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
 .track-list-handle {
   width: 40px;
   height: 4px;
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--panel-border);
   border-radius: 2px;
   margin: 10px auto 0;
   flex-shrink: 0;
@@ -338,10 +371,10 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
   width: 32px;
   height: 32px;
   border: none;
-  background: rgba(0, 0, 0, 0.08);
+  background: var(--panel);
   border-radius: 50%;
   cursor: pointer;
-  color: #333;
+  color: var(--text);
 }
 
 .track-list-backdrop {
@@ -379,11 +412,12 @@ body.no-scroll {
 }
 
 .track-list-static li:hover {
-  background: rgba(0, 0, 0, 0.06);
+  background: var(--panel);
 }
 
 .track-list-static li.active {
   font-weight: bold;
+  color: var(--accent-a);
 }
 
 /* Keep the হোম / সব প্লেলিস্ট / download / list-toggle row on one line even
@@ -403,4 +437,25 @@ body.no-scroll {
   padding: clamp(6px, 2.5vw, 15px) clamp(8px, 3.5vw, 30px);
   font-size: clamp(0.65rem, 3vw, 1rem);
   white-space: nowrap;
+}
+
+/* Glassy accent pill to match the site's futuristic theme, overriding
+   custom.css's flat Bootstrap-blue .btn/.btn-primary for player pages
+   only (scoped via .player so other pages keep their own look). */
+.player .btn {
+  border-radius: 999px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  color: var(--text);
+  text-transform: none;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+
+.player .btn:hover,
+.player .btn:focus {
+  border-color: var(--accent-a);
+  background: rgba(53, 230, 255, 0.12);
+  color: var(--text);
+  box-shadow: 0 0 16px rgba(53, 230, 255, 0.25);
 }

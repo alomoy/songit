@@ -98,25 +98,14 @@ for (let i = 0; i < FLOATING_NOTE_COUNT; i++) {
 document.body.appendChild(floating_notes_el);
 
 function random_bg_color() {
-
-  // Get a number between 64 to 256 (for getting lighter colors)
-  let red = Math.floor(Math.random() * 256) + 64;
-  let green = Math.floor(Math.random() * 256) + 64;
-  let blue = Math.floor(Math.random() * 256) + 64;
-
-  // Construct a color withe the given values
-  let bgColor = "rgb(" + red + "," + green + "," + blue + ")";
-
-  // Set the background to that color
-  document.body.style.background = bgColor;
-
-  // Give the background blobs lighter and deeper tints of the same color,
-  // so they read as a soft mesh-gradient blending into the background
-  let lightBlob = "rgb(" + Math.min(red + 40, 255) + "," + Math.min(green + 40, 255) + "," + Math.min(blue + 40, 255) + ")";
-  let deepBlob = "rgb(" + Math.max(red - 60, 0) + "," + Math.max(green - 60, 0) + "," + Math.max(blue - 60, 0) + ")";
-  document.documentElement.style.setProperty("--blob-color-1", lightBlob);
-  document.documentElement.style.setProperty("--blob-color-2", deepBlob);
-  document.documentElement.style.setProperty("--blob-color-3", bgColor);
+  // The page background stays the site's dark theme color (set in
+  // style.css); only the glow blobs get a per-track hue, matching the
+  // cyan/purple/pink accent glow used on the rest of the site while still
+  // giving each song a distinct mood.
+  let hue = Math.floor(Math.random() * 360);
+  document.documentElement.style.setProperty("--blob-color-1", "hsl(" + hue + ", 85%, 60%)");
+  document.documentElement.style.setProperty("--blob-color-2", "hsl(" + (hue + 40) % 360 + ", 85%, 55%)");
+  document.documentElement.style.setProperty("--blob-color-3", "hsl(" + (hue + 80) % 360 + ", 85%, 50%)");
 }
 
 function loadTrack(track_index) {
