@@ -105,7 +105,7 @@ TEMPLATE = r'''<!DOCTYPE html>
     min-height: 100vh;
     background: var(--bg);
     color: var(--text);
-    font-family: 'Open Sans', 'Noto Sans Bengali', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Noto Sans Bengali', 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
     overflow-x: hidden;
   }
 
