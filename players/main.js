@@ -36,6 +36,36 @@ let curr_track = document.createElement('audio');
 
 // Define the tracks that have to be played
 
+let bg_blobs_el = document.createElement("div");
+bg_blobs_el.className = "bg-blobs";
+for (let i = 0; i < 3; i++) {
+  let blob = document.createElement("div");
+  blob.className = "bg-blob bg-blob-" + (i + 1);
+  bg_blobs_el.appendChild(blob);
+}
+document.body.appendChild(bg_blobs_el);
+
+const FLOATING_NOTE_COUNT = 16;
+const NOTE_GLYPHS = ["𝇧", "𝇥", "𝇣", "𝇟", "𝇕", "𝆺𝅥𝅯", "𝇚", "𝇜", "𝆹𝅥𝅯", "𝆺𝅥𝅮", "𝆹𝅥𝅮", "𝆕", "𝄰", "𝄳", "𝄲", "𝄯", "𝄤", "𝄠", "𝄟", "🎼", "𝄞"];
+let floating_notes_el = document.createElement("div");
+floating_notes_el.className = "floating-notes";
+for (let i = 0; i < FLOATING_NOTE_COUNT; i++) {
+  let note = document.createElement("span");
+  note.className = "floating-note";
+  note.textContent = NOTE_GLYPHS[Math.floor(Math.random() * NOTE_GLYPHS.length)];
+  note.style.left = (Math.random() * 92).toFixed(1) + "vw";
+  note.style.top = (Math.random() * 92).toFixed(1) + "vh";
+  note.style.fontSize = (1.2 + Math.random() * 1.8).toFixed(2) + "rem";
+  note.style.color = "hsl(" + Math.floor(Math.random() * 360) + ", 85%, 60%)";
+  note.style.setProperty("--drift-x", (Math.random() * 60 - 30).toFixed(0) + "vw");
+  note.style.setProperty("--drift-y", (Math.random() * 60 - 30).toFixed(0) + "vh");
+  note.style.setProperty("--drift-rot", (Math.random() * 60 - 30).toFixed(0) + "deg");
+  note.style.animationDuration = (10 + Math.random() * 18).toFixed(1) + "s";
+  note.style.animationDelay = (-Math.random() * 25).toFixed(1) + "s";
+  floating_notes_el.appendChild(note);
+}
+document.body.appendChild(floating_notes_el);
+
 function random_bg_color() {
 
   // Get a number between 64 to 256 (for getting lighter colors)
@@ -48,6 +78,14 @@ function random_bg_color() {
 
   // Set the background to that color
   document.body.style.background = bgColor;
+
+  // Give the background blobs lighter and deeper tints of the same color,
+  // so they read as a soft mesh-gradient blending into the background
+  let lightBlob = "rgb(" + Math.min(red + 40, 255) + "," + Math.min(green + 40, 255) + "," + Math.min(blue + 40, 255) + ")";
+  let deepBlob = "rgb(" + Math.max(red - 60, 0) + "," + Math.max(green - 60, 0) + "," + Math.max(blue - 60, 0) + ")";
+  document.documentElement.style.setProperty("--blob-color-1", lightBlob);
+  document.documentElement.style.setProperty("--blob-color-2", deepBlob);
+  document.documentElement.style.setProperty("--blob-color-3", bgColor);
 }
 
 function loadTrack(track_index) {

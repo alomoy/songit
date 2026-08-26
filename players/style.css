@@ -11,6 +11,8 @@ body {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 
   /* A single responsive unit that equals 1px on wide screens and shrinks
      proportionally to viewport width below ~625px. Padding and font-size
@@ -21,6 +23,69 @@ body {
      clamp()s per property don't correlate to the actual total width and
      can still overflow narrow screens). */
   --icon-unit: min(1px, 0.16vw);
+}
+
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.45;
+  transition: background 1s;
+}
+
+.bg-blob-1 {
+  top: -12%;
+  left: -12%;
+  width: 55vw;
+  height: 55vw;
+  background: var(--blob-color-1, transparent);
+}
+
+.bg-blob-2 {
+  bottom: -18%;
+  right: -12%;
+  width: 60vw;
+  height: 60vw;
+  background: var(--blob-color-2, transparent);
+}
+
+.bg-blob-3 {
+  top: 30%;
+  right: 15%;
+  width: 38vw;
+  height: 38vw;
+  background: var(--blob-color-3, transparent);
+}
+
+.floating-notes {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-note {
+  position: absolute;
+  animation-name: float-note;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes float-note {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  15% { opacity: 0.7; }
+  85% { opacity: 0.7; }
+  100% { transform: translate(var(--drift-x, 20vw), var(--drift-y, 20vh)) rotate(var(--drift-rot, 20deg)); opacity: 0; }
 }
 
 .details {
