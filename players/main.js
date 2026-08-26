@@ -37,6 +37,34 @@ let updateTimer;
 // Create new audio element
 let curr_track = document.createElement('audio');
 
+// Mobile streams (Dropbox links, over cellular/wifi handoffs) can drop
+// mid-playback with no other signal than an "error" event; without this,
+// playback just silently stops. Retry a few times, resuming from where it
+// left off, before giving up.
+let stream_retry_count = 0;
+const MAX_STREAM_RETRIES = 3;
+
+curr_track.onerror = function () {
+  if (stream_retry_count >= MAX_STREAM_RETRIES) return;
+  stream_retry_count += 1;
+  let resumeAt = curr_track.currentTime;
+  let wasPlaying = isPlaying;
+  curr_track.load();
+  curr_track.currentTime = resumeAt;
+  if (wasPlaying) playTrack();
+};
+
+curr_track.addEventListener("loadeddata", function () {
+  stream_retry_count = 0;
+});
+
+if ("mediaSession" in navigator) {
+  navigator.mediaSession.setActionHandler("play", playTrack);
+  navigator.mediaSession.setActionHandler("pause", pauseTrack);
+  navigator.mediaSession.setActionHandler("previoustrack", prevTrack);
+  navigator.mediaSession.setActionHandler("nexttrack", nextTrack);
+}
+
 // Define the tracks that have to be played
 
 let bg_blobs_el = document.createElement("div");
@@ -94,6 +122,7 @@ function random_bg_color() {
 function loadTrack(track_index) {
   clearInterval(updateTimer);
   resetValues();
+  stream_retry_count = 0;
   curr_track.src = track_list[track_index].path;
   curr_track.load();
 
@@ -102,6 +131,15 @@ function loadTrack(track_index) {
   track_artist.textContent = track_list[track_index].artist;
   track_album.textContent = track_list[track_index].album;
   now_playing.textContent = " Playing " + (track_index + 1) + " OF " + track_list.length;
+
+  if ("mediaSession" in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: track_list[track_index].name,
+      artist: track_list[track_index].artist,
+      album: track_list[track_index].album,
+      artwork: [{ src: track_list[track_index].image }],
+    });
+  }
 
   if (download_link) {
     download_link.href = track_list[track_index].path.replace("dl=0", "dl=1");
@@ -133,15 +171,29 @@ function playpauseTrack() {
 }
 
 function playTrack() {
-  curr_track.play();
+  // curr_track.play() returns a promise that can reject (autoplay policy
+  // revoked after the tab was backgrounded, a network hiccup, etc.); left
+  // unhandled, that failure was completely silent and the UI kept claiming
+  // playback that wasn't happening. Retry once, then fall back honestly.
+  curr_track.play().catch(function () {
+    setTimeout(function () {
+      curr_track.play().catch(function () {
+        isPlaying = false;
+        playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
+        if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "paused";
+      });
+    }, 800);
+  });
   isPlaying = true;
   playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
+  if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing";
 }
 
 function pauseTrack() {
   curr_track.pause();
   isPlaying = false;
   playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';;
+  if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "paused";
 }
 
 function getRandomIndex() {

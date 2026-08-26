@@ -96,6 +96,35 @@ body {
   margin-top: 25px;
 }
 
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.site-logo {
+  height: 42px;
+  width: 42px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.site-brand-text {
+  text-align: left;
+  line-height: 1.25;
+}
+
+.site-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.site-subtitle {
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+
 .track-art {
   margin: 20px;
   height: 225px;

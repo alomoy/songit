@@ -23,3 +23,7 @@ On each player page,
 5. Use a musical stylish background (blending with current random color)
 6. Currently the song list is dynamically loaded on user request (client side), so they are not found in search results. We need to make them static, generated from the csv, so they are found in searches. We can make the list appear on click (click button right of download icon). AQnd clicking on a track should switch to that
 7. The players stops randomly, esp. on mobile. How to solve it?
+8. Add a logo and title-subtitle above "Playing 2 OF 12". Logo from images/alomoy.png. title-subtitle: আলোময় সঙ্গীত,
+সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়
+9. Make song albums from the csv, with filenames album_en for all unique such names. If the duplciates exist due to earlier files, rm them and stick to album_en.
+10.
