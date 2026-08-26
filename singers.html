@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আলোময় সঙ্গীত:  শিল্পী তালিকা</title>
+    <title>আলোময় সঙ্গীত: শিল্পী তালিকা</title>
     <link rel="stylesheet" href="css/header.css">
     <script src="js/header.js"></script>
         <!-- Google tag (gtag.js) -->
@@ -19,99 +19,207 @@
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        body {
-            font-family: 'Noto Sans Bengali', 'Noto Sans', Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f4f4f9;
-        }
-        
-        a {text-decoration: none;
-          color: black;
-        }
+      :root {
+        --bg: #060a16;
+        --bg-2: #0b1224;
+        --panel: rgba(255, 255, 255, 0.05);
+        --panel-border: rgba(255, 255, 255, 0.09);
+        --text: #eaf0ff;
+        --text-dim: #9aa7c7;
+        --accent-a: #35e6ff;
+        --accent-b: #b06bff;
+        --accent-c: #ff4fd8;
+      }
 
-h1, h2 {
-    color: white;
-    padding-top: 20px;
-}
+      * { box-sizing: border-box; }
 
-.table-container {
-    overflow-x: auto;
-    margin-top: 4px;
-    width: 100%;
-}
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Noto Sans Bengali', 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
+        overflow-x: hidden;
+      }
 
+      .backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
 
-table {
-    width: 90%;
-    max-width: 800px;
-    margin: auto;
-    border-collapse: collapse;
-    text-align: left;
-    background-color: #bf80ff !important;
-    opacity: 0.95;
-    color: black;
-}
+      .backdrop::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 42px 42px;
+        mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+      }
 
-th, td {
-    border: 1px solid #ddd;
-    text-align: center;
-    padding: 10px; /* Remove padding from <td> */
-}
+      .glow {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        opacity: 0.35;
+      }
 
-th {
-    background-color: #a64dff;
-    color: #333;
-}
+      .glow-1 { top: -10%; left: -8%; width: 46vw; height: 46vw; background: var(--accent-a); }
+      .glow-2 { bottom: -14%; right: -10%; width: 52vw; height: 52vw; background: var(--accent-b); }
+      .glow-3 { top: 35%; right: 20%; width: 30vw; height: 30vw; background: var(--accent-c); opacity: 0.22; }
 
-td {
-    position: relative; /* Ensure the cell acts as a parent for absolute positioning */
-}
+      .wrap {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 100px 20px 80px;
+      }
 
-td a {
-    text-decoration: none;
-    color: black;
-    text-shadow: 1px 1px 10px purple;
-    display: block; /* Make the link fill the entire cell */
-    width: 93%; /* Ensure the link spans the full width of the cell */
-    height: 100%; /* Ensure the link spans the full height of the cell */
-    padding: 10px; /* Apply padding here instead of <td> */
-}
+      @media screen and (max-width: 600px) {
+        .wrap { padding-top: 70px; }
+      }
 
-td a:hover {
-    text-decoration: underline;
-   /*  background-color: #a64dff; Full cell background color on hover */
-  /*  color: white;  Optional: Change text color on hover for better contrast */
-}
+      header.hero {
+        text-align: center;
+        padding: 20px 0 40px;
+      }
 
-@media (max-width: 600px) {
-    table {
-        font-size: 15px;
-    }
-}
+      h1.tagline {
+        font-size: clamp(1.6rem, 4vw, 2.6rem);
+        line-height: 1.35;
+        margin: 0 0 10px;
+        font-weight: 700;
+      }
 
+      h1.tagline .accent {
+        background: linear-gradient(90deg, var(--accent-a), var(--accent-c));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      p.sub {
+        color: var(--text-dim);
+        max-width: 560px;
+        margin: 0 auto;
+        font-size: 1rem;
+      }
+
+      .search-row {
+        max-width: 480px;
+        margin: 26px auto 0;
+        position: relative;
+      }
+
+      .search-row input {
+        width: 100%;
+        padding: 14px 18px 14px 46px;
+        border-radius: 14px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel);
+        color: var(--text);
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color .2s, box-shadow .2s;
+      }
+
+      .search-row input:focus {
+        border-color: var(--accent-a);
+        box-shadow: 0 0 0 3px rgba(53, 230, 255, 0.15);
+      }
+
+      .search-row i {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-dim);
+      }
+
+      .singer-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 30px;
+      }
+
+      .singer-card {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 16px;
+        padding: 16px 20px;
+        backdrop-filter: blur(10px);
+        transition: border-color .22s ease, box-shadow .22s ease;
+      }
+
+      .singer-card:hover {
+        border-color: var(--accent-a);
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(53, 230, 255, 0.2);
+      }
+
+      .singer-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .singer-count {
+        font-size: 0.78rem;
+        color: var(--accent-a);
+        margin-bottom: 12px;
+      }
+
+      .singer-albums {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .singer-albums a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 0.82rem;
+        padding: 7px 14px;
+        border-radius: 999px;
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        transition: border-color .2s, background .2s;
+      }
+
+      .singer-albums a:hover {
+        border-color: var(--accent-a);
+        background: rgba(53, 230, 255, 0.08);
+      }
+
+      .no-results {
+        text-align: center;
+        color: var(--text-dim);
+        padding: 60px 0;
+        display: none;
+      }
     </style>
 </head>
 
 <body>
        <div class="sharethis-sticky-share-buttons"></div>
-       
+
 <div class="topnav" id="myTopnav">
   <div class="logo-section">
-    <a href="index.html">  
- <img src="images/alomoy.png" alt="Alomoy Sangeet Logo">
+    <a href="index.html"><img src="images/alomoy.png" alt="Alomoy Sangeet Logo"></a>
     <div class="company-info">
-      <strong>আলোময় সঙ্গীত</strong><br>
-      <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
-      </a>
+      <strong>আলোময় সঙ্গীত</strong><br>
+      <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
     </div>
   </div>
   <div class="menu">
     <a href="index.html">হোম</a>
-    <a href="singers.html"  class="active">শিল্পী তালিকা</a>
+    <a href="singers.html" class="active">শিল্পী তালিকা</a>
     <a href="albums.html">অ্যালবাম তালিকা</a>
     <a href="search.html">সঙ্গীত সার্চ</a>
     <a href="all-songs.html">সব গান</a>
@@ -121,88 +229,99 @@ td a:hover {
   </a>
 </div>
 
-    <h1>শিল্পী তালিকা</h1>
-    <h2 id="singer-count"></h2>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>ক্রমিক</th>
-                    <th>নাম</th>
-                    <th>সব গানের লিঙ্ক</th>
-                    <th>অ্যালবামসমূহ</th>
-                </tr>
-            </thead>
-            <tbody id="singer-table-body"></tbody>
-        </table>
+<div class="backdrop">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+</div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1 class="tagline"><span class="accent">শিল্পী</span> তালিকা</h1>
+    <p class="sub" id="count-line">লোড হচ্ছে...</p>
+    <div class="search-row">
+      <i class="fa fa-search"></i>
+      <input type="text" id="search-input" placeholder="শিল্পীর নাম লিখুন..." autocomplete="off">
     </div>
+  </header>
+
+  <main>
+    <div class="singer-list" id="singer-list"></div>
+    <div class="no-results" id="no-results">কোনো শিল্পী পাওয়া যায়নি।</div>
+  </main>
+</div>
 
      <script>
-        // Fetch and parse the CSV file
 fetch('radio/songs.csv')
     .then(response => response.text())
     .then(csvText => {
-        const allSongs = parseCSV(csvText); // Parse the CSV
+        const allSongs = parseCSV(csvText);
 
-        // Extract unique singers and their data
-        const uniqueSingers = [...new Map(allSongs.map(song => [song.singer, song])).values()]
-            .filter(song => song.singer.trim() !== '') // Exclude blank singers
-            .sort((a, b) => a.singer.localeCompare(b.singer, 'bn')); // Sort alphabetically in Bangla
-
-        // Display the total singer count
-        document.getElementById('singer-count').textContent = `মোট শিল্পী: ${convertToBanglaNumber(uniqueSingers.length)}`;
-
-        // Populate the table with singer data
-        const tableBody = document.getElementById('singer-table-body');
-        uniqueSingers.forEach((song, index) => {
-            const row = document.createElement('tr');
-
-            // Serial Number
-            const serialCell = document.createElement('td');
-            serialCell.textContent = convertToBanglaNumber(index + 1);
-
-            // Singer Name
-            const nameCell = document.createElement('td');
-            nameCell.textContent = song.singer;
-
-            // All Songs Link
-            const linkCell = document.createElement('td');
-            const link = document.createElement('a');
-            link.href = `search.html?query=${encodeURIComponent(song.singer)}`;
-            link.textContent = 'সব গানের লিঙ্ক';
-            linkCell.appendChild(link);
-
-            // Albums with Serial Numbers
-            const albumCell = document.createElement('td');
-            const singerAlbums = allSongs
-                .filter(item => item.singer === song.singer)
-                .map(item => item.album)
-                .filter((album, index, self) => album && self.indexOf(album) === index); // Unique albums
-
-            singerAlbums.forEach((album, i) => {
-                const albumLink = document.createElement('a');
-                albumLink.href = `search.html?query=${encodeURIComponent(album)}`;
-                albumLink.textContent = `${convertToBanglaNumber(i + 1)}. ${album}`; // Add Bangla serial numbers
-                albumLink.style.display = 'block'; // Show each album on a new line
-                albumCell.appendChild(albumLink);
-            });
-
-            // Append cells to row
-            row.appendChild(serialCell);
-            row.appendChild(nameCell);
-            row.appendChild(linkCell);
-            row.appendChild(albumCell);
-
-            // Append row to table
-            tableBody.appendChild(row);
+        // Group by singer, and within each singer by album_en (the
+        // canonical slug that matches a real players/<album_en>.html page).
+        const bySinger = new Map();
+        allSongs.forEach(song => {
+            const singer = song.singer.trim();
+            const slug = song.album_en && song.album_en.trim();
+            if (!singer || !slug || slug === 'Uncat') return;
+            if (!bySinger.has(singer)) bySinger.set(singer, { count: 0, albums: new Map() });
+            const entry = bySinger.get(singer);
+            entry.count++;
+            if (!entry.albums.has(slug)) entry.albums.set(slug, song.album || slug);
         });
+
+        const singers = [...bySinger.entries()]
+            .map(([name, info]) => ({ name, count: info.count, albums: [...info.albums.entries()] }))
+            .sort((a, b) => a.name.localeCompare(b.name, 'bn'));
+
+        document.getElementById('count-line').textContent = `মোট শিল্পী: ${convertToBanglaNumber(singers.length)}`;
+
+        const list = document.getElementById('singer-list');
+        singers.forEach(singer => {
+            const card = document.createElement('div');
+            card.className = 'singer-card';
+            card.dataset.search = singer.name.toLowerCase();
+
+            const albumLinks = singer.albums
+                .map(([slug, name]) => `<a href="players/${slug}.html">${escapeHtml(name)}</a>`)
+                .join('');
+
+            card.innerHTML = `
+                <div class="singer-name">${escapeHtml(singer.name)}</div>
+                <div class="singer-count">${convertToBanglaNumber(singer.count)}টি গান</div>
+                <div class="singer-albums">${albumLinks}</div>
+            `;
+            list.appendChild(card);
+        });
+
+        setupSearch();
     })
     .catch(error => {
         console.error('Error fetching or parsing CSV:', error);
-        const tableBody = document.getElementById('singer-table-body');
-        tableBody.innerHTML = '<tr><td colspan="4">শিল্পী  লোড করতে সমস্যা</td></tr>';
+        document.getElementById('singer-list').innerHTML = '<p>শিল্পী লোড করতে সমস্যা</p>';
     });
 
+function escapeHtml(s) {
+    const div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+}
+
+function setupSearch() {
+    const searchInput = document.getElementById('search-input');
+    const cards = Array.from(document.querySelectorAll('.singer-card'));
+    const noResults = document.getElementById('no-results');
+    searchInput.addEventListener('input', function () {
+        const q = this.value.trim().toLowerCase();
+        let visible = 0;
+        cards.forEach(function (card) {
+            const match = !q || card.dataset.search.includes(q);
+            card.style.display = match ? '' : 'none';
+            if (match) visible++;
+        });
+        noResults.style.display = visible === 0 ? 'block' : 'none';
+    });
+}
 
 // Utility function to parse CSV into an array of objects
 function parseCSV(text) {
@@ -223,7 +342,7 @@ function convertToBanglaNumber(number) {
     return String(number).split('').map(digit => banglaDigits[digit]).join('');
 }
 
-// Nav 
+// Nav
 function toggleMenu() {
   var menu = document.querySelector(".topnav .menu");
   menu.classList.toggle("show");
