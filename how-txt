@@ -35,3 +35,8 @@ On each player page,
 16. We should use a good bengali font. SolaimaniLipi is one option. Anything else in mind?
 17. The index page has duplicate image and titles (need deletion from page body now that they are in header)
 18. players/Allahke-sotyi-valobase-ze.html: the first song doesn't load any image although the js file has one. Also the same image is in তুমি আড়াল পেতে but some other image loads with the song.
+19. Make sure the items inside <div class="header-content-inner"> appear in a single line, esp. on mobile. The links should not have target_blank.
+20. The playlist page should mirror the same futuristic design as the home.
+21. The playlist list on home should go on albums.html. Think of new ideas for it. Among the things it may have is somethings like songstat.html
+22. Albums links in albums.html and singers.html should point to player/*html
+23. In track-list-toggle, only show the song name (Song in csv)

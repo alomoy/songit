@@ -385,3 +385,22 @@ body.no-scroll {
 .track-list-static li.active {
   font-weight: bold;
 }
+
+/* Keep the হোম / সব প্লেলিস্ট / download / list-toggle row on one line even
+   on narrow phones by shrinking padding, font-size and gap together as the
+   viewport narrows, instead of letting the buttons wrap. */
+.header-content-inner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 2vw, 10px);
+  width: 100%;
+}
+
+.header-content-inner .btn {
+  padding: clamp(6px, 2.5vw, 15px) clamp(8px, 3.5vw, 30px);
+  font-size: clamp(0.65rem, 3vw, 1rem);
+  white-space: nowrap;
+}
