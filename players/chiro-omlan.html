@@ -27,16 +27,16 @@
 <body>
   <div class="player">
     <div class="details">
-      <div class="now-playing">Playing x OF of y</div>
+      <div class="now-playing">Playing 1 OF 10</div>
       <div class="track-art"></div>
-      <div class="track-album">Track Album</div>
-      <div class="track-name">Track Name</div>
-      <div class="track-artist">Track Artist</div>
+      <div class="track-album">চির অম্লান</div>
+      <div class="track-name">আমরা পৃথিবীর যেখানে</div>
+      <div class="track-artist">সাইফুল্লাহ মানছুর</div>
 </br>
             <div class="header-content-inner">
                 <a target="_blank" href="../index.html" class="btn btn-primary btn-lg">হোম</a> 
                 <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> 
-				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1526H2hSEm5o9eTXBHfNn-DPlo4ZqyV1H?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> 
+				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1526H2hSEm5o9eTXBHfNn-DPlo4ZqyV1H?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button> 
             </div>
 
     </div>
@@ -64,6 +64,18 @@
         </div>
       </div>
     </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. আমরা পৃথিবীর যেখানে &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="1">2. ইয়া আল্লাহ ইয়া রাহমান &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="2">3. আল্লাহ যখন কাউকে &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="3">4. রাসুলুল্লাহ নবিউল্লাহ &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="4">5. সময় তো বয়ে যায় &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="5">6. আমার আজও ডাক আসেনি &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="6">7. আমাদের এই দুটি খালি হাত &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="7">8. তোমারই গান গায় পাখি &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="8">9. আবার আসবে ফিরে &ndash; সাইফুল্লাহ মানছুর</li>
+        <li data-track-index="9">10. বাবা তুমি চলে গেছো &ndash; সাইফুল্লাহ মানছুর</li>
+    </ol>
   </div>
  
   <!-- Load the main script for the player -->

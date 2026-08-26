@@ -27,16 +27,16 @@
 <body>
   <div class="player">
     <div class="details">
-      <div class="now-playing">Playing x OF of y</div>
+      <div class="now-playing">Playing 1 OF 13</div>
       <div class="track-art"></div>
-      <div class="track-album">Track Album</div>
-      <div class="track-name">Track Name</div>
-      <div class="track-artist">Track Artist</div>
+      <div class="track-album">হামদ</div>
+      <div class="track-name">আল্লাহ নামের তাসবীহ</div>
+      <div class="track-artist">সাইমুম শিল্পীগোষ্ঠী</div>
 </br>
             <div class="header-content-inner">
                 <a target="_blank" href="../index.html" class="btn btn-primary btn-lg">হোম</a> 
                 <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> 
-				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1Llwp6FQ4YUeto3wkyhf3FAwPX5_aSQob?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a>
+				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1Llwp6FQ4YUeto3wkyhf3FAwPX5_aSQob?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button>
             </div>
 
     </div>
@@ -64,6 +64,21 @@
         </div>
       </div>
     </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. আল্লাহ নামের তাসবীহ &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="1">2. আল্লাহ তুমি আমার &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="2">3. আল্লাহু আল্লাহু &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="3">4. আল্লাহু এই নামের &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="4">5. হাসনাহেনা ফুটেছে &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="5">6. যেদিকে তাকাই আমি &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="6">7. খোদা তোমার নামের &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="7">8. লা ইলাহা ইল্লাল্লাহ &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="8">9. নানা রং ফুলে-ফলে &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="9">10. ঐ পাহাড় আর ঝর্ণা &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="10">11. তোমার নামে যদি &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="11">12. তোমার সৃষ্টি যদি &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+        <li data-track-index="12">13. তুমি রহমান &ndash; সাইমুম শিল্পীগোষ্ঠী</li>
+    </ol>
   </div>
  
   <!-- Load the main script for the player -->

@@ -27,16 +27,16 @@
 <body>
   <div class="player">
     <div class="details">
-      <div class="now-playing">Playing x OF of y</div>
+      <div class="now-playing">Playing 1 OF 14</div>
       <div class="track-art"></div>
-      <div class="track-album">Track Album</div>
-      <div class="track-name">Track Name</div>
-      <div class="track-artist">Track Artist</div>
+      <div class="track-album">তোমারই জন্য মন কাঁদে</div>
+      <div class="track-name">তোমারই জন্য মন কাঁদে</div>
+      <div class="track-artist">তারিক মুনাওয়ার</div>
 </br>
             <div class="header-content-inner">
                 <a target="_blank" href="../index.html" class="btn btn-primary btn-lg">হোম</a> 
                 <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> 
-				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1QetQbMToDyYaR_5m5cChKnbLWaczmYXi?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> 
+				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1QetQbMToDyYaR_5m5cChKnbLWaczmYXi?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button> 
             </div>
 
     </div>
@@ -64,6 +64,22 @@
         </div>
       </div>
     </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. তোমারই জন্য মন কাঁদে &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="1">2. আঁখির আড়াল হলে &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="2">3. ও রাহীম ও রহমান &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="3">4. আজও সেই কুরআন আছে &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="4">5. ও নদী তুমি বইছো কেন? &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="5">6. হায়রে জীবন &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="6">7. আকাশরে তুই আলো &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="7">8. যত জ্বালা বিরহের &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="8">9. সবারই জীবনে সুখ &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="9">10. ঝর্ণা ঝর্ণা ঝর্ণারে &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="10">11. পল্লী গাঁয়ের ঐ &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="11">12. তোমাকেই ভালবেসেছি বলে &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="12">13. সব হৃদয়ের মালিক &ndash; তারিক মুনাওয়ার</li>
+        <li data-track-index="13">14. আমাকে শহীদ করে &ndash; তারিক মুনাওয়ার</li>
+    </ol>
   </div>
  
   <!-- Load the main script for the player -->

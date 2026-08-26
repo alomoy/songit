@@ -27,16 +27,16 @@
 <body>
   <div class="player">
     <div class="details">
-      <div class="now-playing">Playing x OF of y</div>
+      <div class="now-playing">Playing 1 OF 12</div>
       <div class="track-art"></div>
-      <div class="track-album">Track Album</div>
-      <div class="track-name">Track Name</div>
-      <div class="track-artist">Track Artist</div>
+      <div class="track-album">বিকেলের সৈকতে</div>
+      <div class="track-name">বিকেলের সৈকতে</div>
+      <div class="track-artist">প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</div>
 </br>
             <div class="header-content-inner">
                 <a target="_blank" href="../index.html" class="btn btn-primary btn-lg">হোম</a> 
                 <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> 
-				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1donq0TXVhMXje3vWj_L8NiOH6FHxuCgg?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a>
+				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1donq0TXVhMXje3vWj_L8NiOH6FHxuCgg?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button>
             </div>
 
     </div>
@@ -64,6 +64,20 @@
         </div>
       </div>
     </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. বিকেলের সৈকতে &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="1">2. জান্নাত লিখে দিও &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="2">3. বহুদিন ধরে &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="3">4. চাইবি কত মন &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="4">5. হারানো দিনগুলো &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="5">6. মনকে বলেছি &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="6">7. মরু সাহারায় &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="7">8. নীতির বলগা ঘোড়া &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="8">9. ঐ দেখা যায় মসজিদে &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="9">10. পৃথিবী যখন ঘোর &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="10">11. রাতের আঁধার &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="11">12. আমার এই কণ্ঠে &ndash; প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</li>
+    </ol>
   </div>
  
   <!-- Load the main script for the player -->

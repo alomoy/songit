@@ -27,16 +27,16 @@
 <body>
   <div class="player">
     <div class="details">
-      <div class="now-playing">Playing x OF of y</div>
+      <div class="now-playing">Playing 1 OF 13</div>
       <div class="track-art"></div>
-      <div class="track-album">Track Album</div>
-      <div class="track-name">Track Name</div>
-      <div class="track-artist">Track Artist</div>
+      <div class="track-album">হেরার পথে</div>
+      <div class="track-name">এই মাটি আর ঐ আকাশ</div>
+      <div class="track-artist">বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</div>
 </br>
             <div class="header-content-inner">
                 <a target="_blank" href="../index.html" class="btn btn-primary btn-lg">হোম</a> 
                 <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> 
-				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1quEDeh6eyra4LFM0e0EQx1Do_pK5D1Lg?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> 
+				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1quEDeh6eyra4LFM0e0EQx1Do_pK5D1Lg?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button> 
             </div>
 
     </div>
@@ -64,6 +64,21 @@
         </div>
       </div>
     </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. এই মাটি আর ঐ আকাশ &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="1">2. ভালো রেখো আমার মাকে &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="2">3. ওগো নবী দোজাহানের &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="3">4. জীবন ফুরিয়ে যদি &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="4">5. আমি চাইগো প্রভূ &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="5">6. হৃদয়ের বাতায়ন &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="6">7.  ভবের ঐ রঙ্গ মেলায় &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="7">8. আকাশের ঐ নীলিমায় &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="8">9. মুহাম্মাদের নাম &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="9">10. ঐ ফুটেছে জুঁই &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="10">11. তোমাকে দেখিনি &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="11">12.  যখন ঘাসে শিশির &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="12">13. তাদের জন্যে এই &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+    </ol>
   </div>
  
   <!-- Load the main script for the player -->

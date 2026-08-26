@@ -14,6 +14,9 @@ let shuffle_btn = document.querySelector(".shuffle-track");
 
 let download_link = document.querySelector("#download-link");
 
+let track_list_toggle_btn = document.querySelector("#track-list-toggle");
+let track_list_static_el = document.querySelector(".track-list-static");
+
 const SEEK_STEP = 10; // seconds
 const REPEAT_MODES = ["all", "one", "none"];
 let repeat_mode = "all";
@@ -102,6 +105,12 @@ function loadTrack(track_index) {
 
   if (download_link) {
     download_link.href = track_list[track_index].path.replace("dl=0", "dl=1");
+  }
+
+  if (track_list_static_el) {
+    track_list_static_el.querySelectorAll("li").forEach(function (li) {
+      li.classList.toggle("active", Number(li.dataset.trackIndex) === track_index);
+    });
   }
 
   updateTimer = setInterval(seekUpdate, 1000);
@@ -267,6 +276,22 @@ if (volume_track_el) {
 }
 
 updateVolumeIcon();
+
+function toggleTrackList() {
+  if (!track_list_static_el) return;
+  let isOpen = track_list_static_el.classList.toggle("open");
+  track_list_toggle_btn.setAttribute("aria-expanded", isOpen);
+}
+
+if (track_list_static_el) {
+  track_list_static_el.addEventListener("click", function (e) {
+    let li = e.target.closest("li[data-track-index]");
+    if (!li) return;
+    track_index = Number(li.dataset.trackIndex);
+    loadTrack(track_index);
+    playTrack();
+  });
+}
 
 function seekUpdate() {
   let seekPosition = 0;

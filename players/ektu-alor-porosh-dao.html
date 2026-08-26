@@ -27,16 +27,16 @@
 <body>
   <div class="player">
     <div class="details">
-      <div class="now-playing">Playing x OF of y</div>
+      <div class="now-playing">Playing 1 OF 14</div>
       <div class="track-art"></div>
-      <div class="track-album">Track Album</div>
-      <div class="track-name">Track Name</div>
-      <div class="track-artist">Track Artist</div>
+      <div class="track-album">একটু আলোর পরশ দাও</div>
+      <div class="track-name">তোমার ভালবাসা</div>
+      <div class="track-artist">ওবায়দুল্লাহ তারেক</div>
 </br>
             <div class="header-content-inner">
                 <a target="_blank" href="../index.html" class="btn btn-primary btn-lg">হোম</a> 
                 <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> 
-				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1yB7zI_mYi9vPy2_6b_OjjF38hcbWM7Ul?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a>
+				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1yB7zI_mYi9vPy2_6b_OjjF38hcbWM7Ul?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button>
             </div>
 
     </div>
@@ -64,6 +64,22 @@
         </div>
       </div>
     </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. তোমার ভালবাসা &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="1">2. রাসুল তুমি আমার &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="2">3. মাটির এক খান ঘর &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="3">4. মা তোমার স্মৃতি &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="4">5. একদিন পরপারে ভাসাবিরে নাও &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="5">6. নদী আমার যায়রে &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="6">7. ও পরানের পাখি &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="7">8. একটু আলোর পরশ দাও &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="8">9. আমি অশ্রু জলে &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="9">10. ও মন তুমি &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="10">11. মাওলা তোমার লাগিয়া &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="11">12. স্বাধীনতা আহ &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="12">13. নদী-ই-নদী &ndash; ওবায়দুল্লাহ তারেক</li>
+        <li data-track-index="13">14. আজকের এ সুর &ndash; ওবায়দুল্লাহ তারেক</li>
+    </ol>
   </div>
  
   <!-- Load the main script for the player -->

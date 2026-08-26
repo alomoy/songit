@@ -27,16 +27,16 @@
 <body>
   <div class="player">
     <div class="details">
-      <div class="now-playing">Playing x OF of y</div>
+      <div class="now-playing">Playing 1 OF 13</div>
       <div class="track-art"></div>
-      <div class="track-album">Track Album</div>
-      <div class="track-name">Track Name</div>
-      <div class="track-artist">Track Artist</div>
+      <div class="track-album">অ্যালবাম: কিসের ব্যথা বাজে</div>
+      <div class="track-name">যেমন তুমি দিলে যমীন</div>
+      <div class="track-artist">মশিউর রহমান</div>
 </br>
             <div class="header-content-inner">
                 <a target="_blank" href="../index.html" class="btn btn-primary btn-lg"> হোম</a> 
                 <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> 
-<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1uCx7Dv4s0yiVAZhSNSLJ00ZrepTBdZk8?usp=sharing" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> 
+<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1uCx7Dv4s0yiVAZhSNSLJ00ZrepTBdZk8?usp=sharing" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button> 
             </div>
 
     </div>
@@ -64,6 +64,21 @@
         </div>
       </div>
     </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. যেমন তুমি দিলে যমীন &ndash; মশিউর রহমান</li>
+        <li data-track-index="1">2. একটা ওমর এ যমানায় &ndash; মশিউর রহমান</li>
+        <li data-track-index="2">3. সোনার পাখিরা একে একে &ndash; মশিউর রহমান</li>
+        <li data-track-index="3">4. আমার কণ্ঠে এমন সুধা দাও &ndash; মশিউর রহমান</li>
+        <li data-track-index="4">5. কিসের ব্যথা বাজে! &ndash; মশিউর রহমান</li>
+        <li data-track-index="5">6. কুর’আনের বাণী &ndash; মশিউর রহমান</li>
+        <li data-track-index="6">7. তাঁর দু’হাতে নিয়ামত &ndash; মশিউর রহমান</li>
+        <li data-track-index="7">8. শাহাদাত ঈমানের &ndash; মশিউর রহমান</li>
+        <li data-track-index="8">9. মাঝিরে তুই &ndash; মশিউর রহমান</li>
+        <li data-track-index="9">10. আমার মায়ের কথা &ndash; মশিউর রহমান</li>
+        <li data-track-index="10">11. চলো তবে জেগে উঠি &ndash; মশিউর রহমান</li>
+        <li data-track-index="11">12. আসবে আবার ওমর &ndash; মশিউর রহমান</li>
+        <li data-track-index="12">13. হাজার গানের মাঝে &ndash; মশিউর রহমান</li>
+    </ol>
   </div>
  
   <!-- Load the main script for the player -->

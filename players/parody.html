@@ -27,16 +27,16 @@
 <body>
   <div class="player">
     <div class="details">
-      <div class="now-playing">Playing x OF of y</div>
+      <div class="now-playing">Playing 1 OF 6</div>
       <div class="track-art"></div>
-      <div class="track-album">Track Album</div>
-      <div class="track-name">Track Name</div>
-      <div class="track-artist">Track Artist</div>
+      <div class="track-album">অ্যালবাম: প্যারোডি গান</div>
+      <div class="track-name">আমার দয়াল আল্লাহরে</div>
+      <div class="track-artist">শিল্পী আবুল কাশেম - সাইমুম শিল্পী গোষ্ঠী</div>
 </br>
             <div class="header-content-inner">
                 <a target="_blank" href="../index.html" class="btn btn-primary btn-lg"> হোম</a> 
                 <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> 
-<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/17THzg8oShbDvZgwO-xX_i1Tj-jc8NZ5T?usp=sharing" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> 
+<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/17THzg8oShbDvZgwO-xX_i1Tj-jc8NZ5T?usp=sharing" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button> 
             </div>
 
     </div>
@@ -64,6 +64,14 @@
         </div>
       </div>
     </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. আমার দয়াল আল্লাহরে &ndash; শিল্পী আবুল কাশেম - সাইমুম শিল্পী গোষ্ঠী</li>
+        <li data-track-index="1">2. চলছে মামু ভাগিনার কারবার &ndash; সাইমুম শিল্পী গোষ্ঠী</li>
+        <li data-track-index="2">3. দুনিয়ার গোলক ধাঁধাঁয় &ndash; সাইমুম শিল্পী গোষ্ঠী</li>
+        <li data-track-index="3">4. সাধের সুখ পাখি &ndash; সাইমুম শিল্পী গোষ্ঠী</li>
+        <li data-track-index="4">5. প্রাণ দিয়াছেন যিনি আমারে &ndash; সাইমুম শিল্পী গোষ্ঠী</li>
+        <li data-track-index="5">6. ওরে মিছে মায়ায় ডুবে &ndash; সাইমুম শিল্পী গোষ্ঠী</li>
+    </ol>
   </div>
  
   <!-- Load the main script for the player -->

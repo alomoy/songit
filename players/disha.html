@@ -27,16 +27,16 @@
 <body>
   <div class="player">
     <div class="details">
-      <div class="now-playing">Playing x OF of y</div>
+      <div class="now-playing">Playing 1 OF 13</div>
       <div class="track-art"></div>
-      <div class="track-album">Track Album</div>
-      <div class="track-name">Track Name</div>
-      <div class="track-artist">Track Artist</div>
+      <div class="track-album">দিশা</div>
+      <div class="track-name">ঐ ঝর্ণা ধারা</div>
+      <div class="track-artist">বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</div>
 </br>
             <div class="header-content-inner">
                 <a target="_blank" href="../index.html" class="btn btn-primary btn-lg">হোম</a> 
                 <a target="_blank" href="../playlists.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> 
-				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1EA-kE2Jh0CIjSxpOh9RmyVLHR0Vl8N7L?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a>
+				<a id="download-link" target="_blank" href="https://drive.google.com/drive/folders/1EA-kE2Jh0CIjSxpOh9RmyVLHR0Vl8N7L?usp=drive_link" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button>
             </div>
 
     </div>
@@ -64,6 +64,21 @@
         </div>
       </div>
     </div>
+    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
+        <li data-track-index="0">1. ঐ ঝর্ণা ধারা &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="1">2. মরুর বুকে &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="2">3. ফসল ভরা মাঠে &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="3">4. মাগো তুমি &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="4">5. ইয়া আল্লাহ &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="5">6. কেমন খেলা &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="6">7. নদী তোমার &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="7">8. ও আল্লাহ &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="8">9. কাঁদে মাগো তোমার &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="9">10. আজ কাল পরশু &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="10">11. সেই দিন হারিয়ে &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="11">12. অসীম দিগন্তে &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+        <li data-track-index="12">13. আর কতকাল চলবে &ndash; বিকল্প সাহিত্য সাংস্কৃতিক সংসদ</li>
+    </ol>
   </div>
  
   <!-- Load the main script for the player -->
