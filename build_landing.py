@@ -160,36 +160,6 @@ TEMPLATE = r'''<!DOCTYPE html>
     padding: 30px 0 44px;
   }
 
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 22px;
-  }
-
-  .brand img {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15), 0 0 24px rgba(53, 230, 255, 0.35);
-  }
-
-  .brand-text { text-align: left; }
-
-  .brand-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .brand-subtitle {
-    font-size: 0.8rem;
-    color: var(--text-dim);
-  }
-
   h1.tagline {
     font-size: clamp(1.6rem, 4vw, 2.6rem);
     line-height: 1.35;
@@ -397,13 +367,6 @@ TEMPLATE = r'''<!DOCTYPE html>
 
 <div class="wrap">
   <header class="hero">
-    <div class="brand">
-      <img src="images/alomoy.png" alt="আলোময় সঙ্গীত">
-      <div class="brand-text">
-        <div class="brand-title">আলোময় সঙ্গীত</div>
-        <div class="brand-subtitle">সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</div>
-      </div>
-    </div>
     <h1 class="tagline">আপনার পছন্দের <span class="accent">প্লেলিস্ট</span> খুঁজে নিন</h1>
     <p class="sub">{{COUNT}}টি অ্যালবাম থেকে বেছে নিন — প্রতিটি সঙ্গীত এক ক্লিকেই।</p>
 
