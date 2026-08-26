@@ -84,8 +84,8 @@ body {
   opacity: 1.0;
 }
 
-.repeat-track.repeat-active {
-  opacity: 1.0;
+.repeat-track.repeat-off {
+  opacity: 0.4;
 }
 
 .repeat-track i {

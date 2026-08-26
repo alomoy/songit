@@ -148,15 +148,15 @@ function toggleRepeat() {
 function updateRepeatUI() {
   if (!repeat_btn) return;
 
-  repeat_btn.classList.remove("repeat-active", "repeat-one");
+  repeat_btn.classList.remove("repeat-off", "repeat-one");
 
   if (repeat_mode === "all") {
-    repeat_btn.classList.add("repeat-active");
     repeat_btn.title = "Repeat: All";
   } else if (repeat_mode === "one") {
-    repeat_btn.classList.add("repeat-active", "repeat-one");
+    repeat_btn.classList.add("repeat-one");
     repeat_btn.title = "Repeat: One";
   } else {
+    repeat_btn.classList.add("repeat-off");
     repeat_btn.title = "Repeat: Off";
   }
 }

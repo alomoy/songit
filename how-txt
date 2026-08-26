@@ -14,5 +14,7 @@ On each player page,
 
 1. Replace the download link with the current song, rather than the drive link of the album.
 2. Add a button to fast forward and backward, and repeat (one, all, none)
-3. Use a musical stylish background (blending with current random color)
-4. The players stops randomly, esp. on mobile. How to solve it?
+3. Add a shuffle button (may be before repeat icon)
+4. Make sure all the icon remain on one line on mobile devices (even if the size get smaller)
+5. Use a musical stylish background (blending with current random color)
+6. The players stops randomly, esp. on mobile. How to solve it?
