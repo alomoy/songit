@@ -11,6 +11,16 @@ body {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+
+  /* A single responsive unit that equals 1px on wide screens and shrinks
+     proportionally to viewport width below ~625px. Padding and font-size
+     on the transport buttons and volume icon below are all expressed as a
+     multiple of this same unit (declared here so both the .buttons row and
+     the .slider_container's volume icon share it), so their combined width
+     scales down together and keeps fitting the viewport (independent
+     clamp()s per property don't correlate to the actual total width and
+     can still overflow narrow screens). */
+  --icon-unit: min(1px, 0.16vw);
 }
 
 .details {
@@ -58,20 +68,12 @@ body {
   align-items: center;
   flex-wrap: nowrap;
   justify-content: center;
-
-  /* A single responsive unit that equals 1px on wide screens and shrinks
-     proportionally to viewport width below ~625px. Padding and font-size
-     below are all expressed as a multiple of this same unit, so the whole
-     row's total width scales down together and keeps fitting the viewport
-     (independent clamp()s per property don't correlate to the row's actual
-     total width and can still overflow narrow screens). */
-  --icon-unit: min(1px, 0.16vw);
-  font-size: calc(16 * var(--icon-unit));
 }
 
 .playpause-track, .prev-track, .next-track, .fast-forward, .fast-backward,
 .repeat-track, .volume-icon, .shuffle-track {
   padding: calc(15 * var(--icon-unit));
+  font-size: calc(16 * var(--icon-unit));
   opacity: 0.8;
   cursor: pointer;
   position: relative;
@@ -181,7 +183,7 @@ body {
 }
 
 .seek_slider {
-  width: 60%;
+  width: 50%;
 }
 
 .volume_slider {
