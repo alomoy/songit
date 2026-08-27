@@ -183,7 +183,7 @@ def build_track_list_html(tracks):
     items = []
     for i, t in enumerate(tracks, start=1):
         items.append(
-            f'        <li data-track-index="{i-1}">{bengali_numeral(i)}. {esc(t["name"])} &ndash; {esc(t["artist"])}</li>'
+            f'        <li data-track-index="{i-1}">{bengali_numeral(i)}. {esc(t["name"])}</li>'
         )
     return "\n".join(items)
 

@@ -41,3 +41,4 @@ On each player page,
 22. Albums links in albums.html and singers.html should point to player/*html
 23. In track-list-toggle, only show the song name (Song in csv)
 24. The search.html page should give a playlist like the other players, only that here the results are dynamic. Is it possible?
+25. Our main pages are  index, albums.html, all-songs.html, search.html, and singers.html. I think we can delete the other old htmls in the root dir. What do you think?
