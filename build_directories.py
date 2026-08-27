@@ -15,6 +15,7 @@ Run this whenever songs.csv changes.
 import csv
 import html
 import os
+from urllib.parse import quote
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(ROOT, "radio/songs.csv")
@@ -64,7 +65,12 @@ def build_singers(rows):
     for name, info in by_singer.items():
         albums = sorted(info["albums"].items(), key=lambda kv: kv[1])
         singers.append({"name": name, "count": info["count"], "albums": albums})
-    singers.sort(key=lambda s: s["name"])
+    # Default sort is by album count (most first) rather than name: singers
+    # with a similar number of albums end up adjacent in the grid, so cards
+    # of similar height sit next to each other instead of a very tall
+    # many-album card next to a one-album card. Name/song-count sorting are
+    # still available client-side via the sort dropdown.
+    singers.sort(key=lambda s: (-len(s["albums"]), s["name"]))
     return singers
 
 
@@ -76,14 +82,17 @@ def album_card_html(album, index):
 
 
 def singer_card_html(singer):
-    album_links = "".join(
-        f'<a href="players/{slug}.html">{esc(name)}</a>'
+    album_items = "".join(
+        f'        <li><a href="players/{slug}.html">{esc(name)}</a></li>\n'
         for slug, name in singer["albums"]
     )
-    return f'''    <div class="singer-card" data-search="{esc(singer['name'].lower())}">
+    all_href = f'search.html?query={quote(singer["name"])}'
+    return f'''    <div class="singer-card" data-search="{esc(singer['name'].lower())}" data-name="{esc(singer['name'])}" data-albums="{len(singer['albums'])}" data-songs="{singer['count']}">
       <div class="singer-name">{esc(singer['name'])}</div>
       <div class="singer-count">{bengali_numeral(singer['count'])}টি গান</div>
-      <div class="singer-albums">{album_links}</div>
+      <ul class="singer-albums">
+{album_items}        <li class="singer-all"><a href="{all_href}">সব</a></li>
+      </ul>
     </div>'''
 
 
@@ -504,10 +513,62 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
         color: var(--text-dim);
       }
 
-      .singer-list {
+      .sort-row {
         display: flex;
-        flex-direction: column;
-        gap: 14px;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 14px;
+        font-size: 0.85rem;
+        color: var(--text-dim);
+      }
+
+      .sort-row select {
+        padding: 6px 10px;
+        border-radius: 10px;
+        border: 1px solid var(--panel-border);
+        background: var(--bg-2, #0b1224);
+        color: var(--text);
+        font-size: 0.85rem;
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      .sort-direction {
+        display: flex;
+        gap: 4px;
+      }
+
+      .sort-dir-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        border-radius: 8px;
+        border: 1px solid var(--panel-border);
+        background: var(--bg-2, #0b1224);
+        color: var(--text-dim);
+        cursor: pointer;
+        transition: border-color .2s, color .2s, background .2s;
+      }
+
+      .sort-dir-btn:hover {
+        border-color: var(--accent-a);
+        color: var(--text);
+      }
+
+      .sort-dir-btn.active {
+        border-color: var(--accent-a);
+        color: var(--accent-a);
+        background: rgba(53, 230, 255, 0.12);
+      }
+
+      .singer-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
         margin-top: 30px;
       }
 
@@ -538,25 +599,45 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
       }
 
       .singer-albums {
+        list-style: none;
+        margin: 0;
+        padding: 0;
         display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .singer-albums li {
+        font-size: 0.82rem;
+        padding-left: 14px;
+        position: relative;
+      }
+
+      .singer-albums li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--accent-a);
       }
 
       .singer-albums a {
         text-decoration: none;
         color: var(--text);
-        font-size: 0.82rem;
-        padding: 7px 14px;
-        border-radius: 999px;
-        background: var(--panel);
-        border: 1px solid var(--panel-border);
-        transition: border-color .2s, background .2s;
+        transition: color .2s;
       }
 
       .singer-albums a:hover {
-        border-color: var(--accent-a);
-        background: rgba(53, 230, 255, 0.08);
+        color: var(--accent-a);
+        text-decoration: underline;
+      }
+
+      .singer-albums li.singer-all {
+        margin-top: 4px;
+        font-weight: 700;
+      }
+
+      .singer-albums li.singer-all a {
+        color: var(--accent-a);
       }
 
       .no-results {
@@ -607,6 +688,22 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
       <i class="fa fa-search"></i>
       <input type="text" id="search-input" placeholder="শিল্পীর নাম লিখুন..." autocomplete="off">
     </div>
+    <div class="sort-row">
+      <label for="sort-select">সাজান:</label>
+      <select id="sort-select">
+        <option value="albums" selected>অ্যালবাম সংখ্যা</option>
+        <option value="name">নাম</option>
+        <option value="songs">গান সংখ্যা</option>
+      </select>
+      <div class="sort-direction">
+        <button type="button" id="sort-asc" class="sort-dir-btn" title="ঊর্ধ্বক্রম" aria-label="Ascending">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        </button>
+        <button type="button" id="sort-desc" class="sort-dir-btn active" title="নিম্নক্রম" aria-label="Descending">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+        </button>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -619,9 +716,47 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
 
     <script>
 {{FILTER_SCRIPT}}
+{{SORT_SCRIPT}}
     </script>
 </body>
 </html>
+'''
+
+SORT_SCRIPT = '''
+function setupSort() {
+    const sortSelect = document.getElementById('sort-select');
+    const ascBtn = document.getElementById('sort-asc');
+    const descBtn = document.getElementById('sort-desc');
+    const list = document.getElementById('singer-list');
+    let direction = 'desc';
+
+    const getters = {
+        albums: el => Number(el.dataset.albums),
+        name: el => el.dataset.name,
+        songs: el => Number(el.dataset.songs),
+    };
+
+    function compare(a, b) {
+        const get = getters[sortSelect.value];
+        const va = get(a), vb = get(b);
+        let result = sortSelect.value === 'name' ? va.localeCompare(vb, 'bn') : va - vb;
+        if (direction === 'desc') result = -result;
+        return result || a.dataset.name.localeCompare(b.dataset.name, 'bn');
+    }
+
+    function applySort() {
+        const cards = Array.from(list.querySelectorAll('.singer-card'));
+        cards.sort(compare);
+        cards.forEach(card => list.appendChild(card));
+        ascBtn.classList.toggle('active', direction === 'asc');
+        descBtn.classList.toggle('active', direction === 'desc');
+    }
+
+    sortSelect.addEventListener('change', applySort);
+    ascBtn.addEventListener('click', function () { direction = 'asc'; applySort(); });
+    descBtn.addEventListener('click', function () { direction = 'desc'; applySort(); });
+}
+setupSort();
 '''
 
 
@@ -647,6 +782,7 @@ def main():
         .replace("{{LIST}}", items)
         .replace("{{COUNT}}", bengali_numeral(len(singers)))
         .replace("{{FILTER_SCRIPT}}", filter_script(".singer-card"))
+        .replace("{{SORT_SCRIPT}}", SORT_SCRIPT)
     )
     with open(os.path.join(ROOT, "singers.html"), "w", encoding="utf-8") as f:
         f.write(singers_html)
