@@ -49,6 +49,13 @@ curr_track.setAttribute('playsinline', '');
 curr_track.style.display = 'none';
 document.body.appendChild(curr_track);
 let play_token = 0;
+// Some mobile browsers don't reliably fire the audio element's "ended"
+// event for streamed sources (buffering/network quirks), which was
+// silently stalling the playlist after one song with no way to recover
+// short of manually pressing next. seekUpdate() double-checks
+// curr_track.ended every second as a fallback; this flag stops both paths
+// from advancing the track twice for the same ending.
+let ended_handled = false;
 
 // Mobile streams (Dropbox links, over cellular/wifi handoffs) can drop
 // mid-playback with no other signal than an "error" event; without this,
@@ -144,6 +151,7 @@ function loadTrack(track_index) {
   clearInterval(updateTimer);
   resetValues();
   stream_retry_count = 0;
+  ended_handled = false;
   // Invalidate any pending play() retry from a previous track (see
   // playTrack()) so it can't fire late on whatever track the user has
   // since navigated to.
@@ -256,6 +264,9 @@ function prevTrack() {
 }
 
 function handleTrackEnd() {
+  if (ended_handled) return;
+  ended_handled = true;
+
   if (repeat_mode === "one") {
     loadTrack(track_index);
     playTrack();
@@ -423,6 +434,11 @@ function toggleTrackList() {
 }
 
 function seekUpdate() {
+  if (curr_track.ended && !ended_handled) {
+    handleTrackEnd();
+    return;
+  }
+
   let seekPosition = 0;
 
   if (!isNaN(curr_track.duration)) {
