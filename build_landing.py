@@ -413,11 +413,13 @@ TEMPLATE = r'''<!DOCTYPE html>
 
 <div class="topnav" id="myTopnav">
   <div class="logo-section">
-    <a href="index.html"><img src="images/alomoy.png" alt="Alomoy Sangeet Logo"></a>
-    <div class="company-info">
-      <strong>আলোময় সঙ্গীত</strong><br>
-      <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
-    </div>
+    <a href="index.html">
+      <img src="images/alomoy.png" alt="Alomoy Sangeet Logo">
+      <div class="company-info">
+        <strong>আলোময় সঙ্গীত</strong><br>
+        <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
+      </div>
+    </a>
   </div>
   <div class="menu">
     <a href="index.html" class="active">হোম</a>

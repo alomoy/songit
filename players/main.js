@@ -129,7 +129,7 @@ function loadTrack(track_index) {
   track_name.textContent = track_list[track_index].name;
   track_artist.textContent = track_list[track_index].artist;
   track_album.textContent = track_list[track_index].album;
-  now_playing.textContent = " Playing " + toBengaliDigits(track_index + 1) + " OF " + toBengaliDigits(track_list.length);
+  now_playing.textContent = "শুনছেন " + toBengaliDigits(track_list.length) + "টি সঙ্গীতের " + toBengaliDigits(track_index + 1) + " নম্বরটি";
 
   if ("mediaSession" in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({

@@ -48,6 +48,10 @@ On each player page,
 29. Can the albums.html and singer.html be static, so they are good for seo?
 30. Now that toggleTrackList has only song name, its width can be shrunk. Also make the look obvious that the list is clickable and starts that song. The row bg may have alternating colors.
 31. Playing ১ OF ১৩ change to শুনছেন ১৩টি সঙ্গীতের ১ নম্বরটি
-32. logo-section with titles should point to home url, not just logo.
-33. Need to use proper track image. Also some tracks have missing arts (manual, no AI)
-34. singers.hmtl should have the same layout as that of albums.html.
+32. logo-section with titles, and not just logo, should point to home url,
+33. Need to use proper track image. Also some tracks have missing arts (manual, no AI). DO it in the csv, making a column named track-art.
+34. all-songs.html: track info in one single line; make sure works well on all screens. When scrolling down, make the player static (visible).
+35. Singer list should be a grid of 4 or 5 columns with name on bold and Next lines bullets of albums and last all (which should be linked to search.html?query=name)
+36. Is the script ready to reflect csv changes, without breaking existing design?
+37. On mobile, after receiving a call in between, play doesn’t auto continues. Is ot because media session api?
+38.

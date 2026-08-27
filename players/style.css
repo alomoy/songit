@@ -335,7 +335,7 @@ i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
   bottom: 0;
   transform: translateX(-50%) translateY(100%);
   width: 100%;
-  max-width: 500px;
+  max-width: 380px;
   max-height: 60vh;
   display: flex;
   flex-direction: column;
@@ -400,24 +400,54 @@ body.no-scroll {
   list-style: none;
   overflow-y: auto;
   margin: 0;
-  padding: 10px 16px 16px;
+  padding: 10px 12px 16px;
   font-size: 0.9rem;
   text-align: left;
 }
 
 .track-list-static li {
-  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 8px;
   cursor: pointer;
   border-radius: 6px;
+  transition: background .15s, color .15s;
+}
+
+.track-list-static li::before {
+  content: "▶";
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  color: var(--accent-a);
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.track-list-static li:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.track-list-static li:nth-child(even) {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .track-list-static li:hover {
-  background: var(--panel);
+  background: rgba(53, 230, 255, 0.12);
+}
+
+.track-list-static li:hover::before {
+  opacity: 0.7;
 }
 
 .track-list-static li.active {
   font-weight: bold;
   color: var(--accent-a);
+  background: rgba(53, 230, 255, 0.18);
+}
+
+.track-list-static li.active::before {
+  opacity: 1;
 }
 
 /* Keep the হোম / সব প্লেলিস্ট / download / list-toggle row on one line even
