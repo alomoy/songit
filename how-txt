@@ -44,3 +44,5 @@ On each player page,
 25. Our main pages are  index, albums.html, all-songs.html, search.html, and singers.html. I think we can delete the other old htmls in the root dir. What do you think?
 26. All the numbers in all our important pages should be in Bangla.
 27. Give all-songs.html the same futuristic look and feel. Any suggestions on the dropdown reorganization?
+28. Some icons under # Musical icons appear as rectangular boxes, esp. on mobile. Detect and delete/replace them.
+29. Can the albums.html and singer.html be static, so they are good for seo?

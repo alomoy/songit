@@ -146,6 +146,7 @@ TEMPLATE = r'''<!DOCTYPE html>
   .wrap {
     position: relative;
     z-index: 1;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 100px 20px 80px;

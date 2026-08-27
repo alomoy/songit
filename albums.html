@@ -244,8 +244,8 @@ fetch('radio/songs.csv')
         // players/<album_en>.html page) so every card links to a real page.
         const byAlbum = new Map();
         allSongs.forEach(song => {
-            const slug = song.album_en && song.album_en.trim();
-            if (!slug || slug === 'Uncat') return;
+            const slug = song.album_en && song.album_en.trim().toLowerCase();
+            if (!slug || slug === 'uncat') return;
             if (!byAlbum.has(slug)) byAlbum.set(slug, { name: song.album || slug, count: 0 });
             byAlbum.get(slug).count++;
         });

@@ -262,8 +262,8 @@ fetch('radio/songs.csv')
         const bySinger = new Map();
         allSongs.forEach(song => {
             const singer = song.singer.trim();
-            const slug = song.album_en && song.album_en.trim();
-            if (!singer || !slug || slug === 'Uncat') return;
+            const slug = song.album_en && song.album_en.trim().toLowerCase();
+            if (!singer || !slug || slug === 'uncat') return;
             if (!bySinger.has(singer)) bySinger.set(singer, { count: 0, albums: new Map() });
             const entry = bySinger.get(singer);
             entry.count++;
