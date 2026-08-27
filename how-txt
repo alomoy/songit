@@ -55,6 +55,5 @@ On each player page,
 36. Is the script ready to reflect csv changes, without breaking existing design?
 37. On mobile, after receiving a call in between, play doesn’t auto continues. Is ot because media session api?
 38. Mobile: index.html slider doesn't show arrows to move left-right.
-39. Nate Rasul: Some songs pause when next/prev button is clicked.
-40. Extract album-arts from js files to csv in album_art column (and modify by hand--this part no AI right now)
-41. How to improve SEO?
+40. Extract track-art from js files to csv in album_art column (and modify by hand--this part no AI right now). In future, we would load them from. I'll update the currently missing tract-arts later.
+41. How to improve the overall SEO? What's the current condition?
