@@ -39,8 +39,16 @@ let track_index = 0;
 let isPlaying = false;
 let updateTimer;
 
-// Create new audio element
+// Create new audio element. It's attached to the page (hidden) rather than
+// left detached, since detached <audio> elements are known to behave
+// unreliably on mobile browsers — less consistent autoplay-permission
+// retention across track changes, and worse recovery after OS-level
+// interruptions (phone calls, backgrounding).
 let curr_track = document.createElement('audio');
+curr_track.setAttribute('playsinline', '');
+curr_track.style.display = 'none';
+document.body.appendChild(curr_track);
+let play_token = 0;
 
 // Mobile streams (Dropbox links, over cellular/wifi handoffs) can drop
 // mid-playback with no other signal than an "error" event; without this,
@@ -69,6 +77,20 @@ if ("mediaSession" in navigator) {
   navigator.mediaSession.setActionHandler("previoustrack", prevTrack);
   navigator.mediaSession.setActionHandler("nexttrack", nextTrack);
 }
+
+// A phone call, another app taking audio focus, or the tab being
+// backgrounded can pause playback at the OS level without ever calling
+// pauseTrack(), so isPlaying stays true while the audio is actually
+// stopped. When the page becomes visible/focused again, resume if that's
+// the case — but only if the user hadn't explicitly paused (isPlaying
+// already reflects their last intent, not the OS's).
+function resumeIfInterrupted() {
+  if (isPlaying && curr_track.paused) playTrack();
+}
+document.addEventListener("visibilitychange", function () {
+  if (document.visibilityState === "visible") resumeIfInterrupted();
+});
+window.addEventListener("focus", resumeIfInterrupted);
 
 // Define the tracks that have to be played
 
@@ -122,6 +144,10 @@ function loadTrack(track_index) {
   clearInterval(updateTimer);
   resetValues();
   stream_retry_count = 0;
+  // Invalidate any pending play() retry from a previous track (see
+  // playTrack()) so it can't fire late on whatever track the user has
+  // since navigated to.
+  play_token += 1;
   curr_track.src = track_list[track_index].path;
   curr_track.load();
 
@@ -174,9 +200,14 @@ function playTrack() {
   // revoked after the tab was backgrounded, a network hiccup, etc.); left
   // unhandled, that failure was completely silent and the UI kept claiming
   // playback that wasn't happening. Retry once, then fall back honestly.
+  // The token check stops this retry from firing on a track the user has
+  // since navigated away from (e.g. tapping next/prev again quickly).
+  let token_at_call = play_token;
   curr_track.play().catch(function () {
     setTimeout(function () {
+      if (play_token !== token_at_call) return;
       curr_track.play().catch(function () {
+        if (play_token !== token_at_call) return;
         isPlaying = false;
         playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
         if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "paused";
