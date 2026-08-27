@@ -19,6 +19,13 @@ def esc(s):
     return html.escape(s, quote=True)
 
 
+BENGALI_DIGITS = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
+
+
+def bengali_numeral(n):
+    return str(n).translate(BENGALI_DIGITS)
+
+
 def load_albums():
     albums = []
     for f in sorted(glob.glob(f"{ROOT}/players/*.html")):
@@ -50,7 +57,7 @@ def card_html(a):
         <div class="card-body">
           <div class="card-title">{esc(a['album'])}</div>
           <div class="card-singer">{esc(a['singer'])}</div>
-          <div class="card-count">{esc(str(a['count']))}টি গান</div>
+          <div class="card-count">{esc(bengali_numeral(a['count']))}টি গান</div>
         </div>
       </a>'''
 
@@ -477,7 +484,7 @@ TEMPLATE = r'''<!DOCTYPE html>
   function updateCount(visible) {
     countLine.textContent = visible === totalCount
       ? ''
-      : `${visible} / ${totalCount}টি প্লেলিস্ট`;
+      : `${convertToBanglaNumber(visible)} / ${convertToBanglaNumber(totalCount)}টি প্লেলিস্ট`;
   }
 
   searchInput.addEventListener('input', function () {

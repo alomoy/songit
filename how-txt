@@ -46,3 +46,6 @@ On each player page,
 27. Give all-songs.html the same futuristic look and feel. Any suggestions on the dropdown reorganization?
 28. Some icons under # Musical icons appear as rectangular boxes, esp. on mobile. Detect and delete/replace them.
 29. Can the albums.html and singer.html be static, so they are good for seo?
+30. Now that toggleTrackList has only song name, its width can be shrunk. Also make the look obvious that the list is clickable and starts that song. The row bg may have alternating colors.
+31. Playing ১ OF ১৩ change to শুনছেন ১৩টি সঙ্গীতের ১ নম্বরটি
+

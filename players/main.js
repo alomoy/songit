@@ -1,3 +1,8 @@
+const BENGALI_DIGITS = { "0": "০", "1": "১", "2": "২", "3": "৩", "4": "৪", "5": "৫", "6": "৬", "7": "৭", "8": "৮", "9": "৯" };
+function toBengaliDigits(value) {
+  return String(value).replace(/\d/g, (d) => BENGALI_DIGITS[d]);
+}
+
 let now_playing = document.querySelector(".now-playing");
 let track_art = document.querySelector(".track-art");
 let track_name = document.querySelector(".track-name");
@@ -119,7 +124,7 @@ function loadTrack(track_index) {
   track_name.textContent = track_list[track_index].name;
   track_artist.textContent = track_list[track_index].artist;
   track_album.textContent = track_list[track_index].album;
-  now_playing.textContent = " Playing " + (track_index + 1) + " OF " + track_list.length;
+  now_playing.textContent = " Playing " + toBengaliDigits(track_index + 1) + " OF " + toBengaliDigits(track_list.length);
 
   if ("mediaSession" in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
@@ -146,8 +151,8 @@ function loadTrack(track_index) {
 }
 
 function resetValues() {
-  curr_time.textContent = "00:00";
-  total_duration.textContent = "00:00";
+  curr_time.textContent = "০০:০০";
+  total_duration.textContent = "০০:০০";
   seek_slider.value = 0;
 }
 
@@ -399,7 +404,7 @@ function seekUpdate() {
     if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
     if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
 
-    curr_time.textContent = currentMinutes + ":" + currentSeconds;
-    total_duration.textContent = durationMinutes + ":" + durationSeconds;
+    curr_time.textContent = toBengaliDigits(currentMinutes + ":" + currentSeconds);
+    total_duration.textContent = toBengaliDigits(durationMinutes + ":" + durationSeconds);
   }
 }

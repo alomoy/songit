@@ -406,9 +406,9 @@ bottom:-20px;
         <span id="trackInfoText">শুনছেন: </span><span id="trackInfo"> -  - </span>
     </marquee>
     <div class="progress-bar-wrapper">
-        <span id="currentTime">0:00</span>
+        <span id="currentTime">০:০০</span>
         <input type="range" id="progressBar" min="0" max="100" value="0">
-        <span id="totalDuration">0:00</span>
+        <span id="totalDuration">০:০০</span>
     </div>
 </div>
 
@@ -609,7 +609,7 @@ function toggleRepeat() {
         repeatButton.innerHTML = '<i class="fas fa-repeat"></i> all'; // Repeat All icon (repeat all icon)
         audioPlayer.loop = false;
     } else {
-        repeatButton.innerHTML = '<i class="fas fa-redo-alt"></i>1'; // Repeat 1 icon (repeat one song icon)
+        repeatButton.innerHTML = '<i class="fas fa-redo-alt"></i>১'; // Repeat 1 icon (repeat one song icon)
         audioPlayer.loop = true;
     }
 }
@@ -690,7 +690,7 @@ const durationDisplay = document.getElementById('totalDuration');
 function formatTime(seconds) {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    return convertToBanglaNumerals(`${mins}:${secs < 10 ? '0' : ''}${secs}`);
 }
 
 // Set up metadata for duration display and progress bar max value
