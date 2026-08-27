@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। ">
-    <title>আলোময় সঙ্গীত: সঙ্গীত সার্চ</title>
-        <link rel="stylesheet" href="css/header.css">
-      <link rel="stylesheet" href="css/audio.css"> 
-   
+    <meta name="description" content="আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। ">
+    <title>আলোময় সঙ্গীত: সঙ্গীত সার্চ</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="players/style.css">
+    <link rel="stylesheet" href="css/custom.css">
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-<script src="js/functions.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
 <script>
@@ -24,228 +23,113 @@
 </script>
 
 <style>
+    /* header.css's body sets a fixed background image + flex centering meant
+       for the old light pages; this page reuses the dark player theme
+       instead, so override those specifically rather than editing the
+       shared stylesheet. */
     body {
-        font-family: 'Noto Sans Bengali', 'Noto Sans', Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #f4f4f9;
+        background: var(--bg);
     }
 
-    h1 {
-        color: white;
-        padding-top: 20px;
-    }
-
-    #search-form {
-        margin-bottom: 10px;
-    }
-
-    #search-input {
-        padding: 8px;
-        font-size: 14px;
-        width: 200px;
-        margin-right: 10px;
-    }
-
-    button {
-        padding: 8px 12px;
-        font-size: 14px;
-        cursor: pointer;
-    }
-
-    #playlist {
-        margin-top: 20px;
-        list-style-type: none;
-        padding: 0;
-        width: 80%;
-        max-width: 500px;
+    .search-hero {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 90px 20px 10px;
         text-align: center;
     }
 
-
-    .player-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 5px;
-        width: 80%;
-        max-width: 600px;
+    .search-hero .tagline {
+        font-size: clamp(1.4rem, 4vw, 2.2rem);
+        margin: 0 0 18px;
+        font-weight: 700;
     }
 
-    #song-player {
+    .search-hero .tagline .accent {
+        background: linear-gradient(90deg, var(--accent-a), var(--accent-c));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .search-hero .search-row {
+        position: relative;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .search-hero .search-row input {
         width: 100%;
-        max-width: 400px;
-        margin-bottom: 5px;
-    }
-
-    .controls {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .controls button {
-        background-color: #f1f1f1;
-        border: none;
-        padding: 12px;
-        margin: 5px;
-        font-size: 18px;
-        cursor: pointer;
-        border-radius: 50%;
-    }
-
-    .controls button:hover {
-        background-color: #ddd;
-    }
-
-    .controls button:focus {
+        padding: 14px 18px 14px 46px;
+        border-radius: 14px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel);
+        color: var(--text);
+        font-size: 0.95rem;
         outline: none;
+        transition: border-color .2s, box-shadow .2s;
     }
 
-    .songs-count {
-        font-size: 16px;
-        margin-top: 5px;
-        font-weight: bold;
+    .search-hero .search-row input:focus {
+        border-color: var(--accent-a);
+        box-shadow: 0 0 0 3px rgba(53, 230, 255, 0.15);
     }
 
-    /* Mobile-friendly adjustment */
-    @media (max-width: 600px) {
-        #search-input {
-            width: 150px;
-        }
-
-        .player-container {
-            width: 100%;
-            max-width: 100%;
-        }
-
-        #song-player {
-            width: 100%;
-            max-width: 300px;
-        }
-    }
-    .controls {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
+    .search-hero .search-row i {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-dim);
     }
 
-    .controls button {
-        background-color: transparent;
-        border: none;
-        padding: 12px;
-        margin: 5px;
-        font-size: 18px;
-        cursor: pointer;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
+    .count-line {
+        margin-top: 12px;
+        color: var(--accent-a);
+        font-size: 0.85rem;
+        min-height: 1.2em;
     }
 
-    .controls button i {
-        font-size: 18px;
+    .empty-state {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: var(--text-dim);
+        padding: 60px 20px 40px;
     }
 
-    .controls button:hover {
-        background-color: #ddd;
+    #player-root {
+        height: auto;
+        min-height: 60vh;
+        padding-top: 30px;
+        padding-bottom: 40px;
+        justify-content: flex-start;
     }
 
-    .controls button:focus {
-        outline: none;
+    #player-root[hidden] {
+        display: none;
     }
-
-        .song-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-        background-color: #a64dff;
-    }
-
-    .song-item .open-url-btn {
-        color: blue;
-        border: none;
-        padding: 8px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-left: 10px;
-    }
-
-    .song-item .open-url-btn:hover {
-        color: #e0e0e0;
-    }
-
-    .song-item .open-url-btn i {
-        color: #555;
-        font-size: 16px;
-    }
-     li {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        padding: 10px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        margin-bottom: 5px;
-        border-radius: 5px;
-    }
-
-    li:hover {
-        color: blue;
-    }
-
-    .open-url-btn {
-        background-color: #cc99ff;
-        border: none;
-        padding: 8px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-left: 10px;
-    }
-
-    .open-url-btn:hover {
-        background-color: #e0e0e0;
-    }
-
-    .open-url-btn i {
-        color: #555;
-        font-size: 16px;
-    }
-    
-    a {text-decoration: none;
-          color: black;
-        }
 </style>
 
 </head>
 <body>
   <div class="sharethis-sticky-share-buttons"></div>
-  
+
 <div class="topnav" id="myTopnav">
   <div class="logo-section">
-    <a href="index.html">  
- <img src="images/alomoy.png" alt="Alomoy Sangeet Logo">
+    <a href="index.html"><img src="images/alomoy.png" alt="Alomoy Sangeet Logo"></a>
     <div class="company-info">
-      <strong>আলোময় সঙ্গীত</strong><br>
-      <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
-</a>
-</div>
+      <strong>আলোময় সঙ্গীত</strong><br>
+      <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
+    </div>
   </div>
   <div class="menu">
     <a href="index.html">হোম</a>
     <a href="singers.html">শিল্পী তালিকা</a>
     <a href="albums.html">অ্যালবাম তালিকা</a>
-    <a href="search.html"   class="active">সঙ্গীত সার্চ</a>
+    <a href="search.html" class="active">সঙ্গীত সার্চ</a>
     <a href="all-songs.html">সব গান</a>
   </div>
   <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
@@ -253,233 +137,202 @@
   </a>
 </div>
 
-    <h1>সঙ্গীত খুঁজুন</h1>
-
-    <!-- Search form -->
-    <form id="search-form">
-        <input type="text" id="search-input" placeholder="যা খুঁজতে চান" />
-        <button type="submit">সার্চ</button>
-    </form>
-
-    <!-- Player and Controls Section -->
-<div class="player-container">
-
-    <audio id="song-player" controls>
-
-    </audio>
-
-
-
-    <div class="controls">
-        <button id="prev-btn" title="Previous">
-            <i class="fas fa-backward"></i>
-        </button>
-        <button id="backward-btn" title="Rewind 10 Seconds">
-            <i class="fas fa-undo"></i> 10
-        </button>
-        <button id="forward-btn" title="Forward 10 Seconds">
-            10 <i class="fas fa-redo"></i>
-        </button>
-        <button id="repeat-btn" title="Repeat">
-            <i class="fas fa-redo-alt"></i>
-        </button>
-        <button id="shuffle-btn" title="Shuffle">
-            <i class="fas fa-random"></i>
-        </button>
-        <button id="next-btn" title="Next">
-            <i class="fas fa-forward"></i>
-        </button>
-    </div>
+<div class="search-hero">
+  <h1 class="tagline">যা খুশি <span class="accent">খুঁজুন</span></h1>
+  <div class="search-row">
+    <i class="fa fa-search"></i>
+    <input type="text" id="search-input" placeholder="গান, শিল্পী বা অ্যালবামের নাম লিখুন..." autocomplete="off">
+  </div>
+  <div class="count-line" id="count-line"></div>
 </div>
 
-    <!-- Songs Count -->
-    <div id="songs-count" class="songs-count"></div>
+<div class="empty-state" id="empty-state">খুঁজতে উপরে লিখুন — ফলাফল সাথে সাথে একটি প্লেলিস্ট হিসেবে চালু হবে।</div>
 
-    <!-- Song List -->
-   <!--  <h2>সার্চ ফলাফল:</h2>-->
-    <ul id="playlist"></ul>
+<div class="player" id="player-root" hidden>
+  <div class="details">
+    <div class="site-brand">
+      <img src="images/alomoy.png" alt="আলোময় সঙ্গীত" class="site-logo">
+      <div class="site-brand-text">
+        <div class="site-title">আলোময় সঙ্গীত</div>
+        <div class="site-subtitle">সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</div>
+      </div>
+    </div>
+    <div class="track-art"></div>
+    <div class="track-album">Track Album</div>
+    <div class="track-name">Track Name</div>
+    <div class="track-artist">Track Artist</div>
+    </br>
+    <div class="header-content-inner">
+      <a href="index.html" class="btn btn-primary btn-lg">হোম</a>
+      <a href="albums.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> <a id="download-link" href="" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button>
+    </div>
+  </div>
+  <div class="buttons">
+    <div class="repeat-track" onclick="toggleRepeat()" title="Repeat: All">
+      <i class="fa fa-redo fa-2x"></i><span class="repeat-badge">1</span>
+    </div>
+    <div class="fast-backward" onclick="fastBackward()"><i class="fa fa-backward fa-2x"></i></div>
+    <div class="prev-track" onclick="prevTrack()"><i class="fa fa-step-backward fa-2x"></i></div>
+    <div class="playpause-track" onclick="playpauseTrack()"><i class="fa fa-play-circle fa-5x"></i></div>
+    <div class="next-track" onclick="nextTrack()"><i class="fa fa-step-forward fa-2x"></i></div>
+    <div class="fast-forward" onclick="fastForward()"><i class="fa fa-forward fa-2x"></i></div>
+    <div class="shuffle-track" onclick="toggleShuffle()" title="Shuffle: Off">
+      <i class="fa fa-random fa-2x"></i>
+    </div>
+  </div>
+  <div class="slider_container">
+    <div class="current-time">00:00</div>
+    <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+    <div class="total-duration">00:00</div>
+    <div class="volume-track">
+      <div class="volume-icon" onclick="toggleVolumeSlider(event)"><i class="fa fa-volume-up fa-2x"></i></div>
+      <div class="volume_popup">
+        <input type="range" min="0" max="100" value="99" class="volume_slider" onclick="event.stopPropagation()" onchange="setVolume()">
+      </div>
+    </div>
+  </div>
+  <div class="now-playing">Playing x OF of y</div>
+  <ol class="track-list-static" aria-label="সকল গানের তালিকা"></ol>
+</div>
 
     <script>
- let allSongs = [];  // All songs from the CSV
-let filteredSongs = [];  // Filtered songs based on the search query
-let currentIndex = 0; // Current playing song index
-let isShuffling = false; // Shuffle state
-let isRepeating = false; // Repeat state
+const STOCK_IMAGES = [
+    "images/mount.jpg", "images/nature.jpg", "images/trail.jpg", "images/karakoram.jpg", "images/hillroad.jpg",
+    "images/mtroad.jpg", "images/tunnel.jpg", "images/train.jpg", "images/sajek.jpg", "images/mosque.jpg",
+    "images/laptop.jpg",
+];
 
-// Handle search form submission
-document.getElementById('search-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
-    const searchTerm = document.getElementById('search-input').value.trim();
-    if (searchTerm) {
-        const url = new URL(window.location);
-        url.searchParams.set('query', searchTerm);
-        window.history.pushState({}, '', url);
-        loadSongs(searchTerm);
-    }
-});
+let allSongsCache = null;
+let mainJsLoaded = false;
+let searchDebounce = null;
 
-// Load songs based on search query
-function loadSongs(searchTerm) {
-    const playlistContainer = document.getElementById('playlist');
-    const songsCountElement = document.getElementById('songs-count');
-    playlistContainer.innerHTML = '';
-    songsCountElement.textContent = '';
-
-    fetch('radio/songs.csv')
-        .then(response => response.text())
-        .then(csvText => {
-            allSongs = parseCSV(csvText); // Parse all songs
-            const searchQuery = searchTerm.toLowerCase();
-            filteredSongs = allSongs.filter((song) =>
-                Object.values(song)
-                    .filter(value => typeof value === "string")
-                    .some(value => value.toLowerCase().includes(searchQuery))
-            );
-
-            if (filteredSongs.length === 0) {
-                playlistContainer.innerHTML = '<li>No matching songs found</li>';
-                songsCountElement.textContent = '0 songs found.';
-                return;
-            }
-
-            songsCountElement.textContent = convertToBanglaNumerals(`${filteredSongs.length}টি সঙ্গীত পাওয়া গেছে!`);
-
-            filteredSongs.forEach((song, index) => {
-                const listItem = document.createElement('li');
-                listItem.className = "song-item";
-                listItem.textContent = `${song.Song} - ${song.singer} (${song.album})`;
-
-                // Open URL button
-                const openButton = document.createElement("button");
-                openButton.className = "open-url-btn";
-                openButton.title = "Open song in new tab";
-                openButton.innerHTML = `<i class="fas fa-external-link-alt"></i>`;
-                openButton.addEventListener("click", (event) => {
-                    event.stopPropagation(); // Prevent triggering song playback
-                    const songNameEncoded = encodeURIComponent(song.Song.trim());
-                    const songURL = `search.html?query=${songNameEncoded}`;
-                    window.open(songURL, "_blank");
-                });
-
-                listItem.appendChild(openButton);
-
-                // Play song when clicked
-                listItem.addEventListener("click", () => {
-                    playSong(index);
-                });
-
-                playlistContainer.appendChild(listItem);
-            });
-
-            // Auto-play the first song in the list
-            if (filteredSongs.length > 0) {
-                playSong(0);
-            }
-        })
-        .catch(err => {
-            console.error('Error loading songs:', err);
-            playlistContainer.innerHTML = '<li>Error loading songs</li>';
-            songsCountElement.textContent = '0 songs found.';
-        });
-}
-
-// Play song based on index
-function playSong(index) {
-    currentIndex = index; // Update the current index
-    const audioPlayer = document.getElementById('song-player');
-    const song = filteredSongs[currentIndex];
-    audioPlayer.src = song.src;
-    audioPlayer.play();
-}
-
-// Auto-play next song when current song ends
-document.getElementById('song-player').addEventListener('ended', () => {
-    if (isRepeating) {
-        playSong(currentIndex); // Replay current song
-    } else if (isShuffling) {
-        shuffleSongs();
-    } else if (currentIndex < filteredSongs.length - 1) {
-        playSong(currentIndex + 1); // Play next song
-    }
-});
-
-// Previous button functionality
-document.getElementById('prev-btn').addEventListener('click', () => {
-    if (currentIndex > 0) {
-        playSong(currentIndex - 1);
-    } else {
-        playSong(filteredSongs.length - 1); // Loop to last song
-    }
-});
-
-// Next button functionality
-document.getElementById('next-btn').addEventListener('click', () => {
-    if (currentIndex < filteredSongs.length - 1) {
-        playSong(currentIndex + 1);
-    } else {
-        playSong(0); // Loop to first song
-    }
-});
-
-// Shuffle button functionality
-document.getElementById('shuffle-btn').addEventListener('click', () => {
-    isShuffling = !isShuffling;
-    document.getElementById('shuffle-btn').title = isShuffling ? 'Shuffle (ON)' : 'Shuffle';
-});
-
-// Shuffle function
-function shuffleSongs() {
-    const randomIndex = Math.floor(Math.random() * filteredSongs.length);
-    playSong(randomIndex);
-}
-
-// Parse CSV into an array of objects
 function parseCSV(text) {
-    const lines = text.split('\n').filter(line => line.trim() !== ''); // Ignore empty lines
-    const headers = lines[0].split(',').map(header => header.trim());
+    const lines = text.split('\n').filter(line => line.trim() !== '');
+    const headers = lines[0].split(',').map(h => h.trim());
     return lines.slice(1).map(line => {
         const values = line.split(',');
-        return headers.reduce((obj, header, index) => {
-            obj[header] = values[index]?.trim() || '';
+        return headers.reduce((obj, h, i) => {
+            obj[h] = values[i] ? values[i].trim() : '';
             return obj;
         }, {});
     });
 }
 
-// 10-second rewind
-document.getElementById('backward-btn').addEventListener('click', () => {
-    const player = document.getElementById('song-player');
-    player.currentTime = Math.max(0, player.currentTime - 10);
-});
+function convertToBanglaNumber(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(number).split('').map(d => banglaDigits[d] ?? d).join('');
+}
 
-// 10-second forward
-document.getElementById('forward-btn').addEventListener('click', () => {
-    const player = document.getElementById('song-player');
-    player.currentTime = Math.min(player.duration, player.currentTime + 10);
-});
+function escapeHtml(s) {
+    const div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+}
 
-// Load songs on page load based on URL query
-window.onload = function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchTerm = urlParams.get('query') || '';
-    if (searchTerm) {
-        document.getElementById('search-input').value = searchTerm;
-        loadSongs(searchTerm);
+function bengaliNumeral(n) {
+    return convertToBanglaNumber(n);
+}
+
+async function getAllSongs() {
+    if (allSongsCache) return allSongsCache;
+    const res = await fetch('radio/songs.csv');
+    const csvText = await res.text();
+    allSongsCache = parseCSV(csvText);
+    return allSongsCache;
+}
+
+function buildTrackListHtml(tracks) {
+    return tracks.map((t, i) =>
+        `<li data-track-index="${i}">${bengaliNumeral(i + 1)}. ${escapeHtml(t.name)}</li>`
+    ).join('\n');
+}
+
+async function runSearch(query) {
+    const countLine = document.getElementById('count-line');
+    const emptyState = document.getElementById('empty-state');
+    const playerRoot = document.getElementById('player-root');
+
+    const q = query.trim();
+    if (!q) {
+        countLine.textContent = '';
+        if (!mainJsLoaded) {
+            emptyState.hidden = false;
+            playerRoot.hidden = true;
+        }
+        return;
     }
-};
 
-// JavaScript to toggle the menu visibility on small screens
-document.getElementById('hamburgerMenu').addEventListener('click', () => {
-    const navLinks = document.getElementById('navLinks');
-    navLinks.classList.toggle('show');
+    const allSongs = await getAllSongs();
+    const needle = q.toLowerCase();
+    const matches = allSongs.filter(song =>
+        Object.values(song).some(v => typeof v === 'string' && v.toLowerCase().includes(needle))
+    );
+
+    if (matches.length === 0) {
+        countLine.textContent = 'কোনো গান পাওয়া যায়নি।';
+        if (!mainJsLoaded) {
+            emptyState.hidden = false;
+            playerRoot.hidden = true;
+        }
+        return;
+    }
+
+    countLine.textContent = `${bengaliNumeral(matches.length)}টি গান পাওয়া গেছে`;
+
+    const newTrackList = matches.map((song, i) => ({
+        name: song.Song,
+        artist: song.group || song.singer,
+        album: song.album,
+        image: STOCK_IMAGES[i % STOCK_IMAGES.length],
+        path: song.src,
+    }));
+
+    const trackListEl = document.querySelector('.track-list-static');
+    trackListEl.innerHTML = buildTrackListHtml(newTrackList);
+
+    emptyState.hidden = true;
+    playerRoot.hidden = false;
+
+    if (!mainJsLoaded) {
+        mainJsLoaded = true;
+        window.track_list = newTrackList;
+        const script = document.createElement('script');
+        script.src = 'players/main.js';
+        document.body.appendChild(script);
+    } else {
+        track_list = newTrackList;
+        track_index = 0;
+        loadTrack(0);
+    }
+}
+
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () {
+    clearTimeout(searchDebounce);
+    const value = this.value;
+    searchDebounce = setTimeout(() => {
+        const url = new URL(window.location);
+        if (value.trim()) url.searchParams.set('query', value.trim());
+        else url.searchParams.delete('query');
+        window.history.replaceState({}, '', url);
+        runSearch(value);
+    }, 300);
 });
 
-// Nav 
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialQuery = urlParams.get('query') || '';
+    if (initialQuery) {
+        searchInput.value = initialQuery;
+        runSearch(initialQuery);
+    }
+});
+
+// Nav
 function toggleMenu() {
   var menu = document.querySelector(".topnav .menu");
   menu.classList.toggle("show");
 }
-
     </script>
 </body>
 </html>
