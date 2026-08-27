@@ -50,3 +50,4 @@ On each player page,
 31. Playing ১ OF ১৩ change to শুনছেন ১৩টি সঙ্গীতের ১ নম্বরটি
 32. logo-section with titles should point to home url, not just logo.
 33. Need to use proper track image. Also some tracks have missing arts (manual, no AI)
+34. singers.hmtl should have the same layout as that of albums.html.

@@ -82,7 +82,12 @@ for (let i = 0; i < 3; i++) {
 document.body.appendChild(bg_blobs_el);
 
 const FLOATING_NOTE_COUNT = 16;
-const NOTE_GLYPHS = ["𝇧", "𝇥", "𝇣", "𝇟", "𝇕", "𝆺𝅥𝅯", "𝇚", "𝇜", "𝆹𝅥𝅯", "𝆺𝅥𝅮", "𝆹𝅥𝅮", "𝆕", "𝄰", "𝄳", "𝄲", "𝄯", "𝄤", "𝄠", "𝄟", "🎼", "𝄞"];
+// Characters from the "Musical Symbols" Unicode block (U+1D100 range) have
+// very poor font coverage and render as tofu boxes on many devices,
+// especially mobile. Stick to the widely-supported musical characters in
+// the Miscellaneous Symbols block plus emoji, which every platform ships a
+// font for.
+const NOTE_GLYPHS = ["♪", "♫", "♩", "♬", "♭", "♮", "♯", "🎵", "🎶", "🎼"];
 let floating_notes_el = document.createElement("div");
 floating_notes_el.className = "floating-notes";
 for (let i = 0; i < FLOATING_NOTE_COUNT; i++) {
