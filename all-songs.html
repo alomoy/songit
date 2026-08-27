@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি। রয়েছে দেশবরেণ্য শিল্পীদের সঙ্গীত। মেন্যু থেকে শিল্পী, শিল্পীগোষ্ঠী বা বিভাগ বাছাই করুন। করতে পারবেন সার্চও।">
+    <meta name="description" content="আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি। রয়েছে দেশবরেণ্য শিল্পীদের সঙ্গীত। মেন্যু থেকে শিল্পী, শিল্পীগোষ্ঠী বা বিভাগ বাছাই করুন। করতে পারবেন সার্চও।">
     <meta name="robots" content="index, follow">
-    <title>আলোময় সঙ্গীত - অনলাইন সঙ্গীত প্লেয়ার</title>
-        <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
-        <link rel="stylesheet" href="css/header.css">
-    <link rel="canonical" href="https://alomoy.github.io/songit">
+    <title>আলোময় সঙ্গীত: সব গান</title>
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="players/style.css">
+    <link rel="canonical" href="https://alomoy.github.io/songit/all-songs.html">
     <!-- Open Graph Meta Tags -->
-<meta property="og:title" content="আলোময় সঙ্গীত  -  অনলাইন সঙ্গীত প্লেয়ার">
-<meta property="og:description" content="অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি">
+<meta property="og:title" content="আলোময় সঙ্গীত  -  অনলাইন সঙ্গীত প্লেয়ার">
+<meta property="og:description" content="অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alomoy.github.io/songit/all-songs.html">
 <meta property="og:image" content="https://alomoy.github.io/songit/images/bg/alomoy_banner.jpg">
 <meta property="og:locale" content="bn_BD">
-<meta property="og:site_name" content="আলোময় সঙ্গীত">
+<meta property="og:site_name" content="আলোময় সঙ্গীত">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-<script src="js/functions.js"></script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
@@ -31,316 +30,229 @@
 
   gtag('config', 'G-RN5RYTV144');
 </script>
-    <style>
-        body {
-            font-family: 'Noto Sans Bengali', 'Noto Sans', Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
-            background: linear-gradient(45deg, #f3ec78, #af4261);
-            color: white;
-            min-height: 100vh;
-            background: url('https://wallpapers.com/images/hd/shiny-purple-music-poster-66ukffhhfbj2tngf.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-        
-        a {text-decoration: none;
-          color: black;
-        }
 
+<style>
+    * { box-sizing: border-box; }
 
-/* Main container adjustments */
-.main-container {
-    display: flex;
-    flex-direction: column; /* Stack items vertically on small screens */
-    align-items: center; /* Center align content */
-    width: 100%; /* Full width */
-    padding: 0 10px; /* Add small padding for breathing room */
-    box-sizing: border-box; /* Include padding in width calculation */
-}
-
-/* Dropdowns adjustments */
-.dropdowns {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping */
-    justify-content: center; /* Center content */
-    gap: 10px; /* Add space between items */
-    width: 80%; /* Utilize full width */
-}
-
-/* Dropdown select adjustments */
-.dropdowns select {
-    flex-basis: 30%; /* Use 30% of available width per dropdown */
-    max-width: 100%; /* Prevent overflow */
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #a64dff;
-    opacity: 0.8;
-    transition: width 0.3s ease;
-}
-
-/* Search box adjustments */
-.searchBox {
-    flex-basis: 30%; /* Use similar width as dropdowns */
-    max-width: 100%; /* Prevent overflow */
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 16px;
-    color: black; /* Text color */
-    background-color: #a64dff; /* Background color */
-    transition: width 0.3s ease;
-    border-style: none;
-}
-
-/* Placeholder text color */
-.searchBox::placeholder {
-    color: black; /* White or any color for placeholder */
-}
-
-
-/* Song list adjustments */
-#songList {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-    margin-top: 5px;
-    width: 100%; /* Full width */
-    max-width: 600px; /* Limit max width */
-    box-sizing: border-box; /* Include padding in width */
-}
-
-#songList li {
-    margin: 10px auto; /* Center each item */
-    font-size: 18px;
-    background: #a64dff;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background 0.3s;
-    width: 90%; /* Utilize 90% of available width */
-}
-
-#songList li:hover {
-    background: #a64dff;
-    color: black;
-    cursor: pointer;
-}
-
-/* Mobile-specific styles */
-@media (max-width: 600px) {
-    .main-container {
-        padding: 0; /* Remove side padding */
+    /* header.css's body sets a fixed background image + flex centering meant
+       for the old light pages; this page reuses the dark player theme
+       instead, so override those specifically rather than editing the
+       shared stylesheet. */
+    body {
+        background: var(--bg);
     }
 
-    .dropdowns {
-        gap: 5px; /* Reduce gap on smaller screens */
-        justify-content: left;
+    .search-hero {
+        position: relative;
+        z-index: 1;
         width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 90px 20px 10px;
+        text-align: center;
     }
 
-    .dropdowns select,
-    .searchBox {
-        flex-basis: 100%; /* Take full width on small screens */
+    .search-hero .tagline {
+        font-size: clamp(1.4rem, 4vw, 2.2rem);
+        margin: 0 0 18px;
+        font-weight: 700;
     }
 
-    #songList li {
-        width: 95%; /* Slightly increase width utilization */
-    }
-}
-
-/* Main Container End */
-
-/* Main controls container adjustments */
-.controls {
-    display: flex;
-    font-size:38px;
-    justify-content: center;
-    gap: 5px;
-    margin-bottom: 5px;
-    /* flex-wrap: wrap; Allow items to wrap to the next line */
-    width: auto; /* Ensure controls container doesn't exceed content width */
-}
-
-/* Control button adjustments */
-.controls button {
-    width: 15vw; /* Use viewport width for responsiveness */
-    height: 15vw; /* Ensure the height is the same as the width for a perfect circle */
-    max-width: 50px; /* Tighter size cap */
-    max-height: 50px; /* Tighter size cap */
-    min-width: 35px; /* Ensure buttons don't shrink too much */
-    min-height: 35px; /* Ensure buttons don't shrink too much */
-    border: none;
-    border-radius: 50%; /* Circular shape */
-    background-color: #4d88ff;
-    color: white;
-    font-size: clamp(15px, 18, 20px); /* Smaller responsive font size */
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5px;
-}
-
-.controls button:hover {
-    background-color: #a64dff;
-}
-
-/* Make the volume slider vertical and hidden by default */
-#volume {
-    display: none; /* Hidden by default */
-    transform: rotate(-90deg); /* Rotate to make it vertical */
-    width: 120px; /* Height of the vertical slider */
-    height: 8px; /* Width of the vertical slider */
-    position: absolute; /* Position it relative to the button */
-    z-index: 10;
-    transition: opacity 0.3s ease; /* Smooth appearance */
-}
-
-/* Show the slider when toggled */
-#volume.show {
-    display: block; /* Make it visible */
-}
-
-
-/* On small screens, control buttons should take full width of the container */
-@media (max-width: 600px) {
-    .controls {
-        flex-direction: row; /* Keep buttons on the same row */
-        justify-content: space-evenly; /* Distribute space evenly between buttons */
-        width: 100%; /* Ensure the controls container takes up the full width */
+    .search-hero .tagline .accent {
+        background: linear-gradient(90deg, var(--accent-a), var(--accent-c));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
     }
 
-    .controls button {
-        width: 18vw; /* Adjust each button to occupy 18% of the container width */
-        height: 18vw; /* Ensures circular shape */
-        max-width: 50px; /* Limit the size of buttons */
-        max-height: 50px; /* Limit the size of buttons */
-        margin-bottom: 5px; /* Adds space between buttons */
+    .search-hero .search-row {
+        position: relative;
+        max-width: 480px;
+        margin: 0 auto;
     }
 
-    /* Volume slider adjustments */
-    #volume {
-        left: auto; /* Reset if needed */
-        bottom: 80px; /* Adjust position on smaller screens */
+    .search-hero .search-row input {
+        width: 100%;
+        padding: 14px 18px 14px 46px;
+        border-radius: 14px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel);
+        color: var(--text);
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color .2s, box-shadow .2s;
     }
-}
 
+    .search-hero .search-row input:focus {
+        border-color: var(--accent-a);
+        box-shadow: 0 0 0 3px rgba(53, 230, 255, 0.15);
+    }
 
-        audio {
-            width: 80%;
-            max-width: 600px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            opacity: 0.7;
-            background-color: #007BFF;
-            display: none;
-        }
+    .search-hero .search-row i {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-dim);
+    }
 
-.progress-container {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center;
-    width: 80%;
-    max-width: 600px;
-    margin-top: 35px;
-}
+    .filter-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel);
+        color: var(--text-dim);
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: border-color .2s, color .2s;
+    }
 
-.trk {
-    width: 100%; /* Set to 100% width of its container */
-    background: rgba(51, 170, 51, .2);
-    margin-bottom: 10px;
-}
+    .filter-toggle:hover,
+    .filter-toggle.open {
+        border-color: var(--accent-a);
+        color: var(--text);
+    }
 
-.progress-bar-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; /* Ensure it takes full width of the container */
-    max-width: 700px;
-}
+    .filter-panel {
+        max-width: 700px;
+        margin: 14px auto 0;
+        display: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 16px;
+        padding: 16px;
+        backdrop-filter: blur(10px);
+    }
 
-#progressBar {
-    flex-grow: 1;
-    margin: 0 10px;
-    cursor: pointer;
-    height: 5px;
-    border-radius: 5px;
-    background-color: #6699ff;
-    appearance: none;
-}
+    .filter-panel.open {
+        display: flex;
+    }
 
-#currentTime, #totalDuration {
-    font-size: 14px;
-}
+    .filter-panel div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        text-align: left;
+        flex: 1 1 150px;
+    }
 
+    .filter-panel label {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+    }
 
-#progressBar::-webkit-slider-thumb {
-    appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: yellow;
-}
+    .filter-panel select {
+        padding: 9px 10px;
+        border-radius: 10px;
+        border: 1px solid var(--panel-border);
+        background: var(--bg-2, #0b1224);
+        color: var(--text);
+        font-size: 0.88rem;
+        font-family: inherit;
+        cursor: pointer;
+    }
 
-/* Tooltip container */
-.tooltip {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
+    .count-line {
+        margin-top: 12px;
+        color: var(--accent-a);
+        font-size: 0.85rem;
+        min-height: 1.2em;
+    }
 
-/* Tooltip text (hidden by default) */
-  .tooltip .tooltiptext {
-  color: #FFFFFF;
-  padding: 5px;
-  position: absolute;
-  text-align: left;
-  z-index: 10;
-  top: 100%;
-  left: 50%;
-  width:360px;
-  visibility: hidden;
-  background-color: gray;
-  font-size: 14px;
-}
+    #player-root {
+        height: auto;
+        min-height: 45vh;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        justify-content: flex-start;
+    }
 
-/* Tooltip visibility on hover */
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-    background-color: gray;
-}
+    .song-list-wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 0 20px 60px;
+    }
 
-/* Optional: Add a small triangle pointer to the tooltip */
-.tooltip .tooltiptext:before {
-border-style: solid;
-border-width: 10px;
-height:0px;
-width:0px;
-position:absolute;
-display:block;
-content:"<i class="fas fa-random"></i>";
-right:92px;
-bottom:-20px;
-}
+    .song-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 1px solid var(--panel-border);
+        border-radius: 16px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
 
-#trackInfo {
- padding-top:20px;
- }
+    .song-list li {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        padding: 12px 16px;
+        cursor: pointer;
+        color: var(--text-dim);
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--panel-border);
+        transition: background .15s, color .15s;
+    }
 
-#songCount {
-    white-space: nowrap;
-    margin-top: 5px;
-    font-size: clamp(15px, 2.5vw, 16px); /* Responsive font size */
-    /* margin: 10px auto;  Add spacing */
-    text-align: center;
-}
+    .song-list li:last-child {
+        border-bottom: none;
+    }
 
-    </style>
+    .song-list li.song-list-loading {
+        cursor: default;
+        text-align: center;
+        color: var(--text-dim);
+        background: none;
+    }
+
+    .song-list li.song-list-loading:hover {
+        background: none;
+        color: var(--text-dim);
+    }
+
+    .song-list li:nth-child(odd) {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .song-list li:nth-child(even) {
+        background: rgba(255, 255, 255, 0.045);
+    }
+
+    .song-list li:hover {
+        background: rgba(53, 230, 255, 0.1);
+        color: var(--text);
+    }
+
+    .song-list li.active {
+        background: rgba(53, 230, 255, 0.16);
+        color: var(--accent-a);
+        font-weight: 700;
+    }
+
+    .song-list .song-name {
+        color: var(--text);
+        font-weight: 600;
+    }
+
+    .song-list li.active .song-name {
+        color: var(--accent-a);
+    }
+
+    .song-list .song-meta {
+        color: var(--text-dim);
+        font-size: 0.8rem;
+    }
+</style>
 
     <!-- Schema Markup -->
 
@@ -348,13 +260,13 @@ bottom:-20px;
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "আলোময় সঙ্গীত",
+  "name": "আলোময় সঙ্গীত",
   "url": "https://alomoy.github.io/songit/all-songs.html",
   "description": "অনালাইনে শুনুন ইসলামী সঙ্গীত।",
   "inLanguage": "bn",
   "about": {
     "@type": "MusicGroup",
-    "name": "আলোময় সঙ্গীত",
+    "name": "আলোময় সঙ্গীত",
     "genre": "বাংলা ইসলামী সঙ্গীত"
   },
   "breadcrumb": {
@@ -363,478 +275,285 @@ bottom:-20px;
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Home",
+        "name": "সব গান",
         "item": "https://alomoy.github.io/songit/all-songs.html"
-      },
+      }
     ]
   }
 }
 </script>
 
-
-
 </head>
 <body>
- <div class="topnav" id="myTopnav">
+  <div class="sharethis-sticky-share-buttons"></div>
+
+<div class="topnav" id="myTopnav">
   <div class="logo-section">
- <a href="index.html">  
- <img src="images/alomoy.png" alt="Alomoy Sangeet Logo">
+    <a href="index.html"><img src="images/alomoy.png" alt="Alomoy Sangeet Logo"></a>
     <div class="company-info">
-      <strong>আলোময় সঙ্গীত</strong><br>
-      <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
-      </a>
+      <strong>আলোময় সঙ্গীত</strong><br>
+      <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
     </div>
   </div>
   <div class="menu">
-    <a href="index.html"  class="active">হোম</a>
+    <a href="index.html">হোম</a>
     <a href="singers.html">শিল্পী তালিকা</a>
     <a href="albums.html">অ্যালবাম তালিকা</a>
     <a href="search.html">সঙ্গীত সার্চ</a>
-    <a href="all-songs.html">সব গান</a>
+    <a href="all-songs.html" class="active">সব গান</a>
   </div>
   <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
     <i class="fa fa-bars"></i>
   </a>
 </div>
 
+<div class="search-hero">
+  <h1 class="tagline">সব <span class="accent">গান</span></h1>
+  <div class="search-row">
+    <i class="fa fa-search"></i>
+    <input type="text" id="search-input" placeholder="গান, শিল্পী বা অ্যালবামের নাম লিখুন..." autocomplete="off">
+  </div>
+  <div class="count-line" id="count-line">লোড হচ্ছে...</div>
 
+  <button type="button" class="filter-toggle" id="filter-toggle" aria-expanded="false">
+    <i class="fa fa-sliders-h"></i> ফিল্টার
+  </button>
 
-  <audio id="audioPlayer" controls></audio>
-
-<div class="progress-container">
-    <marquee onmouseover="this.stop();" onmouseout="this.start();" class="trk" scrollamount="3" id="trackInfoWrapper">
-        <span id="trackInfoText">শুনছেন: </span><span id="trackInfo"> -  - </span>
-    </marquee>
-    <div class="progress-bar-wrapper">
-        <span id="currentTime">০:০০</span>
-        <input type="range" id="progressBar" min="0" max="100" value="0">
-        <span id="totalDuration">০:০০</span>
-    </div>
-</div>
-
-
-
-    <div class="controls">
-      <!-- Tooltip trigger element -->
-<button class="tooltip"><i class="fa fa-info-circle" style="font-size:26px; background-"></i>
-    <div class="tooltiptext">
-    <ul>
-    <li>
-        গান শুরু করতে প্লে <i class="fas fa-play"></i> বাটন বা গানের নামে ক্লিক করুন।
-        </li>
-    <li>
-         গান শাফল করতে  <i class="fas fa-random"></i> ক্লিক করুন।
-         </li>
-        <li>
-       রিপিট অপশনের জন্য <i class="fas fa-redo"></i>
-        ক্লিক করুন। রিপিট অফ, চলমান গান রিপিট বা সব গান রিপিট করা যাবে।
-        </li>
-        <li>
-        ড্রপডাউন মেনু থেকে পছন্দের গান বাছাই করুন।
-        </li>
-        </ul>
-    </div>
-</button>
-        <button id="shuffle"><i class="fas fa-random"></i> <!--Off--></button>
-        <button id="prev"><i class="fas fa-backward"></i></button>
-        <button id="play"><i class="fas fa-play"></i></button>
-        <button id="pause" style="display: none;"><i class="fas fa-pause"></i></button>
-        <button id="next"><i class="fas fa-forward"></i></button>
-        <button id="repeat"><i class="fas fa-redo"></i><!--Off--></button>
-        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5" title="ভলিউম">
-    </div>
-
-    <div class="main-container">
-    <div class="dropdowns">
+  <div class="filter-panel" id="filter-panel">
     <div>
-        <label for="albumSelect">অ্যালবাম:</label>
-        <select id="albumSelect"></select>
-        </div>
-
-            <div>
-        <label for="singerSelect">শিল্পী:</label>
-        <select id="singerSelect"></select>
-                </div>
-
-        <div>
-        <label for="groupSelect">শিল্পীগোষ্ঠী:</label>
-        <select id="groupSelect"></select>
-        </div>
-
-        <div>
-        <label for="genreSelect">বিভাগ:</label>
-        <select id="genreSelect"></select>
-        </div>
-
-        <div>
-        <label for="subgenreSelect">উপ-বিভাগ:</label>
-        <select id="subgenreSelect"></select>
-        </div>
-
-         <!-- Search Box -->
-<!--    <label for="searchBox">খুঁজুন:</label>  -->
-    <input class="searchBox" type="text" id="searchBox" placeholder="সার্চ করুন">
-
+      <label for="albumSelect">অ্যালবাম</label>
+      <select id="albumSelect"></select>
+    </div>
+    <div>
+      <label for="singerSelect">শিল্পী</label>
+      <select id="singerSelect"></select>
+    </div>
+    <div>
+      <label for="groupSelect">শিল্পীগোষ্ঠী</label>
+      <select id="groupSelect"></select>
+    </div>
+    <div>
+      <label for="genreSelect">বিভাগ</label>
+      <select id="genreSelect"></select>
+    </div>
+    <div>
+      <label for="subgenreSelect">উপ-বিভাগ</label>
+      <select id="subgenreSelect"></select>
+    </div>
+  </div>
 </div>
 
-<div id="songCount"></div>
-
-
-    <ul id="songList"></ul>
-
+<div class="player" id="player-root">
+  <div class="details">
+    <div class="track-art"></div>
+    <div class="track-album">Track Album</div>
+    <div class="track-name">Track Name</div>
+    <div class="track-artist">Track Artist</div>
+    </br>
+    <div class="header-content-inner">
+      <a href="index.html" class="btn btn-primary btn-lg">হোম</a>
+      <a href="albums.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> <a id="download-link" href="" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a>
     </div>
+  </div>
+  <div class="buttons">
+    <div class="repeat-track" onclick="toggleRepeat()" title="Repeat: All">
+      <i class="fa fa-redo fa-2x"></i><span class="repeat-badge">১</span>
+    </div>
+    <div class="fast-backward" onclick="fastBackward()"><i class="fa fa-backward fa-2x"></i></div>
+    <div class="prev-track" onclick="prevTrack()"><i class="fa fa-step-backward fa-2x"></i></div>
+    <div class="playpause-track" onclick="playpauseTrack()"><i class="fa fa-play-circle fa-5x"></i></div>
+    <div class="next-track" onclick="nextTrack()"><i class="fa fa-step-forward fa-2x"></i></div>
+    <div class="fast-forward" onclick="fastForward()"><i class="fa fa-forward fa-2x"></i></div>
+    <div class="shuffle-track" onclick="toggleShuffle()" title="Shuffle: Off">
+      <i class="fa fa-random fa-2x"></i>
+    </div>
+  </div>
+  <div class="slider_container">
+    <div class="current-time">০০:০০</div>
+    <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+    <div class="total-duration">০০:০০</div>
+    <div class="volume-track">
+      <div class="volume-icon" onclick="toggleVolumeSlider(event)"><i class="fa fa-volume-up fa-2x"></i></div>
+      <div class="volume_popup">
+        <input type="range" min="0" max="100" value="99" class="volume_slider" onclick="event.stopPropagation()" onchange="setVolume()">
+      </div>
+    </div>
+  </div>
+  <div class="now-playing">Playing x OF of y</div>
+</div>
+
+<div class="song-list-wrap">
+  <ol class="song-list" id="song-list"><li class="song-list-loading">গান তালিকা লোড হচ্ছে...</li></ol>
+</div>
 
     <script>
-        async function loadCSV(file) {
-            const response = await fetch(file);
-            const text = await response.text();
-            return text.split('\n').slice(1).map(line => {
-                const [song, album, singer, group, writer, tune, src, genre, subgenre] = line.split(',');
-                return { song, album, singer, group, writer, tune, src, genre, subgenre };
-            }).filter(song => song.song && song.src);
-        }
+const STOCK_IMAGES = [
+    "images/mount.jpg", "images/nature.jpg", "images/trail.jpg", "images/karakoram.jpg", "images/hillroad.jpg",
+    "images/mtroad.jpg", "images/tunnel.jpg", "images/train.jpg", "images/sajek.jpg", "images/mosque.jpg",
+    "images/laptop.jpg",
+];
 
-        function populateDropdown(options, dropdownId) {
+let allSongsCache = null;
+let mainJsLoaded = false;
+let searchDebounce = null;
+let currentList = [];
+
+function parseCSV(text) {
+    const lines = text.split('\n').filter(line => line.trim() !== '');
+    const headers = lines[0].split(',').map(h => h.trim());
+    return lines.slice(1).map(line => {
+        const values = line.split(',');
+        return headers.reduce((obj, h, i) => {
+            obj[h] = values[i] ? values[i].trim() : '';
+            return obj;
+        }, {});
+    });
+}
+
+function convertToBanglaNumber(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(number).split('').map(d => banglaDigits[d] ?? d).join('');
+}
+
+function escapeHtml(s) {
+    const div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+}
+
+async function getAllSongs() {
+    if (allSongsCache) return allSongsCache;
+    const res = await fetch('radio/songs.csv');
+    const csvText = await res.text();
+    allSongsCache = parseCSV(csvText).filter(s => s.Song && s.src);
+    return allSongsCache;
+}
+
+function populateDropdown(options, dropdownId) {
     const dropdown = document.getElementById(dropdownId);
-    dropdown.innerHTML = `<option value="">সকল</option>`; // Default "All" option
-
-    // Remove duplicates and sort alphabetically (locale-specific)
-    const sortedOptions = [...new Set(options)].sort((a, b) => a.localeCompare(b, 'bn'));
-
+    dropdown.innerHTML = `<option value="">সকল</option>`;
+    const sortedOptions = [...new Set(options)].filter(Boolean).sort((a, b) => a.localeCompare(b, 'bn'));
     sortedOptions.forEach(option => {
-        const optElement = document.createElement('option');
-        optElement.value = option;
-        optElement.textContent = option;
-        dropdown.appendChild(optElement);
+        const opt = document.createElement('option');
+        opt.value = option;
+        opt.textContent = option;
+        dropdown.appendChild(opt);
     });
 }
 
-        function filterSongs() {
-            const selectedAlbum = document.getElementById('albumSelect').value;
-            const selectedSinger = document.getElementById('singerSelect').value;
-            const selectedGroup = document.getElementById('groupSelect').value;
-            const selectedGenre = document.getElementById('genreSelect').value;
-            const selectedSubgenre = document.getElementById('subgenreSelect').value;
+function applyFilters() {
+    const q = document.getElementById('search-input').value.trim().toLowerCase();
+    const selectedAlbum = document.getElementById('albumSelect').value;
+    const selectedSinger = document.getElementById('singerSelect').value;
+    const selectedGroup = document.getElementById('groupSelect').value;
+    const selectedGenre = document.getElementById('genreSelect').value;
+    const selectedSubgenre = document.getElementById('subgenreSelect').value;
 
-            const filteredSongs = songs.filter(song => {
-                return (selectedAlbum === '' || song.album === selectedAlbum) &&
-                       (selectedSinger === '' || song.singer === selectedSinger) &&
-                       (selectedGroup === '' || song.group === selectedGroup) &&
-                       (selectedGenre === '' || song.genre === selectedGenre) &&
-                       (selectedSubgenre === '' || song.subgenre === selectedSubgenre);
-            });
-
-            displaySongs(filteredSongs);
-            updateSongCount(filteredSongs.length, songs.length);
-        }
-
-        function updateSongCount(selectedCount, totalCount) {
-    const songCountElement = document.getElementById('songCount');
-    songCountElement.textContent = convertToBanglaNumerals(`মোট সঙ্গীত: ${totalCount} | নির্বাচিত সঙ্গীত: ${selectedCount}`);
-}
-
-function displaySongs(songList) {
-    // Randomize the list by song name
-    songList.sort(() => {
-        return Math.random() - 0.5; // Shuffle by random order
+    const filtered = allSongsCache.filter(song => {
+        if (selectedAlbum && song.album !== selectedAlbum) return false;
+        if (selectedSinger && song.singer !== selectedSinger) return false;
+        if (selectedGroup && song.group !== selectedGroup) return false;
+        if (selectedGenre && song.genre !== selectedGenre) return false;
+        if (selectedSubgenre && song.subgenre !== selectedSubgenre) return false;
+        if (q && !Object.values(song).some(v => typeof v === 'string' && v.toLowerCase().includes(q))) return false;
+        return true;
     });
 
-    const songListContainer = document.getElementById('songList');
-    songListContainer.innerHTML = '';
-    songList.forEach((song, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${song.song} - ${song.singer} - ${song.group} - অ্যালবাম: ${song.album}`;
-        li.dataset.index = index;
-        li.addEventListener('click', () => playSong(index));
-        songListContainer.appendChild(li);
-    });
-
-    currentPlaylist = songList;
-    currentSongIndex = 0;
+    renderList(filtered);
 }
 
+function renderList(list) {
+    currentList = list;
+    const countLine = document.getElementById('count-line');
+    countLine.textContent = `${convertToBanglaNumber(list.length)} / ${convertToBanglaNumber(allSongsCache.length)}টি গান`;
 
+    const listEl = document.getElementById('song-list');
+    listEl.innerHTML = list.map((song, i) =>
+        `<li data-index="${i}">
+      <span class="song-name">${escapeHtml(song.Song)}</span>
+      <span class="song-meta">${escapeHtml(song.group || song.singer)}${song.album ? ' — ' + escapeHtml(song.album) : ''}</span>
+    </li>`
+    ).join('');
 
-        function playSong(index) {
-            if (currentPlaylist.length > 0 && index < currentPlaylist.length) {
-                const song = currentPlaylist[index];
-                audioPlayer.src = song.src;
-                audioPlayer.play();
-                currentSongIndex = index;
-                document.getElementById('play').style.display = 'none';
-                document.getElementById('pause').style.display = 'inline-block';
-            }
-        }
+    listEl.querySelectorAll('li').forEach(li => {
+        li.addEventListener('click', () => playFromList(Number(li.dataset.index)));
+    });
 
-        function playNextSong() {
-            currentSongIndex = (currentSongIndex + 1) % currentPlaylist.length;
-            playSong(currentSongIndex);
-        }
+    loadPlayer(list, 0, false);
+}
 
-        function playPreviousSong() {
-            currentSongIndex = (currentSongIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
-            playSong(currentSongIndex);
-        }
+function loadPlayer(list, index, autoplay) {
+    if (list.length === 0) return;
 
-function shuffleSongs() {
-    shuffleMode = !shuffleMode;
-    const shuffleButton = document.getElementById('shuffle');
+    const newTrackList = list.map((song, i) => ({
+        name: song.Song,
+        artist: song.group || song.singer,
+        album: song.album,
+        image: STOCK_IMAGES[i % STOCK_IMAGES.length],
+        path: song.src,
+    }));
 
-    // Update the button with the appropriate icon based on shuffle mode
-    if (shuffleMode) {
-        shuffleButton.innerHTML = '<i class="fas fa-random"></i>'; // Shuffle On icon
+    document.querySelectorAll('.song-list li').forEach(li => {
+        li.classList.toggle('active', Number(li.dataset.index) === index);
+    });
+
+    if (!mainJsLoaded) {
+        mainJsLoaded = true;
+        window.track_list = newTrackList;
+        const script = document.createElement('script');
+        script.src = 'players/main.js';
+        document.body.appendChild(script);
     } else {
-        shuffleButton.innerHTML = '<i class="fas fa-random" style="opacity: 0.5;"></i>'; // Shuffle Off icon with reduced opacity
-    }
-
-    // Shuffle or reset the playlist based on the mode
-    if (shuffleMode) {
-        currentPlaylist.sort(() => Math.random() - 0.5);
-    } else {
-        currentPlaylist = songs;
-    }
-
-    displaySongs(currentPlaylist);
-}
-
-
-function toggleRepeat() {
-    repeatMode = (repeatMode + 1) % 3;
-    const repeatButton = document.getElementById('repeat');
-
-    if (repeatMode === 0) {
-        repeatButton.innerHTML = '<i class="fas fa-repeat"></i> off'; // Repeat Off icon (normal repeat icon)
-        audioPlayer.loop = false;
-    } else if (repeatMode === 1) {
-        repeatButton.innerHTML = '<i class="fas fa-repeat"></i> all'; // Repeat All icon (repeat all icon)
-        audioPlayer.loop = false;
-    } else {
-        repeatButton.innerHTML = '<i class="fas fa-redo-alt"></i>১'; // Repeat 1 icon (repeat one song icon)
-        audioPlayer.loop = true;
+        track_list = newTrackList;
+        track_index = index;
+        loadTrack(index);
+        if (autoplay) playTrack();
     }
 }
 
-
-        // Main script
-        let songs = [];
-        let currentPlaylist = [];
-        let currentSongIndex = 0;
-        let shuffleMode = false;
-        let repeatMode = 0; // 0: off, 1: all, 2: one
-        const audioPlayer = document.getElementById('audioPlayer');
-
-        // Play button logic
-document.getElementById('play').addEventListener('click', () => {
-    if (audioPlayer.src === '' && currentPlaylist.length > 0) {
-        // If no song has been loaded yet, play the first song in the playlist
-        playSong(0);
-    } else if (audioPlayer.paused) {
-        audioPlayer.play();
-        document.getElementById('play').style.display = 'none';
-        document.getElementById('pause').style.display = 'inline-block';
-    }
-});
-
-        // Pause button logic
-        document.getElementById('pause').addEventListener('click', () => {
-            audioPlayer.pause();
-            document.getElementById('pause').style.display = 'none';
-            document.getElementById('play').style.display = 'inline-block';
-        });
-
-        // Next button logic
-        document.getElementById('next').addEventListener('click', playNextSong);
-
-        // Previous button logic
-        document.getElementById('prev').addEventListener('click', playPreviousSong);
-
-        // Shuffle button logic
-        document.getElementById('shuffle').addEventListener('click', shuffleSongs);
-
-        // Repeat button logic
-        document.getElementById('repeat').addEventListener('click', toggleRepeat);
-
-        // Load CSV data and populate dropdowns
-        loadCSV('radio/songs.csv').then(data => {
-            songs = data;
-            populateDropdown(songs.map(song => song.album), 'albumSelect');
-            populateDropdown(songs.map(song => song.singer), 'singerSelect');
-            populateDropdown(songs.map(song => song.group), 'groupSelect');
-            populateDropdown(songs.map(song => song.genre), 'genreSelect');
-            populateDropdown(songs.map(song => song.subgenre), 'subgenreSelect');
-            displaySongs(songs);
-            updateSongCount(songs.length, songs.length); // Initially, all songs are selected
-
-        });
-
-        // Add event listeners to dropdowns
-        document.getElementById('albumSelect').addEventListener('change', filterSongs);
-        document.getElementById('singerSelect').addEventListener('change', filterSongs);
-        document.getElementById('groupSelect').addEventListener('change', filterSongs);
-        document.getElementById('genreSelect').addEventListener('change', filterSongs);
-        document.getElementById('subgenreSelect').addEventListener('change', filterSongs);
-
-        // Handle song end
-        audioPlayer.addEventListener('ended', () => {
-            if (repeatMode === 1 || (repeatMode === 0 && currentSongIndex !== currentPlaylist.length - 1)) {
-                playNextSong();
-            }
-        });
-
-// Progress bar logic
-const progressBar = document.getElementById('progressBar');
-const currentTimeDisplay = document.getElementById('currentTime');
-const durationDisplay = document.getElementById('totalDuration');
-
-// Function to format time as mm:ss
-function formatTime(seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return convertToBanglaNumerals(`${mins}:${secs < 10 ? '0' : ''}${secs}`);
+function playFromList(index) {
+    loadPlayer(currentList, index, true);
 }
 
-// Set up metadata for duration display and progress bar max value
-audioPlayer.addEventListener('loadedmetadata', () => {
-    durationDisplay.textContent = formatTime(audioPlayer.duration);
-    progressBar.max = audioPlayer.duration;
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(applyFilters, 250);
 });
 
-// Update progress bar smoothly and synchronize it with seconds
-const updateInterval = setInterval(() => {
-    if (!audioPlayer.paused && !audioPlayer.ended) {
-        const currentTime = audioPlayer.currentTime;
-        progressBar.value = currentTime;
-        currentTimeDisplay.textContent = formatTime(currentTime);
-    }
-}, 500); // Update every 500ms for better synchronization
-
-// Handle user interaction with the progress bar (seek functionality)
-progressBar.addEventListener('input', () => {
-    audioPlayer.currentTime = progressBar.value;
+const filterToggle = document.getElementById('filter-toggle');
+const filterPanel = document.getElementById('filter-panel');
+filterToggle.addEventListener('click', () => {
+    const open = filterPanel.classList.toggle('open');
+    filterToggle.classList.toggle('open', open);
+    filterToggle.setAttribute('aria-expanded', String(open));
 });
 
-// Ensure the progress bar value resets when a new song is played
-audioPlayer.addEventListener('play', () => {
-    progressBar.value = 0;
-    if (!isNaN(audioPlayer.duration) && audioPlayer.duration > 0) {
-        durationDisplay.textContent = formatTime(audioPlayer.duration);
-    }
+['albumSelect', 'singerSelect', 'groupSelect', 'genreSelect', 'subgenreSelect'].forEach(id => {
+    document.getElementById(id).addEventListener('change', applyFilters);
 });
 
-// Handle pause event without the progress ball jumping back
-audioPlayer.addEventListener('pause', () => {
-    const currentTime = audioPlayer.currentTime;
-    progressBar.value = currentTime; // Ensure the value stays at the current point when paused
-    currentTimeDisplay.textContent = formatTime(currentTime);
+getAllSongs().then(songs => {
+    populateDropdown(songs.map(s => s.album), 'albumSelect');
+    populateDropdown(songs.map(s => s.singer), 'singerSelect');
+    populateDropdown(songs.map(s => s.group), 'groupSelect');
+    populateDropdown(songs.map(s => s.genre), 'genreSelect');
+    populateDropdown(songs.map(s => s.subgenre), 'subgenreSelect');
+    // Shuffle once on load so repeat visits don't always show the same
+    // handful of songs first.
+    const shuffled = [...songs].sort(() => Math.random() - 0.5);
+    renderList(shuffled);
+}).catch(error => {
+    console.error('গান লোড করতে সমস্যা:', error);
+    document.getElementById('count-line').textContent = 'গান লোড করতে সমস্যা হয়েছে।';
+    document.getElementById('song-list').innerHTML = '<li class="song-list-loading">গান লোড করতে সমস্যা হয়েছে।</li>';
 });
-
-// Update the total duration display when the song is loaded
-audioPlayer.addEventListener('loadedmetadata', () => {
-    durationDisplay.textContent = formatTime(audioPlayer.duration);
-});
-
-
-
-// Show Track Info
-
-function playSong(index) {
-    if (currentPlaylist.length > 0 && index < currentPlaylist.length) {
-        const song = currentPlaylist[index];
-        audioPlayer.src = song.src;
-        audioPlayer.play();
-        currentSongIndex = index;
-
-        // Update the track info display
-        updateTrackInfo(song);
-
-        // Show play/pause buttons accordingly
-        document.getElementById('play').style.display = 'none';
-        document.getElementById('pause').style.display = 'inline-block';
-    }
-}
-
-function updateTrackInfo(song) {
-    const trackInfo = document.getElementById('trackInfo');
-    
-    // Clear previous content
-    trackInfo.innerHTML = '';
-
-    // Add song details
-    const songDetails = document.createTextNode(`${song.song} - ${song.singer} - ${song.group} - `);
-    trackInfo.appendChild(songDetails);
-
-    // Create a download link
-    const downloadLink = document.createElement('a');
-    downloadLink.href = song.src; // Use the song source URL
-    downloadLink.textContent = 'ডাউনলোড';
-    downloadLink.download = ''; // Allows download with the file's original name
-    downloadLink.style.marginLeft = '4px'; // Optional: Add some spacing
-
-    // Append the download link to the trackInfo span
-    trackInfo.appendChild(downloadLink);
-}
-
-
-// Track Info Ends
-
-// Search
-
-document.getElementById('searchBox').addEventListener('input', function () {
-    const query = this.value.toLowerCase();
-
-    const filteredSongs = songs.filter(song => {
-        return Object.values(song).some(value => value.toLowerCase().includes(query));
-    });
-
-    displaySongs(filteredSongs);
-});
-
-// hamburger
-
-// JavaScript to toggle the menu visibility on small screens
-document.getElementById('hamburgerMenu').addEventListener('click', () => {
-    const navLinks = document.getElementById('navLinks');
-    navLinks.classList.toggle('show');
-});
-
-// Volume
-document.addEventListener('DOMContentLoaded', () => {
-    const volumeButton = document.createElement('button'); // Add a volume toggle button
-    volumeButton.innerHTML = '<i class="fas fa-volume-up"></i>';
-    volumeButton.id = 'volumeToggle';
-    document.querySelector('.controls').appendChild(volumeButton);
-
-    const volumeSlider = document.getElementById('volume');
-
-    // Toggle the visibility of the slider on button click
-    volumeButton.addEventListener('click', (event) => {
-        const buttonRect = volumeButton.getBoundingClientRect();
-
-        // Position the slider directly above the button
-        volumeSlider.style.left = `${buttonRect.left + buttonRect.width / 2 - 62}px`; // Center horizontally
-        volumeSlider.style.top = `${buttonRect.top - buttonRect.height - 10}px`; // Positioned directly above with slight padding
-        volumeSlider.classList.toggle('show');
-    });
-
-    // Hide the slider when clicking anywhere outside
-    document.addEventListener('click', (event) => {
-        if (!volumeButton.contains(event.target) && !volumeSlider.contains(event.target)) {
-            volumeSlider.classList.remove('show');
-        }
-    });
-});
-
 
 // Nav
 function toggleMenu() {
   var menu = document.querySelector(".topnav .menu");
   menu.classList.toggle("show");
 }
-// Function to convert English numerals to Bangla numerals
-
-
-// Show per page
-
     </script>
 </body>
 </html>
