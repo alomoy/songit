@@ -22,13 +22,6 @@ let track_list = [
     path: "https://www.dropbox.com/scl/fi/g783nyd43r1uk9dggl03y/Tumi_asmane_obaydullah.mp3?rlkey=f6b11g2fu9uikgnm3wtdv080m&st=ao2hz00j&dl=1"
   },
   {
-    name: "ইকরা কালামাল্লাহ",
-    artist: "Ahmed Bukhatir",
-    album: "বাছাইকৃত-১",
-    image: "../images/karakoram.jpg",
-    path: "https://www.dropbox.com/scl/fi/uinceqx7pfxe7lyujja64/iqra-kalamallah.mp3?rlkey=ypy29sx9qfo5axhqfjycyl8ym&st=wlxjroq4&dl=1"
-  },
-  {
     name: "আমাকে দাও সে ঈমান",
     artist: "মতিউর রহমান মল্লিক",
     album: "বাছাইকৃত-১",

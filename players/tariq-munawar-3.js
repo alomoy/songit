@@ -1,13 +1,6 @@
 // Define the tracks that have to be played
 let track_list = [
   {
-    name: "তৌহিদেরই মুর্শিদ আমার",
-    artist: "তারিক মুনাওয়ার",
-    album: "তারিক মুনাওয়ার-০১",
-    image: "../images/mount.jpg",
-    path: "https://www.dropbox.com/s/vla0k8tvaup56jz/03.%20tauhider%20murshid.mp3?dl=1"
-  },
-  {
     name: "যেথায় হযরত",
     artist: "তারিক মুনাওয়ার",
     album: "তারিক মুনাওয়ার-০৩",
