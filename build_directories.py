@@ -142,6 +142,19 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
         <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#060a16">
+    <link rel="apple-touch-icon" href="images/alomoy.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="আলোময় সঙ্গীত">
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("sw.js").catch(function () {});
+        });
+      }
+    </script>
     <style>
       :root {
         --bg: #060a16;
@@ -389,6 +402,19 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
         <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#060a16">
+    <link rel="apple-touch-icon" href="images/alomoy.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="আলোময় সঙ্গীত">
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("sw.js").catch(function () {});
+        });
+      }
+    </script>
     <style>
       :root {
         --bg: #060a16;
