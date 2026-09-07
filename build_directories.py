@@ -144,7 +144,7 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#060a16">
-    <link rel="apple-touch-icon" href="images/alomoy.png">
+    <link rel="apple-touch-icon" href="images/alomoy3.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="আলোময় সঙ্গীত">
@@ -332,7 +332,7 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
 <div class="topnav" id="myTopnav">
   <div class="logo-section">
     <a href="index.html">
-      <img src="images/alomoy.png" alt="Alomoy Sangeet Logo">
+      <img src="images/alomoy3.png" alt="Alomoy Sangeet Logo">
       <div class="company-info">
         <strong>আলোময় সঙ্গীত</strong><br>
         <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
@@ -404,7 +404,7 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#060a16">
-    <link rel="apple-touch-icon" href="images/alomoy.png">
+    <link rel="apple-touch-icon" href="images/alomoy3.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="আলোময় সঙ্গীত">
@@ -681,7 +681,7 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
 <div class="topnav" id="myTopnav">
   <div class="logo-section">
     <a href="index.html">
-      <img src="images/alomoy.png" alt="Alomoy Sangeet Logo">
+      <img src="images/alomoy3.png" alt="Alomoy Sangeet Logo">
       <div class="company-info">
         <strong>আলোময় সঙ্গীত</strong><br>
         <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
