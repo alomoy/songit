@@ -22,10 +22,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center; /* Center all items in the navigation bar */
-  background: rgba(8, 12, 26, 0.75);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  background:
+    radial-gradient(120% 180% at 0% 0%, rgba(53, 230, 255, 0.28), transparent 48%),
+    radial-gradient(120% 180% at 100% 0%, rgba(255, 79, 216, 0.24), transparent 48%),
+    linear-gradient(180deg, #121b3b 0%, #080d20 100%);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(53, 230, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 1px 22px rgba(53, 230, 255, 0.22);
   padding: 0 10px;
   position: fixed;
   top: 0;
@@ -49,8 +52,6 @@ body {
 .topnav img {
   height: 40px;
   margin-right: 10px;
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15), 0 0 16px rgba(53, 230, 255, 0.35);
 }
 
 .topnav .company-info {
@@ -118,9 +119,12 @@ body {
   .topnav .menu {
     display: none; /* Hide menus on mobile by default */
     flex-direction: column;
-    background: rgba(8, 12, 26, 0.97);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    background:
+      radial-gradient(120% 180% at 0% 0%, rgba(53, 230, 255, 0.22), transparent 55%),
+      radial-gradient(120% 180% at 100% 0%, rgba(255, 79, 216, 0.2), transparent 55%),
+      linear-gradient(180deg, #10172f 0%, #080d20 100%);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(53, 230, 255, 0.4);
     position: absolute;
     top: 100%; /* Directly below the main header */
     left: 0;
