@@ -611,13 +611,78 @@ def build_singers_html(rows):
 # ---------------------------------------------------------------------------
 # all-songs.html
 # ---------------------------------------------------------------------------
-# The song list itself is still loaded and filtered client-side from
-# songs.csv at runtime (see the inline <script> in ALL_SONGS_TEMPLATE) --
-# this only bakes the shared chrome (nav, logo) so it can't drift out of
-# sync with the other three pages.
+# Every song is baked into a <li data-*="..."> at build time (name, artist,
+# album, and the filter/search fields), sorted alphabetically by name, so
+# the full list is crawlable without running any JS. The inline <script> in
+# ALL_SONGS_TEMPLATE only filters/reorders these already-rendered elements
+# (search box, the five dropdowns, and a once-per-load shuffle for variety
+# on repeat visits) and feeds whichever are currently visible to the
+# player -- it never fetches or parses songs.csv itself.
 
-def build_all_songs_html():
-    return ALL_SONGS_TEMPLATE.replace("{{NAV}}", render_nav("all-songs.html"))
+ALL_SONGS_STOCK_IMAGES = [
+    "images/mount.jpg", "images/nature.jpg", "images/trail.jpg", "images/karakoram.jpg", "images/hillroad.jpg",
+    "images/mtroad.jpg", "images/tunnel.jpg", "images/train.jpg", "images/sajek.jpg", "images/mosque.jpg",
+    "images/laptop.jpg",
+]
+
+
+def load_all_songs(rows):
+    songs = [r for r in rows if (r.get("Song") or "").strip() and (r.get("src") or "").strip()]
+    songs.sort(key=lambda r: r["Song"].strip())
+    return songs
+
+
+def song_li_html(song, index):
+    name = song["Song"].strip()
+    album = (song.get("album") or "").strip()
+    singer = (song.get("singer") or "").strip()
+    group = (song.get("group") or "").strip()
+    genre = (song.get("genre") or "").strip()
+    subgenre = (song.get("subgenre") or "").strip()
+    artist = group or singer
+    image = ALL_SONGS_STOCK_IMAGES[index % len(ALL_SONGS_STOCK_IMAGES)]
+    path = (song.get("src") or "").strip()
+
+    search_fields = [
+        name, album, singer, group, genre, subgenre,
+        song.get("writer") or "", song.get("tune") or "",
+        song.get("language") or "", song.get("tags") or "",
+    ]
+    search_text = " ".join(f for f in search_fields if f).lower()
+    meta = artist + (f" — {album}" if album else "")
+
+    return (
+        f'<li data-name="{esc(name)}" data-artist="{esc(artist)}" data-album="{esc(album)}" '
+        f'data-singer="{esc(singer)}" data-group="{esc(group)}" data-genre="{esc(genre)}" '
+        f'data-subgenre="{esc(subgenre)}" data-image="{esc(image)}" data-path="{esc(path)}" '
+        f'data-search="{esc(search_text)}">'
+        f'<span class="song-name">{esc(name)}</span>'
+        f'<span class="song-meta">{esc(meta)}</span></li>'
+    )
+
+
+def dropdown_options_html(values):
+    uniq = sorted(set(v.strip() for v in values if v and v.strip()))
+    opts = "".join(f'<option value="{esc(v)}">{esc(v)}</option>' for v in uniq)
+    return f'<option value="">সকল</option>{opts}'
+
+
+def build_all_songs_html(rows):
+    songs = load_all_songs(rows)
+    items_html = "\n".join(song_li_html(s, i) for i, s in enumerate(songs))
+    total_bn = bengali_numeral(len(songs))
+
+    return (
+        ALL_SONGS_TEMPLATE
+        .replace("{{NAV}}", render_nav("all-songs.html"))
+        .replace("{{SONG_ITEMS}}", items_html)
+        .replace("{{TOTAL_COUNT_LINE}}", f"{total_bn} / {total_bn}টি গান")
+        .replace("{{ALBUM_OPTIONS}}", dropdown_options_html(s.get("album") for s in songs))
+        .replace("{{SINGER_OPTIONS}}", dropdown_options_html(s.get("singer") for s in songs))
+        .replace("{{GROUP_OPTIONS}}", dropdown_options_html(s.get("group") for s in songs))
+        .replace("{{GENRE_OPTIONS}}", dropdown_options_html(s.get("genre") for s in songs))
+        .replace("{{SUBGENRE_OPTIONS}}", dropdown_options_html(s.get("subgenre") for s in songs))
+    ), len(songs)
 
 
 INDEX_TEMPLATE = r'''<!DOCTYPE html>
@@ -1130,7 +1195,9 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
 
   gtag('config', 'G-RN5RYTV144');
 </script>
-        <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    <!-- ShareThis removed for now (see how-txt item 51):
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    -->
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="manifest" href="manifest.json">
@@ -1318,7 +1385,7 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
 </head>
 
 <body>
-       <div class="sharethis-sticky-share-buttons"></div>
+       <!-- ShareThis removed for now (see how-txt item 51): <div class="sharethis-sticky-share-buttons"></div> -->
 
 {{NAV}}
 
@@ -1371,7 +1438,9 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
 
   gtag('config', 'G-RN5RYTV144');
 </script>
-        <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    <!-- ShareThis removed for now (see how-txt item 51):
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    -->
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="manifest" href="manifest.json">
@@ -1648,7 +1717,7 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
 </head>
 
 <body>
-       <div class="sharethis-sticky-share-buttons"></div>
+       <!-- ShareThis removed for now (see how-txt item 51): <div class="sharethis-sticky-share-buttons"></div> -->
 
 {{NAV}}
 
@@ -1709,7 +1778,9 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     <meta name="description" content="আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি। রয়েছে দেশবরেণ্য শিল্পীদের সঙ্গীত। মেন্যু থেকে শিল্পী, শিল্পীগোষ্ঠী বা বিভাগ বাছাই করুন। করতে পারবেন সার্চও।">
     <meta name="robots" content="index, follow">
     <title>আলোময় সঙ্গীত: সব গান</title>
+    <!-- ShareThis removed for now (see how-txt item 51):
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    -->
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="players/style.css">
     <link rel="canonical" href="https://alomoy.github.io/songit/all-songs.html">
@@ -2077,7 +2148,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
 
 </head>
 <body>
-  <div class="sharethis-sticky-share-buttons"></div>
+  <!-- ShareThis removed for now (see how-txt item 51): <div class="sharethis-sticky-share-buttons"></div> -->
 
 {{NAV}}
 
@@ -2087,7 +2158,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     <i class="fa fa-search"></i>
     <input type="text" id="search-input" placeholder="গান, শিল্পী বা অ্যালবামের নাম লিখুন..." autocomplete="off">
   </div>
-  <div class="count-line" id="count-line">লোড হচ্ছে...</div>
+  <div class="count-line" id="count-line">{{TOTAL_COUNT_LINE}}</div>
 
   <button type="button" class="filter-toggle" id="filter-toggle" aria-expanded="false">
     <i class="fa fa-sliders-h"></i> ফিল্টার
@@ -2096,29 +2167,32 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
   <div class="filter-panel" id="filter-panel">
     <div>
       <label for="albumSelect">অ্যালবাম</label>
-      <select id="albumSelect"></select>
+      <select id="albumSelect">{{ALBUM_OPTIONS}}</select>
     </div>
     <div>
       <label for="singerSelect">শিল্পী</label>
-      <select id="singerSelect"></select>
+      <select id="singerSelect">{{SINGER_OPTIONS}}</select>
     </div>
     <div>
       <label for="groupSelect">শিল্পীগোষ্ঠী</label>
-      <select id="groupSelect"></select>
+      <select id="groupSelect">{{GROUP_OPTIONS}}</select>
     </div>
     <div>
       <label for="genreSelect">বিভাগ</label>
-      <select id="genreSelect"></select>
+      <select id="genreSelect">{{GENRE_OPTIONS}}</select>
     </div>
     <div>
       <label for="subgenreSelect">উপ-বিভাগ</label>
-      <select id="subgenreSelect"></select>
+      <select id="subgenreSelect">{{SUBGENRE_OPTIONS}}</select>
     </div>
   </div>
 </div>
 
 <div class="song-list-wrap">
-  <ol class="song-list" id="song-list"><li class="song-list-loading">গান তালিকা লোড হচ্ছে...</li></ol>
+  <ol class="song-list" id="song-list">
+{{SONG_ITEMS}}
+    <li class="song-list-loading" id="no-match-row" style="display:none">কোনো গান পাওয়া যায়নি।</li>
+  </ol>
 </div>
 
 <div class="player" id="player-root">
@@ -2156,58 +2230,22 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
 </div>
 
     <script>
-const STOCK_IMAGES = [
-    "images/mount.jpg", "images/nature.jpg", "images/trail.jpg", "images/karakoram.jpg", "images/hillroad.jpg",
-    "images/mtroad.jpg", "images/tunnel.jpg", "images/train.jpg", "images/sajek.jpg", "images/mosque.jpg",
-    "images/laptop.jpg",
-];
-
-let allSongsCache = null;
 let mainJsLoaded = false;
 let searchDebounce = null;
 let currentList = [];
 
-function parseCSV(text) {
-    const lines = text.split('\n').filter(line => line.trim() !== '');
-    const headers = lines[0].split(',').map(h => h.trim());
-    return lines.slice(1).map(line => {
-        const values = line.split(',');
-        return headers.reduce((obj, h, i) => {
-            obj[h] = values[i] ? values[i].trim() : '';
-            return obj;
-        }, {});
-    });
-}
+const allItems = Array.from(document.querySelectorAll('#song-list li[data-name]'));
+const noMatchRow = document.getElementById('no-match-row');
+const totalCount = allItems.length;
 
 function convertToBanglaNumber(number) {
     const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
     return String(number).split('').map(d => banglaDigits[d] ?? d).join('');
 }
 
-function escapeHtml(s) {
-    const div = document.createElement('div');
-    div.textContent = s;
-    return div.innerHTML;
-}
-
-async function getAllSongs() {
-    if (allSongsCache) return allSongsCache;
-    const res = await fetch('radio/songs.csv');
-    const csvText = await res.text();
-    allSongsCache = parseCSV(csvText).filter(s => s.Song && s.src);
-    return allSongsCache;
-}
-
-function populateDropdown(options, dropdownId) {
-    const dropdown = document.getElementById(dropdownId);
-    dropdown.innerHTML = `<option value="">সকল</option>`;
-    const sortedOptions = [...new Set(options)].filter(Boolean).sort((a, b) => a.localeCompare(b, 'bn'));
-    sortedOptions.forEach(option => {
-        const opt = document.createElement('option');
-        opt.value = option;
-        opt.textContent = option;
-        dropdown.appendChild(opt);
-    });
+function updateCount(visible) {
+    document.getElementById('count-line').textContent =
+        `${convertToBanglaNumber(visible)} / ${convertToBanglaNumber(totalCount)}টি গান`;
 }
 
 function applyFilters() {
@@ -2218,53 +2256,37 @@ function applyFilters() {
     const selectedGenre = document.getElementById('genreSelect').value;
     const selectedSubgenre = document.getElementById('subgenreSelect').value;
 
-    const filtered = allSongsCache.filter(song => {
-        if (selectedAlbum && song.album !== selectedAlbum) return false;
-        if (selectedSinger && song.singer !== selectedSinger) return false;
-        if (selectedGroup && song.group !== selectedGroup) return false;
-        if (selectedGenre && song.genre !== selectedGenre) return false;
-        if (selectedSubgenre && song.subgenre !== selectedSubgenre) return false;
-        if (q && !Object.values(song).some(v => typeof v === 'string' && v.toLowerCase().includes(q))) return false;
-        return true;
+    const visible = [];
+    allItems.forEach(li => {
+        const match =
+            (!selectedAlbum || li.dataset.album === selectedAlbum) &&
+            (!selectedSinger || li.dataset.singer === selectedSinger) &&
+            (!selectedGroup || li.dataset.group === selectedGroup) &&
+            (!selectedGenre || li.dataset.genre === selectedGenre) &&
+            (!selectedSubgenre || li.dataset.subgenre === selectedSubgenre) &&
+            (!q || li.dataset.search.includes(q));
+        li.style.display = match ? '' : 'none';
+        if (match) visible.push(li);
     });
 
-    renderList(filtered);
-}
-
-function renderList(list) {
-    currentList = list;
-    const countLine = document.getElementById('count-line');
-    countLine.textContent = `${convertToBanglaNumber(list.length)} / ${convertToBanglaNumber(allSongsCache.length)}টি গান`;
-
-    const listEl = document.getElementById('song-list');
-    listEl.innerHTML = list.map((song, i) =>
-        `<li data-index="${i}">
-      <span class="song-name">${escapeHtml(song.Song)}</span>
-      <span class="song-meta">${escapeHtml(song.group || song.singer)}${song.album ? ' — ' + escapeHtml(song.album) : ''}</span>
-    </li>`
-    ).join('');
-
-    listEl.querySelectorAll('li').forEach(li => {
-        li.addEventListener('click', () => playFromList(Number(li.dataset.index)));
-    });
-
-    loadPlayer(list, 0, false);
+    currentList = visible;
+    updateCount(visible.length);
+    noMatchRow.style.display = visible.length === 0 ? '' : 'none';
 }
 
 function loadPlayer(list, index, autoplay) {
     if (list.length === 0) return;
 
-    const newTrackList = list.map((song, i) => ({
-        name: song.Song,
-        artist: song.group || song.singer,
-        album: song.album,
-        image: STOCK_IMAGES[i % STOCK_IMAGES.length],
-        path: song.src,
+    const newTrackList = list.map(li => ({
+        name: li.dataset.name,
+        artist: li.dataset.artist,
+        album: li.dataset.album,
+        image: li.dataset.image,
+        path: li.dataset.path,
     }));
 
-    document.querySelectorAll('.song-list li').forEach(li => {
-        li.classList.toggle('active', Number(li.dataset.index) === index);
-    });
+    allItems.forEach(li => li.classList.remove('active'));
+    list[index].classList.add('active');
 
     if (!mainJsLoaded) {
         mainJsLoaded = true;
@@ -2280,9 +2302,15 @@ function loadPlayer(list, index, autoplay) {
     }
 }
 
-function playFromList(index) {
+function playFromList(li) {
+    const index = currentList.indexOf(li);
+    if (index === -1) return;
     loadPlayer(currentList, index, true);
 }
+
+allItems.forEach(li => {
+    li.addEventListener('click', () => playFromList(li));
+});
 
 const searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', function () {
@@ -2302,32 +2330,25 @@ filterToggle.addEventListener('click', () => {
     document.getElementById(id).addEventListener('change', applyFilters);
 });
 
-getAllSongs().then(songs => {
-    populateDropdown(songs.map(s => s.album), 'albumSelect');
-    populateDropdown(songs.map(s => s.singer), 'singerSelect');
-    populateDropdown(songs.map(s => s.group), 'groupSelect');
-    populateDropdown(songs.map(s => s.genre), 'genreSelect');
-    populateDropdown(songs.map(s => s.subgenre), 'subgenreSelect');
-
-    // A ?query= param (e.g. linked from a singer's "সব" card on
-    // singers.html) prefills and runs the search instead of the usual
-    // shuffle, so that link actually lands on a filtered list.
-    const initialQuery = new URLSearchParams(window.location.search).get('query') || '';
-    if (initialQuery) {
-        searchInput.value = initialQuery;
-        applyFilters();
-        return;
-    }
-
-    // Shuffle once on load so repeat visits don't always show the same
-    // handful of songs first.
-    const shuffled = [...songs].sort(() => Math.random() - 0.5);
-    renderList(shuffled);
-}).catch(error => {
-    console.error('গান লোড করতে সমস্যা:', error);
-    document.getElementById('count-line').textContent = 'গান লোড করতে সমস্যা হয়েছে।';
-    document.getElementById('song-list').innerHTML = '<li class="song-list-loading">গান লোড করতে সমস্যা হয়েছে।</li>';
-});
+// A ?query= param (e.g. linked from a singer's "সব" card on singers.html)
+// prefills and runs the search instead of the usual shuffle, so that link
+// actually lands on a filtered list.
+const initialQuery = new URLSearchParams(window.location.search).get('query') || '';
+if (initialQuery) {
+    searchInput.value = initialQuery;
+    applyFilters();
+} else {
+    // Shuffle the visual order once on load so repeat visits don't always
+    // see the same handful of songs first. Every song is still present in
+    // the page source regardless of this order -- it's a display-only
+    // reorder of already-rendered elements, not a re-render.
+    const listEl = document.getElementById('song-list');
+    const shuffled = [...allItems].sort(() => Math.random() - 0.5);
+    shuffled.forEach(li => listEl.insertBefore(li, noMatchRow));
+    currentList = shuffled;
+    updateCount(totalCount);
+    loadPlayer(shuffled, 0, false);
+}
 
 // Nav
 function toggleMenu() {
@@ -2372,10 +2393,10 @@ def main():
         f.write(singers_html)
     print(f"Wrote singers.html with {n_singers} singers")
 
-    all_songs_html = build_all_songs_html()
+    all_songs_html, n_songs = build_all_songs_html(rows)
     with open(os.path.join(ROOT, "all-songs.html"), "w", encoding="utf-8") as f:
         f.write(all_songs_html)
-    print("Wrote all-songs.html")
+    print(f"Wrote all-songs.html with {n_songs} songs")
 
 
 if __name__ == "__main__":

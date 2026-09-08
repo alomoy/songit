@@ -56,24 +56,35 @@ On each player page,
 37. On mobile, after receiving a call in between, play doesn’t auto continues. Is ot because media session api?
 38. Mobile: index.html slider doesn't show arrows to move left-right.
 40. Extract track-art from js files to csv in album_art column (and modify by hand--this part no AI right now). In future, we would load them from. I'll update the currently missing tract-arts later.
-41. How to improve the overall SEO? What's the current condition?
+41. --
 42. Move the player to the bottom in all-songs.html as a static, fixed element.
 43. What's the use of search.html; it's already available in all-songs.html. I think we can remove it.
 44. [Done] alomoy2.png as the logo in all the current pages (index.html, all-songs.html, albums.html, singers.html)
 45.all-songs.html: downlaod icon is too small; make at as large as volume icon.
-46. all-songs.html: Load the songs, should not be dynamic, client side. Should already be populated, so also be seo-friendly.
+~~46. all-songs.html: Load the songs, should not be dynamic, client side. Should already be populated, so also be seo-friendly. Would that be a bad structure?~~
+    Not bad -- same pattern already used for albums.html/singers.html (bake at build time,
+    live JS filter over rendered elements), and no added network cost since the page already
+    fetched the full songs.csv client-side. build_pages.py's ALL_SONGS_TEMPLATE now bakes all
+    1074 <li> (sorted by name) plus the 5 filter dropdowns' <option> lists at build time; the
+    script only toggles visibility/reorders them and feeds visible ones to the player. Verified:
+    raw HTML response (no JS) already contains all 1074 <li>; search, dropdown filters, ?query=
+    prefill, no-match message, and click-to-play all still work.
 47.  In players/*html, put আঁখি জলে ভাসি
 ছুম্মা লাতুছআলুন্না
 প্রত্যয় শিল্পীগোষ্ঠী
-~~48. On small screen, the player icons look very small; give them page width, whatever the height because of that--Mobile has a tall screen, so no issue.~~
+48. [Done] On small screen, the player icons in all-songs.html look very small; give them page width, whatever the height because of that--Mobile has a tall screen, so no issue.
     players/style.css: --icon-unit's mobile scale factor raised from 0.16vw to 0.195vw, so the
-    buttons row spans ~96% of viewport width on phones (measured at 390px and 320px) instead of
-    ~79%, one line, desktop sizing (capped at 1px) unchanged. Applies to all players/*.html via
-    the shared stylesheet. Also applied to all-songs.html's bottom player bar (build_pages.py's
-    ALL_SONGS_TEMPLATE): added a max-width:600px media query overriding --icon-unit to 0.2vw so
-    its buttons row also fills ~96% of width on phones (was ~38%), even though that makes the
-    fixed bottom bar taller there -- desktop/tablet keeps the original compact 0.5px-capped size.
+    buttons row now spans ~96% of viewport width on phones (measured at 390px and 320px) instead
+    of ~79%, while staying on one line and leaving desktop sizing (capped at 1px) unchanged.
+    Applies to all players/*.html via the shared stylesheet, no per-page edits needed.
 49. Slideshow arrows don't work (neither mobile nor desktop). Also make them start from a random album (not alphabetically) and also appear randomly, not sequentially.
 50. On index.html, enable searching for single song as well, taking user to all-songs.html?query="search_string"
-51. Remove sharethis extension from all pages (comment it out for now).
+~~51. Remove sharethis extension from all pages (comment it out for now).~~
+    build_pages.py's templates had it either active or broken-"commented" (stray # / """
+    inside the Python string, which just outputs those characters literally into the HTML
+    -- doesn't actually comment anything out). Properly wrapped both the <script> include
+    and the <div class="sharethis-sticky-share-buttons"> widget in real HTML comments
+    across ALBUMS_TEMPLATE, SINGERS_TEMPLATE, and ALL_SONGS_TEMPLATE; regenerated all
+    three pages to confirm it's inert.
 52. On player/*html and all-songs.html, on song info (album, singer, direct the text to  all-songs.html?query="search_string"
+53. How to improve the overall SEO? What's the current condition?
