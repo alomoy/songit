@@ -24,7 +24,7 @@
 <!-- PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#060a16">
-<link rel="apple-touch-icon" href="images/alomoy3.png">
+<link rel="apple-touch-icon" href="images/alomoy2.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="আলোময় সঙ্গীত">
@@ -182,11 +182,52 @@
     }
 
     #player-root {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 15;
         height: auto;
-        min-height: 45vh;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        justify-content: flex-start;
+        min-height: 0;
+        width: 100%;
+        margin: 0;
+        padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+        background: rgba(6, 10, 22, 0.92);
+        backdrop-filter: blur(14px);
+        border-top: 1px solid var(--panel-border);
+        box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.45);
+        justify-content: center;
+        gap: 4px;
+    }
+
+    #player-root .details {
+        margin-top: 0;
+        gap: 2px;
+    }
+
+    #player-root .track-album {
+        display: none;
+    }
+
+    #player-root .track-name {
+        font-size: 1rem;
+    }
+
+    #player-root .track-artist {
+        font-size: 0.8rem;
+    }
+
+    #player-root .header-content-inner {
+        margin-top: 6px;
+    }
+
+    #player-root .now-playing {
+        font-size: 0.78rem;
+    }
+
+    #player-root .slider_container {
+        width: 100%;
+        max-width: 480px;
     }
 
     .song-list-wrap {
@@ -194,7 +235,7 @@
         z-index: 1;
         max-width: 700px;
         margin: 0 auto;
-        padding: 0 20px 60px;
+        padding: 0 20px calc(210px + env(safe-area-inset-bottom, 0px));
     }
 
     .song-list {
@@ -305,7 +346,7 @@
 <div class="topnav" id="myTopnav">
   <div class="logo-section">
     <a href="index.html">
-      <img src="images/alomoy3.png" alt="Alomoy Sangeet Logo">
+      <img src="images/alomoy2.png" alt="Alomoy Sangeet Logo">
       <div class="company-info">
         <strong>আলোময় সঙ্গীত</strong><br>
         <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
@@ -360,16 +401,15 @@
   </div>
 </div>
 
+<div class="song-list-wrap">
+  <ol class="song-list" id="song-list"><li class="song-list-loading">গান তালিকা লোড হচ্ছে...</li></ol>
+</div>
+
 <div class="player" id="player-root">
   <div class="details">
     <div class="track-album">Track Album</div>
     <div class="track-name">Track Name</div>
     <div class="track-artist">Track Artist</div>
-    </br>
-    <div class="header-content-inner">
-      <a href="index.html" class="btn btn-primary btn-lg">হোম</a>
-      <a href="albums.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> <a id="download-link" href="" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a>
-    </div>
   </div>
   <div class="buttons">
     <div class="repeat-track" onclick="toggleRepeat()" title="Repeat: All">
@@ -394,12 +434,9 @@
         <input type="range" min="0" max="100" value="99" class="volume_slider" onclick="event.stopPropagation()" onchange="setVolume()">
       </div>
     </div>
+    <a id="download-link" href="" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a>
   </div>
   <div class="now-playing">Playing x OF of y</div>
-</div>
-
-<div class="song-list-wrap">
-  <ol class="song-list" id="song-list"><li class="song-list-loading">গান তালিকা লোড হচ্ছে...</li></ol>
 </div>
 
     <script>
