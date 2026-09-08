@@ -69,3 +69,7 @@ On each player page,
 
     From it, take the download link to the right of volume button and remove the others (হোম and সব প্লেলিস্ট)
     And the player is too tall; make the height half. Ensure this doesn't break anything, ensuring responsiveness.
+    [Done] all-songs.html: header-content-inner links removed, download-link moved next to volume icon and
+    enlarged to match its size, bottom player bar height ~halved (282px -> 153px at desktop width) by shrinking
+    --icon-unit and padding/gaps, and track-name/track-artist now render on a single line. Not applied to the
+    individual players/*.html pages or players/template.html (left as-is per instruction).

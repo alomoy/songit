@@ -191,18 +191,26 @@
         min-height: 0;
         width: 100%;
         margin: 0;
-        padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+        padding: 5px 16px calc(5px + env(safe-area-inset-bottom, 0px));
         background: rgba(6, 10, 22, 0.92);
         backdrop-filter: blur(14px);
         border-top: 1px solid var(--panel-border);
         box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.45);
         justify-content: center;
-        gap: 4px;
+        gap: 2px;
+        /* Half the base icon scale from players/style.css so the buttons
+           row (the tallest part of this bar) takes about half the height. */
+        --icon-unit: min(0.5px, 0.08vw);
     }
 
     #player-root .details {
         margin-top: 0;
-        gap: 2px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: center;
+        column-gap: 6px;
+        row-gap: 0;
     }
 
     #player-root .track-album {
@@ -217,10 +225,6 @@
         font-size: 0.8rem;
     }
 
-    #player-root .header-content-inner {
-        margin-top: 6px;
-    }
-
     #player-root .now-playing {
         font-size: 0.78rem;
     }
@@ -228,6 +232,22 @@
     #player-root .slider_container {
         width: 100%;
         max-width: 480px;
+    }
+
+    #player-root .current-time,
+    #player-root .total-duration {
+        padding: 4px;
+    }
+
+    #player-root #download-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: calc(15 * var(--icon-unit)) calc(20 * var(--icon-unit));
+    }
+
+    #player-root #download-link i {
+        font-size: calc(32 * var(--icon-unit));
     }
 
     .song-list-wrap {
