@@ -120,4 +120,16 @@ On each player page,
     the domain root and won't actually be auto-discovered by crawlers -- only a root-level
     robots.txt (in that other repo) is checked by convention. sitemap.xml itself is still fully
     usable regardless (submit its URL directly in Google Search Console).
-54. index.html search allows only album search, although it prompts গান, অ্যালবাম বা শিল্পী
+~~54. index.html search allows only album search, although it prompts গান, অ্যালবাম বা শিল্পী. As told before arbitrary strings should point to all-songs.html?query=search_string~~
+    Replaced the old "link only shown once album search comes up empty" approach with a
+    persistent "🎵 গান দিয়ে খুঁজতে চাইলে সব গানে যান" link always visible under the search box
+    (a real <a href>, so Enter/click/right-click-open-in-new-tab all work), whose href updates
+    live to all-songs.html?query=<current input> as you type. Verified live.
+~~55. For example, https://www.alomoy.net/songit/all-songs.html?query=তারিক মুনাওয়ার player doesn't load the first songs, rather just shows Track Name Track Artist. Solve it. Also Track Name is not linked to query=Track Name. DO it. Also make the clickable links obvious, so people know these are hyperlinks.~~
+    Bug: the initialQuery branch in all-songs.html called applyFilters() but never loadPlayer(),
+    so landing via ?query= left the player on its placeholder text -- fixed by calling
+    loadPlayer(currentList, 0, false) right after. players/main.js now also makes .track-name
+    clickable (not just album/artist), linking to query=<track name>. .track-info-link is now
+    underlined at rest (not just on :hover/:focus-visible), since touch devices have no hover
+    state to reveal it was ever clickable. Verified all three (name/album/artist) on a fresh
+    ?query= landing.

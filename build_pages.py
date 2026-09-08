@@ -1036,8 +1036,19 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
     display: none;
   }
 
-  .no-results a {
+  .search-songs-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
     color: var(--accent-a);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 0.85rem;
+  }
+
+  .search-songs-link:hover {
+    color: var(--accent-c);
   }
 
   footer {
@@ -1077,6 +1088,14 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
       <input type="text" id="search-input" placeholder="গান, অ্যালবাম বা শিল্পীর নাম লিখুন..." autocomplete="off">
     </div>
     <div class="count-line" id="count-line"></div>
+    <!-- This box only filters the album cards below by album/singer name --
+         there's no per-song data on this page to search live. This link
+         always sends whatever's typed to all-songs.html?query=..., which
+         does support song-level search, so finding a song doesn't depend
+         on first noticing the album search came up empty. -->
+    <a href="all-songs.html" id="search-songs-link" class="search-songs-link">
+      <i class="fa fa-music"></i> গান দিয়ে খুঁজতে চাইলে সব গানে যান
+    </a>
   </header>
 
   <main>
@@ -1087,9 +1106,7 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
       </div>
       <button type="button" class="slider-arrow next" id="slider-next" aria-label="পরের অ্যালবাম"><i class="fa fa-chevron-right"></i></button>
     </div>
-    <div class="no-results" id="no-results">
-      কোনো প্লেলিস্ট পাওয়া যায়নি। <a href="#" id="search-songs-link">সব গানে খুঁজুন</a>
-    </div>
+    <div class="no-results" id="no-results">কোনো প্লেলিস্ট পাওয়া যায়নি।</div>
   </main>
 </div>
 
@@ -1117,22 +1134,19 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
 
   // This box only matches against album/singer names (cards.dataset.search
   // below), not individual song titles -- there's no per-song data on this
-  // page. Enter, or the "সব গানে খুঁজুন" link shown when nothing matches,
-  // both hand the same query to all-songs.html, which can search by song.
-  function goToAllSongs() {
+  // page. #search-songs-link is a real <a> (works with Enter, click, or
+  // right-click/open-in-new-tab) whose href always mirrors the current
+  // input so it stays a genuine one-step path to song-level search on
+  // all-songs.html, not something the user has to discover only once the
+  // album search comes up empty.
+  function updateSearchSongsLink() {
     const q = searchInput.value.trim();
-    if (!q) return;
-    window.location.href = 'all-songs.html?query=' + encodeURIComponent(q);
+    searchSongsLink.href = q ? 'all-songs.html?query=' + encodeURIComponent(q) : 'all-songs.html';
   }
-  searchInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') goToAllSongs();
-  });
-  searchSongsLink.addEventListener('click', function (e) {
-    e.preventDefault();
-    goToAllSongs();
-  });
+  updateSearchSongsLink();
 
   searchInput.addEventListener('input', function () {
+    updateSearchSongsLink();
     const q = this.value.trim().toLowerCase();
     let visible = 0;
     cards.forEach(function (card) {
@@ -2392,6 +2406,7 @@ const initialQuery = new URLSearchParams(window.location.search).get('query') ||
 if (initialQuery) {
     searchInput.value = initialQuery;
     applyFilters();
+    loadPlayer(currentList, 0, false);
 } else {
     // Shuffle the visual order once on load so repeat visits don't always
     // see the same handful of songs first. Every song is still present in

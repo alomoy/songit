@@ -1657,6 +1657,7 @@ const initialQuery = new URLSearchParams(window.location.search).get('query') ||
 if (initialQuery) {
     searchInput.value = initialQuery;
     applyFilters();
+    loadPlayer(currentList, 0, false);
 } else {
     // Shuffle the visual order once on load so repeat visits don't always
     // see the same handful of songs first. Every song is still present in

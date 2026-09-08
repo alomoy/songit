@@ -17,6 +17,12 @@ function all_songs_search_url(value) {
   let base = location.pathname.includes("/players/") ? "../all-songs.html" : "all-songs.html";
   return base + "?query=" + encodeURIComponent(value);
 }
+if (track_name) {
+  track_name.classList.add("track-info-link");
+  track_name.addEventListener("click", function () {
+    if (track_list[track_index].name) window.location.href = all_songs_search_url(track_list[track_index].name);
+  });
+}
 if (track_album) {
   track_album.classList.add("track-info-link");
   track_album.addEventListener("click", function () {

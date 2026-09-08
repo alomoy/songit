@@ -185,18 +185,22 @@ body {
   color: var(--text-dim);
 }
 
-/* Album/artist link to a search on all-songs.html for that value (see
-   players/main.js), set apart from the plain .track-album/.track-artist
-   text with a hover/focus cue so it reads as clickable. */
+/* Name/album/artist link to a search on all-songs.html for that value (see
+   players/main.js). Underlined at rest -- not just on hover/focus -- so it
+   reads as clickable on touch devices too, which have no hover state. */
 .track-info-link {
   cursor: pointer;
-  transition: color .15s;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+  opacity: 0.85;
+  transition: color .15s, opacity .15s;
 }
 
 .track-info-link:hover,
 .track-info-link:focus-visible {
   color: var(--accent-a);
-  text-decoration: underline;
+  opacity: 1;
 }
 
 .buttons {
