@@ -185,6 +185,20 @@ body {
   color: var(--text-dim);
 }
 
+/* Album/artist link to a search on all-songs.html for that value (see
+   players/main.js), set apart from the plain .track-album/.track-artist
+   text with a hover/focus cue so it reads as clickable. */
+.track-info-link {
+  cursor: pointer;
+  transition: color .15s;
+}
+
+.track-info-link:hover,
+.track-info-link:focus-visible {
+  color: var(--accent-a);
+  text-decoration: underline;
+}
+
 .buttons {
   display: flex;
   flex-direction: row;

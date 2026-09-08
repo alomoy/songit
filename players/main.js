@@ -9,6 +9,27 @@ let track_name = document.querySelector(".track-name");
 let track_artist = document.querySelector(".track-artist");
 let track_album = document.querySelector(".track-album");
 
+// Clicking the album/artist under the now-playing info jumps to that
+// search on all-songs.html. This file is loaded both from players/*.html
+// (needs a "../" prefix) and injected directly into all-songs.html itself
+// (doesn't), so the link target depends on where we're actually running.
+function all_songs_search_url(value) {
+  let base = location.pathname.includes("/players/") ? "../all-songs.html" : "all-songs.html";
+  return base + "?query=" + encodeURIComponent(value);
+}
+if (track_album) {
+  track_album.classList.add("track-info-link");
+  track_album.addEventListener("click", function () {
+    if (track_list[track_index].album) window.location.href = all_songs_search_url(track_list[track_index].album);
+  });
+}
+if (track_artist) {
+  track_artist.classList.add("track-info-link");
+  track_artist.addEventListener("click", function () {
+    if (track_list[track_index].artist) window.location.href = all_songs_search_url(track_list[track_index].artist);
+  });
+}
+
 let playpause_btn = document.querySelector(".playpause-track");
 let next_btn = document.querySelector(".next-track");
 let prev_btn = document.querySelector(".prev-track");

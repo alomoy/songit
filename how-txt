@@ -77,8 +77,24 @@ On each player page,
     buttons row now spans ~96% of viewport width on phones (measured at 390px and 320px) instead
     of ~79%, while staying on one line and leaving desktop sizing (capped at 1px) unchanged.
     Applies to all players/*.html via the shared stylesheet, no per-page edits needed.
-49. Slideshow arrows don't work (neither mobile nor desktop). Also make them start from a random album (not alphabetically) and also appear randomly, not sequentially.
-50. On index.html, enable searching for single song as well, taking user to all-songs.html?query="search_string"
+~~49. index.html Slideshow arrows don't work (neither mobile nor desktop). Also make them start from a random album (not alphabetically) and also appear randomly, not sequentially.~~
+    Root cause: the auto-scroll's setInterval only paused on hover/touch of #album-grid, but the
+    arrow buttons sit outside that box (siblings, absolutely positioned at negative offsets), so
+    hovering/tapping an arrow never paused it -- the continuous scrollLeft+=1 every 16ms kept
+    cancelling the arrow's scrollBy({behavior:'smooth'}) animation. Moved those listeners to the
+    new #slider-wrap (parent of both). Also replaced scrollBy's native smooth behavior with a
+    hand-rolled requestAnimationFrame easing, since native smooth-scroll support is inconsistent
+    across mobile browsers/WebViews. Cards are now shuffled into the DOM on each load (build_pages.py
+    INDEX_TEMPLATE), so the slider starts from a random album each visit. Couldn't get a live pixel
+    verification of the animation itself in this session's browser tool (that tab reports
+    document.hidden=true, which fully suspends requestAnimationFrame -- a testing-environment
+    artifact); the pause-on-hover fix and shuffle were verified directly.
+~~50. On index.html, enable searching for single song as well, taking user to all-songs.html?query="search_string"~~
+    index.html's search only matches album/singer names (no per-song data on that page). Pressing
+    Enter in the search box, or clicking the new "সব গানে খুঁজুন" link shown when nothing matches,
+    both send the typed text to all-songs.html?query=..., which does have song-level search.
+    Verified: searching a song title (not an album) shows 0 results with the link, and clicking it
+    lands on all-songs.html with that song found.
 ~~51. Remove sharethis extension from all pages (comment it out for now).~~
     build_pages.py's templates had it either active or broken-"commented" (stray # / """
     inside the Python string, which just outputs those characters literally into the HTML
@@ -86,5 +102,9 @@ On each player page,
     and the <div class="sharethis-sticky-share-buttons"> widget in real HTML comments
     across ALBUMS_TEMPLATE, SINGERS_TEMPLATE, and ALL_SONGS_TEMPLATE; regenerated all
     three pages to confirm it's inert.
-52. On player/*html and all-songs.html, on song info (album, singer, direct the text to  all-songs.html?query="search_string"
+~~52. On player/*html and all-songs.html, on song info (album, singer, direct the text to  all-songs.html?query="search_string"~~
+    players/main.js (shared by every players/*.html and by all-songs.html's own player, which
+    loads the same file) now makes .track-album/.track-artist clickable, jumping to
+    all-songs.html?query=<that value> (../all-songs.html from inside players/, since the same
+    script runs in both places). Verified on both a players/*.html page and all-songs.html itself.
 53. How to improve the overall SEO? What's the current condition?

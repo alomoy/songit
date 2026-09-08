@@ -1031,6 +1031,10 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
     display: none;
   }
 
+  .no-results a {
+    color: var(--accent-a);
+  }
+
   footer {
     position: relative;
     z-index: 1;
@@ -1065,20 +1069,22 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
 
     <div class="search-row">
       <i class="fa fa-search"></i>
-      <input type="text" id="search-input" placeholder="অ্যালবাম বা শিল্পীর নাম লিখুন..." autocomplete="off">
+      <input type="text" id="search-input" placeholder="গান, অ্যালবাম বা শিল্পীর নাম লিখুন..." autocomplete="off">
     </div>
     <div class="count-line" id="count-line"></div>
   </header>
 
   <main>
-    <div class="slider-wrap">
+    <div class="slider-wrap" id="slider-wrap">
       <button type="button" class="slider-arrow prev" id="slider-prev" aria-label="আগের অ্যালবাম"><i class="fa fa-chevron-left"></i></button>
       <div class="grid" id="album-grid">
 {{CARDS}}
       </div>
       <button type="button" class="slider-arrow next" id="slider-next" aria-label="পরের অ্যালবাম"><i class="fa fa-chevron-right"></i></button>
     </div>
-    <div class="no-results" id="no-results">কোনো প্লেলিস্ট পাওয়া যায়নি।</div>
+    <div class="no-results" id="no-results">
+      কোনো প্লেলিস্ট পাওয়া যায়নি। <a href="#" id="search-songs-link">সব গানে খুঁজুন</a>
+    </div>
   </main>
 </div>
 
@@ -1094,6 +1100,7 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
   const searchInput = document.getElementById('search-input');
   const cards = Array.from(document.querySelectorAll('.card'));
   const noResults = document.getElementById('no-results');
+  const searchSongsLink = document.getElementById('search-songs-link');
   const countLine = document.getElementById('count-line');
   const totalCount = cards.length;
 
@@ -1102,6 +1109,23 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
       ? ''
       : `${convertToBanglaNumber(visible)} / ${convertToBanglaNumber(totalCount)}টি প্লেলিস্ট`;
   }
+
+  // This box only matches against album/singer names (cards.dataset.search
+  // below), not individual song titles -- there's no per-song data on this
+  // page. Enter, or the "সব গানে খুঁজুন" link shown when nothing matches,
+  // both hand the same query to all-songs.html, which can search by song.
+  function goToAllSongs() {
+    const q = searchInput.value.trim();
+    if (!q) return;
+    window.location.href = 'all-songs.html?query=' + encodeURIComponent(q);
+  }
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') goToAllSongs();
+  });
+  searchSongsLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    goToAllSongs();
+  });
 
   searchInput.addEventListener('input', function () {
     const q = this.value.trim().toLowerCase();
@@ -1116,20 +1140,46 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
   });
 
   const albumGrid = document.getElementById('album-grid');
+  const sliderWrap = document.getElementById('slider-wrap');
   const sliderPrev = document.getElementById('slider-prev');
   const sliderNext = document.getElementById('slider-next');
   const scrollByCard = () => (cards[0] ? cards[0].getBoundingClientRect().width + 18 : 200) * 2;
 
-  sliderPrev.addEventListener('click', () => albumGrid.scrollBy({ left: -scrollByCard(), behavior: 'smooth' }));
-  sliderNext.addEventListener('click', () => albumGrid.scrollBy({ left: scrollByCard(), behavior: 'smooth' }));
+  // Show a different, randomly-ordered set of albums first on each visit
+  // instead of always the same alphabetical run.
+  for (const card of [...cards].sort(() => Math.random() - 0.5)) {
+    albumGrid.appendChild(card);
+  }
+
+  // A hand-rolled animation instead of scrollBy({behavior:'smooth'}): native
+  // smooth-scroll support is inconsistent across mobile browsers/WebViews
+  // (some silently no-op instead of scrolling at all), which is why the
+  // arrows looked broken.
+  function animateScrollBy(delta, duration) {
+    const start = albumGrid.scrollLeft;
+    const startTime = performance.now();
+    function step(now) {
+      const t = Math.min(1, (now - startTime) / duration);
+      const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      albumGrid.scrollLeft = start + delta * eased;
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  sliderPrev.addEventListener('click', () => animateScrollBy(-scrollByCard(), 320));
+  sliderNext.addEventListener('click', () => animateScrollBy(scrollByCard(), 320));
 
   // Slowly auto-scroll the slider to the left, looping back to the start,
-  // and pause while the pointer is over it so it's easy to browse by hand.
+  // and pause while the pointer is anywhere over the slider -- including
+  // the arrow buttons, which sit outside album-grid's own box -- so it
+  // doesn't fight a manual scroll (an arrow click's smooth-scroll got
+  // cancelled every 16ms by this otherwise, making the arrows look dead).
   let autoScrollPaused = false;
-  albumGrid.addEventListener('mouseenter', () => { autoScrollPaused = true; });
-  albumGrid.addEventListener('mouseleave', () => { autoScrollPaused = false; });
-  albumGrid.addEventListener('touchstart', () => { autoScrollPaused = true; }, { passive: true });
-  albumGrid.addEventListener('touchend', () => { autoScrollPaused = false; });
+  sliderWrap.addEventListener('mouseenter', () => { autoScrollPaused = true; });
+  sliderWrap.addEventListener('mouseleave', () => { autoScrollPaused = false; });
+  sliderWrap.addEventListener('touchstart', () => { autoScrollPaused = true; }, { passive: true });
+  sliderWrap.addEventListener('touchend', () => { autoScrollPaused = false; });
 
   setInterval(function () {
     if (!autoScrollPaused && albumGrid.scrollWidth > albumGrid.clientWidth) {
