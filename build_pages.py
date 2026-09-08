@@ -1902,8 +1902,21 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         justify-content: center;
         gap: 2px;
         /* Half the base icon scale from players/style.css so the buttons
-           row (the tallest part of this bar) takes about half the height. */
+           row (the tallest part of this bar) takes about half the height
+           on desktop/tablet, where there's no "icons too small" problem
+           and no need for the bar to span the full width. */
         --icon-unit: min(0.5px, 0.08vw);
+    }
+
+    /* On phones, prioritize icon size over bar height (there's plenty of
+       vertical room on a tall phone screen): the buttons row spans ~96%
+       of the viewport width here, same as players/*.html, even though
+       that makes this fixed bottom bar taller than the desktop/tablet
+       version above. */
+    @media (max-width: 600px) {
+        #player-root {
+            --icon-unit: 0.2vw;
+        }
     }
 
     #player-root .details {

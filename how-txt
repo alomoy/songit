@@ -65,11 +65,14 @@ On each player page,
 47.  In players/*html, put আঁখি জলে ভাসি
 ছুম্মা লাতুছআলুন্না
 প্রত্যয় শিল্পীগোষ্ঠী
-48. [Done] On small screen, the player icons look very small; give them page width, whatever the height because of that--Mobile has a tall screen, so no issue.
+~~48. On small screen, the player icons look very small; give them page width, whatever the height because of that--Mobile has a tall screen, so no issue.~~
     players/style.css: --icon-unit's mobile scale factor raised from 0.16vw to 0.195vw, so the
-    buttons row now spans ~96% of viewport width on phones (measured at 390px and 320px) instead
-    of ~79%, while staying on one line and leaving desktop sizing (capped at 1px) unchanged.
-    Applies to all players/*.html via the shared stylesheet, no per-page edits needed.
+    buttons row spans ~96% of viewport width on phones (measured at 390px and 320px) instead of
+    ~79%, one line, desktop sizing (capped at 1px) unchanged. Applies to all players/*.html via
+    the shared stylesheet. Also applied to all-songs.html's bottom player bar (build_pages.py's
+    ALL_SONGS_TEMPLATE): added a max-width:600px media query overriding --icon-unit to 0.2vw so
+    its buttons row also fills ~96% of width on phones (was ~38%), even though that makes the
+    fixed bottom bar taller there -- desktop/tablet keeps the original compact 0.5px-capped size.
 49. Slideshow arrows don't work (neither mobile nor desktop). Also make them start from a random album (not alphabetically) and also appear randomly, not sequentially.
 50. On index.html, enable searching for single song as well, taking user to all-songs.html?query="search_string"
 51. Remove sharethis extension from all pages (comment it out for now).

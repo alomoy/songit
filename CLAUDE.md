@@ -70,7 +70,7 @@ them into the site directly.
 - `misc/` — scratch notes, bundled third-party libs (Font Awesome, reveal.js), and
   experiments; not part of the served site.
 - `how-txt` — running human-authored TODO/notes list for the site owner; check it for
-  current priorities. 
+  current priorities. whenever a point is done, strikethrough it (~~).
 
 ## Conventions
 
