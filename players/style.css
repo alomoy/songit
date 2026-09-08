@@ -23,15 +23,18 @@ body {
   position: relative;
   z-index: 1;
 
-  /* A single responsive unit that equals 1px on wide screens and shrinks
-     proportionally to viewport width below ~625px. Padding and font-size
+  /* A single responsive unit that equals 1px on wide screens and scales
+     proportionally with viewport width below ~513px. Padding and font-size
      on the transport buttons and volume icon below are all expressed as a
      multiple of this same unit (declared here so both the .buttons row and
      the .slider_container's volume icon share it), so their combined width
-     scales down together and keeps fitting the viewport (independent
-     clamp()s per property don't correlate to the actual total width and
-     can still overflow narrow screens). */
-  --icon-unit: min(1px, 0.16vw);
+     scales together as one block (independent clamp()s per property don't
+     correlate to the actual total width and can still overflow narrow
+     screens). The 0.195vw factor is tuned so the buttons row spans close
+     to the full screen width on phones instead of looking tiny in the
+     middle of it -- on a tall phone screen the resulting taller row isn't
+     a problem the way it would be on a short/landscape one. */
+  --icon-unit: min(1px, 0.195vw);
 }
 
 .bg-blobs {

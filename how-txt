@@ -58,20 +58,19 @@ On each player page,
 40. Extract track-art from js files to csv in album_art column (and modify by hand--this part no AI right now). In future, we would load them from. I'll update the currently missing tract-arts later.
 41. How to improve the overall SEO? What's the current condition?
 42. Move the player to the bottom in all-songs.html as a static, fixed element.
-43. [Done] What's the use of search.html; it's already available in all-songs.html. I think we can remove it.
-    search.html deleted; nav across all pages now has 4 items (হোম/শিল্পী তালিকা/অ্যালবাম তালিকা/সব গান).
-    build_landing.py + build_directories.py replaced by a single build_pages.py that generates
-    index.html, albums.html, singers.html, and all-songs.html's shared chrome (nav/logo) from one
-    config, so the logo/nav can no longer drift out of sync between pages on a rerun. Singer cards'
-    "সব" link now points to all-songs.html?query=<name> (all-songs.html reads that param on load).
+43. What's the use of search.html; it's already available in all-songs.html. I think we can remove it.
 44. [Done] alomoy2.png as the logo in all the current pages (index.html, all-songs.html, albums.html, singers.html)
-45. index.html: also allow searching individual songs.
+45.all-songs.html: downlaod icon is too small; make at as large as volume icon.
 46. all-songs.html: Load the songs, should not be dynamic, client side. Should already be populated, so also be seo-friendly.
 47.  In players/*html, put আঁখি জলে ভাসি
 ছুম্মা লাতুছআলুন্না
 প্রত্যয় শিল্পীগোষ্ঠী
-48. On small screen, the player icons look very small; give them page width, whatever the height because of that--Mobile has a tall screen, so no issue.
+48. [Done] On small screen, the player icons look very small; give them page width, whatever the height because of that--Mobile has a tall screen, so no issue.
+    players/style.css: --icon-unit's mobile scale factor raised from 0.16vw to 0.195vw, so the
+    buttons row now spans ~96% of viewport width on phones (measured at 390px and 320px) instead
+    of ~79%, while staying on one line and leaving desktop sizing (capped at 1px) unchanged.
+    Applies to all players/*.html via the shared stylesheet, no per-page edits needed.
 49. Slideshow arrows don't work (neither mobile nor desktop). Also make them start from a random album (not alphabetically) and also appear randomly, not sequentially.
-50. On index.html, enable searching for single song as well
+50. On index.html, enable searching for single song as well, taking user to all-songs.html?query="search_string"
 
 on one line and link each to their respective location.,

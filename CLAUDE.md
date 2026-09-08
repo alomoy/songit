@@ -67,9 +67,7 @@ templates `sync_albums.py` is based on — do not wire them into the site direct
 - `misc/` — scratch notes, bundled third-party libs (Font Awesome, reveal.js), and
   experiments; not part of the served site.
 - `how-txt` — running human-authored TODO/notes list for the site owner; check it for
-  current priorities and the documented steps for adding a new player page manually
-  (copy template.html/template.js, fill in info, add Drive link, register the page in
-  listings).
+  current priorities. 
 
 ## Conventions
 
