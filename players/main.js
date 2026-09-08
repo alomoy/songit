@@ -36,6 +36,30 @@ if (track_artist) {
   });
 }
 
+// On all-songs.html's narrow bar, a long name+artist combo used to wrap to
+// a second line, crowding the "শুনছেন ..." line right under it. Scroll it
+// as a marquee instead, but only when it's actually too wide to fit --
+// most tracks fit fine and should just sit still. players/*.html has no
+// #marquee-wrap/#marquee-track elements (plenty of width there), so this
+// is a no-op on that page.
+let marquee_wrap = document.getElementById("marquee-wrap");
+let marquee_track = document.getElementById("marquee-track");
+function updateMarquee() {
+  if (!marquee_wrap || !marquee_track) return;
+  marquee_track.classList.remove("scrolling");
+  marquee_track.style.removeProperty("--marquee-distance");
+  marquee_track.style.removeProperty("--marquee-duration");
+  // Reading scrollWidth forces the browser to lay out the text change made
+  // just above (name/artist textContent) synchronously, so this reflects
+  // the new content immediately -- no need to wait a frame.
+  let overflow = marquee_track.scrollWidth - marquee_wrap.clientWidth;
+  if (overflow > 4) {
+    marquee_track.style.setProperty("--marquee-distance", "-" + overflow + "px");
+    marquee_track.style.setProperty("--marquee-duration", Math.max(4, overflow / 30) + "s");
+    marquee_track.classList.add("scrolling");
+  }
+}
+
 let playpause_btn = document.querySelector(".playpause-track");
 let next_btn = document.querySelector(".next-track");
 let prev_btn = document.querySelector(".prev-track");
@@ -191,6 +215,7 @@ function loadTrack(track_index) {
   track_artist.textContent = track_list[track_index].artist;
   track_album.textContent = track_list[track_index].album;
   now_playing.textContent = "শুনছেন " + toBengaliDigits(track_list.length) + "টি সঙ্গীতের " + toBengaliDigits(track_index + 1) + " নম্বরটি";
+  updateMarquee();
 
   if ("mediaSession" in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({

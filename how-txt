@@ -133,3 +133,10 @@ On each player page,
     underlined at rest (not just on :hover/:focus-visible), since touch devices have no hover
     state to reveal it was ever clickable. Verified all three (name/album/artist) on a fresh
     ?query= landing.
+56. [ad-hoc, not originally numbered] Moving track-name/artist next to "শুনছেন..." (item 47-ish)
+    made long name+artist combos wrap to a second line on the narrow all-songs.html bar, crowding
+    that line. Wrapped them in a #marquee-wrap/#marquee-track pair; players/main.js's
+    updateMarquee() (called from loadTrack()) measures overflow and only turns on a scrolling
+    CSS animation when the text is actually too wide to fit -- most tracks just sit still.
+    No-ops cleanly on players/*.html (no #marquee-wrap there, plenty of width anyway). Verified:
+    a long combo scrolls at 390px width but sits static at 480px+; a short one never scrolls.
