@@ -72,5 +72,5 @@ On each player page,
     Applies to all players/*.html via the shared stylesheet, no per-page edits needed.
 49. Slideshow arrows don't work (neither mobile nor desktop). Also make them start from a random album (not alphabetically) and also appear randomly, not sequentially.
 50. On index.html, enable searching for single song as well, taking user to all-songs.html?query="search_string"
-
-on one line and link each to their respective location.,
+51. Remove sharethis extension from all pages (comment it out for now).
+52. On player/*html and all-songs.html, on song info (album, singer, direct the text to  all-songs.html?query="search_string"

@@ -17,34 +17,37 @@ the CSV), not stored in this repo.
 tags, album_en`. `album_en` is the slug used everywhere to key an album to its
 generated files.
 
-Two generator scripts derive HTML from that CSV. **Whenever songs.csv changes, run
-`sync_albums.py` first (if album membership changed) and then `build_pages.py`**:
+**`python3 build_pages.py` is the single generator script for the whole site — run it
+whenever songs.csv changes.** It does two things, in order:
 
-- `python3 sync_albums.py` — creates/updates `players/<album_en>.html` +
-  `players/<album_en>.js` (one dedicated player page per album). Creates a page once
-  (title/description/static SEO track listing generated at creation time only) and on
-  every later run refreshes only the track_list, "now playing" text, and static SEO
-  block from the CSV — it matches tracks to existing images by (name, artist) so
-  manual art picks survive, and never deletes a page or an unrelated edit.
-- `python3 build_pages.py` — the single script that (re)generates all four main
-  pages from one shared `NAV_ITEMS`/`LOGO_PATH` config, so their nav links and logo
-  can't drift out of sync with each other the way they used to when each page had
-  its own copy-pasted template:
-  - `index.html` — album slider cards, read from `players/*.html` titles + track
-    counts (not the CSV directly).
-  - `albums.html` / `singers.html` — cards/list baked from the CSV directly at
-    build time for SEO/crawlability; any client-side JS left on these pages is
-    just a live search filter over the already-rendered elements, not a builder.
-  - `all-songs.html` — only its shared chrome (nav, logo, head/CSS/player-bar
-    markup) is templated here; the song list itself still loads and filters
-    client-side from `radio/songs.csv` at runtime (a `?query=` URL param, e.g.
-    from a singer card's "সব" link, prefills and runs that search on load).
+1. Syncs `players/<album_en>.html` + `players/<album_en>.js` (one dedicated player
+   page per album) from the CSV. A new `album_en` gets a page created once
+   (title/description/static SEO track listing generated at creation time only); an
+   existing page has its track_list, "now playing" text, and static SEO block
+   refreshed from the CSV on every later run — it matches tracks to existing images
+   by (name, artist) so manual art picks survive. A page whose `album_en` no longer
+   has any CSV rows is deleted (the CSV is the sole source of truth for which albums
+   have pages; a manual/hybrid album is made by adding rows with a new `album_en`,
+   not by hand-authoring a page).
+2. (Re)generates the four main pages from one shared `NAV_ITEMS`/`LOGO_PATH` config,
+   so their nav links and logo can't drift out of sync with each other the way they
+   used to when each page had its own copy-pasted template:
+   - `index.html` — album slider cards, read from the just-synced `players/*.html`
+     titles + track counts (not the CSV directly).
+   - `albums.html` / `singers.html` — cards/list baked from the CSV directly at
+     build time for SEO/crawlability; any client-side JS left on these pages is
+     just a live search filter over the already-rendered elements, not a builder.
+   - `all-songs.html` — only its shared chrome (nav, logo, head/CSS/player-bar
+     markup) is templated here; the song list itself still loads and filters
+     client-side from `radio/songs.csv` at runtime (a `?query=` URL param, e.g.
+     from a singer card's "সব" link, prefills and runs that search on load).
 
 Player pages are NOT hand-authored beyond first creation — edit `radio/songs.csv` (or,
 for one-off page-specific tweaks like Drive links, edit the generated
-`players/<slug>.html`/`.js` directly) and re-run the relevant script rather than
+`players/<slug>.html`/`.js` directly) and re-run `build_pages.py` rather than
 duplicating logic by hand. `players/template.html` / `players/template.js` are the
-templates `sync_albums.py` is based on — do not wire them into the site directly.
+templates the player-page generator in `build_pages.py` is based on — do not wire
+them into the site directly.
 
 ## Site structure
 
@@ -77,9 +80,9 @@ templates `sync_albums.py` is based on — do not wire them into the site direct
 - Album identity: always key albums by `album_en` (the CSV slug), never by the
   Bengali display name, when generating filenames or matching pages to CSV rows.
 - Track art: `album_art` in the CSV holds per-track image paths (relative
-  `images/...` or full URLs); `sync_albums.py` normalizes/falls back to a rotating
-  set of stock images (`STOCK_IMAGES`) for tracks with no art. Missing art is filled
-  in by hand in the CSV, not generated/guessed.
+  `images/...` or full URLs); `build_pages.py`'s player-page generator normalizes/
+  falls back to a rotating set of stock images (`PLAYER_STOCK_IMAGES`) for tracks
+  with no art. Missing art is filled in by hand in the CSV, not generated/guessed.
 - No test suite or build tool — verify changes by opening the affected HTML file(s)
   directly (or via a local static server) in a browser.
 
