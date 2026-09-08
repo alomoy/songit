@@ -133,10 +133,16 @@ On each player page,
     underlined at rest (not just on :hover/:focus-visible), since touch devices have no hover
     state to reveal it was ever clickable. Verified all three (name/album/artist) on a fresh
     ?query= landing.
-56. [ad-hoc, not originally numbered] Moving track-name/artist next to "শুনছেন..." (item 47-ish)
+~~56. [ad-hoc, not originally numbered] Moving track-name/artist next to "শুনছেন..." (item 47-ish)
     made long name+artist combos wrap to a second line on the narrow all-songs.html bar, crowding
-    that line. Wrapped them in a #marquee-wrap/#marquee-track pair; players/main.js's
-    updateMarquee() (called from loadTrack()) measures overflow and only turns on a scrolling
-    CSS animation when the text is actually too wide to fit -- most tracks just sit still.
-    No-ops cleanly on players/*.html (no #marquee-wrap there, plenty of width anyway). Verified:
-    a long combo scrolls at 390px width but sits static at 480px+; a short one never scrolls.
+    that line. Wrapped them in a #marquee-wrap/#marquee-track pair.~~
+    First pass only scrolled when text actually overflowed (e.g. "পাখি সুরে গায় / সাইমুম
+    শিল্পীগোষ্ঠী" fit fine at 480px, so it correctly never scrolled -- not a bug, but not what
+    was wanted). Per follow-up ("do it for all songs on all screens"), rebuilt as a continuous
+    ticker that always runs regardless of length/width: #marquee-track holds the real name/
+    artist plus an identical aria-hidden duplicate (synced in updateMarquee()), looping via
+    CSS translateX(-50%) infinite -- always seamless since the track is by construction exactly
+    two copies wide. Speed is normalized to the item's actual pixel width (40px/s) so short and
+    long titles scroll at a consistent pace rather than looking rushed/sluggish. Verified with
+    the exact song named above: animation created and running via getAnimations(), duplicate
+    content synced, and visually confirmed moving across two screenshots taken 2s apart.

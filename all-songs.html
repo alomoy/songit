@@ -240,31 +240,39 @@
         font-size: 0.8rem;
     }
 
-    /* When the name+artist are wider than the bar, scroll them as a
-       marquee instead of wrapping to a second line (see updateMarquee()
-       in players/main.js, which only turns this on when it's needed). */
+    /* Continuous ticker for the name+artist, always running (see
+       updateMarquee() in players/main.js) rather than only when it
+       overflows -- .marquee-track holds the real name/artist plus an
+       identical aria-hidden copy back to back; looping the scroll by
+       exactly 50% of the track's own width (it's always exactly twice
+       one item's width) lands it back on an identical-looking copy, so
+       the repeat is seamless with no jump. */
     #player-root .marquee-wrap {
         overflow: hidden;
         width: 100%;
         max-width: 480px;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+        mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
     }
 
     #player-root .marquee-track {
         display: inline-flex;
-        align-items: baseline;
-        column-gap: 6px;
         white-space: nowrap;
         width: max-content;
+        animation: player-marquee-loop linear infinite;
+        animation-duration: var(--marquee-duration, 12s);
     }
 
-    #player-root .marquee-track.scrolling {
-        animation: player-marquee var(--marquee-duration, 8s) ease-in-out infinite;
+    #player-root .marquee-item {
+        display: inline-flex;
+        align-items: baseline;
+        column-gap: 6px;
+        padding-right: 48px;
     }
 
-    @keyframes player-marquee {
-        0%, 12% { transform: translateX(0); }
-        50%, 62% { transform: translateX(var(--marquee-distance, 0)); }
-        100% { transform: translateX(0); }
+    @keyframes player-marquee-loop {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
     }
 
     #player-root .now-playing {
@@ -1572,8 +1580,14 @@
     <div class="track-album">Track Album</div>
     <div class="marquee-wrap" id="marquee-wrap">
       <div class="marquee-track" id="marquee-track">
-        <span class="track-name">Track Name</span>
-        <span class="track-artist">Track Artist</span>
+        <span class="marquee-item">
+          <span class="track-name">Track Name</span>
+          <span class="track-artist">Track Artist</span>
+        </span>
+        <span class="marquee-item" aria-hidden="true">
+          <span class="track-name track-name-dup"></span>
+          <span class="track-artist track-artist-dup"></span>
+        </span>
       </div>
     </div>
   </div>

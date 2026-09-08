@@ -38,26 +38,27 @@ if (track_artist) {
 
 // On all-songs.html's narrow bar, a long name+artist combo used to wrap to
 // a second line, crowding the "শুনছেন ..." line right under it. Scroll it
-// as a marquee instead, but only when it's actually too wide to fit --
-// most tracks fit fine and should just sit still. players/*.html has no
-// #marquee-wrap/#marquee-track elements (plenty of width there), so this
-// is a no-op on that page.
+// as a continuous ticker instead, for every track regardless of length or
+// screen width. #marquee-track holds the real name/artist plus an
+// identical aria-hidden copy (kept in sync here); the CSS loops the scroll
+// by exactly 50% of the track's own width, which -- since it's always
+// precisely two copies wide -- always lands back on an identical-looking
+// copy, so the repeat is seamless. players/*.html has no #marquee-wrap/
+// #marquee-track elements, so this is a no-op there.
 let marquee_wrap = document.getElementById("marquee-wrap");
 let marquee_track = document.getElementById("marquee-track");
+let marquee_name_dup = document.querySelector(".track-name-dup");
+let marquee_artist_dup = document.querySelector(".track-artist-dup");
+const MARQUEE_PX_PER_SEC = 40;
 function updateMarquee() {
   if (!marquee_wrap || !marquee_track) return;
-  marquee_track.classList.remove("scrolling");
-  marquee_track.style.removeProperty("--marquee-distance");
-  marquee_track.style.removeProperty("--marquee-duration");
-  // Reading scrollWidth forces the browser to lay out the text change made
-  // just above (name/artist textContent) synchronously, so this reflects
-  // the new content immediately -- no need to wait a frame.
-  let overflow = marquee_track.scrollWidth - marquee_wrap.clientWidth;
-  if (overflow > 4) {
-    marquee_track.style.setProperty("--marquee-distance", "-" + overflow + "px");
-    marquee_track.style.setProperty("--marquee-duration", Math.max(4, overflow / 30) + "s");
-    marquee_track.classList.add("scrolling");
-  }
+  if (marquee_name_dup) marquee_name_dup.textContent = track_name.textContent;
+  if (marquee_artist_dup) marquee_artist_dup.textContent = track_artist.textContent;
+  // Reading the item's width forces the browser to lay out the text change
+  // made just above synchronously, so this reflects the new content
+  // immediately -- no need to wait a frame.
+  let itemWidth = marquee_track.querySelector(".marquee-item").getBoundingClientRect().width;
+  marquee_track.style.setProperty("--marquee-duration", Math.max(4, itemWidth / MARQUEE_PX_PER_SEC) + "s");
 }
 
 let playpause_btn = document.querySelector(".playpause-track");
