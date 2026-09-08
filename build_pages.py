@@ -2265,11 +2265,6 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
 </div>
 
 <div class="player" id="player-root">
-  <div class="details">
-    <div class="track-album">Track Album</div>
-    <div class="track-name">Track Name</div>
-    <div class="track-artist">Track Artist</div>
-  </div>
   <div class="buttons">
     <div class="repeat-track" onclick="toggleRepeat()" title="Repeat: All">
       <i class="fa fa-redo fa-2x"></i><span class="repeat-badge">১</span>
@@ -2294,6 +2289,11 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
       </div>
     </div>
     <a id="download-link" href="" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a>
+  </div>
+  <div class="details">
+    <div class="track-album">Track Album</div>
+    <div class="track-name">Track Name</div>
+    <div class="track-artist">Track Artist</div>
   </div>
   <div class="now-playing">Playing x OF of y</div>
 </div>
