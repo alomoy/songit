@@ -45,7 +45,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(ROOT, "radio/songs.csv")
 PLAYERS = os.path.join(ROOT, "players")
 
-LOGO_PATH = "images/alomoy2.png"
+LOGO_PATH = "images/alomoy-clean.png"
 
 # search.html was removed from the site (all-songs.html already covers
 # song-level search), so it has no entry here.

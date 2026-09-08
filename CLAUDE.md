@@ -10,6 +10,10 @@ HTML/CSS/JS served as static files, with Python scripts that *generate* HTML fro
 single CSV source of truth. Audio files are hosted externally (Dropbox/Drive links in
 the CSV), not stored in this repo.
 
+# Main Files
+
+index.html, all-songs.html, albums.html, singers.html and albums at players/*hmtl, *js
+
 ## Data flow (the core architecture)
 
 `radio/songs.csv` is the single source of truth for every song: columns are
