@@ -47,6 +47,11 @@ PLAYERS = os.path.join(ROOT, "players")
 
 LOGO_PATH = "images/alomoy-clean.png"
 
+# Matches the domain already used in all-songs.html's existing canonical/OG
+# tags. It 301-redirects to https://www.alomoy.net/songit/ in production;
+# left as-is here for consistency rather than switching just the sitemap.
+SITE_BASE_URL = "https://alomoy.github.io/songit"
+
 # search.html was removed from the site (all-songs.html already covers
 # song-level search), so it has no entry here.
 NAV_ITEMS = [
@@ -2411,6 +2416,42 @@ function toggleMenu() {
 '''.replace("{{LOGO}}", LOGO_PATH)
 
 
+# ---------------------------------------------------------------------------
+# sitemap.xml / robots.txt
+# ---------------------------------------------------------------------------
+# With ~90 URLs (the 4 main pages plus one per album) and no other page on
+# the site linking to literally every player page, a sitemap is the only
+# complete map of the site a crawler has -- otherwise discovery depends
+# entirely on it following links transitively from index.html/albums.html.
+
+def build_sitemap():
+    player_slugs = sorted(
+        f[:-5] for f in os.listdir(PLAYERS)
+        if f.endswith(".html") and f != "template.html"
+    )
+    urls = ["", "albums.html", "singers.html", "all-songs.html"]
+    urls += [f"players/{slug}.html" for slug in player_slugs]
+
+    entries = "\n".join(
+        f"  <url><loc>{esc(f'{SITE_BASE_URL}/{path}' if path else f'{SITE_BASE_URL}/')}</loc></url>"
+        for path in urls
+    )
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{entries}\n"
+        "</urlset>\n"
+    ), len(urls)
+
+
+def build_robots_txt():
+    return (
+        "User-agent: *\n"
+        "Allow: /\n"
+        f"Sitemap: {SITE_BASE_URL}/sitemap.xml\n"
+    )
+
+
 def main():
     rows = load_rows()
 
@@ -2447,6 +2488,15 @@ def main():
     with open(os.path.join(ROOT, "all-songs.html"), "w", encoding="utf-8") as f:
         f.write(all_songs_html)
     print(f"Wrote all-songs.html with {n_songs} songs")
+
+    sitemap_xml, n_urls = build_sitemap()
+    with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write(sitemap_xml)
+    print(f"Wrote sitemap.xml with {n_urls} URLs")
+
+    with open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write(build_robots_txt())
+    print("Wrote robots.txt")
 
 
 if __name__ == "__main__":

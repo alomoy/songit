@@ -42,10 +42,14 @@ whenever songs.csv changes.** It does two things, in order:
    - `albums.html` / `singers.html` — cards/list baked from the CSV directly at
      build time for SEO/crawlability; any client-side JS left on these pages is
      just a live search filter over the already-rendered elements, not a builder.
-   - `all-songs.html` — only its shared chrome (nav, logo, head/CSS/player-bar
-     markup) is templated here; the song list itself still loads and filters
-     client-side from `radio/songs.csv` at runtime (a `?query=` URL param, e.g.
-     from a singer card's "সব" link, prefills and runs that search on load).
+   - `all-songs.html` — every song is baked into a `<li data-*>` (name, artist,
+     album, filter/search fields) at build time, sorted alphabetically, plus all
+     five filter dropdowns' `<option>` lists; the inline script only filters/
+     reorders/shuffles these already-rendered elements and feeds visible ones to
+     the player — it doesn't fetch or parse `songs.csv` itself. A `?query=` URL
+     param (e.g. from a singer card's "সব" link) prefills and runs that search.
+   - `sitemap.xml` / `robots.txt` — regenerated every run from the same page list
+     (the 4 main pages + every `players/*.html`).
 
 Player pages are NOT hand-authored beyond first creation — edit `radio/songs.csv` (or,
 for one-off page-specific tweaks like Drive links, edit the generated

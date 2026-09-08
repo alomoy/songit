@@ -108,3 +108,16 @@ On each player page,
     all-songs.html?query=<that value> (../all-songs.html from inside players/, since the same
     script runs in both places). Verified on both a players/*.html page and all-songs.html itself.
 53. How to improve the overall SEO? What's the current condition?
+    Assessed: static/crawlable content everywhere now (a big recent win), but no sitemap.xml or
+    robots.txt; index.html/albums.html/singers.html missing canonical/OG/description (only
+    all-songs.html has them); player pages have no canonical/OG/structured-data; lang="en" on
+    player/albums/singers pages despite Bengali content. Chose sitemap.xml + robots.txt as the
+    first, lowest-risk step -- the metadata gaps and lang fix are still open follow-ups.
+    ~~Implemented sitemap.xml + robots.txt~~: build_pages.py now generates sitemap.xml (all 4
+    main pages + all players/*.html, 88 URLs) and robots.txt (Allow: / + Sitemap: line) on every
+    run. Caveat: since this repo deploys under a domain root it doesn't own (alomoy.net's root is
+    a separate "alomoy.github.io" repo, this site lives at /songit/), robots.txt here is NOT at
+    the domain root and won't actually be auto-discovered by crawlers -- only a root-level
+    robots.txt (in that other repo) is checked by convention. sitemap.xml itself is still fully
+    usable regardless (submit its URL directly in Google Search Console).
+54. index.html search allows only album search, although it prompts গান, অ্যালবাম বা শিল্পী
