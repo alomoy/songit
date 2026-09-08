@@ -377,7 +377,6 @@
     <a href="index.html">হোম</a>
     <a href="singers.html">শিল্পী তালিকা</a>
     <a href="albums.html">অ্যালবাম তালিকা</a>
-    <a href="search.html">সঙ্গীত সার্চ</a>
     <a href="all-songs.html" class="active">সব গান</a>
   </div>
   <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
@@ -612,6 +611,17 @@ getAllSongs().then(songs => {
     populateDropdown(songs.map(s => s.group), 'groupSelect');
     populateDropdown(songs.map(s => s.genre), 'genreSelect');
     populateDropdown(songs.map(s => s.subgenre), 'subgenreSelect');
+
+    // A ?query= param (e.g. linked from a singer's "সব" card on
+    // singers.html) prefills and runs the search instead of the usual
+    // shuffle, so that link actually lands on a filtered list.
+    const initialQuery = new URLSearchParams(window.location.search).get('query') || '';
+    if (initialQuery) {
+        searchInput.value = initialQuery;
+        applyFilters();
+        return;
+    }
+
     // Shuffle once on load so repeat visits don't always show the same
     // handful of songs first.
     const shuffled = [...songs].sort(() => Math.random() - 0.5);
