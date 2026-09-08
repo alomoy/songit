@@ -13,6 +13,7 @@ the CSV), not stored in this repo.
 # Main Files
 
 index.html, all-songs.html, albums.html, singers.html and albums at players/*hmtl, *js
+Don't change any other html unless mentioned, so usually all pages would mean these. 
 
 ## Data flow (the core architecture)
 
