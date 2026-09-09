@@ -434,6 +434,11 @@
     .song-list .song-name {
         color: var(--text);
         font-weight: 600;
+        text-decoration: none;
+    }
+
+    .song-list .song-name:hover {
+        text-decoration: underline;
     }
 
     .song-list li.active .song-name {
@@ -443,6 +448,16 @@
     .song-list .song-meta {
         color: var(--text-dim);
         font-size: 0.8rem;
+    }
+
+    .song-list .song-tag {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .song-list .song-tag:hover {
+        color: var(--accent-a);
+        text-decoration: underline;
     }
 </style>
 
@@ -624,6 +639,15 @@ function playFromList(li) {
     loadPlayer(currentList, index, true);
 }
 
+function makeTagLink(text, href) {
+    const a = document.createElement('a');
+    a.className = 'song-tag';
+    a.href = href;
+    a.textContent = text;
+    a.addEventListener('click', e => e.stopPropagation());
+    return a;
+}
+
 fetch('radio/songs.csv')
     .then(r => r.text())
     .then(csvText => {
@@ -645,6 +669,7 @@ fetch('radio/songs.csv')
             const album = (song.album || '').trim();
             const singer = (song.singer || '').trim();
             const group = (song.group || '').trim();
+            const albumEn = (song.album_en || '').trim().toLowerCase();
             const artist = group || singer;
             const image = (song.album_art || '').trim() || STOCK_IMAGES[i % STOCK_IMAGES.length];
 
@@ -655,15 +680,29 @@ fetch('radio/songs.csv')
             li.dataset.image = image;
             li.dataset.path = song.src.trim();
 
-            const nameSpan = document.createElement('span');
-            nameSpan.className = 'song-name';
-            nameSpan.textContent = name;
+            const nameLink = document.createElement('a');
+            nameLink.className = 'song-name';
+            nameLink.href = 'all-songs.html?query=' + encodeURIComponent(name);
+            nameLink.textContent = name;
+            nameLink.addEventListener('click', e => e.stopPropagation());
 
             const metaSpan = document.createElement('span');
             metaSpan.className = 'song-meta';
-            metaSpan.textContent = artist + (album ? ` — ${album}` : '');
+            const tagLinks = [];
+            if (group) tagLinks.push(makeTagLink(group, 'all-songs.html?query=' + encodeURIComponent(group)));
+            if (singer) tagLinks.push(makeTagLink(singer, 'all-songs.html?query=' + encodeURIComponent(singer)));
+            if (album) {
+                const albumHref = (albumEn && albumEn !== 'uncat')
+                    ? `players/${albumEn}.html`
+                    : 'all-songs.html?query=' + encodeURIComponent(album);
+                tagLinks.push(makeTagLink(album, albumHref));
+            }
+            tagLinks.forEach((a, idx) => {
+                if (idx > 0) metaSpan.appendChild(document.createTextNode(' · '));
+                metaSpan.appendChild(a);
+            });
 
-            li.appendChild(nameSpan);
+            li.appendChild(nameLink);
             li.appendChild(metaSpan);
             li.addEventListener('click', () => playFromList(li));
             listEl.insertBefore(li, loadingRow);

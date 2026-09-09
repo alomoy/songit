@@ -4,7 +4,7 @@ radio/songs.csv
 # Next Steps
 
 Just strike through the done items (no comment about what's done)
-1. In all-songs.html and index.html, wrap Song, group and singer in separate layout and link each to respective location. (Song -> all-songs.html?query="Song", group ->all-songs.html?query="group", same for singer). If album is shown in song list, hyperlink to that album page.
+~~1. In all-songs.html and index.html, wrap Song, group and singer in separate layout and link each to respective location. (Song -> all-songs.html?query="Song", group ->all-songs.html?query="group", same for singer). If album is shown in song list, hyperlink to that album page.~~
 
 # Musical icons
 

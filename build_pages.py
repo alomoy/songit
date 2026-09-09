@@ -638,6 +638,10 @@ def load_all_songs(rows):
     return songs
 
 
+def song_tag_link_html(text, href):
+    return f'<a class="song-tag" href="{esc(href)}" onclick="event.stopPropagation()">{esc(text)}</a>'
+
+
 def song_li_html(song, index):
     name = song["Song"].strip()
     album = (song.get("album") or "").strip()
@@ -648,6 +652,7 @@ def song_li_html(song, index):
     artist = group or singer
     image = ALL_SONGS_STOCK_IMAGES[index % len(ALL_SONGS_STOCK_IMAGES)]
     path = (song.get("src") or "").strip()
+    album_en = (song.get("album_en") or "").strip().lower()
 
     search_fields = [
         name, album, singer, group, genre, subgenre,
@@ -655,15 +660,24 @@ def song_li_html(song, index):
         song.get("language") or "", song.get("tags") or "",
     ]
     search_text = " ".join(f for f in search_fields if f).lower()
-    meta = artist + (f" — {album}" if album else "")
+
+    tags = []
+    if group:
+        tags.append(song_tag_link_html(group, f"all-songs.html?query={quote(group)}"))
+    if singer:
+        tags.append(song_tag_link_html(singer, f"all-songs.html?query={quote(singer)}"))
+    if album:
+        album_href = f"players/{album_en}.html" if album_en and album_en != "uncat" else f"all-songs.html?query={quote(album)}"
+        tags.append(song_tag_link_html(album, album_href))
+    meta_html = " · ".join(tags)
 
     return (
         f'<li data-name="{esc(name)}" data-artist="{esc(artist)}" data-album="{esc(album)}" '
         f'data-singer="{esc(singer)}" data-group="{esc(group)}" data-genre="{esc(genre)}" '
         f'data-subgenre="{esc(subgenre)}" data-image="{esc(image)}" data-path="{esc(path)}" '
         f'data-search="{esc(search_text)}">'
-        f'<span class="song-name">{esc(name)}</span>'
-        f'<span class="song-meta">{esc(meta)}</span></li>'
+        f'<a class="song-name" href="all-songs.html?query={quote(name)}" onclick="event.stopPropagation()">{esc(name)}</a>'
+        f'<span class="song-meta">{meta_html}</span></li>'
     )
 
 
@@ -965,6 +979,15 @@ function playFromList(li) {
     loadPlayer(currentList, index, true);
 }
 
+function makeTagLink(text, href) {
+    const a = document.createElement('a');
+    a.className = 'song-tag';
+    a.href = href;
+    a.textContent = text;
+    a.addEventListener('click', e => e.stopPropagation());
+    return a;
+}
+
 fetch('radio/songs.csv')
     .then(r => r.text())
     .then(csvText => {
@@ -986,6 +1009,7 @@ fetch('radio/songs.csv')
             const album = (song.album || '').trim();
             const singer = (song.singer || '').trim();
             const group = (song.group || '').trim();
+            const albumEn = (song.album_en || '').trim().toLowerCase();
             const artist = group || singer;
             const image = (song.album_art || '').trim() || STOCK_IMAGES[i % STOCK_IMAGES.length];
 
@@ -996,15 +1020,29 @@ fetch('radio/songs.csv')
             li.dataset.image = image;
             li.dataset.path = song.src.trim();
 
-            const nameSpan = document.createElement('span');
-            nameSpan.className = 'song-name';
-            nameSpan.textContent = name;
+            const nameLink = document.createElement('a');
+            nameLink.className = 'song-name';
+            nameLink.href = 'all-songs.html?query=' + encodeURIComponent(name);
+            nameLink.textContent = name;
+            nameLink.addEventListener('click', e => e.stopPropagation());
 
             const metaSpan = document.createElement('span');
             metaSpan.className = 'song-meta';
-            metaSpan.textContent = artist + (album ? ` — ${album}` : '');
+            const tagLinks = [];
+            if (group) tagLinks.push(makeTagLink(group, 'all-songs.html?query=' + encodeURIComponent(group)));
+            if (singer) tagLinks.push(makeTagLink(singer, 'all-songs.html?query=' + encodeURIComponent(singer)));
+            if (album) {
+                const albumHref = (albumEn && albumEn !== 'uncat')
+                    ? `players/${albumEn}.html`
+                    : 'all-songs.html?query=' + encodeURIComponent(album);
+                tagLinks.push(makeTagLink(album, albumHref));
+            }
+            tagLinks.forEach((a, idx) => {
+                if (idx > 0) metaSpan.appendChild(document.createTextNode(' · '));
+                metaSpan.appendChild(a);
+            });
 
-            li.appendChild(nameSpan);
+            li.appendChild(nameLink);
             li.appendChild(metaSpan);
             li.addEventListener('click', () => playFromList(li));
             listEl.insertBefore(li, loadingRow);
@@ -2525,6 +2563,11 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     .song-list .song-name {
         color: var(--text);
         font-weight: 600;
+        text-decoration: none;
+    }
+
+    .song-list .song-name:hover {
+        text-decoration: underline;
     }
 
     .song-list li.active .song-name {
@@ -2534,6 +2577,16 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     .song-list .song-meta {
         color: var(--text-dim);
         font-size: 0.8rem;
+    }
+
+    .song-list .song-tag {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .song-list .song-tag:hover {
+        color: var(--accent-a);
+        text-decoration: underline;
     }
 </style>
 
