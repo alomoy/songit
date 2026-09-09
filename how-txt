@@ -38,6 +38,7 @@ and after the sample list ends, in the line show again
 ~~13. all-songs.html and index.html: in two-line song info layout, connect the first items in both rows with an arc (as shown in the previous image)~~
 ~~14. index.html: similar loading icon as in all-songs.html~~
 ~~15. Do we really js files in players/*? Can't the albums be just generated from the csv? The design would mimick all-songs.html but only the songs in that album would be loaded and searchable. So complex selection of album art would not be required (we'd do it in future).~~
+~~16. On player/*, we may add Next/Prev album (bengali alphabeticall). আগের অ্যালবাম পরের অ্যালবাম। with < > icons matching the site layout. Place it above song list.~~
 
 # Musical icons
 

@@ -132,10 +132,24 @@ def sync_players(rows):
             os.remove(os.path.join(PLAYERS, slug + ".html"))
             deleted.append(slug)
 
+    # Bengali-alphabetical (by display name, same order as albums.html) prev/
+    # next neighbors for each album, wrapping around at the ends -- see
+    # how-txt item 16.
+    ordered_albums = build_albums(rows)
+    n = len(ordered_albums)
+    nav_by_slug = {
+        a["slug"]: (
+            ordered_albums[(i - 1) % n] if n > 1 else None,
+            ordered_albums[(i + 1) % n] if n > 1 else None,
+        )
+        for i, a in enumerate(ordered_albums)
+    }
+
     created, updated, unchanged = [], [], []
     for album_en, album_rows in sorted(by_album.items()):
         slug = album_en.lower()
-        status = write_player_page(slug, album_rows)
+        prev_album, next_album = nav_by_slug.get(slug, (None, None))
+        status = write_player_page(slug, album_rows, prev_album, next_album)
         if status == "created":
             created.append(slug)
         elif status == "updated":
@@ -1137,8 +1151,27 @@ def build_index_html(rows):
 # there's no more per-track art matched-and-preserved across builds; art
 # just rotates through the same stock set every song list uses.
 
-def _player_hero_html(album, singer, total_bn):
+def _album_nav_link_html(cls, icon_html, label, album):
+    name_html = f'<span class="album-nav-name">{esc(album["name"])}</span>' if album else ""
+    label_html = (
+        '<span class="album-nav-label">'
+        f'<span class="album-nav-caption">{label}</span>{name_html}'
+        '</span>'
+    )
+    if not album:
+        return f'<span class="album-nav-link {cls} disabled">{icon_html}{label_html}</span>'
+    href = f'{esc(album["slug"])}.html'
+    return f'<a href="{href}" class="album-nav-link {cls}">{icon_html}{label_html}</a>'
+
+
+def _player_hero_html(album, singer, total_bn, prev_album, next_album):
     singer_html = f'\n  <p class="sub">{esc(singer)}</p>' if singer else ""
+    prev_html = _album_nav_link_html(
+        "prev", '<i class="fa fa-chevron-left"></i>', "আগের অ্যালবাম", prev_album
+    )
+    next_html = _album_nav_link_html(
+        "next", '<i class="fa fa-chevron-right"></i>', "পরের অ্যালবাম", next_album
+    )
     return f'''<div class="search-hero">
   <h1 class="tagline">{esc(album)}</h1>{singer_html}
   <div class="search-row">
@@ -1147,10 +1180,14 @@ def _player_hero_html(album, singer, total_bn):
   </div>
   <div class="count-line" id="count-line">{total_bn} / {total_bn}টি গান</div>
   <a href="../albums.html" class="all-songs-link"><i class="fa fa-list"></i> সব অ্যালবাম দেখুন</a>
+</div>
+<div class="album-nav">
+  {prev_html}
+  {next_html}
 </div>'''
 
 
-def build_player_html(slug, rows):
+def build_player_html(slug, rows, prev_album=None, next_album=None):
     songs = sorted(rows, key=lambda r: r["Song"].strip())
     album = rows[0]["album"].strip()
     singer_counts = Counter(
@@ -1166,7 +1203,7 @@ def build_player_html(slug, rows):
 
     html = (
         ALL_SONGS_TEMPLATE
-        .replace(_ALL_SONGS_HERO_BLOCK, _player_hero_html(album, singer, total_bn))
+        .replace(_ALL_SONGS_HERO_BLOCK, _player_hero_html(album, singer, total_bn, prev_album, next_album))
         .replace(_ALL_SONGS_SCRIPT_BLOCK, _PLAYER_SCRIPT_BLOCK)
         .replace("{{NAV}}", render_nav("", prefix="../"))
         .replace("{{PAGE_TITLE}}", f"অ্যালবাম: {esc(album)} ~ {esc(singer)} | আলোময় সঙ্গীত")
@@ -1189,8 +1226,8 @@ def build_player_html(slug, rows):
     return html, total
 
 
-def write_player_page(slug, rows):
-    html_text, count = build_player_html(slug, rows)
+def write_player_page(slug, rows, prev_album=None, next_album=None):
+    html_text, count = build_player_html(slug, rows, prev_album, next_album)
     path = os.path.join(PLAYERS, slug + ".html")
     existing = open(path, encoding="utf-8").read() if os.path.exists(path) else None
     if existing == html_text:
@@ -2487,6 +2524,76 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     .all-songs-link:hover {
         border-color: var(--accent-a);
         color: var(--accent-c);
+    }
+
+    /* Prev/next album navigation on player pages (how-txt item 16),
+       sitting above the song list. */
+    .album-nav {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        max-width: 700px;
+        margin: 0 auto 30px;
+        padding: 0 20px;
+    }
+
+    .album-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 10px 16px;
+        border-radius: 14px;
+        border: 1px solid var(--panel-border);
+        background: rgba(6, 10, 22, 0.55);
+        backdrop-filter: blur(6px);
+        color: var(--text-dim);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: border-color .15s, background .15s, color .15s;
+    }
+
+    .album-nav-link.next {
+        flex-direction: row-reverse;
+        text-align: right;
+    }
+
+    .album-nav-link:hover {
+        border-color: var(--accent-a);
+        background: rgba(53, 230, 255, 0.12);
+        color: var(--accent-a);
+    }
+
+    .album-nav-link.disabled {
+        opacity: 0.35;
+        pointer-events: none;
+    }
+
+    .album-nav-label {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .album-nav-caption {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+    }
+
+    .album-nav-name {
+        font-weight: 600;
+        color: var(--text);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .album-nav-link:hover .album-nav-caption,
+    .album-nav-link:hover .album-nav-name {
+        color: inherit;
     }
 
     .mini-stats {

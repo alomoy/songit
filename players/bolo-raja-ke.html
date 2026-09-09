@@ -229,6 +229,76 @@
         color: var(--accent-c);
     }
 
+    /* Prev/next album navigation on player pages (how-txt item 16),
+       sitting above the song list. */
+    .album-nav {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        max-width: 700px;
+        margin: 0 auto 30px;
+        padding: 0 20px;
+    }
+
+    .album-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 10px 16px;
+        border-radius: 14px;
+        border: 1px solid var(--panel-border);
+        background: rgba(6, 10, 22, 0.55);
+        backdrop-filter: blur(6px);
+        color: var(--text-dim);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: border-color .15s, background .15s, color .15s;
+    }
+
+    .album-nav-link.next {
+        flex-direction: row-reverse;
+        text-align: right;
+    }
+
+    .album-nav-link:hover {
+        border-color: var(--accent-a);
+        background: rgba(53, 230, 255, 0.12);
+        color: var(--accent-a);
+    }
+
+    .album-nav-link.disabled {
+        opacity: 0.35;
+        pointer-events: none;
+    }
+
+    .album-nav-label {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .album-nav-caption {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+    }
+
+    .album-nav-name {
+        font-weight: 600;
+        color: var(--text);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .album-nav-link:hover .album-nav-caption,
+    .album-nav-link:hover .album-nav-name {
+        color: inherit;
+    }
+
     .mini-stats {
         display: flex;
         flex-wrap: wrap;
@@ -702,6 +772,10 @@
   </div>
   <div class="count-line" id="count-line">১০ / ১০টি গান</div>
   <a href="../albums.html" class="all-songs-link"><i class="fa fa-list"></i> সব অ্যালবাম দেখুন</a>
+</div>
+<div class="album-nav">
+  <a href="bornomalar-gan.html" class="album-nav-link prev"><i class="fa fa-chevron-left"></i><span class="album-nav-label"><span class="album-nav-caption">আগের অ্যালবাম</span><span class="album-nav-name">বর্ণমালার গান</span></span></a>
+  <a href="bohota-nodi.html" class="album-nav-link next"><i class="fa fa-chevron-right"></i><span class="album-nav-label"><span class="album-nav-caption">পরের অ্যালবাম</span><span class="album-nav-name">বহতা নদী</span></span></a>
 </div>
 
 <div class="list-loading" id="list-loading"><i class="fa fa-spinner fa-spin"></i></div>
