@@ -28,7 +28,8 @@ and after the sample list ends, in the line show again
 সব গান দেখুন with same hyperlink~~
 
 ~~5. Add a play icon to the right of song info but within the info area.~~
-6. all-songs.html: the list design is initially different then switches to the new design. This should annoy the user. Prevent it; may be a loading symbol may help.
+~~6. all-songs.html: the list design is initially different then switches to the new design. This should annoy the user. Prevent it; may be a loading symbol may help.~~
+7. extending 3, add a downlaod icon to the right of play button.
 # Musical icons
 
 𝇧, 𝇥, 𝇣,  𝇟,  𝇕 ,𝆺𝅥𝅯,  𝇚,  𝇜,  𝆹𝅥𝅯,  𝆺𝅥𝅮,  𝆹𝅥𝅮,  𝆕,  𝄰,  𝄳,  𝄲,  𝄯,  𝄤,  𝄠,  𝄟,  🎼 𝄞

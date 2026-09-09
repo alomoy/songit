@@ -777,7 +777,8 @@ _ALL_SONGS_HERO_BLOCK = '''<div class="search-hero">
   </div>
 </div>'''
 
-_ALL_SONGS_LIST_WRAP_BLOCK = '''<div class="song-list-wrap">
+_ALL_SONGS_LIST_WRAP_BLOCK = '''<div class="list-loading" id="list-loading"><i class="fa fa-spinner fa-spin"></i></div>
+<div class="song-list-wrap js-reveal" id="song-list-wrap">
   <ol class="song-list" id="song-list">
 {{SONG_ITEMS}}
     <li class="song-list-loading" id="no-match-row" style="display:none">কোনো গান পাওয়া যায়নি।</li>
@@ -905,6 +906,11 @@ if (initialQuery) {
     updateCount(totalCount);
     loadPlayer(shuffled, 0, false);
 }
+
+// The list was hidden (see .js-reveal) until the shuffle/filter above
+// finished, so the reorder never flashes in front of the user.
+document.getElementById('list-loading').classList.add('hidden');
+document.getElementById('song-list-wrap').classList.add('ready');
 
 // Nav
 function toggleMenu() {
@@ -2538,6 +2544,33 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         padding: 0 20px calc(210px + env(safe-area-inset-bottom, 0px));
     }
 
+    /* The baked song list starts in build-time (alphabetical) order and is
+       reordered by JS on load (see the shuffle below) -- without this, that
+       reorder is briefly visible as a jarring jump right after paint. Stay
+       hidden until the reorder (or the ?query= filter) is done, showing a
+       spinner in its place. */
+    .song-list-wrap.js-reveal {
+        visibility: hidden;
+    }
+
+    .song-list-wrap.js-reveal.ready {
+        visibility: visible;
+    }
+
+    .list-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 60px 0;
+        color: var(--text-dim);
+        font-size: 1.3rem;
+    }
+
+    .list-loading.hidden {
+        display: none;
+    }
+
     .all-songs-link-bottom {
         display: flex;
         justify-content: center;
@@ -2763,7 +2796,8 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
   </div>
 </div>
 
-<div class="song-list-wrap">
+<div class="list-loading" id="list-loading"><i class="fa fa-spinner fa-spin"></i></div>
+<div class="song-list-wrap js-reveal" id="song-list-wrap">
   <ol class="song-list" id="song-list">
 {{SONG_ITEMS}}
     <li class="song-list-loading" id="no-match-row" style="display:none">কোনো গান পাওয়া যায়নি।</li>
@@ -2935,6 +2969,11 @@ if (initialQuery) {
     updateCount(totalCount);
     loadPlayer(shuffled, 0, false);
 }
+
+// The list was hidden (see .js-reveal) until the shuffle/filter above
+// finished, so the reorder never flashes in front of the user.
+document.getElementById('list-loading').classList.add('hidden');
+document.getElementById('song-list-wrap').classList.add('ready');
 
 // Nav
 function toggleMenu() {

@@ -374,6 +374,33 @@
         padding: 0 20px calc(210px + env(safe-area-inset-bottom, 0px));
     }
 
+    /* The baked song list starts in build-time (alphabetical) order and is
+       reordered by JS on load (see the shuffle below) -- without this, that
+       reorder is briefly visible as a jarring jump right after paint. Stay
+       hidden until the reorder (or the ?query= filter) is done, showing a
+       spinner in its place. */
+    .song-list-wrap.js-reveal {
+        visibility: hidden;
+    }
+
+    .song-list-wrap.js-reveal.ready {
+        visibility: visible;
+    }
+
+    .list-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 60px 0;
+        color: var(--text-dim);
+        font-size: 1.3rem;
+    }
+
+    .list-loading.hidden {
+        display: none;
+    }
+
     .all-songs-link-bottom {
         display: flex;
         justify-content: center;
@@ -619,7 +646,8 @@
   </div>
 </div>
 
-<div class="song-list-wrap">
+<div class="list-loading" id="list-loading"><i class="fa fa-spinner fa-spin"></i></div>
+<div class="song-list-wrap js-reveal" id="song-list-wrap">
   <ol class="song-list" id="song-list">
 <li data-name="A new day – new light will come" data-artist="প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ" data-album="জান্নাতের নিশান" data-singer="" data-group="প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ" data-genre="" data-subgenre="" data-image="images/mount.jpg" data-path="https://www.dropbox.com/scl/fi/5pe0opxm9yzytrz0xq8h3/14-a-new-day.mp3?rlkey=dulvs0hh4puk49ija9qu5awcf&amp;st=d9jvm0s9&amp;dl=1" data-search="a new day – new light will come জান্নাতের নিশান প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ বাংলা "><a class="song-name" href="all-songs.html?query=A%20new%20day%20%E2%80%93%20new%20light%20will%20come" target="_blank" rel="noopener" onclick="event.stopPropagation()">A new day – new light will come</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="all-songs.html?query=%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%AC%E0%A6%BE%E0%A6%B9%20%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BF%E0%A6%A4%E0%A7%8D%E0%A6%AF%20%E0%A6%B8%E0%A6%BE%E0%A6%82%E0%A6%B8%E0%A7%8D%E0%A6%95%E0%A7%83%E0%A6%A4%E0%A6%BF%E0%A6%95%20%E0%A6%B8%E0%A6%82%E0%A6%B8%E0%A6%A6" target="_blank" rel="noopener" onclick="event.stopPropagation()">প্রবাহ সাহিত্য সাংস্কৃতিক সংসদ</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="players/jannater-nishan.html" target="_blank" rel="noopener" onclick="event.stopPropagation()">জান্নাতের নিশান</a><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span></li>
 <li data-name="Allah Knows" data-artist="Zain Bikha" data-album="অনির্দিষ্ট" data-singer="Zain Bikha" data-group="" data-genre="" data-subgenre="" data-image="images/nature.jpg" data-path="https://www.dropbox.com/scl/fi/6ye4wu644wxur8z/Allah-knows.mp3?rlkey=vm5l2v5anbyaf9mrd0xhrt3xd&amp;st=hmw2d13g&amp;dl=1" data-search="allah knows অনির্দিষ্ট zain bikha english"><a class="song-name" href="all-songs.html?query=Allah%20Knows" target="_blank" rel="noopener" onclick="event.stopPropagation()">Allah Knows</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="all-songs.html?query=Zain%20Bikha" target="_blank" rel="noopener" onclick="event.stopPropagation()">Zain Bikha</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="all-songs.html?query=%E0%A6%85%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%A6%E0%A6%BF%E0%A6%B7%E0%A7%8D%E0%A6%9F" target="_blank" rel="noopener" onclick="event.stopPropagation()">অনির্দিষ্ট</a><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span></li>
@@ -1864,6 +1892,11 @@ if (initialQuery) {
     updateCount(totalCount);
     loadPlayer(shuffled, 0, false);
 }
+
+// The list was hidden (see .js-reveal) until the shuffle/filter above
+// finished, so the reorder never flashes in front of the user.
+document.getElementById('list-loading').classList.add('hidden');
+document.getElementById('song-list-wrap').classList.add('ready');
 
 // Nav
 function toggleMenu() {
