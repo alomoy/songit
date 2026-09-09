@@ -56,6 +56,15 @@ LOGO_PATH = "images/alomoy-clean.png"
 # left as-is here for consistency rather than switching just the sitemap.
 SITE_BASE_URL = "https://alomoy.github.io/songit"
 
+# Generic site-wide description used by every ALL_SONGS_TEMPLATE-derived page
+# (all-songs.html, index.html) except player pages, which get their own
+# per-album description -- see make_player_description().
+GENERIC_PAGE_DESCRIPTION = (
+    "আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। অনলাইন প্লেলিস্ট অন করে "
+    "কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি। রয়েছে দেশবরেণ্য "
+    "শিল্পীদের সঙ্গীত। মেন্যু থেকে শিল্পী, শিল্পীগোষ্ঠী বা বিভাগ বাছাই করুন। করতে পারবেন সার্চও।"
+)
+
 # search.html was removed from the site (all-songs.html already covers
 # song-level search), so it has no entry here.
 NAV_ITEMS = [
@@ -476,7 +485,7 @@ def dropdown_options_html(values):
     return f'<option value="">সকল</option>{opts}'
 
 
-def render_all_songs_page(rows, nav_active, page_title, canonical_url):
+def render_all_songs_page(rows, nav_active, page_title, canonical_url, page_description=GENERIC_PAGE_DESCRIPTION):
     songs = load_all_songs(rows)
     items_html = "\n".join(song_li_html(s, i) for i, s in enumerate(songs))
     total_bn = bengali_numeral(len(songs))
@@ -485,6 +494,7 @@ def render_all_songs_page(rows, nav_active, page_title, canonical_url):
         ALL_SONGS_TEMPLATE
         .replace("{{NAV}}", render_nav(nav_active))
         .replace("{{PAGE_TITLE}}", page_title)
+        .replace("{{PAGE_DESCRIPTION}}", esc(page_description))
         .replace("{{CANONICAL_URL}}", canonical_url)
         .replace("{{BREADCRUMB_NAME}}", "সব গান")
         .replace("{{SONG_ITEMS}}", items_html)
@@ -1135,6 +1145,7 @@ def build_index_html(rows):
         .replace(_ALL_SONGS_SCRIPT_BLOCK, _INDEX_SCRIPT_BLOCK)
         .replace("{{NAV}}", render_nav("index.html"))
         .replace("{{PAGE_TITLE}}", "আলোময় সঙ্গীত — সকল গান শুনুন")
+        .replace("{{PAGE_DESCRIPTION}}", esc(GENERIC_PAGE_DESCRIPTION))
         .replace("{{CANONICAL_URL}}", f"{SITE_BASE_URL}/")
         .replace("{{BREADCRUMB_NAME}}", "হোম")
     )
@@ -1201,12 +1212,16 @@ def build_player_html(slug, rows, prev_album=None, next_album=None):
         song_li_html(s, i, href_prefix="../", show_album=False) for i, s in enumerate(songs)
     )
 
+    description = f"{singer} পরিবেশিত অ্যালবাম {album}। এই অ্যালবামে রয়েছে {total_bn}টি গান।" if singer \
+        else f"অ্যালবাম {album}। এই অ্যালবামে রয়েছে {total_bn}টি গান।"
+
     html = (
         ALL_SONGS_TEMPLATE
         .replace(_ALL_SONGS_HERO_BLOCK, _player_hero_html(album, singer, total_bn, prev_album, next_album))
         .replace(_ALL_SONGS_SCRIPT_BLOCK, _PLAYER_SCRIPT_BLOCK)
         .replace("{{NAV}}", render_nav("", prefix="../"))
         .replace("{{PAGE_TITLE}}", f"অ্যালবাম: {esc(album)} ~ {esc(singer)} | আলোময় সঙ্গীত")
+        .replace("{{PAGE_DESCRIPTION}}", esc(description))
         .replace("{{CANONICAL_URL}}", f"{SITE_BASE_URL}/players/{slug}.html")
         .replace("{{BREADCRUMB_NAME}}", album)
         .replace("{{SONG_ITEMS}}", items_html)
@@ -2300,7 +2315,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি। রয়েছে দেশবরেণ্য শিল্পীদের সঙ্গীত। মেন্যু থেকে শিল্পী, শিল্পীগোষ্ঠী বা বিভাগ বাছাই করুন। করতে পারবেন সার্চও।">
+    <meta name="description" content="{{PAGE_DESCRIPTION}}">
     <meta name="robots" content="index, follow">
     <title>{{PAGE_TITLE}}</title>
     <!-- ShareThis removed for now (see how-txt item 51):
@@ -2310,8 +2325,8 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     <link rel="stylesheet" href="players/style.css">
     <link rel="canonical" href="{{CANONICAL_URL}}">
     <!-- Open Graph Meta Tags -->
-<meta property="og:title" content="আলোময় সঙ্গীত  -  অনলাইন সঙ্গীত প্লেয়ার">
-<meta property="og:description" content="অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি">
+<meta property="og:title" content="{{PAGE_TITLE}}">
+<meta property="og:description" content="{{PAGE_DESCRIPTION}}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{CANONICAL_URL}}">
 <meta property="og:image" content="https://alomoy.github.io/songit/images/bg/alomoy_banner.jpg">
