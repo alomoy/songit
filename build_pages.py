@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate every CSV-derived page on the site from radio/songs.csv: the
-per-album player pages in players/*.html + players/*.js, and the four main
-pages (index.html, albums.html, singers.html, all-songs.html).
+per-album player pages in players/*.html + players/*.js, and the five main
+pages (index.html, albums.html, singers.html, all-songs.html, stat.html).
 
 This is the single build script for the whole site — it replaces the old
 sync_albums.py (players/*.html/.js), build_landing.py (index.html), and
@@ -11,24 +11,28 @@ page had its own copy-pasted template. search.html was dropped from the
 site — all-songs.html already covers song-level search — so it is not
 generated here and has no nav entry.
 
-Player pages are synced first (see sync_players()) since index.html reads
-their titles/art/track-counts back off disk. Sync is safe to re-run any
-time: new albums in the CSV get a brand new page (title/description/static
-SEO track listing generated once, at creation time only); existing pages
-get their track_list and derived fields (now-playing count, first track,
-static SEO track list) refreshed from the CSV, matching track art to the
-existing page by (name, artist) so manual art picks survive; anything else
-on the page (title, meta description, Drive links, custom edits) is left
-untouched. A player page whose slug no longer has any matching CSV rows
-(album_en renamed or removed) is deleted, on the assumption the CSV is now
-the sole source of truth for which albums have pages — a manual/hybrid
-album is made by adding rows with a new album_en, not by hand-authoring a
-page.
+Player pages are synced first (see sync_players()) since albums.html's
+featured slider reads their titles/art/track-counts back off disk. Sync is
+safe to re-run any time: new albums in the CSV get a brand new page
+(title/description/static SEO track listing generated once, at creation
+time only); existing pages get their track_list and derived fields
+(now-playing count, first track, static SEO track list) refreshed from the
+CSV, matching track art to the existing page by (name, artist) so manual
+art picks survive; anything else on the page (title, meta description,
+Drive links, custom edits) is left untouched. A player page whose slug no
+longer has any matching CSV rows (album_en renamed or removed) is deleted,
+on the assumption the CSV is now the sole source of truth for which albums
+have pages — a manual/hybrid album is made by adding rows with a new
+album_en, not by hand-authoring a page.
 
-all-songs.html's song list itself still loads and filters client-side from
-songs.csv at runtime (unlike albums.html/singers.html, which bake their
-cards at build time); this script only owns its shared chrome so the nav/
-logo stay in sync with the other three pages.
+index.html and all-songs.html share one template (render_all_songs_page()):
+every song is baked into a <li data-*> at build time (name, artist, album,
+filter/search fields), sorted alphabetically, plus all five filter
+dropdowns' <option> lists; the inline script only filters/reorders/shuffles
+these already-rendered elements and feeds visible ones to the player — it
+doesn't fetch or parse songs.csv itself. stat.html is the exception: its
+stat numbers are fetched and computed from songs.csv client-side on load,
+so they never go stale between CSV changes and the next build.
 
 Run this whenever songs.csv changes.
 """
@@ -59,6 +63,7 @@ NAV_ITEMS = [
     ("singers.html", "শিল্পী তালিকা"),
     ("albums.html", "অ্যালবাম তালিকা"),
     ("all-songs.html", "সব গান"),
+    ("stat.html", "পরিসংখ্যান"),
 ]
 
 BENGALI_DIGITS = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
@@ -436,27 +441,21 @@ def load_albums_for_index():
     return albums
 
 
-def index_card_html(a):
-    return f'''      <a class="card" href="players/{a['slug']}.html" data-search="{esc((a['album'] + ' ' + a['singer']).lower())}">
-        <div class="card-art">
+def featured_card_html(a):
+    return f'''      <a class="fcard" href="players/{a['slug']}.html">
+        <div class="fcard-art">
           <img src="{esc(a['image'])}" alt="{esc(a['album'])}" loading="lazy" onerror="this.onerror=null;this.src='{LOGO_PATH}';this.classList.add('fallback');">
         </div>
-        <div class="card-body">
-          <div class="card-title">{esc(a['album'])}</div>
-          <div class="card-singer">{esc(a['singer'])}</div>
-          <div class="card-count">{esc(bengali_numeral(a['count']))}টি গান</div>
+        <div class="fcard-body">
+          <div class="fcard-title">{esc(a['album'])}</div>
+          <div class="fcard-singer">{esc(a['singer'])}</div>
+          <div class="fcard-count">{esc(bengali_numeral(a['count']))}টি গান</div>
         </div>
       </a>'''
 
 
-def build_index_html():
-    albums = load_albums_for_index()
-    cards = "\n".join(index_card_html(a) for a in albums)
-    return (
-        INDEX_TEMPLATE
-        .replace("{{CARDS}}", cards)
-        .replace("{{NAV}}", render_nav("index.html"))
-    ), len(albums)
+def build_stat_html():
+    return STAT_TEMPLATE.replace("{{NAV}}", render_nav("stat.html"))
 
 
 # ---------------------------------------------------------------------------
@@ -591,9 +590,11 @@ setupSort();
 def build_albums_html(rows):
     albums = build_albums(rows)
     cards = "\n".join(album_card_html(a, i + 1) for i, a in enumerate(albums))
+    slider_cards = "\n".join(featured_card_html(a) for a in load_albums_for_index())
     return (
         ALBUMS_TEMPLATE
         .replace("{{CARDS}}", cards)
+        .replace("{{SLIDER_CARDS}}", slider_cards)
         .replace("{{COUNT}}", bengali_numeral(len(albums)))
         .replace("{{FILTER_SCRIPT}}", filter_script(".card"))
         .replace("{{NAV}}", render_nav("albums.html"))
@@ -672,14 +673,17 @@ def dropdown_options_html(values):
     return f'<option value="">সকল</option>{opts}'
 
 
-def build_all_songs_html(rows):
+def render_all_songs_page(rows, nav_active, page_title, canonical_url):
     songs = load_all_songs(rows)
     items_html = "\n".join(song_li_html(s, i) for i, s in enumerate(songs))
     total_bn = bengali_numeral(len(songs))
 
     return (
         ALL_SONGS_TEMPLATE
-        .replace("{{NAV}}", render_nav("all-songs.html"))
+        .replace("{{NAV}}", render_nav(nav_active))
+        .replace("{{PAGE_TITLE}}", page_title)
+        .replace("{{CANONICAL_URL}}", canonical_url)
+        .replace("{{BREADCRUMB_NAME}}", "সব গান")
         .replace("{{SONG_ITEMS}}", items_html)
         .replace("{{TOTAL_COUNT_LINE}}", f"{total_bn} / {total_bn}টি গান")
         .replace("{{ALBUM_OPTIONS}}", dropdown_options_html(s.get("album") for s in songs))
@@ -690,13 +694,340 @@ def build_all_songs_html(rows):
     ), len(songs)
 
 
-INDEX_TEMPLATE = r'''<!DOCTYPE html>
+def build_all_songs_html(rows):
+    return render_all_songs_page(
+        rows, "all-songs.html",
+        "আলোময় সঙ্গীত: সব গান",
+        f"{SITE_BASE_URL}/all-songs.html",
+    )
+
+
+# index.html is derived from ALL_SONGS_TEMPLATE by swapping out three blocks
+# (hero, song-list-wrap, and the trailing script) for a lighter homepage
+# version -- everything else (head/CSS incl. the player bar, nav, and the
+# #player-root markup/JS wiring) stays byte-identical to all-songs.html so
+# the two pages' player behavior can never drift apart. Unlike all-songs.html
+# (which bakes every song into the page at build time), the homepage fetches
+# songs.csv client-side on load and renders a fresh random 20 each visit,
+# with a link to all-songs.html for the full list/search/filters.
+
+_ALL_SONGS_HERO_BLOCK = '''<div class="search-hero">
+  <h1 class="tagline">সব <span class="accent">গান</span></h1>
+  <div class="search-row">
+    <i class="fa fa-search"></i>
+    <input type="text" id="search-input" placeholder="গান, শিল্পী বা অ্যালবামের নাম লিখুন..." autocomplete="off">
+  </div>
+  <div class="count-line" id="count-line">{{TOTAL_COUNT_LINE}}</div>
+
+  <button type="button" class="filter-toggle" id="filter-toggle" aria-expanded="false">
+    <i class="fa fa-sliders-h"></i> ফিল্টার
+  </button>
+
+  <div class="filter-panel" id="filter-panel">
+    <div>
+      <label for="albumSelect">অ্যালবাম</label>
+      <select id="albumSelect">{{ALBUM_OPTIONS}}</select>
+    </div>
+    <div>
+      <label for="singerSelect">শিল্পী</label>
+      <select id="singerSelect">{{SINGER_OPTIONS}}</select>
+    </div>
+    <div>
+      <label for="groupSelect">শিল্পীগোষ্ঠী</label>
+      <select id="groupSelect">{{GROUP_OPTIONS}}</select>
+    </div>
+    <div>
+      <label for="genreSelect">বিভাগ</label>
+      <select id="genreSelect">{{GENRE_OPTIONS}}</select>
+    </div>
+    <div>
+      <label for="subgenreSelect">উপ-বিভাগ</label>
+      <select id="subgenreSelect">{{SUBGENRE_OPTIONS}}</select>
+    </div>
+  </div>
+</div>'''
+
+_ALL_SONGS_LIST_WRAP_BLOCK = '''<div class="song-list-wrap">
+  <ol class="song-list" id="song-list">
+{{SONG_ITEMS}}
+    <li class="song-list-loading" id="no-match-row" style="display:none">কোনো গান পাওয়া যায়নি।</li>
+  </ol>
+</div>'''
+
+_ALL_SONGS_SCRIPT_BLOCK = '''    <script>
+let mainJsLoaded = false;
+let searchDebounce = null;
+let currentList = [];
+
+const allItems = Array.from(document.querySelectorAll('#song-list li[data-name]'));
+const noMatchRow = document.getElementById('no-match-row');
+const totalCount = allItems.length;
+
+function convertToBanglaNumber(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(number).split('').map(d => banglaDigits[d] ?? d).join('');
+}
+
+function updateCount(visible) {
+    document.getElementById('count-line').textContent =
+        `${convertToBanglaNumber(visible)} / ${convertToBanglaNumber(totalCount)}টি গান`;
+}
+
+function applyFilters() {
+    const q = document.getElementById('search-input').value.trim().toLowerCase();
+    const selectedAlbum = document.getElementById('albumSelect').value;
+    const selectedSinger = document.getElementById('singerSelect').value;
+    const selectedGroup = document.getElementById('groupSelect').value;
+    const selectedGenre = document.getElementById('genreSelect').value;
+    const selectedSubgenre = document.getElementById('subgenreSelect').value;
+
+    const visible = [];
+    allItems.forEach(li => {
+        const match =
+            (!selectedAlbum || li.dataset.album === selectedAlbum) &&
+            (!selectedSinger || li.dataset.singer === selectedSinger) &&
+            (!selectedGroup || li.dataset.group === selectedGroup) &&
+            (!selectedGenre || li.dataset.genre === selectedGenre) &&
+            (!selectedSubgenre || li.dataset.subgenre === selectedSubgenre) &&
+            (!q || li.dataset.search.includes(q));
+        li.style.display = match ? '' : 'none';
+        if (match) visible.push(li);
+    });
+
+    currentList = visible;
+    updateCount(visible.length);
+    noMatchRow.style.display = visible.length === 0 ? '' : 'none';
+}
+
+function loadPlayer(list, index, autoplay) {
+    if (list.length === 0) return;
+
+    const newTrackList = list.map(li => ({
+        name: li.dataset.name,
+        artist: li.dataset.artist,
+        album: li.dataset.album,
+        image: li.dataset.image,
+        path: li.dataset.path,
+    }));
+
+    allItems.forEach(li => li.classList.remove('active'));
+    list[index].classList.add('active');
+
+    if (!mainJsLoaded) {
+        mainJsLoaded = true;
+        window.track_list = newTrackList;
+        const script = document.createElement('script');
+        script.src = 'players/main.js';
+        document.body.appendChild(script);
+    } else {
+        track_list = newTrackList;
+        track_index = index;
+        loadTrack(index);
+        if (autoplay) playTrack();
+    }
+}
+
+function playFromList(li) {
+    const index = currentList.indexOf(li);
+    if (index === -1) return;
+    loadPlayer(currentList, index, true);
+}
+
+allItems.forEach(li => {
+    li.addEventListener('click', () => playFromList(li));
+});
+
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(applyFilters, 250);
+});
+
+const filterToggle = document.getElementById('filter-toggle');
+const filterPanel = document.getElementById('filter-panel');
+filterToggle.addEventListener('click', () => {
+    const open = filterPanel.classList.toggle('open');
+    filterToggle.classList.toggle('open', open);
+    filterToggle.setAttribute('aria-expanded', String(open));
+});
+
+['albumSelect', 'singerSelect', 'groupSelect', 'genreSelect', 'subgenreSelect'].forEach(id => {
+    document.getElementById(id).addEventListener('change', applyFilters);
+});
+
+// A ?query= param (e.g. linked from a singer's "সব" card on singers.html)
+// prefills and runs the search instead of the usual shuffle, so that link
+// actually lands on a filtered list.
+const initialQuery = new URLSearchParams(window.location.search).get('query') || '';
+if (initialQuery) {
+    searchInput.value = initialQuery;
+    applyFilters();
+    loadPlayer(currentList, 0, false);
+} else {
+    // Shuffle the visual order once on load so repeat visits don't always
+    // see the same handful of songs first. Every song is still present in
+    // the page source regardless of this order -- it's a display-only
+    // reorder of already-rendered elements, not a re-render.
+    const listEl = document.getElementById('song-list');
+    const shuffled = [...allItems].sort(() => Math.random() - 0.5);
+    shuffled.forEach(li => listEl.insertBefore(li, noMatchRow));
+    currentList = shuffled;
+    updateCount(totalCount);
+    loadPlayer(shuffled, 0, false);
+}
+
+// Nav
+function toggleMenu() {
+  var menu = document.querySelector(".topnav .menu");
+  menu.classList.toggle("show");
+}
+    </script>'''
+
+
+def _index_hero_html(total_bn):
+    return f'''<div class="search-hero">
+  <h1 class="tagline">আপনার পছন্দের <span class="accent">সঙ্গীত</span> শুনুন</h1>
+  <p class="sub">এলোমেলোভাবে বাছাই করা কিছু গান — নিচে থেকে বাজান</p>
+  <a href="all-songs.html" class="all-songs-link"><i class="fa fa-music"></i> সব {total_bn}টি গান দেখুন</a>
+</div>'''
+
+
+_INDEX_LIST_WRAP_BLOCK = '''<div class="song-list-wrap">
+  <ol class="song-list" id="song-list">
+    <li class="song-list-loading" id="loading-row">গান লোড হচ্ছে...</li>
+  </ol>
+</div>'''
+
+_INDEX_SCRIPT_BLOCK = r'''    <script>
+const RANDOM_SONG_COUNT = 20;
+const STOCK_IMAGES = [
+  "images/mount.jpg", "images/nature.jpg", "images/trail.jpg", "images/karakoram.jpg", "images/hillroad.jpg",
+  "images/mtroad.jpg", "images/tunnel.jpg", "images/train.jpg", "images/sajek.jpg", "images/mosque.jpg",
+  "images/laptop.jpg",
+];
+let mainJsLoaded = false;
+let currentList = [];
+
+function parseCSV(text) {
+    const lines = text.split('\n').filter(line => line.trim() !== '');
+    const headers = lines[0].split(',').map(h => h.trim());
+    return lines.slice(1).map(line => {
+        const values = line.split(',');
+        return headers.reduce((obj, h, i) => {
+            obj[h] = values[i] ? values[i].trim() : '';
+            return obj;
+        }, {});
+    });
+}
+
+function loadPlayer(list, index, autoplay) {
+    if (list.length === 0) return;
+
+    const newTrackList = list.map(li => ({
+        name: li.dataset.name,
+        artist: li.dataset.artist,
+        album: li.dataset.album,
+        image: li.dataset.image,
+        path: li.dataset.path,
+    }));
+
+    currentList.forEach(li => li.classList.remove('active'));
+    list[index].classList.add('active');
+
+    if (!mainJsLoaded) {
+        mainJsLoaded = true;
+        window.track_list = newTrackList;
+        const script = document.createElement('script');
+        script.src = 'players/main.js';
+        document.body.appendChild(script);
+    } else {
+        track_list = newTrackList;
+        track_index = index;
+        loadTrack(index);
+        if (autoplay) playTrack();
+    }
+}
+
+function playFromList(li) {
+    const index = currentList.indexOf(li);
+    if (index === -1) return;
+    loadPlayer(currentList, index, true);
+}
+
+fetch('radio/songs.csv')
+    .then(r => r.text())
+    .then(csvText => {
+        const rows = parseCSV(csvText).filter(r => (r.Song || '').trim() && (r.src || '').trim());
+        const picked = [...rows].sort(() => Math.random() - 0.5).slice(0, RANDOM_SONG_COUNT);
+
+        const listEl = document.getElementById('song-list');
+        const loadingRow = document.getElementById('loading-row');
+
+        picked.forEach((song, i) => {
+            const name = song.Song.trim();
+            const album = (song.album || '').trim();
+            const singer = (song.singer || '').trim();
+            const group = (song.group || '').trim();
+            const artist = group || singer;
+            const image = (song.album_art || '').trim() || STOCK_IMAGES[i % STOCK_IMAGES.length];
+
+            const li = document.createElement('li');
+            li.dataset.name = name;
+            li.dataset.artist = artist;
+            li.dataset.album = album;
+            li.dataset.image = image;
+            li.dataset.path = song.src.trim();
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'song-name';
+            nameSpan.textContent = name;
+
+            const metaSpan = document.createElement('span');
+            metaSpan.className = 'song-meta';
+            metaSpan.textContent = artist + (album ? ` — ${album}` : '');
+
+            li.appendChild(nameSpan);
+            li.appendChild(metaSpan);
+            li.addEventListener('click', () => playFromList(li));
+            listEl.insertBefore(li, loadingRow);
+        });
+
+        loadingRow.style.display = picked.length ? 'none' : '';
+        currentList = Array.from(listEl.querySelectorAll('li[data-name]'));
+        if (currentList.length) loadPlayer(currentList, 0, false);
+    })
+    .catch(error => console.error('গান লোডে সমস্যা:', error));
+
+// Nav
+function toggleMenu() {
+  var menu = document.querySelector(".topnav .menu");
+  menu.classList.toggle("show");
+}
+    </script>'''
+
+
+def build_index_html(rows):
+    total = len(load_all_songs(rows))
+    html = (
+        ALL_SONGS_TEMPLATE
+        .replace(_ALL_SONGS_HERO_BLOCK, _index_hero_html(bengali_numeral(total)))
+        .replace(_ALL_SONGS_LIST_WRAP_BLOCK, _INDEX_LIST_WRAP_BLOCK)
+        .replace(_ALL_SONGS_SCRIPT_BLOCK, _INDEX_SCRIPT_BLOCK)
+        .replace("{{NAV}}", render_nav("index.html"))
+        .replace("{{PAGE_TITLE}}", "আলোময় সঙ্গীত — সকল গান শুনুন")
+        .replace("{{CANONICAL_URL}}", f"{SITE_BASE_URL}/")
+        .replace("{{BREADCRUMB_NAME}}", "হোম")
+    )
+    return html, total
+
+
+STAT_TEMPLATE = r'''<!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>আলোময় সঙ্গীত — সকল প্লেলিস্ট</title>
-<meta name="description" content="আলোময় সঙ্গীতের সকল অ্যালবাম ও প্লেলিস্ট এক জায়গায় — বাছাই করুন এবং শুনুন।">
+<title>আলোময় সঙ্গীত — পরিসংখ্যান</title>
+<meta name="description" content="আলোময় সঙ্গীতের অ্যালবাম, শিল্পী ও গানের সার্বিক পরিসংখ্যান।">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 <link rel="stylesheet" href="css/header.css">
 <link rel="icon" href="favicon.ico">
@@ -826,24 +1157,38 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
-    max-width: 700px;
-    margin: 0 auto;
+    gap: 28px;
+    max-width: 1000px;
+    margin: 50px auto 0;
   }
 
   .stat-box {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 10px;
     background: var(--panel);
     border: 1px solid var(--panel-border);
-    border-radius: 14px;
-    padding: 10px 18px;
+    border-radius: 22px;
+    padding: 34px 40px;
     backdrop-filter: blur(10px);
+    flex: 1 1 200px;
+    text-decoration: none;
+    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+
+  a.stat-box {
+    cursor: pointer;
+  }
+
+  a.stat-box:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-a);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(53, 230, 255, 0.25), 0 0 26px rgba(176, 107, 255, 0.25);
   }
 
   .stat-box i {
-    font-size: 1.1rem;
+    font-size: clamp(4.5rem, 9vw, 7.7rem);
     background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
     -webkit-background-clip: text;
     background-clip: text;
@@ -851,204 +1196,14 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
   }
 
   .stat-box .stat-number {
-    font-size: 1.1rem;
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
     font-weight: 700;
     color: var(--text);
   }
 
   .stat-box .stat-label {
-    font-size: 0.78rem;
+    font-size: 1.05rem;
     color: var(--text-dim);
-  }
-
-  .search-row {
-    max-width: 480px;
-    margin: 34px auto 0;
-    position: relative;
-  }
-
-  .search-row input {
-    width: 100%;
-    padding: 14px 18px 14px 46px;
-    border-radius: 14px;
-    border: 1px solid var(--panel-border);
-    background: var(--panel);
-    color: var(--text);
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color .2s, box-shadow .2s;
-  }
-
-  .search-row input:focus {
-    border-color: var(--accent-a);
-    box-shadow: 0 0 0 3px rgba(53, 230, 255, 0.15);
-  }
-
-  .search-row i {
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-dim);
-  }
-
-  .count-line {
-    text-align: center;
-    color: var(--text-dim);
-    font-size: 0.8rem;
-    margin-top: 14px;
-  }
-
-  .slider-wrap {
-    position: relative;
-    margin-top: 34px;
-  }
-
-  .grid {
-    display: flex;
-    overflow-x: auto;
-    gap: 18px;
-    padding: 4px 4px 14px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent-a) transparent;
-  }
-
-  .grid::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .grid::-webkit-scrollbar-thumb {
-    background: var(--panel-border);
-    border-radius: 999px;
-  }
-
-  .slider-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid var(--panel-border);
-    background: rgba(6, 10, 22, 0.75);
-    backdrop-filter: blur(10px);
-    color: var(--text);
-    cursor: pointer;
-    z-index: 2;
-    transition: border-color .2s, background .2s;
-  }
-
-  .slider-arrow:hover {
-    border-color: var(--accent-a);
-    background: rgba(53, 230, 255, 0.12);
-  }
-
-  .slider-arrow.prev { left: -6px; }
-  .slider-arrow.next { right: -6px; }
-
-  @media (max-width: 700px) {
-    .slider-arrow {
-      width: 34px;
-      height: 34px;
-      font-size: 0.85rem;
-    }
-    .slider-arrow.prev { left: 2px; }
-    .slider-arrow.next { right: 2px; }
-  }
-
-  .card {
-    display: flex;
-    flex: 0 0 190px;
-    flex-direction: column;
-    text-decoration: none;
-    color: var(--text);
-    background: var(--panel);
-    border: 1px solid var(--panel-border);
-    border-radius: 18px;
-    padding: 14px;
-    backdrop-filter: blur(10px);
-    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-6px);
-    border-color: var(--accent-a);
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(53, 230, 255, 0.25), 0 0 26px rgba(176, 107, 255, 0.25);
-  }
-
-  .card-art {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 12px;
-    overflow: hidden;
-    background: linear-gradient(135deg, rgba(53, 230, 255, 0.15), rgba(176, 107, 255, 0.15));
-    margin-bottom: 12px;
-  }
-
-  .card-art img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .card-art img.fallback {
-    object-fit: contain;
-    padding: 22%;
-    opacity: 0.8;
-  }
-
-  .card-title {
-    font-size: 0.92rem;
-    font-weight: 700;
-    line-height: 1.3;
-    margin-bottom: 4px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-singer {
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    margin-bottom: 6px;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-count {
-    font-size: 0.72rem;
-    color: var(--accent-a);
-    margin-top: auto;
-  }
-
-  .no-results {
-    text-align: center;
-    color: var(--text-dim);
-    padding: 60px 0;
-    display: none;
-  }
-
-  .search-songs-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 12px;
-    color: var(--accent-a);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    font-size: 0.85rem;
-  }
-
-  .search-songs-link:hover {
-    color: var(--accent-c);
   }
 
   footer {
@@ -1075,39 +1230,14 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
 
 <div class="wrap">
   <header class="hero">
-    <h1 class="tagline">আপনার পছন্দের <span class="accent">সঙ্গীত</span> খুঁজে নিন</h1>
+    <h1 class="tagline">আলোময় সঙ্গীতের <span class="accent">পরিসংখ্যান</span></h1>
     <div class="stats-strip" id="stats-strip">
-      <div class="stat-box"><i class="fas fa-record-vinyl"></i><span class="stat-number" id="stat-albums">-</span><span class="stat-label">অ্যালবাম</span></div>
-      <div class="stat-box"><i class="fas fa-user"></i><span class="stat-number" id="stat-singers">-</span><span class="stat-label">শিল্পী</span></div>
+      <a class="stat-box" href="albums.html"><i class="fas fa-record-vinyl"></i><span class="stat-number" id="stat-albums">-</span><span class="stat-label">অ্যালবাম</span></a>
+      <a class="stat-box" href="singers.html"><i class="fas fa-user"></i><span class="stat-number" id="stat-singers">-</span><span class="stat-label">শিল্পী</span></a>
       <div class="stat-box"><i class="fas fa-users"></i><span class="stat-number" id="stat-groups">-</span><span class="stat-label">শিল্পীগোষ্ঠী</span></div>
-      <div class="stat-box"><i class="fas fa-music"></i><span class="stat-number" id="stat-songs">-</span><span class="stat-label">গান</span></div>
+      <a class="stat-box" href="all-songs.html"><i class="fas fa-music"></i><span class="stat-number" id="stat-songs">-</span><span class="stat-label">গান</span></a>
     </div>
-
-    <div class="search-row">
-      <i class="fa fa-search"></i>
-      <input type="text" id="search-input" placeholder="গান, অ্যালবাম বা শিল্পীর নাম লিখুন..." autocomplete="off">
-    </div>
-    <div class="count-line" id="count-line"></div>
-    <!-- This box only filters the album cards below by album/singer name --
-         there's no per-song data on this page to search live. This link
-         always sends whatever's typed to all-songs.html?query=..., which
-         does support song-level search, so finding a song doesn't depend
-         on first noticing the album search came up empty. -->
-    <a href="all-songs.html" id="search-songs-link" class="search-songs-link">
-      <i class="fa fa-music"></i> গান দিয়ে খুঁজতে চাইলে সব গানে যান
-    </a>
   </header>
-
-  <main>
-    <div class="slider-wrap" id="slider-wrap">
-      <button type="button" class="slider-arrow prev" id="slider-prev" aria-label="আগের অ্যালবাম"><i class="fa fa-chevron-left"></i></button>
-      <div class="grid" id="album-grid">
-{{CARDS}}
-      </div>
-      <button type="button" class="slider-arrow next" id="slider-next" aria-label="পরের অ্যালবাম"><i class="fa fa-chevron-right"></i></button>
-    </div>
-    <div class="no-results" id="no-results">কোনো প্লেলিস্ট পাওয়া যায়নি।</div>
-  </main>
 </div>
 
 <footer>
@@ -1119,99 +1249,8 @@ INDEX_TEMPLATE = r'''<!DOCTYPE html>
     document.querySelector(".topnav .menu").classList.toggle("show");
   }
 
-  const searchInput = document.getElementById('search-input');
-  const cards = Array.from(document.querySelectorAll('.card'));
-  const noResults = document.getElementById('no-results');
-  const searchSongsLink = document.getElementById('search-songs-link');
-  const countLine = document.getElementById('count-line');
-  const totalCount = cards.length;
-
-  function updateCount(visible) {
-    countLine.textContent = visible === totalCount
-      ? ''
-      : `${convertToBanglaNumber(visible)} / ${convertToBanglaNumber(totalCount)}টি প্লেলিস্ট`;
-  }
-
-  // This box only matches against album/singer names (cards.dataset.search
-  // below), not individual song titles -- there's no per-song data on this
-  // page. #search-songs-link is a real <a> (works with Enter, click, or
-  // right-click/open-in-new-tab) whose href always mirrors the current
-  // input so it stays a genuine one-step path to song-level search on
-  // all-songs.html, not something the user has to discover only once the
-  // album search comes up empty.
-  function updateSearchSongsLink() {
-    const q = searchInput.value.trim();
-    searchSongsLink.href = q ? 'all-songs.html?query=' + encodeURIComponent(q) : 'all-songs.html';
-  }
-  updateSearchSongsLink();
-
-  searchInput.addEventListener('input', function () {
-    updateSearchSongsLink();
-    const q = this.value.trim().toLowerCase();
-    let visible = 0;
-    cards.forEach(function (card) {
-      const match = !q || card.dataset.search.includes(q);
-      card.style.display = match ? '' : 'none';
-      if (match) visible++;
-    });
-    noResults.style.display = visible === 0 ? 'block' : 'none';
-    updateCount(visible);
-  });
-
-  const albumGrid = document.getElementById('album-grid');
-  const sliderWrap = document.getElementById('slider-wrap');
-  const sliderPrev = document.getElementById('slider-prev');
-  const sliderNext = document.getElementById('slider-next');
-  const scrollByCard = () => (cards[0] ? cards[0].getBoundingClientRect().width + 18 : 200) * 2;
-
-  // Show a different, randomly-ordered set of albums first on each visit
-  // instead of always the same alphabetical run.
-  for (const card of [...cards].sort(() => Math.random() - 0.5)) {
-    albumGrid.appendChild(card);
-  }
-
-  // A hand-rolled animation instead of scrollBy({behavior:'smooth'}): native
-  // smooth-scroll support is inconsistent across mobile browsers/WebViews
-  // (some silently no-op instead of scrolling at all), which is why the
-  // arrows looked broken.
-  function animateScrollBy(delta, duration) {
-    const start = albumGrid.scrollLeft;
-    const startTime = performance.now();
-    function step(now) {
-      const t = Math.min(1, (now - startTime) / duration);
-      const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-      albumGrid.scrollLeft = start + delta * eased;
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  sliderPrev.addEventListener('click', () => animateScrollBy(-scrollByCard(), 320));
-  sliderNext.addEventListener('click', () => animateScrollBy(scrollByCard(), 320));
-
-  // Slowly auto-scroll the slider to the left, looping back to the start,
-  // and pause while the pointer is anywhere over the slider -- including
-  // the arrow buttons, which sit outside album-grid's own box -- so it
-  // doesn't fight a manual scroll (an arrow click's smooth-scroll got
-  // cancelled every 16ms by this otherwise, making the arrows look dead).
-  let autoScrollPaused = false;
-  sliderWrap.addEventListener('mouseenter', () => { autoScrollPaused = true; });
-  sliderWrap.addEventListener('mouseleave', () => { autoScrollPaused = false; });
-  sliderWrap.addEventListener('touchstart', () => { autoScrollPaused = true; }, { passive: true });
-  sliderWrap.addEventListener('touchend', () => { autoScrollPaused = false; });
-
-  setInterval(function () {
-    if (!autoScrollPaused && albumGrid.scrollWidth > albumGrid.clientWidth) {
-      if (albumGrid.scrollLeft + albumGrid.clientWidth >= albumGrid.scrollWidth - 1) {
-        albumGrid.scrollLeft = 0;
-      } else {
-        albumGrid.scrollLeft += 1;
-      }
-    }
-  }, 16);
-
-  // Song stats are computed live from the CSV on each visit, so they never
-  // drift out of sync the way a build-time snapshot would.
+  // Stats are computed live from the CSV on each visit, so they never drift
+  // out of sync the way a build-time snapshot would.
   function convertToBanglaNumber(number) {
     const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
     return String(number).split('').map(d => banglaDigits[d] ?? d).join('');
@@ -1450,6 +1489,146 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
         padding: 60px 0;
         display: none;
       }
+
+      .featured-albums {
+        margin-top: 50px;
+      }
+
+      .featured-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 0 0 16px;
+        text-align: center;
+      }
+
+      .featured-slider-wrap {
+        position: relative;
+      }
+
+      .fgrid {
+        display: flex;
+        overflow-x: auto;
+        gap: 18px;
+        padding: 4px 4px 14px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent-a) transparent;
+      }
+
+      .fgrid::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .fgrid::-webkit-scrollbar-thumb {
+        background: var(--panel-border);
+        border-radius: 999px;
+      }
+
+      .fslider-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--panel-border);
+        background: rgba(6, 10, 22, 0.75);
+        backdrop-filter: blur(10px);
+        color: var(--text);
+        cursor: pointer;
+        z-index: 2;
+        transition: border-color .2s, background .2s;
+      }
+
+      .fslider-arrow:hover {
+        border-color: var(--accent-a);
+        background: rgba(53, 230, 255, 0.12);
+      }
+
+      .fslider-arrow.prev { left: -6px; }
+      .fslider-arrow.next { right: -6px; }
+
+      @media (max-width: 700px) {
+        .fslider-arrow {
+          width: 34px;
+          height: 34px;
+          font-size: 0.85rem;
+        }
+        .fslider-arrow.prev { left: 2px; }
+        .fslider-arrow.next { right: 2px; }
+      }
+
+      .fcard {
+        display: flex;
+        flex: 0 0 190px;
+        flex-direction: column;
+        text-decoration: none;
+        color: var(--text);
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 18px;
+        padding: 14px;
+        backdrop-filter: blur(10px);
+        transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+      }
+
+      .fcard:hover {
+        transform: translateY(-6px);
+        border-color: var(--accent-a);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(53, 230, 255, 0.25), 0 0 26px rgba(176, 107, 255, 0.25);
+      }
+
+      .fcard-art {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(53, 230, 255, 0.15), rgba(176, 107, 255, 0.15));
+        margin-bottom: 12px;
+      }
+
+      .fcard-art img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .fcard-art img.fallback {
+        object-fit: contain;
+        padding: 22%;
+        opacity: 0.8;
+      }
+
+      .fcard-title {
+        font-size: 0.92rem;
+        font-weight: 700;
+        line-height: 1.3;
+        margin-bottom: 4px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .fcard-singer {
+        font-size: 0.78rem;
+        color: var(--text-dim);
+        margin-bottom: 6px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .fcard-count {
+        font-size: 0.72rem;
+        color: var(--accent-a);
+        margin-top: auto;
+      }
     </style>
 </head>
 
@@ -1474,6 +1653,17 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
     </div>
   </header>
 
+  <section class="featured-albums">
+    <h2 class="featured-title">অ্যালবাম ব্রাউজ করুন</h2>
+    <div class="featured-slider-wrap" id="featured-slider-wrap">
+      <button type="button" class="fslider-arrow prev" id="featured-slider-prev" aria-label="আগের অ্যালবাম"><i class="fa fa-chevron-left"></i></button>
+      <div class="fgrid" id="featured-grid">
+{{SLIDER_CARDS}}
+      </div>
+      <button type="button" class="fslider-arrow next" id="featured-slider-next" aria-label="পরের অ্যালবাম"><i class="fa fa-chevron-right"></i></button>
+    </div>
+  </section>
+
   <main>
     <div class="grid" id="album-grid">
 {{CARDS}}
@@ -1484,6 +1674,46 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
 
     <script>
 {{FILTER_SCRIPT}}
+    </script>
+
+    <script>
+      const featuredGrid = document.getElementById('featured-grid');
+      const featuredSliderWrap = document.getElementById('featured-slider-wrap');
+      const featuredPrev = document.getElementById('featured-slider-prev');
+      const featuredNext = document.getElementById('featured-slider-next');
+      const featuredCards = Array.from(featuredGrid.children);
+      const featuredScrollByCard = () => (featuredCards[0] ? featuredCards[0].getBoundingClientRect().width + 18 : 200) * 2;
+
+      function animateFeaturedScrollBy(delta, duration) {
+        const start = featuredGrid.scrollLeft;
+        const startTime = performance.now();
+        function step(now) {
+          const t = Math.min(1, (now - startTime) / duration);
+          const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+          featuredGrid.scrollLeft = start + delta * eased;
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      featuredPrev.addEventListener('click', () => animateFeaturedScrollBy(-featuredScrollByCard(), 320));
+      featuredNext.addEventListener('click', () => animateFeaturedScrollBy(featuredScrollByCard(), 320));
+
+      let featuredAutoScrollPaused = false;
+      featuredSliderWrap.addEventListener('mouseenter', () => { featuredAutoScrollPaused = true; });
+      featuredSliderWrap.addEventListener('mouseleave', () => { featuredAutoScrollPaused = false; });
+      featuredSliderWrap.addEventListener('touchstart', () => { featuredAutoScrollPaused = true; }, { passive: true });
+      featuredSliderWrap.addEventListener('touchend', () => { featuredAutoScrollPaused = false; });
+
+      setInterval(function () {
+        if (!featuredAutoScrollPaused && featuredGrid.scrollWidth > featuredGrid.clientWidth) {
+          if (featuredGrid.scrollLeft + featuredGrid.clientWidth >= featuredGrid.scrollWidth - 1) {
+            featuredGrid.scrollLeft = 0;
+          } else {
+            featuredGrid.scrollLeft += 1;
+          }
+        }
+      }, 16);
     </script>
 </body>
 </html>
@@ -1846,18 +2076,18 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি। রয়েছে দেশবরেণ্য শিল্পীদের সঙ্গীত। মেন্যু থেকে শিল্পী, শিল্পীগোষ্ঠী বা বিভাগ বাছাই করুন। করতে পারবেন সার্চও।">
     <meta name="robots" content="index, follow">
-    <title>আলোময় সঙ্গীত: সব গান</title>
+    <title>{{PAGE_TITLE}}</title>
     <!-- ShareThis removed for now (see how-txt item 51):
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
     -->
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="players/style.css">
-    <link rel="canonical" href="https://alomoy.github.io/songit/all-songs.html">
+    <link rel="canonical" href="{{CANONICAL_URL}}">
     <!-- Open Graph Meta Tags -->
 <meta property="og:title" content="আলোময় সঙ্গীত  -  অনলাইন সঙ্গীত প্লেয়ার">
 <meta property="og:description" content="অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://alomoy.github.io/songit/all-songs.html">
+<meta property="og:url" content="{{CANONICAL_URL}}">
 <meta property="og:image" content="https://alomoy.github.io/songit/images/bg/alomoy_banner.jpg">
 <meta property="og:locale" content="bn_BD">
 <meta property="og:site_name" content="আলোময় সঙ্গীত">
@@ -2024,6 +2254,31 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         min-height: 1.2em;
     }
 
+    .search-hero .sub {
+        color: var(--text-dim);
+        margin: 0 0 16px;
+        font-size: 0.95rem;
+    }
+
+    .all-songs-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        border-radius: 999px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel);
+        color: var(--accent-a);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: border-color .2s, color .2s;
+    }
+
+    .all-songs-link:hover {
+        border-color: var(--accent-a);
+        color: var(--accent-c);
+    }
+
     #player-root {
         position: fixed;
         left: 0;
@@ -2037,7 +2292,8 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         padding: 5px 16px calc(5px + env(safe-area-inset-bottom, 0px));
         background: rgba(6, 10, 22, 0.92);
         backdrop-filter: blur(14px);
-        border-top: 1px solid var(--panel-border);
+        border-top: 4px solid;
+        border-image: linear-gradient(90deg, #ffd60a, #ff3b30) 1;
         box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.45);
         justify-content: center;
         gap: 2px;
@@ -2228,7 +2484,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "আলোময় সঙ্গীত",
-  "url": "https://alomoy.github.io/songit/all-songs.html",
+  "url": "{{CANONICAL_URL}}",
   "description": "অনালাইনে শুনুন ইসলামী সঙ্গীত।",
   "inLanguage": "bn",
   "about": {
@@ -2242,8 +2498,8 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "সব গান",
-        "item": "https://alomoy.github.io/songit/all-songs.html"
+        "name": "{{BREADCRUMB_NAME}}",
+        "item": "{{CANONICAL_URL}}"
       }
     ]
   }
@@ -2489,7 +2745,7 @@ def build_sitemap():
         f[:-5] for f in os.listdir(PLAYERS)
         if f.endswith(".html") and f != "template.html"
     )
-    urls = ["", "albums.html", "singers.html", "all-songs.html"]
+    urls = ["", "albums.html", "singers.html", "all-songs.html", "stat.html"]
     urls += [f"players/{slug}.html" for slug in player_slugs]
 
     entries = "\n".join(
@@ -2529,10 +2785,10 @@ def main():
     for slug in sync_summary["updated"]:
         print(f"  ~ {slug}")
 
-    index_html, n_albums_idx = build_index_html()
+    index_html, n_songs_idx = build_index_html(rows)
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(index_html)
-    print(f"Wrote index.html with {n_albums_idx} albums")
+    print(f"Wrote index.html with {n_songs_idx} songs")
 
     albums_html, n_albums = build_albums_html(rows)
     with open(os.path.join(ROOT, "albums.html"), "w", encoding="utf-8") as f:
@@ -2548,6 +2804,10 @@ def main():
     with open(os.path.join(ROOT, "all-songs.html"), "w", encoding="utf-8") as f:
         f.write(all_songs_html)
     print(f"Wrote all-songs.html with {n_songs} songs")
+
+    with open(os.path.join(ROOT, "stat.html"), "w", encoding="utf-8") as f:
+        f.write(build_stat_html())
+    print("Wrote stat.html")
 
     sitemap_xml, n_urls = build_sitemap()
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:

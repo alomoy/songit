@@ -1,148 +1,15 @@
 Source file
 radio/songs.csv
-on players dir:
-1. Copy and rename template.html
-2. Copy and rename template.js 
-3. Change html info (Title and DESC)
-4. Add drive link (AI can't; to add manually later)
-5. Change js link 
-6. Change js file (check image links)
-7. Add player to list, mqrquee, and latest 
+
+# Next Steps
+
+Remove the done step
+
+1. এলোমেলোভাবে বাছাই করা কিছু গান — নিচে থেকে বাজান replace with বাছাইকৃত কিছু গান
 
 # Musical icons
 
 𝇧, 𝇥, 𝇣,  𝇟,  𝇕 ,𝆺𝅥𝅯,  𝇚,  𝇜,  𝆹𝅥𝅯,  𝆺𝅥𝅮,  𝆹𝅥𝅮,  𝆕,  𝄰,  𝄳,  𝄲,  𝄯,  𝄤,  𝄠,  𝄟,  🎼 𝄞
 
-# Next Steps
-On each player page,
 
-1. Replace the download link with the current song, rather than the drive link of the album.
-2. Add a button to fast forward and backward, and repeat (one, all, none)
-3. Add a shuffle button (may be before repeat icon)
-4. Make sure all the icons remain on one line on mobile devices (even if the size get smaller)
-5. Use a musical stylish background (blending with current random color)
-6. Currently the song list is dynamically loaded on user request (client side), so they are not found in search results. We need to make them static, generated from the csv, so they are found in searches. We can make the list appear on click (click button right of download icon). AQnd clicking on a track should switch to that
-7. The players stops randomly, esp. on mobile. How to solve it?
-8. Add a logo and title-subtitle above "Playing 2 OF 12". Logo from images/alomoy.png. title-subtitle: আলোময় সঙ্গীত,
-সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়
-9. Make song albums from the csv, with filenames album_en for all unique such names. If the duplciates exist due to earlier files, rm them and stick to album_en.
-10. A script that can remake all the players when the csv is updated, keeping the earlier style and features.
-11. Bring back download the current song link icon (it was a misunderstanding).
-12. Fix the readme.md
-13. Playing 12 OF 13: Put it below timer.
-14. Convert track list numbering to Bengai numbers (১, ২ ,...)
-15. We need new landing page, listing all the playlist in a stylish way. Must look futuristic.
-16. We should use a good bengali font. SolaimaniLipi is one option. Anything else in mind?
-17. The index page has duplicate image and titles (need deletion from page body now that they are in header)
-18. players/Allahke-sotyi-valobase-ze.html: the first song doesn't load any image although the js file has one. Also the same image is in তুমি আড়াল পেতে but some other image loads with the song.
-19. Make sure the items inside <div class="header-content-inner"> appear in a single line, esp. on mobile. The links should not have target_blank.
-20. The playlist page should mirror the same futuristic design as the home. So do the albums.html and singers.html.
-21. The playlist list on home should go on albums.html. Think of new ideas for home. Among the things it may have is somethings like songstat.html (not the only thing for home, nor the primary)
-22. Albums links in albums.html and singers.html should point to player/*html
-23. In track-list-toggle, only show the song name (Song in csv)
-24. The search.html page should give a playlist like the other players, only that here the results are dynamic, retaining existing process of dynamically loading tracks. Is it possible?
-25. Our main pages are  index, albums.html, all-songs.html, search.html, and singers.html. I think we can delete the other old htmls in the root dir. What do you think?
-26. All the numbers in all our important pages should be in Bangla.
-27. Give all-songs.html the same futuristic look and feel. Any suggestions on the dropdown reorganization?
-28. Some icons under # Musical icons appear as rectangular boxes, esp. on mobile. Detect and delete/replace them.
-29. Can the albums.html and singer.html be static, so they are good for seo?
-30. Now that toggleTrackList has only song name, its width can be shrunk. Also make the look obvious that the list is clickable and starts that song. The row bg may have alternating colors.
-31. Playing ১ OF ১৩ change to শুনছেন ১৩টি সঙ্গীতের ১ নম্বরটি
-32. logo-section with titles, and not just logo, should point to home url,
-33. Need to use proper track image. Also some tracks have missing arts (manual, no AI). DO it in the csv, making a column named track-art.
-34. all-songs.html and search.html: track info in one single line; make sure works well on all screens. When scrolling down, make the player static (visible). But wait, since all-songs.html allows search, do we need search.html?
-35. Singer list should be a grid of 3 or 4 columns with name on bold and Next lines bullets of albums and last all (which should be linked to search.html?query=singer)
-36. Is the script ready to reflect csv changes, without breaking existing design?
-37. On mobile, after receiving a call in between, play doesn’t auto continues. Is ot because media session api?
-38. Mobile: index.html slider doesn't show arrows to move left-right.
-40. Extract track-art from js files to csv in album_art column (and modify by hand--this part no AI right now). In future, we would load them from. I'll update the currently missing tract-arts later.
-41. --
-42. Move the player to the bottom in all-songs.html as a static, fixed element.
-43. What's the use of search.html; it's already available in all-songs.html. I think we can remove it.
-44. [Done] alomoy2.png as the logo in all the current pages (index.html, all-songs.html, albums.html, singers.html)
-45.all-songs.html: downlaod icon is too small; make at as large as volume icon.
-~~46. all-songs.html: Load the songs, should not be dynamic, client side. Should already be populated, so also be seo-friendly. Would that be a bad structure?~~
-    Not bad -- same pattern already used for albums.html/singers.html (bake at build time,
-    live JS filter over rendered elements), and no added network cost since the page already
-    fetched the full songs.csv client-side. build_pages.py's ALL_SONGS_TEMPLATE now bakes all
-    1074 <li> (sorted by name) plus the 5 filter dropdowns' <option> lists at build time; the
-    script only toggles visibility/reorders them and feeds visible ones to the player. Verified:
-    raw HTML response (no JS) already contains all 1074 <li>; search, dropdown filters, ?query=
-    prefill, no-match message, and click-to-play all still work.
-47.  In players/*html, put আঁখি জলে ভাসি
-ছুম্মা লাতুছআলুন্না
-প্রত্যয় শিল্পীগোষ্ঠী
-48. [Done] On small screen, the player icons in all-songs.html look very small; give them page width, whatever the height because of that--Mobile has a tall screen, so no issue.
-    players/style.css: --icon-unit's mobile scale factor raised from 0.16vw to 0.195vw, so the
-    buttons row now spans ~96% of viewport width on phones (measured at 390px and 320px) instead
-    of ~79%, while staying on one line and leaving desktop sizing (capped at 1px) unchanged.
-    Applies to all players/*.html via the shared stylesheet, no per-page edits needed.
-~~49. index.html Slideshow arrows don't work (neither mobile nor desktop). Also make them start from a random album (not alphabetically) and also appear randomly, not sequentially.~~
-    Root cause: the auto-scroll's setInterval only paused on hover/touch of #album-grid, but the
-    arrow buttons sit outside that box (siblings, absolutely positioned at negative offsets), so
-    hovering/tapping an arrow never paused it -- the continuous scrollLeft+=1 every 16ms kept
-    cancelling the arrow's scrollBy({behavior:'smooth'}) animation. Moved those listeners to the
-    new #slider-wrap (parent of both). Also replaced scrollBy's native smooth behavior with a
-    hand-rolled requestAnimationFrame easing, since native smooth-scroll support is inconsistent
-    across mobile browsers/WebViews. Cards are now shuffled into the DOM on each load (build_pages.py
-    INDEX_TEMPLATE), so the slider starts from a random album each visit. Couldn't get a live pixel
-    verification of the animation itself in this session's browser tool (that tab reports
-    document.hidden=true, which fully suspends requestAnimationFrame -- a testing-environment
-    artifact); the pause-on-hover fix and shuffle were verified directly.
-~~50. On index.html, enable searching for single song as well, taking user to all-songs.html?query="search_string"~~
-    index.html's search only matches album/singer names (no per-song data on that page). Pressing
-    Enter in the search box, or clicking the new "সব গানে খুঁজুন" link shown when nothing matches,
-    both send the typed text to all-songs.html?query=..., which does have song-level search.
-    Verified: searching a song title (not an album) shows 0 results with the link, and clicking it
-    lands on all-songs.html with that song found.
-~~51. Remove sharethis extension from all pages (comment it out for now).~~
-    build_pages.py's templates had it either active or broken-"commented" (stray # / """
-    inside the Python string, which just outputs those characters literally into the HTML
-    -- doesn't actually comment anything out). Properly wrapped both the <script> include
-    and the <div class="sharethis-sticky-share-buttons"> widget in real HTML comments
-    across ALBUMS_TEMPLATE, SINGERS_TEMPLATE, and ALL_SONGS_TEMPLATE; regenerated all
-    three pages to confirm it's inert.
-~~52. On player/*html and all-songs.html, on song info (album, singer, direct the text to  all-songs.html?query="search_string"~~
-    players/main.js (shared by every players/*.html and by all-songs.html's own player, which
-    loads the same file) now makes .track-album/.track-artist clickable, jumping to
-    all-songs.html?query=<that value> (../all-songs.html from inside players/, since the same
-    script runs in both places). Verified on both a players/*.html page and all-songs.html itself.
-53. How to improve the overall SEO? What's the current condition?
-    Assessed: static/crawlable content everywhere now (a big recent win), but no sitemap.xml or
-    robots.txt; index.html/albums.html/singers.html missing canonical/OG/description (only
-    all-songs.html has them); player pages have no canonical/OG/structured-data; lang="en" on
-    player/albums/singers pages despite Bengali content. Chose sitemap.xml + robots.txt as the
-    first, lowest-risk step -- the metadata gaps and lang fix are still open follow-ups.
-    ~~Implemented sitemap.xml + robots.txt~~: build_pages.py now generates sitemap.xml (all 4
-    main pages + all players/*.html, 88 URLs) and robots.txt (Allow: / + Sitemap: line) on every
-    run. Caveat: since this repo deploys under a domain root it doesn't own (alomoy.net's root is
-    a separate "alomoy.github.io" repo, this site lives at /songit/), robots.txt here is NOT at
-    the domain root and won't actually be auto-discovered by crawlers -- only a root-level
-    robots.txt (in that other repo) is checked by convention. sitemap.xml itself is still fully
-    usable regardless (submit its URL directly in Google Search Console).
-~~54. index.html search allows only album search, although it prompts গান, অ্যালবাম বা শিল্পী. As told before arbitrary strings should point to all-songs.html?query=search_string~~
-    Replaced the old "link only shown once album search comes up empty" approach with a
-    persistent "🎵 গান দিয়ে খুঁজতে চাইলে সব গানে যান" link always visible under the search box
-    (a real <a href>, so Enter/click/right-click-open-in-new-tab all work), whose href updates
-    live to all-songs.html?query=<current input> as you type. Verified live.
-~~55. For example, https://www.alomoy.net/songit/all-songs.html?query=তারিক মুনাওয়ার player doesn't load the first songs, rather just shows Track Name Track Artist. Solve it. Also Track Name is not linked to query=Track Name. DO it. Also make the clickable links obvious, so people know these are hyperlinks.~~
-    Bug: the initialQuery branch in all-songs.html called applyFilters() but never loadPlayer(),
-    so landing via ?query= left the player on its placeholder text -- fixed by calling
-    loadPlayer(currentList, 0, false) right after. players/main.js now also makes .track-name
-    clickable (not just album/artist), linking to query=<track name>. .track-info-link is now
-    underlined at rest (not just on :hover/:focus-visible), since touch devices have no hover
-    state to reveal it was ever clickable. Verified all three (name/album/artist) on a fresh
-    ?query= landing.
-~~56. [ad-hoc, not originally numbered] Moving track-name/artist next to "শুনছেন..." (item 47-ish)
-    made long name+artist combos wrap to a second line on the narrow all-songs.html bar, crowding
-    that line. Wrapped them in a #marquee-wrap/#marquee-track pair.~~
-    First pass only scrolled when text actually overflowed (e.g. "পাখি সুরে গায় / সাইমুম
-    শিল্পীগোষ্ঠী" fit fine at 480px, so it correctly never scrolled -- not a bug, but not what
-    was wanted). Per follow-up ("do it for all songs on all screens"), rebuilt as a continuous
-    ticker that always runs regardless of length/width: #marquee-track holds the real name/
-    artist plus an identical aria-hidden duplicate (synced in updateMarquee()), looping via
-    CSS translateX(-50%) infinite -- always seamless since the track is by construction exactly
-    two copies wide. Speed is normalized to the item's actual pixel width (40px/s) so short and
-    long titles scroll at a consistent pace rather than looking rushed/sluggish. Verified with
-    the exact song named above: animation created and running via getAnimations(), duplicate
-    content synced, and visually confirmed moving across two screenshots taken 2s apart.
+

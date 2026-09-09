@@ -12,7 +12,7 @@ the CSV), not stored in this repo.
 
 # Main Files
 
-index.html, all-songs.html, albums.html, singers.html and albums at players/*hmtl, *js
+index.html, all-songs.html, albums.html, singers.html, stat.html and albums at players/*hmtl, *js
 Don't change any other html unless mentioned, so usually all pages would mean these. 
 
 ## Data flow (the core architecture)
@@ -34,14 +34,28 @@ whenever songs.csv changes.** It does two things, in order:
    has any CSV rows is deleted (the CSV is the sole source of truth for which albums
    have pages; a manual/hybrid album is made by adding rows with a new `album_en`,
    not by hand-authoring a page).
-2. (Re)generates the four main pages from one shared `NAV_ITEMS`/`LOGO_PATH` config,
+2. (Re)generates the five main pages from one shared `NAV_ITEMS`/`LOGO_PATH` config,
    so their nav links and logo can't drift out of sync with each other the way they
    used to when each page had its own copy-pasted template:
-   - `index.html` — album slider cards, read from the just-synced `players/*.html`
-     titles + track counts (not the CSV directly).
+   - `index.html` — the homepage; derived from `ALL_SONGS_TEMPLATE` in
+     `build_index_html()` (same head/CSS/nav/`#player-root` markup+JS as
+     all-songs.html, so the player can't drift between the two pages) but with
+     its hero, song-list-wrap, and trailing script swapped out for a lighter
+     version: no baked `<li>`s, no filters — instead the inline script fetches
+     `radio/songs.csv` client-side on load and renders a fresh random 20 songs
+     each visit, with a "সব XX টি গান দেখুন" link to all-songs.html for the
+     full archive. all-songs.html itself is unchanged (still fully baked at
+     build time with the search/filter UI) — see how-txt item 4.
+   - `stat.html` — big-icon site-wide stats (albums/singers/groups/songs), computed
+     client-side from `radio/songs.csv` on load, same as the old homepage's stats
+     strip used to be (that strip was moved here from index.html).
    - `albums.html` / `singers.html` — cards/list baked from the CSV directly at
      build time for SEO/crawlability; any client-side JS left on these pages is
      just a live search filter over the already-rendered elements, not a builder.
+     `albums.html` also has a "অ্যালবাম ব্রাউজ করুন" auto-scrolling album-art
+     slider appended below the main grid (`.fcard`/`.fgrid`/`featured_card_html()`
+     — the old homepage's slider, moved here) — kept visually/DOM-distinct from the
+     main grid's `.card` elements so the main grid's search filter doesn't touch it.
    - `all-songs.html` — every song is baked into a `<li data-*>` (name, artist,
      album, filter/search fields) at build time, sorted alphabetically, plus all
      five filter dropdowns' `<option>` lists; the inline script only filters/
@@ -49,7 +63,7 @@ whenever songs.csv changes.** It does two things, in order:
      the player — it doesn't fetch or parse `songs.csv` itself. A `?query=` URL
      param (e.g. from a singer card's "সব" link) prefills and runs that search.
    - `sitemap.xml` / `robots.txt` — regenerated every run from the same page list
-     (the 4 main pages + every `players/*.html`).
+     (the 5 main pages + every `players/*.html`).
 
 Player pages are NOT hand-authored beyond first creation — edit `radio/songs.csv` (or,
 for one-off page-specific tweaks like Drive links, edit the generated
@@ -60,10 +74,14 @@ them into the site directly.
 
 ## Site structure
 
-- `index.html`, `albums.html`, `singers.html`, `all-songs.html` — the four
-  main/current pages (per `how-txt`; `search.html` was removed since all-songs.html
-  already covers song-level search, and other legacy root HTML files are candidates
-  for deletion, not part of the active flow).
+- `index.html`, `albums.html`, `singers.html`, `all-songs.html`, `stat.html` — the
+  five main/current pages (per `how-txt`; `search.html` was removed since
+  all-songs.html already covers song-level search, and other legacy root HTML files
+  are candidates for deletion, not part of the active flow). `index.html` shows a
+  client-fetched random 20 songs with a link to all-songs.html for the full list
+  (per how-txt item 1/4); `stat.html` holds the stats strip that used to live on
+  the homepage, with its cards linking to albums.html/singers.html/all-songs.html
+  (no page yet for the শিল্পীগোষ্ঠী/group count).
 - `players/*.html` + `players/*.js` — one generated player page per album (~170
   albums). Shared player behavior/styling lives in `players/style.css` and JS per
   page; each page defines its own `track_list` array.

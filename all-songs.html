@@ -183,6 +183,31 @@
         min-height: 1.2em;
     }
 
+    .search-hero .sub {
+        color: var(--text-dim);
+        margin: 0 0 16px;
+        font-size: 0.95rem;
+    }
+
+    .all-songs-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        border-radius: 999px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel);
+        color: var(--accent-a);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: border-color .2s, color .2s;
+    }
+
+    .all-songs-link:hover {
+        border-color: var(--accent-a);
+        color: var(--accent-c);
+    }
+
     #player-root {
         position: fixed;
         left: 0;
@@ -196,7 +221,8 @@
         padding: 5px 16px calc(5px + env(safe-area-inset-bottom, 0px));
         background: rgba(6, 10, 22, 0.92);
         backdrop-filter: blur(14px);
-        border-top: 1px solid var(--panel-border);
+        border-top: 4px solid;
+        border-image: linear-gradient(90deg, #ffd60a, #ff3b30) 1;
         box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.45);
         justify-content: center;
         gap: 2px;
@@ -428,6 +454,7 @@
     <a href="singers.html">শিল্পী তালিকা</a>
     <a href="albums.html">অ্যালবাম তালিকা</a>
     <a href="all-songs.html" class="active">সব গান</a>
+    <a href="stat.html">পরিসংখ্যান</a>
   </div>
   <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
     <i class="fa fa-bars"></i>
