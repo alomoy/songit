@@ -650,6 +650,11 @@ def song_tag_link_html(text, href):
 # floating chips -- see how-txt item 3.
 SONG_LINK_HTML = '<span class="song-link" aria-hidden="true"></span>'
 
+# A dedicated play affordance at the right edge of the info area, since most
+# of the row is now taken up by clickable name/tag pills that navigate away
+# instead of playing -- see how-txt item 5.
+SONG_PLAY_HTML = '<span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span>'
+
 
 def song_li_html(song, index):
     name = song["Song"].strip()
@@ -688,7 +693,7 @@ def song_li_html(song, index):
         f'data-singer="{esc(singer)}" data-group="{esc(group)}" data-genre="{esc(genre)}" '
         f'data-subgenre="{esc(subgenre)}" data-image="{esc(image)}" data-path="{esc(path)}" '
         f'data-search="{esc(search_text)}">'
-        f'{chained_html}</li>'
+        f'{chained_html}{SONG_PLAY_HTML}</li>'
     )
 
 
@@ -911,15 +916,16 @@ function toggleMenu() {
 
 def _index_hero_html(total_bn):
     return f'''<div class="search-hero">
-  <h1 class="tagline">আপনার পছন্দের <span class="accent">সঙ্গীত</span> শুনুন</h1>
-  <p class="sub">বাছাইকৃত কিছু গান</p>
-  <a href="all-songs.html" class="all-songs-link"><i class="fa fa-music"></i> সব {total_bn}টি গান দেখুন</a>
+  <h1 class="tagline">আলোময় <span class="accent">সঙ্গীত</span></h1>
   <div class="mini-stats" id="mini-stats">
     <div class="mini-stat"><i class="fas fa-record-vinyl"></i><span class="mini-stat-number" id="mini-stat-albums">-</span><span class="mini-stat-label">অ্যালবাম</span></div>
     <div class="mini-stat"><i class="fas fa-user"></i><span class="mini-stat-number" id="mini-stat-singers">-</span><span class="mini-stat-label">শিল্পী</span></div>
     <div class="mini-stat"><i class="fas fa-users"></i><span class="mini-stat-number" id="mini-stat-groups">-</span><span class="mini-stat-label">শিল্পীগোষ্ঠী</span></div>
     <div class="mini-stat"><i class="fas fa-music"></i><span class="mini-stat-number" id="mini-stat-songs">-</span><span class="mini-stat-label">গান</span></div>
   </div>
+  <p class="sub">𝄟 ইসলামী সঙ্গীতের সবচেয়ে বড় অনলাইন ভাণ্ডার। 𝇟 কাজের তালে তালে শুনুন ইসলামী সঙ্গীত। মনকে রাখুন পবিত্র। 𝄤</p>
+  <p class="sub">বাছাইকৃত কিছু গান</p>
+  <a href="all-songs.html" class="all-songs-link"><i class="fa fa-music"></i> {total_bn}টির সঙ্গীতের সব দেখুন</a>
 </div>'''
 
 
@@ -927,6 +933,7 @@ _INDEX_LIST_WRAP_BLOCK = '''<div class="song-list-wrap">
   <ol class="song-list" id="song-list">
     <li class="song-list-loading" id="loading-row">গান লোড হচ্ছে...</li>
   </ol>
+  <a href="all-songs.html" class="all-songs-link all-songs-link-bottom"><i class="fa fa-music"></i> সব গান দেখুন</a>
 </div>'''
 
 _INDEX_SCRIPT_BLOCK = r'''    <script>
@@ -1008,6 +1015,14 @@ function makeSongLink() {
     return s;
 }
 
+function makeSongPlay() {
+    const s = document.createElement('span');
+    s.className = 'song-play';
+    s.setAttribute('aria-hidden', 'true');
+    s.innerHTML = '<i class="fa fa-play"></i>';
+    return s;
+}
+
 fetch('radio/songs.csv')
     .then(r => r.text())
     .then(csvText => {
@@ -1063,6 +1078,7 @@ fetch('radio/songs.csv')
                 li.appendChild(makeSongLink());
                 li.appendChild(a);
             });
+            li.appendChild(makeSongPlay());
             li.addEventListener('click', () => playFromList(li));
             listEl.insertBefore(li, loadingRow);
         });
@@ -2522,6 +2538,13 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         padding: 0 20px calc(210px + env(safe-area-inset-bottom, 0px));
     }
 
+    .all-songs-link-bottom {
+        display: flex;
+        justify-content: center;
+        margin: 20px auto 0;
+        width: fit-content;
+    }
+
     .song-list {
         list-style: none;
         margin: 0;
@@ -2635,6 +2658,37 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
 
     .song-list li.active .song-link {
         background: var(--accent-a);
+    }
+
+    /* A dedicated play affordance at the right edge of the row, since most
+       of the row is now taken up by name/tag pills that navigate away
+       instead of playing. */
+    .song-list .song-play {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        margin-left: auto;
+        border-radius: 50%;
+        border: 1px solid var(--panel-border);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text-dim);
+        font-size: 0.72rem;
+        flex-shrink: 0;
+        transition: border-color .15s, background .15s, color .15s;
+    }
+
+    .song-list li:hover .song-play {
+        border-color: var(--accent-a);
+        background: rgba(53, 230, 255, 0.12);
+        color: var(--accent-a);
+    }
+
+    .song-list li.active .song-play {
+        border-color: var(--accent-a);
+        background: var(--accent-a);
+        color: var(--bg);
     }
 </style>
 

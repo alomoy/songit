@@ -7,8 +7,28 @@ Just strike through the done items (no comment about what's done)
 ~~1. In all-songs.html and index.html, wrap Song, group and singer in separate layout and link each to respective location. (Song -> all-songs.html?query="Song", group ->all-songs.html?query="group", same for singer). If album is shown in song list, hyperlink to that album page.~~
 ~~2. The links in 1 works, but two things. a. open in a new tab so current player continues. b. an example: শোনো শোনো ইয়া এলাহী
 তারিক মুনাওয়ার · তারিক মুনাওয়ার-০১. put all parts (one part is শোনো শোনো ইয়া এলাহী) in separate background (same design but different area, rounded long boxes). If not clear, tell me. Follow the upload image for strcuture, but retain the original backgorund and layout design.~~
-~~3. Connect the grid of same song info the synapse of train cars are connect to indicate they constitute a single song info.  In all-songs.html and index.html.~~
+3. Connect the grid of same song info the synapse of train cars are connect to indicate they constitute a single song info.  In all-songs.html and index.html.
+~~4. আপনার পছন্দের সঙ্গীত শুনুন
+বাছাইকৃত কিছু গান
 
+সব ১০৭৪টি গান দেখুন
+
+৮৫ অ্যালবাম ৩৮ শিল্পী ১৪ শিল্পীগোষ্ঠী ১০৭৪ গান
+
+Replace with
+
+আলোময় সঙ্গীত
+৮৫ অ্যালবাম ৩৮ শিল্পী ১৪ শিল্পীগোষ্ঠী ১০৭৪ গান
+𝄟 ইসলামী সঙ্গীতের সবচেয়ে বড় অনলাইন ভাণ্ডার। 𝇟 কাজের তালে তালে শুনুন ইসলামী সঙ্গীত। মনকে রাখুন পবিত্র। 𝄤
+বাছাইকৃত কিছু গান
+
+১০৭৪টির সঙ্গীতের সব দেখুন
+
+and after the sample list ends, in the line show again
+সব গান দেখুন with same hyperlink~~
+
+~~5. Add a play icon to the right of song info but within the info area.~~
+6. all-songs.html: the list design is initially different then switches to the new design. This should annoy the user. Prevent it; may be a loading symbol may help.
 # Musical icons
 
 𝇧, 𝇥, 𝇣,  𝇟,  𝇕 ,𝆺𝅥𝅯,  𝇚,  𝇜,  𝆹𝅥𝅯,  𝆺𝅥𝅮,  𝆹𝅥𝅮,  𝆕,  𝄰,  𝄳,  𝄲,  𝄯,  𝄤,  𝄠,  𝄟,  🎼 𝄞
