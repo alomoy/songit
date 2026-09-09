@@ -656,6 +656,16 @@ SONG_LINK_HTML = '<span class="song-link" aria-hidden="true"></span>'
 SONG_PLAY_HTML = '<span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span>'
 
 
+def song_download_link_html(path):
+    # Mirrors players/main.js's own download-link handling: dl=0 forces an
+    # inline preview on Dropbox links, dl=1 forces a real download.
+    href = path.replace("dl=0", "dl=1")
+    return (
+        f'<a class="song-download" href="{esc(href)}" download target="_blank" rel="noopener" '
+        f'aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a>'
+    )
+
+
 def song_li_html(song, index):
     name = song["Song"].strip()
     album = (song.get("album") or "").strip()
@@ -693,7 +703,7 @@ def song_li_html(song, index):
         f'data-singer="{esc(singer)}" data-group="{esc(group)}" data-genre="{esc(genre)}" '
         f'data-subgenre="{esc(subgenre)}" data-image="{esc(image)}" data-path="{esc(path)}" '
         f'data-search="{esc(search_text)}">'
-        f'{chained_html}{SONG_PLAY_HTML}</li>'
+        f'{chained_html}{SONG_PLAY_HTML}{song_download_link_html(path)}</li>'
     )
 
 
@@ -929,7 +939,11 @@ def _index_hero_html(total_bn):
     <div class="mini-stat"><i class="fas fa-users"></i><span class="mini-stat-number" id="mini-stat-groups">-</span><span class="mini-stat-label">শিল্পীগোষ্ঠী</span></div>
     <div class="mini-stat"><i class="fas fa-music"></i><span class="mini-stat-number" id="mini-stat-songs">-</span><span class="mini-stat-label">গান</span></div>
   </div>
-  <p class="sub">𝄟 ইসলামী সঙ্গীতের সবচেয়ে বড় অনলাইন ভাণ্ডার। 𝇟 কাজের তালে তালে শুনুন ইসলামী সঙ্গীত। মনকে রাখুন পবিত্র। 𝄤</p>
+  <p class="tagline-desc">
+    <span class="tagline-desc-line">𝄟 ইসলামী সঙ্গীতের সবচেয়ে বড় অনলাইন ভাণ্ডার।</span>
+    <span class="tagline-desc-line">𝇟 কাজের তালে তালে শুনুন ইসলামী সঙ্গীত।</span>
+    <span class="tagline-desc-line">মনকে রাখুন পবিত্র। 𝄤</span>
+  </p>
   <p class="sub">বাছাইকৃত কিছু গান</p>
   <a href="all-songs.html" class="all-songs-link"><i class="fa fa-music"></i> {total_bn}টির সঙ্গীতের সব দেখুন</a>
 </div>'''
@@ -1029,6 +1043,19 @@ function makeSongPlay() {
     return s;
 }
 
+function makeSongDownload(path) {
+    const a = document.createElement('a');
+    a.className = 'song-download';
+    a.href = path.replace('dl=0', 'dl=1');
+    a.download = true;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.setAttribute('aria-label', 'ডাউনলোড');
+    a.innerHTML = '<i class="fa fa-solid fa-download"></i>';
+    a.addEventListener('click', e => e.stopPropagation());
+    return a;
+}
+
 fetch('radio/songs.csv')
     .then(r => r.text())
     .then(csvText => {
@@ -1085,6 +1112,7 @@ fetch('radio/songs.csv')
                 li.appendChild(a);
             });
             li.appendChild(makeSongPlay());
+            li.appendChild(makeSongDownload(song.src.trim()));
             li.addEventListener('click', () => playFromList(li));
             listEl.insertBefore(li, loadingRow);
         });
@@ -2360,6 +2388,26 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         font-size: 0.95rem;
     }
 
+    .tagline-desc {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin: 4px 0 22px;
+    }
+
+    .tagline-desc-line {
+        display: block;
+        font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        line-height: 1.6;
+        background: linear-gradient(90deg, var(--accent-a), var(--accent-b), var(--accent-c));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 22px rgba(53, 230, 255, 0.35);
+    }
+
     .all-songs-link {
         display: inline-flex;
         align-items: center;
@@ -2642,7 +2690,11 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         padding: 5px 14px;
         border-radius: 999px;
         border: 1px solid var(--panel-border);
-        background: rgba(255, 255, 255, 0.04);
+        /* A darker, near-opaque "glass" backing (rather than a faint white
+           tint) so the pill text stays readable against the animated
+           backdrop glow behind it, whatever color that glow happens to be. */
+        background: rgba(6, 10, 22, 0.55);
+        backdrop-filter: blur(6px);
         text-decoration: none;
         white-space: nowrap;
         transition: border-color .15s, background .15s, color .15s;
@@ -2651,7 +2703,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     .song-list .song-name:hover,
     .song-list .song-tag:hover {
         border-color: var(--accent-a);
-        background: rgba(53, 230, 255, 0.12);
+        background: rgba(53, 230, 255, 0.18);
         color: var(--accent-a);
     }
 
@@ -2666,7 +2718,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     }
 
     .song-list .song-tag {
-        color: var(--text-dim);
+        color: var(--text);
         font-size: 0.8rem;
         font-weight: 400;
     }
@@ -2695,26 +2747,38 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
 
     /* A dedicated play affordance at the right edge of the row, since most
        of the row is now taken up by name/tag pills that navigate away
-       instead of playing. */
-    .song-list .song-play {
+       instead of playing. A download button follows it, extending the
+       same idea to fetching the file directly. */
+    .song-list .song-play,
+    .song-list .song-download {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 30px;
         height: 30px;
-        margin-left: auto;
         border-radius: 50%;
         border: 1px solid var(--panel-border);
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--text-dim);
+        background: rgba(6, 10, 22, 0.55);
+        backdrop-filter: blur(6px);
+        color: var(--text);
         font-size: 0.72rem;
         flex-shrink: 0;
         transition: border-color .15s, background .15s, color .15s;
     }
 
-    .song-list li:hover .song-play {
+    .song-list .song-play {
+        margin-left: auto;
+    }
+
+    .song-list .song-download {
+        margin-left: 6px;
+        text-decoration: none;
+    }
+
+    .song-list li:hover .song-play,
+    .song-list .song-download:hover {
         border-color: var(--accent-a);
-        background: rgba(53, 230, 255, 0.12);
+        background: rgba(53, 230, 255, 0.18);
         color: var(--accent-a);
     }
 

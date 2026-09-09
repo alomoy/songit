@@ -29,7 +29,11 @@ and after the sample list ends, in the line show again
 
 ~~5. Add a play icon to the right of song info but within the info area.~~
 ~~6. all-songs.html: the list design is initially different then switches to the new design. This should annoy the user. Prevent it; may be a loading symbol may help.~~
-7. extending 3, add a downlaod icon to the right of play button.
+~~7. extending 3, add a downlaod icon to the right of play button.~~
+~~8. "𝄟 ইসলামী সঙ্গীতের সবচেয়ে বড় অনলাইন ভাণ্ডার। 𝇟 কাজের তালে তালে শুনুন ইসলামী সঙ্গীত। মনকে রাখুন পবিত্র। 𝄤"-- make it multiline with larger and futuristic look.~~
+~~9. all-songs.html and index.html: the song info color should be more constarsting with background. Sometimes reading the text is annoying for eyes.~~
+
+
 # Musical icons
 
 𝇧, 𝇥, 𝇣,  𝇟,  𝇕 ,𝆺𝅥𝅯,  𝇚,  𝇜,  𝆹𝅥𝅯,  𝆺𝅥𝅮,  𝆹𝅥𝅮,  𝆕,  𝄰,  𝄳,  𝄲,  𝄯,  𝄤,  𝄠,  𝄟,  🎼 𝄞
