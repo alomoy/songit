@@ -841,6 +841,40 @@ function applyFilters() {
     noMatchRow.style.display = visible.length === 0 ? '' : 'none';
 }
 
+// Mirrors the currently-active row's .song-play icon to the shared
+// <audio> element's real play/paused state, whatever caused it to change
+// (this row, the main player controls, a track ending, media keys, ...).
+function syncPlayIcon() {
+    document.querySelectorAll('#song-list li .song-play i').forEach(i => { i.className = 'fa fa-play'; });
+    const activeLi = document.querySelector('#song-list li.active');
+    if (activeLi && typeof curr_track !== 'undefined' && curr_track && !curr_track.paused) {
+        const icon = activeLi.querySelector('.song-play i');
+        if (icon) icon.className = 'fa fa-pause';
+    }
+}
+
+// Flags each row's .song-info with .wrapped when its pills actually span
+// two lines, so the CSS arc connecting the first pill of each line only
+// shows up where there's a second line to connect to.
+function markWrappedRows() {
+    document.querySelectorAll('#song-list .song-info').forEach(info => {
+        const children = Array.from(info.children);
+        if (children.length < 2) {
+            info.classList.remove('wrapped');
+            return;
+        }
+        const firstTop = children[0].offsetTop;
+        const wraps = children.some(el => el.offsetTop > firstTop + 4);
+        info.classList.toggle('wrapped', wraps);
+    });
+}
+
+let markWrappedResizeTimer = null;
+window.addEventListener('resize', () => {
+    clearTimeout(markWrappedResizeTimer);
+    markWrappedResizeTimer = setTimeout(markWrappedRows, 150);
+});
+
 function loadPlayer(list, index, autoplay) {
     if (list.length === 0) return;
 
@@ -860,6 +894,12 @@ function loadPlayer(list, index, autoplay) {
         window.track_list = newTrackList;
         const script = document.createElement('script');
         script.src = 'players/main.js';
+        script.onload = () => {
+            curr_track.addEventListener('play', syncPlayIcon);
+            curr_track.addEventListener('pause', syncPlayIcon);
+            curr_track.addEventListener('ended', syncPlayIcon);
+            syncPlayIcon();
+        };
         document.body.appendChild(script);
     } else {
         track_list = newTrackList;
@@ -922,6 +962,7 @@ if (initialQuery) {
 // finished, so the reorder never flashes in front of the user.
 document.getElementById('list-loading').classList.add('hidden');
 document.getElementById('song-list-wrap').classList.add('ready');
+markWrappedRows();
 
 // Nav
 function toggleMenu() {
@@ -952,7 +993,7 @@ def _index_hero_html(total_bn):
 
 _INDEX_LIST_WRAP_BLOCK = '''<div class="song-list-wrap">
   <ol class="song-list" id="song-list">
-    <li class="song-list-loading" id="loading-row">গান লোড হচ্ছে...</li>
+    <li class="song-list-loading" id="loading-row"><i class="fa fa-spinner fa-spin"></i> গান লোড হচ্ছে...</li>
   </ol>
   <a href="all-songs.html" class="all-songs-link all-songs-link-bottom"><i class="fa fa-music"></i> সব গান দেখুন</a>
 </div>'''
@@ -984,6 +1025,40 @@ function convertToBanglaNumber(number) {
     return String(number).split('').map(d => banglaDigits[d] ?? d).join('');
 }
 
+// Mirrors the currently-active row's .song-play icon to the shared
+// <audio> element's real play/paused state, whatever caused it to change
+// (this row, the main player controls, a track ending, media keys, ...).
+function syncPlayIcon() {
+    document.querySelectorAll('#song-list li .song-play i').forEach(i => { i.className = 'fa fa-play'; });
+    const activeLi = document.querySelector('#song-list li.active');
+    if (activeLi && typeof curr_track !== 'undefined' && curr_track && !curr_track.paused) {
+        const icon = activeLi.querySelector('.song-play i');
+        if (icon) icon.className = 'fa fa-pause';
+    }
+}
+
+// Flags each row's .song-info with .wrapped when its pills actually span
+// two lines, so the CSS arc connecting the first pill of each line only
+// shows up where there's a second line to connect to.
+function markWrappedRows() {
+    document.querySelectorAll('#song-list .song-info').forEach(info => {
+        const children = Array.from(info.children);
+        if (children.length < 2) {
+            info.classList.remove('wrapped');
+            return;
+        }
+        const firstTop = children[0].offsetTop;
+        const wraps = children.some(el => el.offsetTop > firstTop + 4);
+        info.classList.toggle('wrapped', wraps);
+    });
+}
+
+let markWrappedResizeTimer = null;
+window.addEventListener('resize', () => {
+    clearTimeout(markWrappedResizeTimer);
+    markWrappedResizeTimer = setTimeout(markWrappedRows, 150);
+});
+
 function loadPlayer(list, index, autoplay) {
     if (list.length === 0) return;
 
@@ -1003,6 +1078,12 @@ function loadPlayer(list, index, autoplay) {
         window.track_list = newTrackList;
         const script = document.createElement('script');
         script.src = 'players/main.js';
+        script.onload = () => {
+            curr_track.addEventListener('play', syncPlayIcon);
+            curr_track.addEventListener('pause', syncPlayIcon);
+            curr_track.addEventListener('ended', syncPlayIcon);
+            syncPlayIcon();
+        };
         document.body.appendChild(script);
     } else {
         track_list = newTrackList;
@@ -1128,6 +1209,7 @@ fetch('radio/songs.csv')
 
         loadingRow.style.display = picked.length ? 'none' : '';
         currentList = Array.from(listEl.querySelectorAll('li[data-name]'));
+        markWrappedRows();
         if (currentList.length) loadPlayer(currentList, 0, false);
     })
     .catch(error => console.error('গান লোডে সমস্যা:', error));
@@ -1817,6 +1899,13 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
       const featuredPrev = document.getElementById('featured-slider-prev');
       const featuredNext = document.getElementById('featured-slider-next');
       const featuredCards = Array.from(featuredGrid.children);
+
+      // Show a different, randomly-ordered set of albums first on each
+      // visit instead of always the same alphabetical run.
+      for (const card of [...featuredCards].sort(() => Math.random() - 0.5)) {
+        featuredGrid.appendChild(card);
+      }
+
       const featuredScrollByCard = () => (featuredCards[0] ? featuredCards[0].getBoundingClientRect().width + 18 : 200) * 2;
 
       function animateFeaturedScrollBy(delta, duration) {
@@ -2663,7 +2752,8 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
 
     .song-list li.song-list-loading {
         cursor: default;
-        text-align: center;
+        justify-content: center;
+        gap: 8px;
         color: var(--text-dim);
         background: none;
     }
@@ -2697,6 +2787,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
        lines) -- the icons live in their own fixed-width column
        (.song-actions) that never wraps. */
     .song-list .song-info {
+        position: relative;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -2705,6 +2796,35 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         min-width: 0;
         max-height: 68px;
         overflow: hidden;
+    }
+
+    /* When the info pills wrap to a second line (see markWrappedRows()),
+       an arc on the left edge ties the first pill of each line together,
+       so the second line still reads as a continuation of the same
+       chain rather than an unrelated new row. */
+    .song-list .song-info.wrapped {
+        padding-left: 14px;
+    }
+
+    .song-list .song-info.wrapped::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 15px;
+        width: 14px;
+        height: 42px;
+        border: 2px solid transparent;
+        border-left-color: var(--panel-border);
+        border-bottom-color: var(--panel-border);
+        border-bottom-left-radius: 14px;
+        pointer-events: none;
+        transition: border-color .15s;
+    }
+
+    .song-list li:hover .song-info.wrapped::before,
+    .song-list li.active .song-info.wrapped::before {
+        border-left-color: var(--accent-a);
+        border-bottom-color: var(--accent-a);
     }
 
     .song-list .song-actions {
@@ -2982,6 +3102,40 @@ function applyFilters() {
     noMatchRow.style.display = visible.length === 0 ? '' : 'none';
 }
 
+// Mirrors the currently-active row's .song-play icon to the shared
+// <audio> element's real play/paused state, whatever caused it to change
+// (this row, the main player controls, a track ending, media keys, ...).
+function syncPlayIcon() {
+    document.querySelectorAll('#song-list li .song-play i').forEach(i => { i.className = 'fa fa-play'; });
+    const activeLi = document.querySelector('#song-list li.active');
+    if (activeLi && typeof curr_track !== 'undefined' && curr_track && !curr_track.paused) {
+        const icon = activeLi.querySelector('.song-play i');
+        if (icon) icon.className = 'fa fa-pause';
+    }
+}
+
+// Flags each row's .song-info with .wrapped when its pills actually span
+// two lines, so the CSS arc connecting the first pill of each line only
+// shows up where there's a second line to connect to.
+function markWrappedRows() {
+    document.querySelectorAll('#song-list .song-info').forEach(info => {
+        const children = Array.from(info.children);
+        if (children.length < 2) {
+            info.classList.remove('wrapped');
+            return;
+        }
+        const firstTop = children[0].offsetTop;
+        const wraps = children.some(el => el.offsetTop > firstTop + 4);
+        info.classList.toggle('wrapped', wraps);
+    });
+}
+
+let markWrappedResizeTimer = null;
+window.addEventListener('resize', () => {
+    clearTimeout(markWrappedResizeTimer);
+    markWrappedResizeTimer = setTimeout(markWrappedRows, 150);
+});
+
 function loadPlayer(list, index, autoplay) {
     if (list.length === 0) return;
 
@@ -3001,6 +3155,12 @@ function loadPlayer(list, index, autoplay) {
         window.track_list = newTrackList;
         const script = document.createElement('script');
         script.src = 'players/main.js';
+        script.onload = () => {
+            curr_track.addEventListener('play', syncPlayIcon);
+            curr_track.addEventListener('pause', syncPlayIcon);
+            curr_track.addEventListener('ended', syncPlayIcon);
+            syncPlayIcon();
+        };
         document.body.appendChild(script);
     } else {
         track_list = newTrackList;
@@ -3063,6 +3223,7 @@ if (initialQuery) {
 // finished, so the reorder never flashes in front of the user.
 document.getElementById('list-loading').classList.add('hidden');
 document.getElementById('song-list-wrap').classList.add('ready');
+markWrappedRows();
 
 // Nav
 function toggleMenu() {

@@ -33,8 +33,10 @@ and after the sample list ends, in the line show again
 ~~8. "𝄟 ইসলামী সঙ্গীতের সবচেয়ে বড় অনলাইন ভাণ্ডার। 𝇟 কাজের তালে তালে শুনুন ইসলামী সঙ্গীত। মনকে রাখুন পবিত্র। 𝄤"-- make it multiline with larger and futuristic look.~~
 ~~9. all-songs.html and index.html: the song info color should be more constarsting with background. Sometimes reading the text is annoying for eyes.~~
 ~~10. all-songs.html and index.html: Prevent song info to extend to right icons. If the texts don't fit before the icons, move it to the next line, but adjus the layout not to take more than 2 lines for song info. follow the uploaded image for a guide, not a literal design.~~
-11. randomize albums.html slide sequence.
-
+~~11. randomize albums.html slide sequence.~~
+~~12. all-songs.html and index.html: current song play icon switches to pause icon (or moving circle); if anyhow the song is stopped, globally or from the website, switch back to play icon.~~
+~~13. all-songs.html and index.html: in two-line song info layout, connect the first items in both rows with an arc (as shown in the previous image)~~
+~~14. index.html: similar loading icon as in all-songs.html~~
 
 # Musical icons
 
