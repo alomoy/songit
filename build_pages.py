@@ -887,8 +887,14 @@ function toggleMenu() {
 def _index_hero_html(total_bn):
     return f'''<div class="search-hero">
   <h1 class="tagline">আপনার পছন্দের <span class="accent">সঙ্গীত</span> শুনুন</h1>
-  <p class="sub">এলোমেলোভাবে বাছাই করা কিছু গান — নিচে থেকে বাজান</p>
+  <p class="sub">বাছাইকৃত কিছু গান</p>
   <a href="all-songs.html" class="all-songs-link"><i class="fa fa-music"></i> সব {total_bn}টি গান দেখুন</a>
+  <div class="mini-stats" id="mini-stats">
+    <div class="mini-stat"><i class="fas fa-record-vinyl"></i><span class="mini-stat-number" id="mini-stat-albums">-</span><span class="mini-stat-label">অ্যালবাম</span></div>
+    <div class="mini-stat"><i class="fas fa-user"></i><span class="mini-stat-number" id="mini-stat-singers">-</span><span class="mini-stat-label">শিল্পী</span></div>
+    <div class="mini-stat"><i class="fas fa-users"></i><span class="mini-stat-number" id="mini-stat-groups">-</span><span class="mini-stat-label">শিল্পীগোষ্ঠী</span></div>
+    <div class="mini-stat"><i class="fas fa-music"></i><span class="mini-stat-number" id="mini-stat-songs">-</span><span class="mini-stat-label">গান</span></div>
+  </div>
 </div>'''
 
 
@@ -918,6 +924,11 @@ function parseCSV(text) {
             return obj;
         }, {});
     });
+}
+
+function convertToBanglaNumber(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(number).split('').map(d => banglaDigits[d] ?? d).join('');
 }
 
 function loadPlayer(list, index, autoplay) {
@@ -957,7 +968,14 @@ function playFromList(li) {
 fetch('radio/songs.csv')
     .then(r => r.text())
     .then(csvText => {
-        const rows = parseCSV(csvText).filter(r => (r.Song || '').trim() && (r.src || '').trim());
+        const allRows = parseCSV(csvText);
+        const uniq = key => new Set(allRows.map(r => r[key]).filter(v => v && v !== 'Uncat')).size;
+        document.getElementById('mini-stat-albums').textContent = convertToBanglaNumber(uniq('album_en'));
+        document.getElementById('mini-stat-singers').textContent = convertToBanglaNumber(uniq('singer'));
+        document.getElementById('mini-stat-groups').textContent = convertToBanglaNumber(uniq('group'));
+        document.getElementById('mini-stat-songs').textContent = convertToBanglaNumber(allRows.length);
+
+        const rows = allRows.filter(r => (r.Song || '').trim() && (r.src || '').trim());
         const picked = [...rows].sort(() => Math.random() - 0.5).slice(0, RANDOM_SONG_COUNT);
 
         const listEl = document.getElementById('song-list');
@@ -2277,6 +2295,45 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     .all-songs-link:hover {
         border-color: var(--accent-a);
         color: var(--accent-c);
+    }
+
+    .mini-stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        max-width: 560px;
+        margin: 22px auto 0;
+    }
+
+    .mini-stat {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 12px;
+        padding: 8px 14px;
+        backdrop-filter: blur(10px);
+    }
+
+    .mini-stat i {
+        font-size: 1rem;
+        background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .mini-stat-number {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .mini-stat-label {
+        font-size: 0.75rem;
+        color: var(--text-dim);
     }
 
     #player-root {
