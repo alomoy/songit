@@ -639,7 +639,10 @@ def load_all_songs(rows):
 
 
 def song_tag_link_html(text, href):
-    return f'<a class="song-tag" href="{esc(href)}" onclick="event.stopPropagation()">{esc(text)}</a>'
+    return (
+        f'<a class="song-tag" href="{esc(href)}" target="_blank" rel="noopener" '
+        f'onclick="event.stopPropagation()">{esc(text)}</a>'
+    )
 
 
 def song_li_html(song, index):
@@ -669,14 +672,15 @@ def song_li_html(song, index):
     if album:
         album_href = f"players/{album_en}.html" if album_en and album_en != "uncat" else f"all-songs.html?query={quote(album)}"
         tags.append(song_tag_link_html(album, album_href))
-    meta_html = " · ".join(tags)
+    meta_html = "".join(tags)
 
     return (
         f'<li data-name="{esc(name)}" data-artist="{esc(artist)}" data-album="{esc(album)}" '
         f'data-singer="{esc(singer)}" data-group="{esc(group)}" data-genre="{esc(genre)}" '
         f'data-subgenre="{esc(subgenre)}" data-image="{esc(image)}" data-path="{esc(path)}" '
         f'data-search="{esc(search_text)}">'
-        f'<a class="song-name" href="all-songs.html?query={quote(name)}" onclick="event.stopPropagation()">{esc(name)}</a>'
+        f'<a class="song-name" href="all-songs.html?query={quote(name)}" target="_blank" rel="noopener" '
+        f'onclick="event.stopPropagation()">{esc(name)}</a>'
         f'<span class="song-meta">{meta_html}</span></li>'
     )
 
@@ -983,6 +987,8 @@ function makeTagLink(text, href) {
     const a = document.createElement('a');
     a.className = 'song-tag';
     a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener';
     a.textContent = text;
     a.addEventListener('click', e => e.stopPropagation());
     return a;
@@ -1023,6 +1029,8 @@ fetch('radio/songs.csv')
             const nameLink = document.createElement('a');
             nameLink.className = 'song-name';
             nameLink.href = 'all-songs.html?query=' + encodeURIComponent(name);
+            nameLink.target = '_blank';
+            nameLink.rel = 'noopener';
             nameLink.textContent = name;
             nameLink.addEventListener('click', e => e.stopPropagation());
 
@@ -1037,10 +1045,7 @@ fetch('radio/songs.csv')
                     : 'all-songs.html?query=' + encodeURIComponent(album);
                 tagLinks.push(makeTagLink(album, albumHref));
             }
-            tagLinks.forEach((a, idx) => {
-                if (idx > 0) metaSpan.appendChild(document.createTextNode(' · '));
-                metaSpan.appendChild(a);
-            });
+            tagLinks.forEach(a => metaSpan.appendChild(a));
 
             li.appendChild(nameLink);
             li.appendChild(metaSpan);
@@ -2515,7 +2520,8 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
 
     .song-list li {
         display: flex;
-        align-items: baseline;
+        flex-wrap: wrap;
+        align-items: center;
         gap: 8px;
         padding: 12px 16px;
         cursor: pointer;
@@ -2560,33 +2566,45 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         font-weight: 700;
     }
 
+    .song-list .song-name,
+    .song-list .song-tag {
+        display: inline-block;
+        padding: 5px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--panel-border);
+        background: rgba(255, 255, 255, 0.04);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: border-color .15s, background .15s, color .15s;
+    }
+
+    .song-list .song-name:hover,
+    .song-list .song-tag:hover {
+        border-color: var(--accent-a);
+        background: rgba(53, 230, 255, 0.12);
+        color: var(--accent-a);
+    }
+
     .song-list .song-name {
         color: var(--text);
         font-weight: 600;
-        text-decoration: none;
-    }
-
-    .song-list .song-name:hover {
-        text-decoration: underline;
     }
 
     .song-list li.active .song-name {
         color: var(--accent-a);
+        border-color: var(--accent-a);
     }
 
     .song-list .song-meta {
-        color: var(--text-dim);
-        font-size: 0.8rem;
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
     .song-list .song-tag {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    .song-list .song-tag:hover {
-        color: var(--accent-a);
-        text-decoration: underline;
+        color: var(--text-dim);
+        font-size: 0.8rem;
+        font-weight: 400;
     }
 </style>
 
