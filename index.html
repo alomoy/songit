@@ -388,7 +388,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 8px;
+        gap: 0;
         padding: 12px 16px;
         cursor: pointer;
         color: var(--text-dim);
@@ -461,16 +461,32 @@
         border-color: var(--accent-a);
     }
 
-    .song-list .song-meta {
-        display: inline-flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
     .song-list .song-tag {
         color: var(--text-dim);
         font-size: 0.8rem;
         font-weight: 400;
+    }
+
+    /* The coupler between consecutive pills -- like linked train cars --
+       shows the song name/group/singer/album pills belong to one song,
+       instead of reading as unrelated floating chips. */
+    .song-list .song-link {
+        display: inline-block;
+        width: 14px;
+        height: 2px;
+        margin: 0 -1px;
+        border-radius: 2px;
+        background: var(--panel-border);
+        flex-shrink: 0;
+        transition: background .15s;
+    }
+
+    .song-list li:hover .song-link {
+        background: rgba(53, 230, 255, 0.4);
+    }
+
+    .song-list li.active .song-link {
+        background: var(--accent-a);
     }
 </style>
 
@@ -663,6 +679,13 @@ function makeTagLink(text, href) {
     return a;
 }
 
+function makeSongLink() {
+    const s = document.createElement('span');
+    s.className = 'song-link';
+    s.setAttribute('aria-hidden', 'true');
+    return s;
+}
+
 fetch('radio/songs.csv')
     .then(r => r.text())
     .then(csvText => {
@@ -703,8 +726,6 @@ fetch('radio/songs.csv')
             nameLink.textContent = name;
             nameLink.addEventListener('click', e => e.stopPropagation());
 
-            const metaSpan = document.createElement('span');
-            metaSpan.className = 'song-meta';
             const tagLinks = [];
             if (group) tagLinks.push(makeTagLink(group, 'all-songs.html?query=' + encodeURIComponent(group)));
             if (singer) tagLinks.push(makeTagLink(singer, 'all-songs.html?query=' + encodeURIComponent(singer)));
@@ -714,10 +735,12 @@ fetch('radio/songs.csv')
                     : 'all-songs.html?query=' + encodeURIComponent(album);
                 tagLinks.push(makeTagLink(album, albumHref));
             }
-            tagLinks.forEach(a => metaSpan.appendChild(a));
 
             li.appendChild(nameLink);
-            li.appendChild(metaSpan);
+            tagLinks.forEach(a => {
+                li.appendChild(makeSongLink());
+                li.appendChild(a);
+            });
             li.addEventListener('click', () => playFromList(li));
             listEl.insertBefore(li, loadingRow);
         });

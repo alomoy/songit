@@ -645,6 +645,12 @@ def song_tag_link_html(text, href):
     )
 
 
+# A small coupler between consecutive pills (song name/group/singer/album)
+# so they read as linked cars of one song's info rather than unrelated
+# floating chips -- see how-txt item 3.
+SONG_LINK_HTML = '<span class="song-link" aria-hidden="true"></span>'
+
+
 def song_li_html(song, index):
     name = song["Song"].strip()
     album = (song.get("album") or "").strip()
@@ -664,24 +670,25 @@ def song_li_html(song, index):
     ]
     search_text = " ".join(f for f in search_fields if f).lower()
 
-    tags = []
+    parts = [
+        f'<a class="song-name" href="all-songs.html?query={quote(name)}" target="_blank" rel="noopener" '
+        f'onclick="event.stopPropagation()">{esc(name)}</a>'
+    ]
     if group:
-        tags.append(song_tag_link_html(group, f"all-songs.html?query={quote(group)}"))
+        parts.append(song_tag_link_html(group, f"all-songs.html?query={quote(group)}"))
     if singer:
-        tags.append(song_tag_link_html(singer, f"all-songs.html?query={quote(singer)}"))
+        parts.append(song_tag_link_html(singer, f"all-songs.html?query={quote(singer)}"))
     if album:
         album_href = f"players/{album_en}.html" if album_en and album_en != "uncat" else f"all-songs.html?query={quote(album)}"
-        tags.append(song_tag_link_html(album, album_href))
-    meta_html = "".join(tags)
+        parts.append(song_tag_link_html(album, album_href))
+    chained_html = SONG_LINK_HTML.join(parts)
 
     return (
         f'<li data-name="{esc(name)}" data-artist="{esc(artist)}" data-album="{esc(album)}" '
         f'data-singer="{esc(singer)}" data-group="{esc(group)}" data-genre="{esc(genre)}" '
         f'data-subgenre="{esc(subgenre)}" data-image="{esc(image)}" data-path="{esc(path)}" '
         f'data-search="{esc(search_text)}">'
-        f'<a class="song-name" href="all-songs.html?query={quote(name)}" target="_blank" rel="noopener" '
-        f'onclick="event.stopPropagation()">{esc(name)}</a>'
-        f'<span class="song-meta">{meta_html}</span></li>'
+        f'{chained_html}</li>'
     )
 
 
@@ -994,6 +1001,13 @@ function makeTagLink(text, href) {
     return a;
 }
 
+function makeSongLink() {
+    const s = document.createElement('span');
+    s.className = 'song-link';
+    s.setAttribute('aria-hidden', 'true');
+    return s;
+}
+
 fetch('radio/songs.csv')
     .then(r => r.text())
     .then(csvText => {
@@ -1034,8 +1048,6 @@ fetch('radio/songs.csv')
             nameLink.textContent = name;
             nameLink.addEventListener('click', e => e.stopPropagation());
 
-            const metaSpan = document.createElement('span');
-            metaSpan.className = 'song-meta';
             const tagLinks = [];
             if (group) tagLinks.push(makeTagLink(group, 'all-songs.html?query=' + encodeURIComponent(group)));
             if (singer) tagLinks.push(makeTagLink(singer, 'all-songs.html?query=' + encodeURIComponent(singer)));
@@ -1045,10 +1057,12 @@ fetch('radio/songs.csv')
                     : 'all-songs.html?query=' + encodeURIComponent(album);
                 tagLinks.push(makeTagLink(album, albumHref));
             }
-            tagLinks.forEach(a => metaSpan.appendChild(a));
 
             li.appendChild(nameLink);
-            li.appendChild(metaSpan);
+            tagLinks.forEach(a => {
+                li.appendChild(makeSongLink());
+                li.appendChild(a);
+            });
             li.addEventListener('click', () => playFromList(li));
             listEl.insertBefore(li, loadingRow);
         });
@@ -2522,7 +2536,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 8px;
+        gap: 0;
         padding: 12px 16px;
         cursor: pointer;
         color: var(--text-dim);
@@ -2595,16 +2609,32 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         border-color: var(--accent-a);
     }
 
-    .song-list .song-meta {
-        display: inline-flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
     .song-list .song-tag {
         color: var(--text-dim);
         font-size: 0.8rem;
         font-weight: 400;
+    }
+
+    /* The coupler between consecutive pills -- like linked train cars --
+       shows the song name/group/singer/album pills belong to one song,
+       instead of reading as unrelated floating chips. */
+    .song-list .song-link {
+        display: inline-block;
+        width: 14px;
+        height: 2px;
+        margin: 0 -1px;
+        border-radius: 2px;
+        background: var(--panel-border);
+        flex-shrink: 0;
+        transition: background .15s;
+    }
+
+    .song-list li:hover .song-link {
+        background: rgba(53, 230, 255, 0.4);
+    }
+
+    .song-list li.active .song-link {
+        background: var(--accent-a);
     }
 </style>
 

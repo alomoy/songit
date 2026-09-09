@@ -7,7 +7,7 @@ Just strike through the done items (no comment about what's done)
 ~~1. In all-songs.html and index.html, wrap Song, group and singer in separate layout and link each to respective location. (Song -> all-songs.html?query="Song", group ->all-songs.html?query="group", same for singer). If album is shown in song list, hyperlink to that album page.~~
 ~~2. The links in 1 works, but two things. a. open in a new tab so current player continues. b. an example: শোনো শোনো ইয়া এলাহী
 তারিক মুনাওয়ার · তারিক মুনাওয়ার-০১. put all parts (one part is শোনো শোনো ইয়া এলাহী) in separate background (same design but different area, rounded long boxes). If not clear, tell me. Follow the upload image for strcuture, but retain the original backgorund and layout design.~~
-3. Connect the grid of same song info the synapse of train cars are connect to indicate they constitute a single song info.  In all-songs.html and index.html.
+~~3. Connect the grid of same song info the synapse of train cars are connect to indicate they constitute a single song info.  In all-songs.html and index.html.~~
 
 # Musical icons
 
