@@ -1326,6 +1326,7 @@ ALBUMS_TEMPLATE = r'''<!DOCTYPE html>
     -->
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="favicon.ico">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#060a16">
     <link rel="apple-touch-icon" href="{{LOGO}}">
@@ -1760,6 +1761,7 @@ SINGERS_TEMPLATE = r'''<!DOCTYPE html>
     -->
     <!-- Link to FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="favicon.ico">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#060a16">
     <link rel="apple-touch-icon" href="{{LOGO}}">
@@ -2113,6 +2115,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <!-- PWA -->
+<link rel="icon" href="favicon.ico">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#060a16">
 <link rel="apple-touch-icon" href="{{LOGO}}">
