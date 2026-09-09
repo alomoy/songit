@@ -82,16 +82,16 @@ def load_rows():
         return list(csv.DictReader(f))
 
 
-def render_nav(active_href):
+def render_nav(active_href, prefix=""):
     def nav_link(href, label):
         cls = ' class="active"' if href == active_href else ''
-        return f'    <a href="{href}"{cls}>{label}</a>'
+        return f'    <a href="{prefix}{href}"{cls}>{label}</a>'
 
     links = "\n".join(nav_link(href, label) for href, label in NAV_ITEMS)
     return f'''<div class="topnav" id="myTopnav">
   <div class="logo-section">
-    <a href="index.html">
-      <img src="{LOGO_PATH}" alt="Alomoy Sangeet Logo">
+    <a href="{prefix}index.html">
+      <img src="{prefix}{LOGO_PATH}" alt="Alomoy Sangeet Logo">
       <div class="company-info">
         <strong>আলোময় সঙ্গীত</strong><br>
         <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
@@ -108,117 +108,8 @@ def render_nav(active_href):
 
 
 # ---------------------------------------------------------------------------
-# players/<album_en>.html + players/<album_en>.js
+# players/<album_en>.html
 # ---------------------------------------------------------------------------
-
-PLAYER_STOCK_IMAGES = [
-    "mount.jpg", "nature.jpg", "trail.jpg", "karakoram.jpg", "hillroad.jpg",
-    "mtroad.jpg", "tunnel.jpg", "train.jpg", "sajek.jpg", "nature.jpg",
-    "mtroad.jpg", "mount.jpg", "mosque.jpg", "nature.jpg", "sajek.jpg",
-    "laptop.jpg",
-]
-
-PLAYER_HTML_TEMPLATE = '''<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>অ্যালবাম:  {album} ~  {singer} | আলোময় সঙ্গীত</title>
-        <meta name="description" content="{description}">
-  <!-- Load FontAwesome icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-
-  <!-- Load the custom CSS style file -->
-  <link rel="stylesheet" type="text/css" href="style.css">
-      <link href="../css/custom.css" rel="stylesheet">
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){{dataLayer.push(arguments);}}
-  gtag('js', new Date());
-
-  gtag('config', 'G-RN5RYTV144');
-</script>
-
-
-</head>
-<body>
-  <div class="player">
-    <div class="details">
-      <div class="site-brand">
-        <img src="../{logo}" alt="আলোময় সঙ্গীত" class="site-logo">
-        <div class="site-brand-text">
-          <div class="site-title">আলোময় সঙ্গীত</div>
-          <div class="site-subtitle">সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</div>
-        </div>
-      </div>
-      <div class="track-art"></div>
-      <div class="track-album">{album}</div>
-      <div class="track-name">{first_name}</div>
-      <div class="track-artist">{first_artist}</div>
-</br>
-            <div class="header-content-inner">
-                <a href="../index.html" class="btn btn-primary btn-lg">হোম</a>
-                <a href="../albums.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> <a id="download-link" href="" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button>
-            </div>
-
-    </div>
-    <div class="buttons">
-      <div class="repeat-track" onclick="toggleRepeat()" title="Repeat: All">
-        <i class="fa fa-redo fa-2x"></i><span class="repeat-badge">১</span>
-      </div>
-      <div class="fast-backward" onclick="fastBackward()"><i class="fa fa-backward fa-2x"></i></div>
-      <div class="prev-track" onclick="prevTrack()"><i class="fa fa-step-backward fa-2x"></i></div>
-      <div class="playpause-track" onclick="playpauseTrack()"><i class="fa fa-play-circle fa-5x"></i></div>
-      <div class="next-track" onclick="nextTrack()"><i class="fa fa-step-forward fa-2x"></i></div>
-      <div class="fast-forward" onclick="fastForward()"><i class="fa fa-forward fa-2x"></i></div>
-      <div class="shuffle-track" onclick="toggleShuffle()" title="Shuffle: Off">
-        <i class="fa fa-random fa-2x"></i>
-      </div>
-    </div>
-    <div class="slider_container">
-      <div class="current-time">00:00</div>
-      <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
-      <div class="total-duration">00:00</div>
-      <div class="volume-track">
-        <div class="volume-icon" onclick="toggleVolumeSlider(event)"><i class="fa fa-volume-up fa-2x"></i></div>
-        <div class="volume_popup">
-          <input type="range" min="0" max="100" value="99" class="volume_slider" onclick="event.stopPropagation()" onchange="setVolume()">
-        </div>
-      </div>
-    </div>
-    <div class="now-playing">Playing 1 OF {track_count}</div>
-    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
-{track_list_html}
-    </ol>
-  </div>
-
-  <!-- Load the main script for the player -->
-  <script src="{slug}.js"></script>
-  <script src="main.js"></script>
-</body>
-</html>
-'''.replace("{logo}", LOGO_PATH)
-
-PLAYER_TRACK_OBJ_RE = re.compile(
-    r'name:\s*"((?:[^"\\]|\\.)*)"\s*,\s*'
-    r'artist:\s*"((?:[^"\\]|\\.)*)"\s*,\s*'
-    r'album:\s*"((?:[^"\\]|\\.)*)"\s*,\s*'
-    r'image:\s*"((?:[^"\\]|\\.)*)"\s*,\s*'
-    r'path:\s*"((?:[^"\\]|\\.)*)"',
-    re.S,
-)
-
-
-def js_str(s):
-    return s.replace("\\", "\\\\").replace('"', '\\"')
-
-
-def js_unescape(s):
-    return s.replace('\\"', '"').replace("\\\\", "\\")
-
 
 def group_rows_by_album(rows):
     by_album = defaultdict(list)
@@ -227,155 +118,6 @@ def group_rows_by_album(rows):
         if a and a != "Uncat":
             by_album[a].append(r)
     return by_album
-
-
-def build_track_list_js(tracks):
-    lines = ["let track_list = ["]
-    for t in tracks:
-        lines.append("  {")
-        lines.append(f'    name: "{js_str(t["name"])}",')
-        lines.append(f'    artist: "{js_str(t["artist"])}",')
-        lines.append(f'    album: "{js_str(t["album"])}",')
-        lines.append(f'    image: "../images/{t["image"]}",')
-        lines.append(f'    path: "{js_str(t["path"])}"')
-        lines.append("  },")
-    lines.append("];")
-    return "// Define the tracks that have to be played\n" + "\n".join(lines) + "\n"
-
-
-def build_player_track_list_html(tracks):
-    items = []
-    for i, t in enumerate(tracks, start=1):
-        items.append(
-            f'        <li data-track-index="{i-1}">{bengali_numeral(i)}. {esc(t["name"])}</li>'
-        )
-    return "\n".join(items)
-
-
-def make_description(album, singer, n):
-    return f"{singer} পরিবেশিত অ্যালবাম {album}। এই অ্যালবামে রয়েছে {n}টি গান।"
-
-
-def tracks_from_csv_rows(rows, existing_by_name=None):
-    # The CSV is the sole source of truth for name/artist/album/path (even
-    # blank/incorrect values sync through as-is — fix those in the CSV).
-    # Images aren't in the CSV at all though, so per-track art is still
-    # matched by song name against the existing page and preserved; only
-    # genuinely new tracks get a fresh stock photo.
-    existing_by_name = existing_by_name or {}
-    tracks = []
-    stock_i = 0
-    for r in rows:
-        name = r["Song"].strip()
-        artist = r["group"].strip() or r["singer"].strip()
-        existing = existing_by_name.get(name)
-        image = existing["image"] if existing else None
-        if not image:
-            image = PLAYER_STOCK_IMAGES[stock_i % len(PLAYER_STOCK_IMAGES)]
-        stock_i += 1
-        tracks.append({
-            "name": name,
-            "artist": artist,
-            "album": r["album"].strip(),
-            "image": image,
-            "path": r["src"].strip(),
-        })
-    return tracks
-
-
-def parse_existing_tracks(js_path):
-    if not os.path.exists(js_path):
-        return []
-    text = open(js_path, encoding="utf-8").read()
-    tracks = []
-    for m in PLAYER_TRACK_OBJ_RE.finditer(text):
-        name, artist, album, image, path = (js_unescape(g) for g in m.groups())
-        image_file = image.rsplit("/", 1)[-1]
-        tracks.append({"name": name, "artist": artist, "album": album, "image": image_file, "path": path})
-    return tracks
-
-
-def create_player_page(slug, rows):
-    tracks = tracks_from_csv_rows(rows)
-    album = rows[0]["album"].strip()
-    singer_counts = Counter(
-        (r["group"].strip() or r["singer"].strip())
-        for r in rows if r["group"].strip() or r["singer"].strip()
-    )
-    singer = singer_counts.most_common(1)[0][0] if singer_counts else ""
-    description = make_description(album, singer, len(tracks))
-
-    html_text = PLAYER_HTML_TEMPLATE.format(
-        album=esc(album),
-        singer=esc(singer),
-        description=esc(description),
-        track_count=len(tracks),
-        first_name=esc(tracks[0]["name"]),
-        first_artist=esc(tracks[0]["artist"]),
-        track_list_html=build_player_track_list_html(tracks),
-        slug=slug,
-    )
-    with open(os.path.join(PLAYERS, slug + ".html"), "w", encoding="utf-8") as f:
-        f.write(html_text)
-    with open(os.path.join(PLAYERS, slug + ".js"), "w", encoding="utf-8") as f:
-        f.write(build_track_list_js(tracks))
-
-
-def update_player_page(slug, rows):
-    js_path = os.path.join(PLAYERS, slug + ".js")
-    html_path = os.path.join(PLAYERS, slug + ".html")
-    if not os.path.exists(html_path):
-        return False
-
-    existing_tracks = parse_existing_tracks(js_path)
-    existing_by_name = {t["name"]: t for t in existing_tracks}
-    new_tracks = tracks_from_csv_rows(rows, existing_by_name)
-
-    html_text = open(html_path, encoding="utf-8").read()
-    has_track_list = bool(re.search(r'<ol class="track-list-static"', html_text))
-
-    if new_tracks == existing_tracks and has_track_list:
-        return False  # nothing changed, don't touch the files
-
-    with open(js_path, "w", encoding="utf-8") as f:
-        f.write(build_track_list_js(new_tracks))
-    html_text = re.sub(
-        r'<div class="now-playing">.*?</div>',
-        f'<div class="now-playing">Playing 1 OF {len(new_tracks)}</div>',
-        html_text, count=1,
-    )
-    html_text = re.sub(
-        r'<div class="track-album">.*?</div>',
-        f'<div class="track-album">{esc(new_tracks[0]["album"])}</div>',
-        html_text, count=1,
-    )
-    html_text = re.sub(
-        r'<div class="track-name">.*?</div>',
-        f'<div class="track-name">{esc(new_tracks[0]["name"])}</div>',
-        html_text, count=1,
-    )
-    html_text = re.sub(
-        r'<div class="track-artist">.*?</div>',
-        f'<div class="track-artist">{esc(new_tracks[0]["artist"])}</div>',
-        html_text, count=1,
-    )
-    new_ol = f'<ol class="track-list-static" aria-label="সকল গানের তালিকা">\n{build_player_track_list_html(new_tracks)}\n    </ol>'
-    if re.search(r'<ol class="track-list-static"[^>]*>.*?</ol>', html_text, flags=re.S):
-        html_text = re.sub(
-            r'<ol class="track-list-static"[^>]*>.*?</ol>',
-            new_ol, html_text, count=1, flags=re.S,
-        )
-    else:
-        # Legacy page predating this feature — there's nothing to
-        # substitute into, so append it right before .player's closing tag.
-        html_text = re.sub(
-            r'(    </div>\n  </div>\n)',
-            f'    </div>\n    {new_ol}\n  </div>\n',
-            html_text, count=1,
-        )
-    with open(html_path, "w", encoding="utf-8") as f:
-        f.write(html_text)
-    return True
 
 
 def sync_players(rows):
@@ -388,21 +130,26 @@ def sync_players(rows):
     for slug in sorted(existing):
         if slug.lower() not in album_en_lower:
             os.remove(os.path.join(PLAYERS, slug + ".html"))
-            os.remove(os.path.join(PLAYERS, slug + ".js"))
             deleted.append(slug)
-    deleted_lower = set(d.lower() for d in deleted)
 
     created, updated, unchanged = [], [], []
     for album_en, album_rows in sorted(by_album.items()):
         slug = album_en.lower()
-        if slug not in existing_lower or slug in deleted_lower:
-            create_player_page(slug, album_rows)
+        status = write_player_page(slug, album_rows)
+        if status == "created":
             created.append(slug)
+        elif status == "updated":
+            updated.append(slug)
         else:
-            if update_player_page(slug, album_rows):
-                updated.append(slug)
-            else:
-                unchanged.append(slug)
+            unchanged.append(slug)
+
+    # Per-album track data now lives in the page itself, not a companion
+    # .js file, so any left over from before this migration (or a deleted
+    # album) are dead weight -- main.js/template.js are the only .js files
+    # this directory should still carry.
+    for f in os.listdir(PLAYERS):
+        if f.endswith(".js") and f not in ("main.js", "template.js"):
+            os.remove(os.path.join(PLAYERS, f))
 
     return {"deleted": deleted, "created": created, "updated": updated, "unchanged": unchanged}
 
@@ -432,10 +179,8 @@ def load_albums_for_index():
         title_m = re.search(r'<title>(?:অ্যালবাম:\s*)?(.*?)\s*~\s*(.*?)(?:\s*\|.*)?</title>', text)
         album = title_m.group(1).strip() if title_m and title_m.group(1).strip() else slug
         singer = title_m.group(2).strip() if title_m else ""
-        count_m = re.search(r'Playing 1 OF (\d+)', text)
-        count = int(count_m.group(1)) if count_m else 0
-        js_text = open(f[:-5] + ".js", encoding="utf-8").read()
-        img_m = re.search(r'image:\s*"([^"]+)"', js_text)
+        count = len(re.findall(r'<li data-name=', text))
+        img_m = re.search(r'data-image="([^"]+)"', text)
         image = normalize_image(img_m.group(1)) if img_m else "images/mount.jpg"
         albums.append({"slug": slug, "album": album, "singer": singer, "count": count, "image": image})
     return albums
@@ -666,7 +411,7 @@ def song_download_link_html(path):
     )
 
 
-def song_li_html(song, index):
+def song_li_html(song, index, href_prefix="", show_album=True):
     name = song["Song"].strip()
     album = (song.get("album") or "").strip()
     singer = (song.get("singer") or "").strip()
@@ -674,7 +419,7 @@ def song_li_html(song, index):
     genre = (song.get("genre") or "").strip()
     subgenre = (song.get("subgenre") or "").strip()
     artist = group or singer
-    image = ALL_SONGS_STOCK_IMAGES[index % len(ALL_SONGS_STOCK_IMAGES)]
+    image = href_prefix + ALL_SONGS_STOCK_IMAGES[index % len(ALL_SONGS_STOCK_IMAGES)]
     path = (song.get("src") or "").strip()
     album_en = (song.get("album_en") or "").strip().lower()
 
@@ -686,15 +431,18 @@ def song_li_html(song, index):
     search_text = " ".join(f for f in search_fields if f).lower()
 
     parts = [
-        f'<a class="song-name" href="all-songs.html?query={quote(name)}" target="_blank" rel="noopener" '
+        f'<a class="song-name" href="{href_prefix}all-songs.html?query={quote(name)}" target="_blank" rel="noopener" '
         f'onclick="event.stopPropagation()">{esc(name)}</a>'
     ]
     if group:
-        parts.append(song_tag_link_html(group, f"all-songs.html?query={quote(group)}"))
+        parts.append(song_tag_link_html(group, f"{href_prefix}all-songs.html?query={quote(group)}"))
     if singer:
-        parts.append(song_tag_link_html(singer, f"all-songs.html?query={quote(singer)}"))
-    if album:
-        album_href = f"players/{album_en}.html" if album_en and album_en != "uncat" else f"all-songs.html?query={quote(album)}"
+        parts.append(song_tag_link_html(singer, f"{href_prefix}all-songs.html?query={quote(singer)}"))
+    if show_album and album:
+        album_href = (
+            f"{href_prefix}players/{album_en}.html" if album_en and album_en != "uncat"
+            else f"{href_prefix}all-songs.html?query={quote(album)}"
+        )
         parts.append(song_tag_link_html(album, album_href))
     chained_html = SONG_LINK_HTML.join(parts)
 
@@ -971,6 +719,148 @@ function toggleMenu() {
 }
     </script>'''
 
+# A per-album player page shares all-songs.html's list/search/player
+# machinery, minus the multi-dimension filter panel (pointless when every
+# row is already the same album) -- see how-txt item 15. main.js loads
+# from the same directory ('main.js', not 'players/main.js') since this
+# page already lives in players/.
+_PLAYER_SCRIPT_BLOCK = '''    <script>
+let mainJsLoaded = false;
+let searchDebounce = null;
+let currentList = [];
+
+const allItems = Array.from(document.querySelectorAll('#song-list li[data-name]'));
+const noMatchRow = document.getElementById('no-match-row');
+const totalCount = allItems.length;
+
+function convertToBanglaNumber(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(number).split('').map(d => banglaDigits[d] ?? d).join('');
+}
+
+function updateCount(visible) {
+    document.getElementById('count-line').textContent =
+        `${convertToBanglaNumber(visible)} / ${convertToBanglaNumber(totalCount)}টি গান`;
+}
+
+function applyFilters() {
+    const q = document.getElementById('search-input').value.trim().toLowerCase();
+    const visible = [];
+    allItems.forEach(li => {
+        const match = !q || li.dataset.search.includes(q);
+        li.style.display = match ? '' : 'none';
+        if (match) visible.push(li);
+    });
+
+    currentList = visible;
+    updateCount(visible.length);
+    noMatchRow.style.display = visible.length === 0 ? '' : 'none';
+}
+
+function syncPlayIcon() {
+    document.querySelectorAll('#song-list li .song-play i').forEach(i => { i.className = 'fa fa-play'; });
+    const activeLi = document.querySelector('#song-list li.active');
+    if (activeLi && typeof curr_track !== 'undefined' && curr_track && !curr_track.paused) {
+        const icon = activeLi.querySelector('.song-play i');
+        if (icon) icon.className = 'fa fa-pause';
+    }
+}
+
+function markWrappedRows() {
+    document.querySelectorAll('#song-list .song-info').forEach(info => {
+        const children = Array.from(info.children);
+        if (children.length < 2) {
+            info.classList.remove('wrapped');
+            return;
+        }
+        const firstTop = children[0].offsetTop;
+        const wraps = children.some(el => el.offsetTop > firstTop + 4);
+        info.classList.toggle('wrapped', wraps);
+    });
+}
+
+let markWrappedResizeTimer = null;
+window.addEventListener('resize', () => {
+    clearTimeout(markWrappedResizeTimer);
+    markWrappedResizeTimer = setTimeout(markWrappedRows, 150);
+});
+
+function loadPlayer(list, index, autoplay) {
+    if (list.length === 0) return;
+
+    const newTrackList = list.map(li => ({
+        name: li.dataset.name,
+        artist: li.dataset.artist,
+        album: li.dataset.album,
+        image: li.dataset.image,
+        path: li.dataset.path,
+    }));
+
+    allItems.forEach(li => li.classList.remove('active'));
+    list[index].classList.add('active');
+
+    if (!mainJsLoaded) {
+        mainJsLoaded = true;
+        window.track_list = newTrackList;
+        const script = document.createElement('script');
+        script.src = 'main.js';
+        script.onload = () => {
+            curr_track.addEventListener('play', syncPlayIcon);
+            curr_track.addEventListener('pause', syncPlayIcon);
+            curr_track.addEventListener('ended', syncPlayIcon);
+            syncPlayIcon();
+        };
+        document.body.appendChild(script);
+    } else {
+        track_list = newTrackList;
+        track_index = index;
+        loadTrack(index);
+        if (autoplay) playTrack();
+    }
+}
+
+function playFromList(li) {
+    const index = currentList.indexOf(li);
+    if (index === -1) return;
+    loadPlayer(currentList, index, true);
+}
+
+allItems.forEach(li => {
+    li.addEventListener('click', () => playFromList(li));
+});
+
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(applyFilters, 250);
+});
+
+const initialQuery = new URLSearchParams(window.location.search).get('query') || '';
+if (initialQuery) {
+    searchInput.value = initialQuery;
+    applyFilters();
+    loadPlayer(currentList, 0, false);
+} else {
+    // Shuffle the visual order once on load so repeat visits don't always
+    // see the same handful of songs first.
+    const listEl = document.getElementById('song-list');
+    const shuffled = [...allItems].sort(() => Math.random() - 0.5);
+    shuffled.forEach(li => listEl.insertBefore(li, noMatchRow));
+    currentList = shuffled;
+    updateCount(totalCount);
+    loadPlayer(shuffled, 0, false);
+}
+
+document.getElementById('list-loading').classList.add('hidden');
+document.getElementById('song-list-wrap').classList.add('ready');
+markWrappedRows();
+
+function toggleMenu() {
+  var menu = document.querySelector(".topnav .menu");
+  menu.classList.toggle("show");
+}
+    </script>'''
+
 
 def _index_hero_html(total_bn):
     return f'''<div class="search-hero">
@@ -1235,6 +1125,80 @@ def build_index_html(rows):
         .replace("{{BREADCRUMB_NAME}}", "হোম")
     )
     return html, total
+
+
+# ---------------------------------------------------------------------------
+# players/<album_en>.html
+# ---------------------------------------------------------------------------
+# Player pages share all-songs.html's whole design/list/search/player
+# machinery (see how-txt item 15) rather than a bespoke template with a
+# hand-maintained per-track JS array -- every track's data is baked
+# straight into its <li data-*> from the CSV, same as all-songs.html, so
+# there's no more per-track art matched-and-preserved across builds; art
+# just rotates through the same stock set every song list uses.
+
+def _player_hero_html(album, singer, total_bn):
+    singer_html = f'\n  <p class="sub">{esc(singer)}</p>' if singer else ""
+    return f'''<div class="search-hero">
+  <h1 class="tagline">{esc(album)}</h1>{singer_html}
+  <div class="search-row">
+    <i class="fa fa-search"></i>
+    <input type="text" id="search-input" placeholder="গান খুঁজুন..." autocomplete="off">
+  </div>
+  <div class="count-line" id="count-line">{total_bn} / {total_bn}টি গান</div>
+  <a href="../albums.html" class="all-songs-link"><i class="fa fa-list"></i> সব অ্যালবাম দেখুন</a>
+</div>'''
+
+
+def build_player_html(slug, rows):
+    songs = sorted(rows, key=lambda r: r["Song"].strip())
+    album = rows[0]["album"].strip()
+    singer_counts = Counter(
+        (r["group"].strip() or r["singer"].strip())
+        for r in rows if r["group"].strip() or r["singer"].strip()
+    )
+    singer = singer_counts.most_common(1)[0][0] if singer_counts else ""
+    total = len(songs)
+    total_bn = bengali_numeral(total)
+    items_html = "\n".join(
+        song_li_html(s, i, href_prefix="../", show_album=False) for i, s in enumerate(songs)
+    )
+
+    html = (
+        ALL_SONGS_TEMPLATE
+        .replace(_ALL_SONGS_HERO_BLOCK, _player_hero_html(album, singer, total_bn))
+        .replace(_ALL_SONGS_SCRIPT_BLOCK, _PLAYER_SCRIPT_BLOCK)
+        .replace("{{NAV}}", render_nav("", prefix="../"))
+        .replace("{{PAGE_TITLE}}", f"অ্যালবাম: {esc(album)} ~ {esc(singer)} | আলোময় সঙ্গীত")
+        .replace("{{CANONICAL_URL}}", f"{SITE_BASE_URL}/players/{slug}.html")
+        .replace("{{BREADCRUMB_NAME}}", album)
+        .replace("{{SONG_ITEMS}}", items_html)
+    )
+    # ALL_SONGS_TEMPLATE assumes it's served from the site root; this page
+    # lives one directory down in players/, so fix up every root-relative
+    # asset/page reference it carries.
+    html = (
+        html
+        .replace('href="css/header.css"', 'href="../css/header.css"')
+        .replace('href="players/style.css"', 'href="style.css"')
+        .replace('href="manifest.json"', 'href="../manifest.json"')
+        .replace('href="images/alomoy-clean.png"', 'href="../images/alomoy-clean.png"')
+        .replace('register("sw.js")', 'register("../sw.js")')
+        .replace('href="all-songs.html', 'href="../all-songs.html')
+    )
+    return html, total
+
+
+def write_player_page(slug, rows):
+    html_text, count = build_player_html(slug, rows)
+    path = os.path.join(PLAYERS, slug + ".html")
+    existing = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+    if existing == html_text:
+        return "unchanged"
+    is_new = existing is None
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(html_text)
+    return "created" if is_new else "updated"
 
 
 STAT_TEMPLATE = r'''<!DOCTYPE html>

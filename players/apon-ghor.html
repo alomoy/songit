@@ -1,16 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>অ্যালবাম:  আপন ঘর ~  রোকনুজ্জামান | আলোময় সঙ্গীত</title>
-        <meta name="description" content="শিল্পী রোকনুজ্জামান পরিবেশিত ৭ম অডিও অ্যালবাম আপন ঘর। প্রযোজনায়: CHP (সিএইচপি) ও পরিবেশনায়: স্পন্দন অডিও ভিজ্যুয়াল সেন্টার।">
-  <!-- Load FontAwesome icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="আলোময় সঙ্গীত অনলাইনে ইসলামী সঙ্গীত শোনার শীর্ষ ওয়েবসাইট। অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি। রয়েছে দেশবরেণ্য শিল্পীদের সঙ্গীত। মেন্যু থেকে শিল্পী, শিল্পীগোষ্ঠী বা বিভাগ বাছাই করুন। করতে পারবেন সার্চও।">
+    <meta name="robots" content="index, follow">
+    <title>অ্যালবাম: আপন ঘর ~ সাইমুম শিল্পীগোষ্ঠী | আলোময় সঙ্গীত</title>
+    <!-- ShareThis removed for now (see how-txt item 51):
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6760d0c4a0922d001f328006&product=sticky-share-buttons&source=platform" async="async"></script>
+    -->
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="canonical" href="https://alomoy.github.io/songit/players/apon-ghor.html">
+    <!-- Open Graph Meta Tags -->
+<meta property="og:title" content="আলোময় সঙ্গীত  -  অনলাইন সঙ্গীত প্লেয়ার">
+<meta property="og:description" content="অনলাইন প্লেলিস্ট অন করে কাজের ফাঁকে বা অবসর সময়ে বসে বসে গান শোনার অনন্য সাইট এটি">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alomoy.github.io/songit/players/apon-ghor.html">
+<meta property="og:image" content="https://alomoy.github.io/songit/images/bg/alomoy_banner.jpg">
+<meta property="og:locale" content="bn_BD">
+<meta property="og:site_name" content="আলোময় সঙ্গীত">
 
-  <!-- Load the custom CSS style file -->
-  <link rel="stylesheet" type="text/css" href="style.css">
-      <link href="../css/custom.css" rel="stylesheet">	  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!-- PWA -->
+<link rel="icon" href="favicon.ico">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#060a16">
+<link rel="apple-touch-icon" href="../images/alomoy-clean.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="আলোময় সঙ্গীত">
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("../sw.js").catch(function () {});
+    });
+  }
+</script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RN5RYTV144"></script>
@@ -22,73 +49,860 @@
   gtag('config', 'G-RN5RYTV144');
 </script>
 
-	
+<style>
+    * { box-sizing: border-box; }
+
+    /* header.css's body sets a fixed background image + flex centering meant
+       for the old light pages; this page reuses the dark player theme
+       instead, so override those specifically rather than editing the
+       shared stylesheet. */
+    body {
+        background: var(--bg);
+    }
+
+    .search-hero {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 90px 20px 10px;
+        text-align: center;
+    }
+
+    .search-hero .tagline {
+        font-size: clamp(1.4rem, 4vw, 2.2rem);
+        margin: 0 0 18px;
+        font-weight: 700;
+    }
+
+    .search-hero .tagline .accent {
+        background: linear-gradient(90deg, var(--accent-a), var(--accent-c));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .search-hero .search-row {
+        position: relative;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .search-hero .search-row input {
+        width: 100%;
+        padding: 14px 18px 14px 46px;
+        border-radius: 14px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel);
+        color: var(--text);
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .search-hero .search-row input:focus {
+        border-color: var(--accent-a);
+        box-shadow: 0 0 0 3px rgba(53, 230, 255, 0.15);
+    }
+
+    .search-hero .search-row i {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-dim);
+    }
+
+    .filter-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel);
+        color: var(--text-dim);
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: border-color .2s, color .2s;
+    }
+
+    .filter-toggle:hover,
+    .filter-toggle.open {
+        border-color: var(--accent-a);
+        color: var(--text);
+    }
+
+    .filter-panel {
+        max-width: 700px;
+        margin: 14px auto 0;
+        display: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 16px;
+        padding: 16px;
+        backdrop-filter: blur(10px);
+    }
+
+    .filter-panel.open {
+        display: flex;
+    }
+
+    .filter-panel div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        text-align: left;
+        flex: 1 1 150px;
+    }
+
+    .filter-panel label {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+    }
+
+    .filter-panel select {
+        padding: 9px 10px;
+        border-radius: 10px;
+        border: 1px solid var(--panel-border);
+        background: var(--bg-2, #0b1224);
+        color: var(--text);
+        font-size: 0.88rem;
+        font-family: inherit;
+        cursor: pointer;
+    }
+
+    .count-line {
+        margin-top: 12px;
+        color: var(--accent-a);
+        font-size: 0.85rem;
+        min-height: 1.2em;
+    }
+
+    .search-hero .sub {
+        color: var(--text-dim);
+        margin: 0 0 16px;
+        font-size: 0.95rem;
+    }
+
+    .tagline-desc {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin: 4px 0 22px;
+    }
+
+    .tagline-desc-line {
+        display: block;
+        font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        line-height: 1.6;
+        background: linear-gradient(90deg, var(--accent-a), var(--accent-b), var(--accent-c));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 22px rgba(53, 230, 255, 0.35);
+    }
+
+    .all-songs-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        border-radius: 999px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel);
+        color: var(--accent-a);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: border-color .2s, color .2s;
+    }
+
+    .all-songs-link:hover {
+        border-color: var(--accent-a);
+        color: var(--accent-c);
+    }
+
+    .mini-stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        max-width: 560px;
+        margin: 22px auto 0;
+    }
+
+    .mini-stat {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 12px;
+        padding: 8px 14px;
+        backdrop-filter: blur(10px);
+    }
+
+    .mini-stat i {
+        font-size: 1rem;
+        background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .mini-stat-number {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .mini-stat-label {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+    }
+
+    #player-root {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 15;
+        height: auto;
+        min-height: 0;
+        width: 100%;
+        margin: 0;
+        padding: 5px 16px calc(5px + env(safe-area-inset-bottom, 0px));
+        background: rgba(6, 10, 22, 0.92);
+        backdrop-filter: blur(14px);
+        border-top: 4px solid;
+        border-image: linear-gradient(90deg, #ffd60a, #ff3b30) 1;
+        box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.45);
+        justify-content: center;
+        gap: 2px;
+        /* Half the base icon scale from players/style.css so the buttons
+           row (the tallest part of this bar) takes about half the height
+           on desktop/tablet, where there's no "icons too small" problem
+           and no need for the bar to span the full width. */
+        --icon-unit: min(0.5px, 0.08vw);
+    }
+
+    /* On phones, prioritize icon size over bar height (there's plenty of
+       vertical room on a tall phone screen): the buttons row spans ~96%
+       of the viewport width here, same as players/*.html, even though
+       that makes this fixed bottom bar taller than the desktop/tablet
+       version above. */
+    @media (max-width: 600px) {
+        #player-root {
+            --icon-unit: 0.2vw;
+        }
+    }
+
+    #player-root .details {
+        margin-top: 0;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: center;
+        column-gap: 6px;
+        row-gap: 0;
+        width: 100%;
+    }
+
+    #player-root .track-album {
+        display: none;
+    }
+
+    #player-root .track-name {
+        font-size: 1rem;
+    }
+
+    #player-root .track-artist {
+        font-size: 0.8rem;
+    }
+
+    /* Continuous ticker for the name+artist, always running (see
+       updateMarquee() in players/main.js) rather than only when it
+       overflows -- .marquee-track holds the real name/artist plus an
+       identical aria-hidden copy back to back; looping the scroll by
+       exactly 50% of the track's own width (it's always exactly twice
+       one item's width) lands it back on an identical-looking copy, so
+       the repeat is seamless with no jump. */
+    #player-root .marquee-wrap {
+        overflow: hidden;
+        width: 100%;
+        max-width: 480px;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+        mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+    }
+
+    #player-root .marquee-track {
+        display: inline-flex;
+        white-space: nowrap;
+        width: max-content;
+        animation: player-marquee-loop linear infinite;
+        animation-duration: var(--marquee-duration, 12s);
+    }
+
+    #player-root .marquee-item {
+        display: inline-flex;
+        align-items: baseline;
+        column-gap: 6px;
+        padding-right: 48px;
+    }
+
+    @keyframes player-marquee-loop {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+
+    #player-root .now-playing {
+        font-size: 0.78rem;
+    }
+
+    #player-root .slider_container {
+        width: 100%;
+        max-width: 480px;
+    }
+
+    #player-root .current-time,
+    #player-root .total-duration {
+        padding: 4px;
+    }
+
+    #player-root #download-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: calc(15 * var(--icon-unit)) calc(20 * var(--icon-unit));
+    }
+
+    #player-root #download-link i {
+        font-size: calc(32 * var(--icon-unit));
+    }
+
+    .song-list-wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 0 20px calc(210px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* The baked song list starts in build-time (alphabetical) order and is
+       reordered by JS on load (see the shuffle below) -- without this, that
+       reorder is briefly visible as a jarring jump right after paint. Stay
+       hidden until the reorder (or the ?query= filter) is done, showing a
+       spinner in its place. */
+    .song-list-wrap.js-reveal {
+        visibility: hidden;
+    }
+
+    .song-list-wrap.js-reveal.ready {
+        visibility: visible;
+    }
+
+    .list-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 60px 0;
+        color: var(--text-dim);
+        font-size: 1.3rem;
+    }
+
+    .list-loading.hidden {
+        display: none;
+    }
+
+    .all-songs-link-bottom {
+        display: flex;
+        justify-content: center;
+        margin: 20px auto 0;
+        width: fit-content;
+    }
+
+    .song-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 1px solid var(--panel-border);
+        border-radius: 16px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    .song-list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        cursor: pointer;
+        color: var(--text-dim);
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--panel-border);
+        transition: background .15s, color .15s;
+    }
+
+    .song-list li:last-child {
+        border-bottom: none;
+    }
+
+    .song-list li.song-list-loading {
+        cursor: default;
+        justify-content: center;
+        gap: 8px;
+        color: var(--text-dim);
+        background: none;
+    }
+
+    .song-list li.song-list-loading:hover {
+        background: none;
+        color: var(--text-dim);
+    }
+
+    .song-list li:nth-child(odd) {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .song-list li:nth-child(even) {
+        background: rgba(255, 255, 255, 0.045);
+    }
+
+    .song-list li:hover {
+        background: rgba(53, 230, 255, 0.1);
+        color: var(--text);
+    }
+
+    .song-list li.active {
+        background: rgba(53, 230, 255, 0.16);
+        color: var(--accent-a);
+        font-weight: 700;
+    }
+
+    /* Info pills wrap on their own, capped at ~2 lines (rather than
+       running the row under the play/download icons or growing past 2
+       lines) -- the icons live in their own fixed-width column
+       (.song-actions) that never wraps. */
+    .song-list .song-info {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px 0;
+        flex: 1 1 auto;
+        min-width: 0;
+        max-height: 68px;
+        overflow: hidden;
+    }
+
+    /* When the info pills wrap to a second line (see markWrappedRows()),
+       an arc on the left edge ties the first pill of each line together,
+       so the second line still reads as a continuation of the same
+       chain rather than an unrelated new row. */
+    .song-list .song-info.wrapped {
+        padding-left: 14px;
+    }
+
+    .song-list .song-info.wrapped::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 15px;
+        width: 14px;
+        height: 42px;
+        border: 2px solid transparent;
+        border-left-color: var(--panel-border);
+        border-bottom-color: var(--panel-border);
+        border-bottom-left-radius: 14px;
+        pointer-events: none;
+        transition: border-color .15s;
+    }
+
+    .song-list li:hover .song-info.wrapped::before,
+    .song-list li.active .song-info.wrapped::before {
+        border-left-color: var(--accent-a);
+        border-bottom-color: var(--accent-a);
+    }
+
+    .song-list .song-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+    .song-list .song-name,
+    .song-list .song-tag {
+        display: inline-block;
+        padding: 5px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--panel-border);
+        /* A darker, near-opaque "glass" backing (rather than a faint white
+           tint) so the pill text stays readable against the animated
+           backdrop glow behind it, whatever color that glow happens to be. */
+        background: rgba(6, 10, 22, 0.55);
+        backdrop-filter: blur(6px);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: border-color .15s, background .15s, color .15s;
+    }
+
+    .song-list .song-name:hover,
+    .song-list .song-tag:hover {
+        border-color: var(--accent-a);
+        background: rgba(53, 230, 255, 0.18);
+        color: var(--accent-a);
+    }
+
+    .song-list .song-name {
+        color: var(--text);
+        font-weight: 600;
+    }
+
+    .song-list li.active .song-name {
+        color: var(--accent-a);
+        border-color: var(--accent-a);
+    }
+
+    .song-list .song-tag {
+        color: var(--text);
+        font-size: 0.8rem;
+        font-weight: 400;
+    }
+
+    /* The coupler between consecutive pills -- like linked train cars --
+       shows the song name/group/singer/album pills belong to one song,
+       instead of reading as unrelated floating chips. */
+    .song-list .song-link {
+        display: inline-block;
+        width: 14px;
+        height: 2px;
+        margin: 0 -1px;
+        border-radius: 2px;
+        background: var(--panel-border);
+        flex-shrink: 0;
+        transition: background .15s;
+    }
+
+    .song-list li:hover .song-link {
+        background: rgba(53, 230, 255, 0.4);
+    }
+
+    .song-list li.active .song-link {
+        background: var(--accent-a);
+    }
+
+    /* A dedicated play affordance at the right edge of the row, since most
+       of the row is now taken up by name/tag pills that navigate away
+       instead of playing. A download button follows it, extending the
+       same idea to fetching the file directly. */
+    .song-list .song-play,
+    .song-list .song-download {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid var(--panel-border);
+        background: rgba(6, 10, 22, 0.55);
+        backdrop-filter: blur(6px);
+        color: var(--text);
+        font-size: 0.72rem;
+        flex-shrink: 0;
+        transition: border-color .15s, background .15s, color .15s;
+    }
+
+    .song-list .song-download {
+        text-decoration: none;
+    }
+
+    .song-list li:hover .song-play,
+    .song-list .song-download:hover {
+        border-color: var(--accent-a);
+        background: rgba(53, 230, 255, 0.18);
+        color: var(--accent-a);
+    }
+
+    .song-list li.active .song-play {
+        border-color: var(--accent-a);
+        background: var(--accent-a);
+        color: var(--bg);
+    }
+</style>
+
+    <!-- Schema Markup -->
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "আলোময় সঙ্গীত",
+  "url": "https://alomoy.github.io/songit/players/apon-ghor.html",
+  "description": "অনালাইনে শুনুন ইসলামী সঙ্গীত।",
+  "inLanguage": "bn",
+  "about": {
+    "@type": "MusicGroup",
+    "name": "আলোময় সঙ্গীত",
+    "genre": "বাংলা ইসলামী সঙ্গীত"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "আপন ঘর",
+        "item": "https://alomoy.github.io/songit/players/apon-ghor.html"
+      }
+    ]
+  }
+}
+</script>
+
 </head>
 <body>
-  <div class="player">
-    <div class="details">
-      <div class="site-brand">
-        <img src="../images/alomoy-clean.png" alt="আলোময় সঙ্গীত" class="site-logo">
-        <div class="site-brand-text">
-          <div class="site-title">আলোময় সঙ্গীত</div>
-          <div class="site-subtitle">সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</div>
-        </div>
-      </div>
-      <div class="track-art"></div>
-      <div class="track-album">আপন ঘর</div>
-      <div class="track-name">ও দুনিয়ার মালিক</div>
-      <div class="track-artist">সাইমুম শিল্পীগোষ্ঠী</div>
-</br>
-            <div class="header-content-inner">
-                <a href="../index.html" class="btn btn-primary btn-lg">হোম</a> 
-                <a href="../albums.html" class="btn btn-primary btn-lg">সব প্লেলিস্ট</a> <a id="download-link" href="" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a> <button type="button" id="track-list-toggle" class="btn btn-primary btn-lg" onclick="toggleTrackList()" aria-expanded="false"><i class="fa fa-solid fa-list-ul"></i></button>
-            </div>
+  <!-- ShareThis removed for now (see how-txt item 51): <div class="sharethis-sticky-share-buttons"></div> -->
 
-    </div>
-    <div class="buttons">
-      <div class="repeat-track" onclick="toggleRepeat()" title="Repeat: All">
-        <i class="fa fa-redo fa-2x"></i><span class="repeat-badge">১</span>
+<div class="topnav" id="myTopnav">
+  <div class="logo-section">
+    <a href="../index.html">
+      <img src="../images/alomoy-clean.png" alt="Alomoy Sangeet Logo">
+      <div class="company-info">
+        <strong>আলোময় সঙ্গীত</strong><br>
+        <em>সুস্থ সংস্কৃতি চর্চার দীপ্ত প্রত্যয়</em>
       </div>
-      <div class="fast-backward" onclick="fastBackward()"><i class="fa fa-backward fa-2x"></i></div>
-      <div class="prev-track" onclick="prevTrack()"><i class="fa fa-step-backward fa-2x"></i></div>
-      <div class="playpause-track" onclick="playpauseTrack()"><i class="fa fa-play-circle fa-5x"></i></div>
-      <div class="next-track" onclick="nextTrack()"><i class="fa fa-step-forward fa-2x"></i></div>
-      <div class="fast-forward" onclick="fastForward()"><i class="fa fa-forward fa-2x"></i></div>
-      <div class="shuffle-track" onclick="toggleShuffle()" title="Shuffle: Off">
-        <i class="fa fa-random fa-2x"></i>
-      </div>
-    </div>
-    <div class="slider_container">
-      <div class="current-time">00:00</div>
-      <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
-      <div class="total-duration">00:00</div>
-      <div class="volume-track">
-        <div class="volume-icon" onclick="toggleVolumeSlider(event)"><i class="fa fa-volume-up fa-2x"></i></div>
-        <div class="volume_popup">
-          <input type="range" min="0" max="100" value="99" class="volume_slider" onclick="event.stopPropagation()" onchange="setVolume()">
-        </div>
-      </div>
-    </div>
-      <div class="now-playing">Playing 1 OF 13</div>
-    <ol class="track-list-static" aria-label="সকল গানের তালিকা">
-        <li data-track-index="0">১. ও দুনিয়ার মালিক</li>
-        <li data-track-index="1">২. ও আল্লাহ আমি</li>
-        <li data-track-index="2">৩. যদি আমার গান</li>
-        <li data-track-index="3">৪. এই দুনিয়া ছাড়তে</li>
-        <li data-track-index="4">৫. বৃষ্টির ফোটার মতো</li>
-        <li data-track-index="5">৬. আল্লাহ তোমায়</li>
-        <li data-track-index="6">৭. ও আমার দেশ</li>
-        <li data-track-index="7">৮. আমার গানের সুরে</li>
-        <li data-track-index="8">৯. কত দিন কত রাত</li>
-        <li data-track-index="9">১০. আল্লায় তোমায়</li>
-        <li data-track-index="10">১১. নীলিমার ঐ দূর</li>
-        <li data-track-index="11">১২. মাগো তোমার স্মৃতি</li>
-        <li data-track-index="12">১৩. সাজাইয়া দিয়া</li>
-    </ol>
+    </a>
   </div>
- 
-  <!-- Load the main script for the player -->
-  <script src="apon-ghor.js"></script>
-  <script src="main.js"></script>
+  <div class="menu">
+    <a href="../index.html">হোম</a>
+    <a href="../singers.html">শিল্পী তালিকা</a>
+    <a href="../albums.html">অ্যালবাম তালিকা</a>
+    <a href="../all-songs.html">সব গান</a>
+    <a href="../stat.html">পরিসংখ্যান</a>
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+<div class="search-hero">
+  <h1 class="tagline">আপন ঘর</h1>
+  <p class="sub">সাইমুম শিল্পীগোষ্ঠী</p>
+  <div class="search-row">
+    <i class="fa fa-search"></i>
+    <input type="text" id="search-input" placeholder="গান খুঁজুন..." autocomplete="off">
+  </div>
+  <div class="count-line" id="count-line">১৩ / ১৩টি গান</div>
+  <a href="../albums.html" class="all-songs-link"><i class="fa fa-list"></i> সব অ্যালবাম দেখুন</a>
+</div>
+
+<div class="list-loading" id="list-loading"><i class="fa fa-spinner fa-spin"></i></div>
+<div class="song-list-wrap js-reveal" id="song-list-wrap">
+  <ol class="song-list" id="song-list">
+<li data-name="আমার গানের সুরে" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/mount.jpg" data-path="https://www.dropbox.com/s/9todbd8iriborpo/8-amar-ganer-sur.mp3?dl=1" data-search="আমার গানের সুরে আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A6%B0%20%E0%A6%97%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B0%20%E0%A6%B8%E0%A7%81%E0%A6%B0%E0%A7%87" target="_blank" rel="noopener" onclick="event.stopPropagation()">আমার গানের সুরে</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/9todbd8iriborpo/8-amar-ganer-sur.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="আল্লাহ তোমায়" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/nature.jpg" data-path="https://www.dropbox.com/s/aew33denfneng5e/6-allah-tomay.mp3?dl=1" data-search="আল্লাহ তোমায় আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%86%E0%A6%B2%E0%A7%8D%E0%A6%B2%E0%A6%BE%E0%A6%B9%20%E0%A6%A4%E0%A7%8B%E0%A6%AE%E0%A6%BE%E0%A7%9F" target="_blank" rel="noopener" onclick="event.stopPropagation()">আল্লাহ তোমায়</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/aew33denfneng5e/6-allah-tomay.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="আল্লায় তোমায়" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/trail.jpg" data-path="https://www.dropbox.com/s/utkezuyv8cc5ksa/10-allah-toamar.mp3?dl=1" data-search="আল্লায় তোমায় আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%86%E0%A6%B2%E0%A7%8D%E0%A6%B2%E0%A6%BE%E0%A7%9F%20%E0%A6%A4%E0%A7%8B%E0%A6%AE%E0%A6%BE%E0%A7%9F" target="_blank" rel="noopener" onclick="event.stopPropagation()">আল্লায় তোমায়</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/utkezuyv8cc5ksa/10-allah-toamar.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="এই দুনিয়া ছাড়তে" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/karakoram.jpg" data-path="https://www.dropbox.com/s/2p392c6fpttxphz/4-ei-duniya-charte.mp3?dl=1" data-search="এই দুনিয়া ছাড়তে আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%8F%E0%A6%87%20%E0%A6%A6%E0%A7%81%E0%A6%A8%E0%A6%BF%E0%A7%9F%E0%A6%BE%20%E0%A6%9B%E0%A6%BE%E0%A7%9C%E0%A6%A4%E0%A7%87" target="_blank" rel="noopener" onclick="event.stopPropagation()">এই দুনিয়া ছাড়তে</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/2p392c6fpttxphz/4-ei-duniya-charte.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="ও আমার দেশ" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/hillroad.jpg" data-path="https://www.dropbox.com/s/l10y171u15108om/7-o-amar-desh.mp3?dl=1" data-search="ও আমার দেশ আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%93%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A6%B0%20%E0%A6%A6%E0%A7%87%E0%A6%B6" target="_blank" rel="noopener" onclick="event.stopPropagation()">ও আমার দেশ</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/l10y171u15108om/7-o-amar-desh.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="ও আল্লাহ আমি" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/mtroad.jpg" data-path="https://www.dropbox.com/s/z531zijlgjypm0e/2-o-allah-ami.mp3?dl=1" data-search="ও আল্লাহ আমি আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%93%20%E0%A6%86%E0%A6%B2%E0%A7%8D%E0%A6%B2%E0%A6%BE%E0%A6%B9%20%E0%A6%86%E0%A6%AE%E0%A6%BF" target="_blank" rel="noopener" onclick="event.stopPropagation()">ও আল্লাহ আমি</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/z531zijlgjypm0e/2-o-allah-ami.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="ও দুনিয়ার মালিক" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/tunnel.jpg" data-path="https://www.dropbox.com/s/rw3lc9dlr2do2xx/1-o-duniyar-malilk.mp3?dl=1" data-search="ও দুনিয়ার মালিক আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%93%20%E0%A6%A6%E0%A7%81%E0%A6%A8%E0%A6%BF%E0%A7%9F%E0%A6%BE%E0%A6%B0%20%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A6%BF%E0%A6%95" target="_blank" rel="noopener" onclick="event.stopPropagation()">ও দুনিয়ার মালিক</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/rw3lc9dlr2do2xx/1-o-duniyar-malilk.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="কত দিন কত রাত" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/train.jpg" data-path="https://www.dropbox.com/s/f65ge1tgeqwl1wk/9-koto-din-koto-rat.mp3?dl=1" data-search="কত দিন কত রাত আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%95%E0%A6%A4%20%E0%A6%A6%E0%A6%BF%E0%A6%A8%20%E0%A6%95%E0%A6%A4%20%E0%A6%B0%E0%A6%BE%E0%A6%A4" target="_blank" rel="noopener" onclick="event.stopPropagation()">কত দিন কত রাত</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/f65ge1tgeqwl1wk/9-koto-din-koto-rat.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="নীলিমার ঐ দূর" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/sajek.jpg" data-path="https://www.dropbox.com/s/sjw6m3yh5kxhetc/11-neelimar-oi-dur.mp3?dl=1" data-search="নীলিমার ঐ দূর আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%A8%E0%A7%80%E0%A6%B2%E0%A6%BF%E0%A6%AE%E0%A6%BE%E0%A6%B0%20%E0%A6%90%20%E0%A6%A6%E0%A7%82%E0%A6%B0" target="_blank" rel="noopener" onclick="event.stopPropagation()">নীলিমার ঐ দূর</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/sjw6m3yh5kxhetc/11-neelimar-oi-dur.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="বৃষ্টির ফোটার মতো" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/mosque.jpg" data-path="https://www.dropbox.com/s/pwdyuz6flofyect/5-brristir-fotar-moto.mp3?dl=1" data-search="বৃষ্টির ফোটার মতো আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%AC%E0%A7%83%E0%A6%B7%E0%A7%8D%E0%A6%9F%E0%A6%BF%E0%A6%B0%20%E0%A6%AB%E0%A7%8B%E0%A6%9F%E0%A6%BE%E0%A6%B0%20%E0%A6%AE%E0%A6%A4%E0%A7%8B" target="_blank" rel="noopener" onclick="event.stopPropagation()">বৃষ্টির ফোটার মতো</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/pwdyuz6flofyect/5-brristir-fotar-moto.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="মাগো তোমার স্মৃতি" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/laptop.jpg" data-path="https://www.dropbox.com/s/x91m3o95njtd7jz/12-mago-tomar-smriti.mp3?dl=1" data-search="মাগো তোমার স্মৃতি আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%AE%E0%A6%BE%E0%A6%97%E0%A7%8B%20%E0%A6%A4%E0%A7%8B%E0%A6%AE%E0%A6%BE%E0%A6%B0%20%E0%A6%B8%E0%A7%8D%E0%A6%AE%E0%A7%83%E0%A6%A4%E0%A6%BF" target="_blank" rel="noopener" onclick="event.stopPropagation()">মাগো তোমার স্মৃতি</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/x91m3o95njtd7jz/12-mago-tomar-smriti.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="যদি আমার গান" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/mount.jpg" data-path="https://www.dropbox.com/s/qv1fmd2kai5idx9/3-zodi-amar-gan.mp3?dl=1" data-search="যদি আমার গান আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%AF%E0%A6%A6%E0%A6%BF%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A6%B0%20%E0%A6%97%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">যদি আমার গান</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/qv1fmd2kai5idx9/3-zodi-amar-gan.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+<li data-name="সাজাইয়া দিয়া" data-artist="সাইমুম শিল্পীগোষ্ঠী" data-album="আপন ঘর" data-singer="রোকনুজ্জামান" data-group="সাইমুম শিল্পীগোষ্ঠী" data-genre="" data-subgenre="" data-image="../images/nature.jpg" data-path="https://www.dropbox.com/s/kse5gtys10anost/13-sajaiya-diya.mp3?dl=1" data-search="সাজাইয়া দিয়া আপন ঘর রোকনুজ্জামান সাইমুম শিল্পীগোষ্ঠী বাংলা "><div class="song-info"><a class="song-name" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%9C%E0%A6%BE%E0%A6%87%E0%A7%9F%E0%A6%BE%20%E0%A6%A6%E0%A6%BF%E0%A7%9F%E0%A6%BE" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাজাইয়া দিয়া</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%AE%E0%A7%81%E0%A6%AE%20%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A7%80%E0%A6%97%E0%A7%8B%E0%A6%B7%E0%A7%8D%E0%A6%A0%E0%A7%80" target="_blank" rel="noopener" onclick="event.stopPropagation()">সাইমুম শিল্পীগোষ্ঠী</a><span class="song-link" aria-hidden="true"></span><a class="song-tag" href="../all-songs.html?query=%E0%A6%B0%E0%A7%8B%E0%A6%95%E0%A6%A8%E0%A7%81%E0%A6%9C%E0%A7%8D%E0%A6%9C%E0%A6%BE%E0%A6%AE%E0%A6%BE%E0%A6%A8" target="_blank" rel="noopener" onclick="event.stopPropagation()">রোকনুজ্জামান</a></div><div class="song-actions"><span class="song-play" aria-hidden="true"><i class="fa fa-play"></i></span><a class="song-download" href="https://www.dropbox.com/s/kse5gtys10anost/13-sajaiya-diya.mp3?dl=1" download target="_blank" rel="noopener" aria-label="ডাউনলোড" onclick="event.stopPropagation()"><i class="fa fa-solid fa-download"></i></a></div></li>
+    <li class="song-list-loading" id="no-match-row" style="display:none">কোনো গান পাওয়া যায়নি।</li>
+  </ol>
+</div>
+
+<div class="player" id="player-root">
+  <div class="buttons">
+    <div class="repeat-track" onclick="toggleRepeat()" title="Repeat: All">
+      <i class="fa fa-redo fa-2x"></i><span class="repeat-badge">১</span>
+    </div>
+    <div class="fast-backward" onclick="fastBackward()"><i class="fa fa-backward fa-2x"></i></div>
+    <div class="prev-track" onclick="prevTrack()"><i class="fa fa-step-backward fa-2x"></i></div>
+    <div class="playpause-track" onclick="playpauseTrack()"><i class="fa fa-play-circle fa-5x"></i></div>
+    <div class="next-track" onclick="nextTrack()"><i class="fa fa-step-forward fa-2x"></i></div>
+    <div class="fast-forward" onclick="fastForward()"><i class="fa fa-forward fa-2x"></i></div>
+    <div class="shuffle-track" onclick="toggleShuffle()" title="Shuffle: Off">
+      <i class="fa fa-random fa-2x"></i>
+    </div>
+  </div>
+  <div class="slider_container">
+    <div class="current-time">০০:০০</div>
+    <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+    <div class="total-duration">০০:০০</div>
+    <div class="volume-track">
+      <div class="volume-icon" onclick="toggleVolumeSlider(event)"><i class="fa fa-volume-up fa-2x"></i></div>
+      <div class="volume_popup">
+        <input type="range" min="0" max="100" value="99" class="volume_slider" onclick="event.stopPropagation()" onchange="setVolume()">
+      </div>
+    </div>
+    <a id="download-link" href="" download class="btn btn-primary btn-lg"><i class="fa fa-solid fa-download"></i></a>
+  </div>
+  <div class="details">
+    <div class="track-album">Track Album</div>
+    <div class="marquee-wrap" id="marquee-wrap">
+      <div class="marquee-track" id="marquee-track">
+        <span class="marquee-item">
+          <span class="track-name">Track Name</span>
+          <span class="track-artist">Track Artist</span>
+        </span>
+        <span class="marquee-item" aria-hidden="true">
+          <span class="track-name track-name-dup"></span>
+          <span class="track-artist track-artist-dup"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="now-playing">Playing x OF of y</div>
+</div>
+
+    <script>
+let mainJsLoaded = false;
+let searchDebounce = null;
+let currentList = [];
+
+const allItems = Array.from(document.querySelectorAll('#song-list li[data-name]'));
+const noMatchRow = document.getElementById('no-match-row');
+const totalCount = allItems.length;
+
+function convertToBanglaNumber(number) {
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(number).split('').map(d => banglaDigits[d] ?? d).join('');
+}
+
+function updateCount(visible) {
+    document.getElementById('count-line').textContent =
+        `${convertToBanglaNumber(visible)} / ${convertToBanglaNumber(totalCount)}টি গান`;
+}
+
+function applyFilters() {
+    const q = document.getElementById('search-input').value.trim().toLowerCase();
+    const visible = [];
+    allItems.forEach(li => {
+        const match = !q || li.dataset.search.includes(q);
+        li.style.display = match ? '' : 'none';
+        if (match) visible.push(li);
+    });
+
+    currentList = visible;
+    updateCount(visible.length);
+    noMatchRow.style.display = visible.length === 0 ? '' : 'none';
+}
+
+function syncPlayIcon() {
+    document.querySelectorAll('#song-list li .song-play i').forEach(i => { i.className = 'fa fa-play'; });
+    const activeLi = document.querySelector('#song-list li.active');
+    if (activeLi && typeof curr_track !== 'undefined' && curr_track && !curr_track.paused) {
+        const icon = activeLi.querySelector('.song-play i');
+        if (icon) icon.className = 'fa fa-pause';
+    }
+}
+
+function markWrappedRows() {
+    document.querySelectorAll('#song-list .song-info').forEach(info => {
+        const children = Array.from(info.children);
+        if (children.length < 2) {
+            info.classList.remove('wrapped');
+            return;
+        }
+        const firstTop = children[0].offsetTop;
+        const wraps = children.some(el => el.offsetTop > firstTop + 4);
+        info.classList.toggle('wrapped', wraps);
+    });
+}
+
+let markWrappedResizeTimer = null;
+window.addEventListener('resize', () => {
+    clearTimeout(markWrappedResizeTimer);
+    markWrappedResizeTimer = setTimeout(markWrappedRows, 150);
+});
+
+function loadPlayer(list, index, autoplay) {
+    if (list.length === 0) return;
+
+    const newTrackList = list.map(li => ({
+        name: li.dataset.name,
+        artist: li.dataset.artist,
+        album: li.dataset.album,
+        image: li.dataset.image,
+        path: li.dataset.path,
+    }));
+
+    allItems.forEach(li => li.classList.remove('active'));
+    list[index].classList.add('active');
+
+    if (!mainJsLoaded) {
+        mainJsLoaded = true;
+        window.track_list = newTrackList;
+        const script = document.createElement('script');
+        script.src = 'main.js';
+        script.onload = () => {
+            curr_track.addEventListener('play', syncPlayIcon);
+            curr_track.addEventListener('pause', syncPlayIcon);
+            curr_track.addEventListener('ended', syncPlayIcon);
+            syncPlayIcon();
+        };
+        document.body.appendChild(script);
+    } else {
+        track_list = newTrackList;
+        track_index = index;
+        loadTrack(index);
+        if (autoplay) playTrack();
+    }
+}
+
+function playFromList(li) {
+    const index = currentList.indexOf(li);
+    if (index === -1) return;
+    loadPlayer(currentList, index, true);
+}
+
+allItems.forEach(li => {
+    li.addEventListener('click', () => playFromList(li));
+});
+
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(applyFilters, 250);
+});
+
+const initialQuery = new URLSearchParams(window.location.search).get('query') || '';
+if (initialQuery) {
+    searchInput.value = initialQuery;
+    applyFilters();
+    loadPlayer(currentList, 0, false);
+} else {
+    // Shuffle the visual order once on load so repeat visits don't always
+    // see the same handful of songs first.
+    const listEl = document.getElementById('song-list');
+    const shuffled = [...allItems].sort(() => Math.random() - 0.5);
+    shuffled.forEach(li => listEl.insertBefore(li, noMatchRow));
+    currentList = shuffled;
+    updateCount(totalCount);
+    loadPlayer(shuffled, 0, false);
+}
+
+document.getElementById('list-loading').classList.add('hidden');
+document.getElementById('song-list-wrap').classList.add('ready');
+markWrappedRows();
+
+function toggleMenu() {
+  var menu = document.querySelector(".topnav .menu");
+  menu.classList.toggle("show");
+}
+    </script>
 </body>
 </html>

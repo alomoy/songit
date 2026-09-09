@@ -12,7 +12,7 @@ the CSV), not stored in this repo.
 
 # Main Files
 
-index.html, all-songs.html, albums.html, singers.html, stat.html and albums at players/*hmtl, *js
+index.html, all-songs.html, albums.html, singers.html, stat.html and albums at players/*html
 Don't change any other html unless mentioned, so usually 'all pages' would mean these. 
 
 ## Data flow (the core architecture)
@@ -25,15 +25,22 @@ generated files.
 **`python3 build_pages.py` is the single generator script for the whole site — run it
 whenever songs.csv changes.** It does two things, in order:
 
-1. Syncs `players/<album_en>.html` + `players/<album_en>.js` (one dedicated player
-   page per album) from the CSV. A new `album_en` gets a page created once
-   (title/description/static SEO track listing generated at creation time only); an
-   existing page has its track_list, "now playing" text, and static SEO block
-   refreshed from the CSV on every later run — it matches tracks to existing images
-   by (name, artist) so manual art picks survive. A page whose `album_en` no longer
-   has any CSV rows is deleted (the CSV is the sole source of truth for which albums
-   have pages; a manual/hybrid album is made by adding rows with a new `album_en`,
-   not by hand-authoring a page).
+1. Syncs `players/<album_en>.html` (one dedicated player page per album) from the
+   CSV via `build_player_html()`/`write_player_page()` — fully regenerated from
+   scratch every run (no separate `.js` file, no merge with the existing page; the
+   CSV is the only source of truth). The page shares all-songs.html's whole
+   design/list/search/player machinery (`ALL_SONGS_TEMPLATE` with the hero/script
+   blocks swapped, same as index.html) rather than a bespoke template — every
+   track's data is baked straight into its `<li data-*>`, search-filtered instead
+   of dropdown-filtered (there's nothing to filter by within one album), and
+   art just rotates through the same stock set every song list uses (no
+   per-track curation to preserve). Since the page now lives one directory below
+   site root, every root-relative asset/page reference `ALL_SONGS_TEMPLATE` carries
+   gets fixed up with a `../` prefix (or `prefix="../"` passed to `render_nav()`).
+   A page whose `album_en` no longer has any CSV rows is deleted (the CSV is the
+   sole source of truth for which albums have pages; a manual/hybrid album is made
+   by adding rows with a new `album_en`, not by hand-authoring a page). Any leftover
+   `players/<slug>.js` from before this migration is cleaned up by `sync_players()`.
 2. (Re)generates the five main pages from one shared `NAV_ITEMS`/`LOGO_PATH` config,
    so their nav links and logo can't drift out of sync with each other the way they
    used to when each page had its own copy-pasted template:
@@ -65,12 +72,13 @@ whenever songs.csv changes.** It does two things, in order:
    - `sitemap.xml` / `robots.txt` — regenerated every run from the same page list
      (the 5 main pages + every `players/*.html`).
 
-Player pages are NOT hand-authored beyond first creation — edit `radio/songs.csv` (or,
-for one-off page-specific tweaks like Drive links, edit the generated
-`players/<slug>.html`/`.js` directly) and re-run `build_pages.py` rather than
-duplicating logic by hand. `players/template.html` / `players/template.js` are the
-templates the player-page generator in `build_pages.py` is based on — do not wire
-them into the site directly.
+Player pages are NOT hand-authored — edit `radio/songs.csv` and re-run
+`build_pages.py`; a hand edit to a `players/<slug>.html` file is silently
+overwritten on the next run (unlike before this migration, there's no more
+merge-with-existing step preserving anything). `players/template.html` /
+`players/template.js` are leftover reference templates from the old
+per-track-JS-array generator — no longer wired into generation at all, kept
+only as historical reference.
 
 ## Site structure
 
@@ -82,9 +90,12 @@ them into the site directly.
   (per how-txt item 1/4); `stat.html` holds the stats strip that used to live on
   the homepage, with its cards linking to albums.html/singers.html/all-songs.html
   (no page yet for the শিল্পীগোষ্ঠী/group count).
-- `players/*.html` + `players/*.js` — one generated player page per album (~170
-  albums). Shared player behavior/styling lives in `players/style.css` and JS per
-  page; each page defines its own `track_list` array.
+- `players/*.html` — one generated player page per album (~84 albums), built
+  from `ALL_SONGS_TEMPLATE` like all-songs.html/index.html rather than a
+  separate template. Shared player engine is `players/main.js` (one file for
+  every album page, driven by a `track_list` array built client-side from the
+  page's own baked `<li data-*>` elements — no more per-album `.js` file).
+  `players/style.css` still carries player-bar-specific styling.
 - `radio/` — has its own smaller header/footer/radio.html experiment plus
   `songs.csv`; not the primary player UI.
 - `all/` — an older, unreferenced experimental static generator (`gen_albums.sh` +
@@ -106,10 +117,12 @@ them into the site directly.
   reuse this helper rather than reimplementing).
 - Album identity: always key albums by `album_en` (the CSV slug), never by the
   Bengali display name, when generating filenames or matching pages to CSV rows.
-- Track art: `album_art` in the CSV holds per-track image paths (relative
-  `images/...` or full URLs); `build_pages.py`'s player-page generator normalizes/
-  falls back to a rotating set of stock images (`PLAYER_STOCK_IMAGES`) for tracks
-  with no art. Missing art is filled in by hand in the CSV, not generated/guessed.
+- Track art: none of the song-list pages (all-songs.html, index.html, or player
+  pages) do per-track art curation anymore — every song list just rotates through
+  `ALL_SONGS_STOCK_IMAGES` by position. `album_art` still exists as a CSV column
+  and is documented as a future per-track override point, but nothing currently
+  reads it when baking `<li>`s (`song_li_html()`) — see how-txt item 15's "Future
+  work" note on album/song art.
 - No test suite or build tool — verify changes by opening the affected HTML file(s)
   directly (or via a local static server) in a browser.
 
