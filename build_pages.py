@@ -703,7 +703,8 @@ def song_li_html(song, index):
         f'data-singer="{esc(singer)}" data-group="{esc(group)}" data-genre="{esc(genre)}" '
         f'data-subgenre="{esc(subgenre)}" data-image="{esc(image)}" data-path="{esc(path)}" '
         f'data-search="{esc(search_text)}">'
-        f'{chained_html}{SONG_PLAY_HTML}{song_download_link_html(path)}</li>'
+        f'<div class="song-info">{chained_html}</div>'
+        f'<div class="song-actions">{SONG_PLAY_HTML}{song_download_link_html(path)}</div></li>'
     )
 
 
@@ -1106,13 +1107,21 @@ fetch('radio/songs.csv')
                 tagLinks.push(makeTagLink(album, albumHref));
             }
 
-            li.appendChild(nameLink);
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'song-info';
+            infoDiv.appendChild(nameLink);
             tagLinks.forEach(a => {
-                li.appendChild(makeSongLink());
-                li.appendChild(a);
+                infoDiv.appendChild(makeSongLink());
+                infoDiv.appendChild(a);
             });
-            li.appendChild(makeSongPlay());
-            li.appendChild(makeSongDownload(song.src.trim()));
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'song-actions';
+            actionsDiv.appendChild(makeSongPlay());
+            actionsDiv.appendChild(makeSongDownload(song.src.trim()));
+
+            li.appendChild(infoDiv);
+            li.appendChild(actionsDiv);
             li.addEventListener('click', () => playFromList(li));
             listEl.insertBefore(li, loadingRow);
         });
@@ -2638,9 +2647,8 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
 
     .song-list li {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
-        gap: 0;
+        gap: 10px;
         padding: 12px 16px;
         cursor: pointer;
         color: var(--text-dim);
@@ -2682,6 +2690,28 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         background: rgba(53, 230, 255, 0.16);
         color: var(--accent-a);
         font-weight: 700;
+    }
+
+    /* Info pills wrap on their own, capped at ~2 lines (rather than
+       running the row under the play/download icons or growing past 2
+       lines) -- the icons live in their own fixed-width column
+       (.song-actions) that never wraps. */
+    .song-list .song-info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px 0;
+        flex: 1 1 auto;
+        min-width: 0;
+        max-height: 68px;
+        overflow: hidden;
+    }
+
+    .song-list .song-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
     }
 
     .song-list .song-name,
@@ -2766,12 +2796,7 @@ ALL_SONGS_TEMPLATE = r'''<!DOCTYPE html>
         transition: border-color .15s, background .15s, color .15s;
     }
 
-    .song-list .song-play {
-        margin-left: auto;
-    }
-
     .song-list .song-download {
-        margin-left: 6px;
         text-decoration: none;
     }
 

@@ -440,9 +440,8 @@
 
     .song-list li {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
-        gap: 0;
+        gap: 10px;
         padding: 12px 16px;
         cursor: pointer;
         color: var(--text-dim);
@@ -484,6 +483,28 @@
         background: rgba(53, 230, 255, 0.16);
         color: var(--accent-a);
         font-weight: 700;
+    }
+
+    /* Info pills wrap on their own, capped at ~2 lines (rather than
+       running the row under the play/download icons or growing past 2
+       lines) -- the icons live in their own fixed-width column
+       (.song-actions) that never wraps. */
+    .song-list .song-info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px 0;
+        flex: 1 1 auto;
+        min-width: 0;
+        max-height: 68px;
+        overflow: hidden;
+    }
+
+    .song-list .song-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
     }
 
     .song-list .song-name,
@@ -568,12 +589,7 @@
         transition: border-color .15s, background .15s, color .15s;
     }
 
-    .song-list .song-play {
-        margin-left: auto;
-    }
-
     .song-list .song-download {
-        margin-left: 6px;
         text-decoration: none;
     }
 
@@ -864,13 +880,21 @@ fetch('radio/songs.csv')
                 tagLinks.push(makeTagLink(album, albumHref));
             }
 
-            li.appendChild(nameLink);
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'song-info';
+            infoDiv.appendChild(nameLink);
             tagLinks.forEach(a => {
-                li.appendChild(makeSongLink());
-                li.appendChild(a);
+                infoDiv.appendChild(makeSongLink());
+                infoDiv.appendChild(a);
             });
-            li.appendChild(makeSongPlay());
-            li.appendChild(makeSongDownload(song.src.trim()));
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'song-actions';
+            actionsDiv.appendChild(makeSongPlay());
+            actionsDiv.appendChild(makeSongDownload(song.src.trim()));
+
+            li.appendChild(infoDiv);
+            li.appendChild(actionsDiv);
             li.addEventListener('click', () => playFromList(li));
             listEl.insertBefore(li, loadingRow);
         });
